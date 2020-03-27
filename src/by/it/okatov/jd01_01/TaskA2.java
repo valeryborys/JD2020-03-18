@@ -1,4 +1,4 @@
-package by.it._tasks_.jd01_01;
+package by.it.okatov.jd01_01;
 
 /*
 напишите тело main программы которая выводит на экран 5 строк
@@ -8,6 +8,11 @@ package by.it._tasks_.jd01_01;
 Для автоматической проверки откройте и запустите класс Testing
 */
 
+//DONE
 class TaskA2 {
-
+    public static void main(String[] args) {
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Я начинаю изучать Java!");
+        }
+    }
 }

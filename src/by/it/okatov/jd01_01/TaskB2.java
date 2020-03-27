@@ -1,4 +1,5 @@
-package by.it._tasks_.jd01_01;
+package by.it.okatov.jd01_01;
+
 /*
 Подойдет только 20
 В методе main расставь правильно знаки плюс и минус, чтобы значение переменной result получилось равным 20.
@@ -14,6 +15,7 @@ package by.it._tasks_.jd01_01;
 4. Знаки плюс и минус должны быть расставлены правильно.
 
  */
+//DONE
 class TaskB2 {
     private static int a = 1;
     private static int b = 3;
@@ -22,7 +24,7 @@ class TaskB2 {
 
     public static void main(String[] args) {
 
-        int result = + a + b + c + d;
+        int result = -a + b - c + d;
 
         System.out.println(result);
     }
