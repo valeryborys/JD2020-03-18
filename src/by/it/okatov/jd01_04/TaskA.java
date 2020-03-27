@@ -15,11 +15,13 @@ public class TaskA {
 
     static void buildOneDimArray(String line) {
         double[] array = InOut.getArray(line);
+        double[] arraySelectSort;
         InOut.printArray(array, "V", 5);
         double first = array[0];
         double last = array[array.length - 1];
-        Helper.selectSort(array);
-        InOut.printArray(array, "V", 4);
+        arraySelectSort = Helper.selectSort(array);
+        InOut.printArray(arraySelectSort, "V", 4);
+        //InOut.printArray(array, "V", 4);
 
         for (int i = 0; i < array.length; i++) {
             if (array[i] == first) {

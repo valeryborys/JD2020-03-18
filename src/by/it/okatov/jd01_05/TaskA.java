@@ -35,10 +35,10 @@ public class TaskA {
     static void step3() {
         double x = 12.1;
         double f;
-        System.out.printf("Task3:%n A             F");
+        System.out.printf("Task3:%n    A        F%n");
         for (double a = -5; a <= 12; a += 3.75) {
             f = exp(a * x) - 3.45 * a;
-            System.out.printf("При а =%5.2f%n f=%-13e%n", a, f);
+            System.out.printf("При а =%5.2f f=%-13e%n", a, f);
         }
     }
 }

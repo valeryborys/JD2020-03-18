@@ -8,9 +8,13 @@ public class TaskC {
         Scanner sc = new Scanner(System.in);
         String line = sc.nextLine();
         buildOneDimArray(line);
-        //buildOneDimArray(generate(mas));
     }
 
+    /***
+     * UNUSED
+     * @param array
+     * @return
+     */
     static double[] generate(double[] array) {
         for (int i = 0; i < array.length; i++) {
             array[i] = 20 * Math.random() - 1;
@@ -24,7 +28,6 @@ public class TaskC {
         InOut.printArray(array, "V", 5);
         double first = array[0];
         double last = array[array.length - 1];
-        //Helper.selectSort(array);
         mergeSort(array);
         InOut.printArray(array, "V", 4);
 
@@ -34,21 +37,7 @@ public class TaskC {
         System.out.printf("Index of last element=%d%n", indexLast);
     }
 
-    /* static void buildOneDimArray(double[] array){
 
-         InOut.printArray(array, "V", 5);
-         double first = array[0];
-         double last = array[array.length-1];
-         //Helper.selectSort(array);
-         mergeSort(array);
-         InOut.printArray(array, "V", 4);
-
-         int indexFirst = binarySearch(array,first);
-         System.out.printf("Index of first element=%d%n", indexFirst);
-         int indexLast = binarySearch(array, last);
-         System.out.printf("Index of last element=%d%n", indexLast);
-     }
- */
     private static int binarySearch(double[] array, double key) {
         int left = 0;
         int right = array.length - 1;
@@ -69,8 +58,6 @@ public class TaskC {
 
 
     static void mergeSort(double[] array) {
-        //Helper.insertSort(array);
-        //Helper.selectSort(array);
         Helper.mergeSortIterative(array);
     }
 

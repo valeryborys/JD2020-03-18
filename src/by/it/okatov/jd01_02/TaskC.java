@@ -8,11 +8,15 @@ public class TaskC {
         Scanner sc = new Scanner(System.in);
         System.out.println("\nВведите размерность матрицы: ");
         int n = sc.nextInt();
-        int[][] mas = new int[n][n];
+        int[][] mas;
+        int sumBetweenPositives;
 
-        //mas = step1(n);
-        //step2(generate(mas,n,-n));
-        step3(generate(mas, n, -n));
+        mas = step1(n);
+        sumBetweenPositives = step2(generate(mas, n, -n));
+        System.out.println("Сумма между двумя первыми положительными: " + sumBetweenPositives);
+        mas = step3(generate(mas, n, -n));
+
+        printArray(mas);
     }
 
     public static int[][] step1(int n) {
@@ -57,9 +61,7 @@ public class TaskC {
         for (int i = 0; i < mas.length; i++) {
             for (int j = 0; j < mas.length; j++) {
                 mas[i][j] = (int) (Math.random() * (max * 2 + 1)) + min;
-                //System.out.print(mas[i][j] + " ");
             }
-            //System.out.println();
         }
         printArray(mas);
         return mas;
@@ -71,7 +73,7 @@ public class TaskC {
             for (int j = 0; j < mas.length; j++) {
                 if (mas[i][j] > 0) {
                     for (int k = j + 1; k < mas.length; k++) {
-                        if (mas[i][k] < 0 && k != mas.length) {
+                        if (mas[i][k] < 0 /*&& k != mas.length*/) {
                             sum += mas[i][k];
 
                         } else if (mas[i][k] > 0) {
@@ -91,19 +93,20 @@ public class TaskC {
 
 
     private static void printArray(int[][] mas) {
-        for (int i = 0; i < mas.length; i++) {
+        for (int[] ma : mas) {
             for (int j = 0; j < mas.length; j++) {
-                System.out.printf("%5d", mas[i][j]);
+                System.out.printf("%5d", ma[j]);
             }
             System.out.println();
         }
     }
 
+    /*
     private static void printVector(int[] mas) {
-        for (int i = 0; i < mas.length; i++) {
-            System.out.printf("%5d%n", mas[i]);
+        for (int ma : mas) {
+            System.out.printf("%5d%n", ma);
         }
-    }
+    }*/
 
     private static int[][] step3(int[][] array) {
         int max = getMax(array);

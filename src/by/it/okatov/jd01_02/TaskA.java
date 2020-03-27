@@ -39,14 +39,14 @@ public class TaskA {
     public static void step2(int[] mas) {
         double sum = 0;
 
-        for (int i = 0; i < mas.length; i++) {
-            sum += mas[i];
+        for (int ma : mas) {
+            sum += ma;
         }
         sum /= mas.length;
 
-        for (int i = 0; i < mas.length; i++) {
-            if (mas[i] < sum) {
-                System.out.print(mas[i] + " ");
+        for (int ma : mas) {
+            if (ma < sum) {
+                System.out.print(ma + " ");
             }
         }
     }
@@ -54,9 +54,9 @@ public class TaskA {
     public static void step3(int[] mas) {
         int minValue = mas[0];
 
-        for (int i = 0; i > mas.length; i++) {
-            if (minValue < mas[i]) {
-                minValue = mas[i];
+        for (int ma : mas) {
+            if (ma < minValue) {
+                minValue = ma;
             }
         }
 

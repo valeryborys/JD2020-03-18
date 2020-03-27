@@ -4,6 +4,11 @@ import java.util.Arrays;
 
 public class Helper {
 
+    /***
+     * Метод для поиска минимума в массиве чисел с плавающей точкой двойной точности
+     * @param arr - массив чисел
+     * @return - возвращает найденый минимум
+     */
     static double findMin(double[] arr) {
         if (arr.length == 0) {
             return 0.0d;
@@ -20,6 +25,11 @@ public class Helper {
         return min;
     }
 
+    /***
+     * Метод для поиска максимума в массиве чисел с плавающей точкой двойной точности
+     * @param arr - массив чисел
+     * @return - возвращает найденый максимум
+     */
     static double findMax(double[] arr) {
         if (arr.length == 0) {
             return 0.0d;
@@ -35,6 +45,10 @@ public class Helper {
         return max;
     }
 
+    /***
+     * Реализация сортировки библиотечными функциями
+     * @param arr - массив чисел
+     */
     static void sort(double[] arr) {
         System.out.println("Not sorted array: ");
         InOut.printArray(arr);
@@ -64,6 +78,11 @@ public class Helper {
         }
     }
 
+    /***
+     * Сортировка пузырьком
+     * @param arr - массив чисел
+     * @return - отсортированный массив чисел
+     */
     static double[] bubbleSort(double[] arr) {
         boolean bFlag = false;
 
@@ -85,6 +104,11 @@ public class Helper {
         return arr;
     }
 
+    /***
+     * Сортировка выбором
+     * @param arr - массив чисел
+     * @return - отсортированный массив чисел
+     */
     static double[] selectSort(double[] arr) {
         int end = 0;
         double dSwap;
@@ -103,6 +127,11 @@ public class Helper {
         return arr;
     }
 
+    /***
+     * Сортировка вставками
+     * @param arr - массив чисел
+     * @return - отсортированный массив чисел
+     */
     static double[] insertSort(double[] arr) {
         double value;
         int j = 0;
@@ -120,6 +149,12 @@ public class Helper {
     }
 
 
+    /***
+     * Метод для умножения матрицы на вектор
+     * @param matrix - входная матрица
+     * @param vector - входной вектор
+     * @return - результат умножения: выходной вектор
+     */
     static double[] mul(double[][] matrix, double[] vector) {
         double[] resMatrix = new double[matrix.length];
 
@@ -137,6 +172,12 @@ public class Helper {
     }
 
 
+    /***
+     * Метод для умножения матрицы на матрицу
+     * @param matrixRight - первая входная матрица (множимое)
+     * @param matrixLeft - вторая входная матрица(множитель)
+     * @return - возвращает результат умножения: новую матрицу
+     */
     static double[][] mul(double[][] matrixRight, double[][] matrixLeft) {
         double[][] resMatrix = new double[matrixRight.length][matrixLeft[0].length];
 
