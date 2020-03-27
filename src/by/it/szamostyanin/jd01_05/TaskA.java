@@ -15,10 +15,10 @@ public class TaskA {
         double x = 0.3;
         double part1 = x * x + Math.PI / 6;
         double part2 = pow(part1, 5);
-        double part3 = cos(part2);
+        double part3 = cos(part2); //1 element
         double part4 = x * pow(a, 3);
-        double part5 = sqrt(part4);
-        double part6 = log((a - 1.12 * x) / 4);
+        double part5 = sqrt(part4); //2 element
+        double part6 = log((a - 1.12 * x) / 4); //3 element
         double z = part3 - part5 - part6;
         System.out.printf("A=%f\nX=%f\nZ=%f\n\n", a, x, z);
     }
