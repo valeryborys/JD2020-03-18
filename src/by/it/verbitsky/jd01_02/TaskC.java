@@ -1,26 +1,29 @@
 package by.it.verbitsky.jd01_02;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class TaskC {
     static int[][] step1(int n) {
         boolean flag1 = false;
         boolean flag2 = false;
-        int cur = 0;
+        int cur;
+        Random generator = new Random();
         int[][] array = new int[n][n];
-
-        do {
+        while (!flag1 | !flag2) {
+            flag1 = false;
+            flag2 = false;
             for (int i = 0; i < n; i++) {
-
                 for (int j = 0; j < n; j++) {
-                    cur = (int) (Math.random() * (n + n + 1)) - n;
+                    //cur = (int) (Math.random() * (2 * n + 1)) - n;
+                    cur = generator.nextInt(2 * n + 1) - n;
                     array[i][j] = cur;
                     if (cur == n) flag1 = true;
-                    if (cur == -n) flag2 = true;
+                    if (cur == n * -1) flag2 = true;
+                    System.out.println("flag1 = " + flag1 + " flag2 = " + flag2);
                 }
             }
         }
-        while (!flag1 & !flag2);
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -33,9 +36,7 @@ public class TaskC {
     }
 
     static int step2(int[][] mas) {
-
         int sum = 0;
-
         for (int i = 0; i < mas.length; i++) {
             int index1 = -1;
             int index2 = -1;
@@ -58,7 +59,6 @@ public class TaskC {
                             break;
                         }
                     }
-
                 }
             }
             System.out.println();
@@ -78,30 +78,30 @@ public class TaskC {
             }
         }
 
-        boolean [] delRow = new boolean[array.length];
-        boolean [] delCol = new boolean[array[0].length];
+        boolean[] delRow = new boolean[array.length];
+        boolean[] delCol = new boolean[array[0].length];
 
         for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array.length ; j++) {
-                if (array[i][j] ==max) {
-                    delRow [i] = true;
-                    delCol [j] = true;
+            for (int j = 0; j < array.length; j++) {
+                if (array[i][j] == max) {
+                    delRow[i] = true;
+                    delCol[j] = true;
                 }
             }
         }
 
-        int nRow =0;
-        int nCol =0;
+        int nRow = 0;
+        int nCol = 0;
 
         for (boolean del : delRow) if (!del) nRow++;
         for (boolean del : delCol) if (!del) nCol++;
 
-        int [][] result = new int[nRow][nCol];
+        int[][] result = new int[nRow][nCol];
 
         int ir = 0;
         for (int i = 0; i < array.length; i++) {
-            if (!delRow [i]) {
-                int ic =0;
+            if (!delRow[i]) {
+                int ic = 0;
                 for (int j = 0; j < array[i].length; j++) {
                     if (!delCol[j]) {
                         result[ir][ic++] = array[i][j];
@@ -110,62 +110,7 @@ public class TaskC {
                 ir++;
             }
         }
-        return  result;
-
-    /*
-        for (int i = 0; i < mas.length; i++) {
-            for (int j = 0; j < mas.length; j++) {
-                if (mas[i][j] == max) {
-                    count--;
-                    for (int k = 0; k < mas.length; k++) {
-                        mas[k][j] = 99;
-                        mas[i][k] = 99;
-                    }
-                    break;
-                }
-            }
-        }
-
-       // System.out.println("обнуленная (max ) исходная матрица:");
-        for (int i = 0; i < mas.length; i++) {
-            for (int j = 0; j < mas.length; j++) {
-                System.out.print(mas[i][j] + " ");
-            }
-            System.out.println();
-        }
-
-        //System.out.println("размерность новой матрицы = "+ count);
-        int[][] array = new int[count+1][count+1];
-        int row = 0;
-        int col = 0;
-        boolean flag1;
-
-        for (int i = 0; i < mas.length; i++) {
-            flag1 = false;
-            for (int j = 0; j < mas.length; j++) {
-                if (mas[i][j] != 99) {
-
-                    array[row][col] = mas[i][j];
-                    col++;
-                    flag1=true;
-                }
-            }
-           // System.out.println(flag1);
-            //System.out.println("row = "+row +" col = "+col);
-            if (flag1) {
-                row++;
-                col=0;
-            }
-        }
-        //System.out.println("new matrix:");
-        for (int i = 0; i < count; i++) {
-            for (int j = 0; j < count; j++) {
-                System.out.print(array[i][j] + " ");
-            }
-            System.out.println();
-        }
-    */
-       // return array;
+        return result;
     }
 
     public static void main(String[] args) {
@@ -175,6 +120,5 @@ public class TaskC {
         System.out.println();
         step2(mas);
         step3(mas);
-        //int [][] mas2 = step3(mas);
     }
 }
