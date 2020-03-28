@@ -1,20 +1,24 @@
 package by.it.gutkovsky.jd01_05;
 
 
+
 import static java.lang.Math.*;
 
 public class TaskB {
     public static void main(String[] args) {
-//        step1();
+        step1();
         step2();
         
     }
 
     private static void step1() {
+        int x = 5;
         for (double a = 0; a <=2; a+=0.2) {
-            int x;
-//            for (int x < )
-//            double y = (pow(7,a) - cos(x));
+            double y = (pow(7,a) - cos(x));
+            for (int x1 = x; x1 <= 6; x1++) {
+                y =y+y;
+                System.out.printf("%6s%3.2f %9s%-13e\n","При a=",a, "Сумма y =", y);
+            } x++;
         }
 
     }
