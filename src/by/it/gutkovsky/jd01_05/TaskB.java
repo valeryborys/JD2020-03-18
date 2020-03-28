@@ -12,14 +12,16 @@ public class TaskB {
     }
 
     private static void step1() {
-        int x = 5;
+        int x = 1;
+        double y = 0;
         for (double a = 0; a <=2; a+=0.2) {
-            double y = (pow(7,a) - cos(x));
             for (int x1 = x; x1 <= 6; x1++) {
-                y =y+y;
-                System.out.printf("%6s%3.2f %9s%-13e\n","При a=",a, "Сумма y =", y);
-            } x++;
+                double y1 = (pow(7,a) - cos(x1));
+                y =y+y1;
+            }
+            System.out.printf("%6s%3.2f %9s%-13e\n","При a=",a, "Сумма y =", y);
         }
+        System.out.println();
 
     }
 
