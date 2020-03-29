@@ -10,12 +10,12 @@ public class TaskB {
 
     private static void step1() {
         double y = 1;
-        for (double i = 0; i <= 2; i += 0.2) {
-            for (int x = -1; x < 7; x++) {
-                y *= pow(7, i) - cos(x);
+        for (double i = 0; i < 2.2; i += 0.2) {
+            for (int x = 0; x < 7; x++) {
+                y = y + pow(7, i) - cos(x);
             }
             System.out.printf("При а=%-6.2f Сумма y = %g\n", i, y);
-
+            y = 0;
         }
     }
 
