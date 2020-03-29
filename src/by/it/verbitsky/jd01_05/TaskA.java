@@ -20,7 +20,6 @@ public class TaskA {
     private static void step2() {
         double a = 1.21;
         double b = 0.371;
-
         double y = tan(pow((a + b), 2)) - cbrt(a + 1.5) + a * pow(b, 5) - b / log(a * a);
         System.out.printf("\nA = %f, B = %f, Y = %f", a, b, y);
 
