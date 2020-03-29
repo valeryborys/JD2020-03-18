@@ -1,15 +1,13 @@
 package by.it.gutkovsky.jd01_04;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class TaskC {
     public static void main(String[] args) {
-//        Scanner sc = new Scanner(System.in);
-//        String line = sc.nextLine();
-//        buildOneDimArray(line);
-        buildOneDimArray("1.1 3.3 2.2 5.5 7.7 8.8 6.6 4.4 9.9 0.0");
-//        buildOneDimArray("-11.191147487923075, -11.12123627299679, 3.0039157249290334, -10.129955982133318, 11.929385434226909, 14.650202918905613, -2.946778864650863, 1.2899254037837835, 3.8258610084640274, 14.73456171463032, -8.225141291326914, -9.07365057587573, 13.418177917441447, -3.1993109483490585, -6.082214935247757");
+        Scanner sc = new Scanner(System.in);
+        String line = sc.nextLine();
+        buildOneDimArray(line);
+//        buildOneDimArray("1.1 3.3 2.2 5.5 7.7 8.8 6.6 4.4 9.9 0.0");
     }
 
     static void buildOneDimArray(String line) {
@@ -20,64 +18,51 @@ public class TaskC {
         System.out.println();
 
         mergeSort(array);
-        InOut.printArray(array);
-
-//        InOut.printArray( mergeSort(array), "V", 5);
-//        System.out.println("Index of first element=" + binarySearch(mergeSort(array), start));
-        System.out.println("Index of first element=" + binarySearch(Helper.sort(array), start));
-//        System.out.println("Index of last element=" + binarySearch(mergeSort(array), stop));
-        System.out.println("Index of last element=" + binarySearch(Helper.sort(array), stop));
-
-
+        InOut.printArray( array, "V", 5);
+        System.out.println("Index of first element=" + binarySearch(array, start));
+        System.out.println("Index of last element=" + binarySearch(array, stop));
     }
 
-    static void mergeSort(double[] array) {
+    static void mergeSort(double[ ] array) {
         mergeSort(array, 0, array.length);
-
     }
-// рабочий вариант
-    /*
-    public static void mergeSort(double[] a, int low, int high) {
-        if (low + 1 < high) {
-            int mid = (low + high) >>> 1;
-            mergeSort(a, low, mid);
-            mergeSort(a, mid, high);
 
-            int size = high - low;
+    public static void mergeSort(double[] a, int leftBorder, int rightBorder) {
+        if (leftBorder + 1 < rightBorder) {
+            int middle = (leftBorder + rightBorder) / 2;
+            mergeSort(a, leftBorder, middle);
+            mergeSort(a, middle, rightBorder);
+            //merge array
+            int size = rightBorder - leftBorder;
             double[] b = new double[size];
-            int i = low;
-            int j = mid;
+            int i = leftBorder;
+            int j = middle;
             for (int k = 0; k < size; k++) {
-                if (j >= high || i < mid && a[i] < a[j]) {
-                    b[k] = a[i++];
+                if (j >= rightBorder || i < middle && a[i] < a[j]) {
+                    b[k] = a[i];
+                    i++;
                 } else {
-                    b[k] = a[j++];
+                    b[k] = a[j];
+                    j++;
                 }
             }
-            System.arraycopy(b, 0, a, low, size);
+            System.arraycopy(b, 0, a, leftBorder, size);
         }
-
     }
 
-     */
-
-    private static void mergeSort(double[] array, int left, int right) {
-        double [] temp = new double[array.length];
-        if (left < right) {
-            int middle = (left + right) / 2;
-            mergeSort(array, left, middle);
-            mergeSort(array, middle + 1, right);
+    static int binarySearch(double[] array, double value) {
+        int l = 0;
+        int r = array.length - 1;
+        while (l <= r) {
+            int m = (l + r) / 2;
+            if (array[m] == value) {
+                return m;
+            } else if (array[m] > value) {
+                r = m - 1;
+            } else l = m + 1;
         }
-
-        merge(array,array);
-
-
-
-
-
-
+        return -1;
     }
-
 
     /* - сортирует, но не проходит тест
         static double[] mergeSort(double[] array) {
@@ -104,7 +89,7 @@ public class TaskC {
             // рекурсия возврата слияния двух отсортированных массивов
             return merge(arrayB, arrayC);
         }
-*/
+
     private static double[] merge(double[] part1, double[] part2) {
         double[] mergeArray = new double[part1.length + part2.length];
         int i = 0, j = 0;
@@ -126,22 +111,8 @@ public class TaskC {
         return mergeArray;
     }
 
+     */
 
-    static int binarySearch(double[] array, double value) {
-        int l = 0;
-        int r = array.length - 1;
-        while (l <= r) {
-            int m = (l + r) / 2;
-            if (array[m] == value) {
-                return m;
-            } else if (array[m] > value) {
-                r = m - 1;
-            } else l = m + 1;
-        }
-        return -1;
-
-
-    }
 }
 
 

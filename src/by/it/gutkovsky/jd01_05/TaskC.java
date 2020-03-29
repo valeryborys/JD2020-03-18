@@ -19,12 +19,12 @@ public class TaskC {
 
         //create array z (1 step)
         for (int i = 0; i < z.length; i++) {
-//            for (double x = 5.33; x < 9; x += 0.2) {
+//            for (double x = 5.33; x <= 9; x += 0.1) {
 
 
-            double x = random() * 3.68 + 5.33;
+            double x = (random() * 3.67 + 5.33);
 //            arrayX[i] = x;
-            z[i] = pow(((x * x) + 4.5), 1. / 3);
+            z[i] = pow(((x * x) + 4.5), 1 / 3.);
 //            }
         }
         //cheсk array z and x
@@ -46,7 +46,7 @@ public class TaskC {
             }
         }
         System.out.println();
-        // find quantity of elements which have vakue more than 3.5
+        // find quantity of elements which have value more than 3.5
         int quantityOfElements = 0;
         for (double v : z) {
             if (v > 3.5) quantityOfElements++;
