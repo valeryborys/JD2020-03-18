@@ -8,8 +8,8 @@ public class TaskC {
     }
 
     private static void step1() {
-        //int i = (int) (random() * 20 + 20);
-        double array[] = new double[27];
+        int i = (int) (random() * 20 + 20);
+        double array[] = new double[i];
         int j = 0;
 
         int count1 = 0;
