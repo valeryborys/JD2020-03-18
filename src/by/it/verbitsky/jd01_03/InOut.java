@@ -32,10 +32,10 @@ public class InOut {
 
     static void printArray(double[] arr, String name, int columnCount) {
         for (int i = 0; i < arr.length; i++) {
-            System.out.printf("%s[%d]: %-4.2f  ", name, i, arr[i]);
-            if (i == columnCount - 1) {
+            if (i>0 & i % columnCount == 0 ) {
                 System.out.println();
             }
+            System.out.printf("%s[%d]: %-4.2f  ", name, i, arr[i]);
         }
         System.out.println();
     }
