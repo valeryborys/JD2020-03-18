@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import static java.lang.Math.*;
 
- class TaskC {
+ public  class TaskC {
     public static void main(String[] args) {
         task6();
         task7();
@@ -13,83 +13,83 @@ import static java.lang.Math.*;
 
     private static void task6() {
 
-//        double[] z = new double[40];
         double[] z = new double[(int) ((random() * 21) + 20)];
-        double deltaX = (9. - 5.33)/z.length;
-//        double[] arrayX = new double[z.length];
+        double deltaX = (9. - 5.33)/(z.length-1) ;
+//        System.out.println("deltaX =" + deltaX);
+        double[] arrayX = new double[z.length];
+        double x = 5.33;
 
         //create array z (1 step)
         for (int i = 0; i < z.length; i++) {
-            for (double x = 5.33; x <= 9; x = x+ deltaX) {
-
-
-//            double x = (random() * 3.67 + 5.33);
-//            arrayX[i] = x;
             z[i] = pow(((x * x) + 4.5), 1 / 3.);
-            }
+            arrayX[i] = x;
+            x = x + deltaX;
+
         }
-        //cheсk array z and x
-//        for (int i = 0; i < z.length; i++) {
-//            System.out.printf("%6s%-5.4f z=%-5.4f", "При х=", arrayX[i], z[i]);
-//            System.out.println();
+        /*
+        System.out.println("cheсk array z and x");
+        for (int i = 0; i < z.length; i++) {
+            System.out.printf("%6s%-5.4f z=%-5.4f", "При х=", arrayX[i], z[i]);
+            System.out.println();
+*/
+            //print array z
 
-        //print array z
-        System.out.println("Array of Z:");
-        int numberOfcolumns = 0;
-        for (int j = 0; j < z.length; j++) {
-            if (numberOfcolumns < 5) {
-                System.out.printf("%1s[%2d]=%6.3f ", "z", j, z[j]);
-                numberOfcolumns++;
+            System.out.println("Массив A[]");
+            int numberOfcolumns = 0;
+            for (int j = 0; j < z.length; j++) {
+                if (numberOfcolumns < 5) {
+                    System.out.printf("%1s[%2d]=%6.5f ", "A", j, z[j]);
+                    numberOfcolumns++;
+                }
+                if (numberOfcolumns == 5) {
+                    System.out.println();
+                    numberOfcolumns = 0;
+                }
             }
-            if (numberOfcolumns == 5) {
-                System.out.println();
-                numberOfcolumns = 0;
+            System.out.println();
+            // find quantity of elements which have value more than 3.5
+            int quantityOfElements = 0;
+            for (double v : z) {
+                if (v > 3.5) quantityOfElements++;
             }
-        }
-        System.out.println();
-        // find quantity of elements which have value more than 3.5
-        int quantityOfElements = 0;
-        for (double v : z) {
-            if (v > 3.5) quantityOfElements++;
-        }
 
-        double[] b = new double[quantityOfElements];
-        int indexFornewArray = 0;
-        for (double v : z) {
-            if (v > 3.5) {
-                b[indexFornewArray] = v;
-                indexFornewArray++;
+            double[] b = new double[quantityOfElements];
+            int indexFornewArray = 0;
+            for (double v : z) {
+                if (v > 3.5) {
+                    b[indexFornewArray] = v;
+                    indexFornewArray++;
+                }
             }
-        }
 
-        //print b
-        System.out.println("Массив B из элементов массива Z > 3.5:");
-        int numberOfcolumnsForArrayB = 0;
-        for (int j = 0; j < b.length; j++) {
-            if (numberOfcolumnsForArrayB < 4) {
-                System.out.printf("%1s[%2d]=%6.3f ", "b", j, b[j]);
-                numberOfcolumnsForArrayB++;
+            //print b
+            System.out.println("Массив B[] из элементов массива A > 3.5");
+            int numberOfcolumnsForArrayB = 0;
+            for (int j = 0; j < b.length; j++) {
+                if (numberOfcolumnsForArrayB < 4) {
+                    System.out.printf("%1s[%2d]=%6.5f ", "B", j, b[j]);
+                    numberOfcolumnsForArrayB++;
+                }
+                if (numberOfcolumnsForArrayB == 4) {
+                    System.out.println();
+                    numberOfcolumnsForArrayB = 0;
+                }
             }
-            if (numberOfcolumnsForArrayB == 4) {
-                System.out.println();
-                numberOfcolumnsForArrayB = 0;
+            System.out.println();
+            // нахождение среднего геометрического значения
+            double mult = 1;
+            for (double v : b) {
+                mult = mult * v;
             }
+
+            double average = pow(mult, 1. / b.length);
+            System.out.printf("Cреднее геометрическое значение равно %-20.4f", average);
+            System.out.println();
+
         }
-        System.out.println();
-        // нахождение среднего геометрического значения
-        double mult = 1;
-        for (double v : b) {
-            mult = mult * v;
-        }
-
-        double average = pow(mult, 1. / b.length);
-        System.out.printf("Cреднее геометрическое значение равно %-20.4f", average);
-        System.out.println();
 
 
-    }
-
-    private static void task7() {
+   private static void task7() {
         int[] a = new int[31];
         for (int i = 0; i < a.length; i++) {
             a[i] = (int) (random() * 347 + 103);

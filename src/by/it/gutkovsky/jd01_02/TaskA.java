@@ -23,7 +23,7 @@ import java.util.Scanner;
         step3(array);
     }
 
-    public static void step1(int[] array) {
+    static void step1(int[] array) {
 
         // first solution
 //        Arrays.sort(array);
@@ -44,7 +44,7 @@ import java.util.Scanner;
         System.out.println(min + " " + max);
     }
 
-    public static void step2(int[] array) {
+    static void step2(int[] array) {
         double sum = 0;
         for (int i = 0; i < array.length; i++) {
             sum += array[i];
