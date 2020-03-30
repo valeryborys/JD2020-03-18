@@ -2,7 +2,7 @@ package by.it.okatov.jd01_03;
 
 import java.util.Arrays;
 
-public class Helper {
+class Helper {
 
     /***
      * Метод для поиска минимума в массиве чисел с плавающей точкой двойной точности

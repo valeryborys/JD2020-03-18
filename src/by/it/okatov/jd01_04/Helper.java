@@ -1,6 +1,6 @@
 package by.it.okatov.jd01_04;
 
-public class Helper {
+class Helper {
 
     static double[] selectSort(double[] arr) {
         int end;
