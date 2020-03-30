@@ -85,11 +85,11 @@ public class TaskC {
         short leftDownAngle = 9562;
         short rightDownAngle = 9565;
         short down = 9577;
-        System.out.printf("%c%c%c%c%c%c%c%c%c", leftDownAngle, row, row, row, row, row, row, row, down);
-        System.out.printf("%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, down);
-        System.out.printf("%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, down);
-        System.out.printf("%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, down);
-        System.out.printf("%c%c%c%c%c%c%c%c\n", row, row, row, row, row, row, row, rightDownAngle);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c", leftDownAngle, row, row, row, row, row, row, row, row, row, row, row, row, down);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, row, row, row, row, row, down);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, row, row, row, row, row, down);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, row, row, row, row, row, down);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c\n", row, row, row, row, row, row, row, row, row, row, row, row, rightDownAngle);
     }
 
     private static void printMid() {
@@ -97,11 +97,11 @@ public class TaskC {
         short left = 9568;
         short right = 9571;
         short cross = 9580;
-        System.out.printf("%c%c%c%c%c%c%c%c%c", left, row, row, row, row, row, row, row, cross);
-        System.out.printf("%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, cross);
-        System.out.printf("%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, cross);
-        System.out.printf("%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, cross);
-        System.out.printf("%c%c%c%c%c%c%c%c\n", row, row, row, row, row, row, row, right);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c", left, row, row, row, row, row, row, row, row, row, row, row, row, cross);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, row, row, row, row, row, cross);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, row, row, row, row, row, cross);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, row, row, row, row, row, cross);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c\n", row, row, row, row, row, row, row, row, row, row, row, row, right);
     }
 
     private static void printUp() {
@@ -109,11 +109,11 @@ public class TaskC {
         short leftUpAngle = 9556;
         short up = 9574;
         short rightUpAngle = 9559;
-        System.out.printf("%c%c%c%c%c%c%c%c%c", leftUpAngle, row, row, row, row, row, row, row, up);
-        System.out.printf("%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, up);
-        System.out.printf("%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, up);
-        System.out.printf("%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, up);
-        System.out.printf("%c%c%c%c%c%c%c%c\n", row, row, row, row, row, row, row, rightUpAngle);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c", leftUpAngle, row, row, row, row, row, row, row, row, row, row, row, row, up);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, row, row, row, row, row, up);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, row, row, row, row, row, up);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c", row, row, row, row, row, row, row, row, row, row, row, row, up);
+        System.out.printf("%c%c%c%c%c%c%c%c%c%c%c%c%c\n", row, row, row, row, row, row, row, row, row, row, row, row, rightUpAngle);
     }
 
     private static void printNewArray(double[] array, int count) {
