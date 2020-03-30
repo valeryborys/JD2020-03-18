@@ -22,21 +22,6 @@ public class TaskA1 {
         }
 
         System.out.println(text);
-
-        step1();
-        step2();
-
-        System.out.println();
-        System.out.println();
     }
-
-    private static void step1() {
-
-    }
-
-    private static void step2() {
-
-    }
-
 
 }
