@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 @SuppressWarnings("all")
 
 //поставьте курсор на следующую строку и нажмите Ctrl+Shift+F10
-public class Test_jd01_02 {
+class Test_jd01_02 {
 
     @Test(timeout = 5000)
     public void testTaskA() throws Exception {
@@ -284,7 +284,7 @@ public class Test_jd01_02 {
 
 
     //метод находит и создает класс для тестирования
-    //по имени вызывающего его метода, testTaskA будет работать с TaskA
+    //по имени вызывающего его метода, testTaskA1 будет работать с TaskA1
     private static Test_jd01_02 run(String in) {
         return run(in, true);
     }

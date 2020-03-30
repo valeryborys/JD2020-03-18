@@ -3,7 +3,7 @@ package by.it.okatov.jd01_06;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TaskA {
+public class TaskA1 {
 
     public static void main(String[] args) {
 
