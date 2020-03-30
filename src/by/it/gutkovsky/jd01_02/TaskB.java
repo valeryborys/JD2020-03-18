@@ -3,7 +3,7 @@ package by.it.gutkovsky.jd01_02;
 import javax.crypto.spec.PSource;
 import java.util.Scanner;
 
-public class TaskB {
+ class TaskB {
     public static void main(String[] args) {
         step1();
         Scanner sc = new Scanner(System.in);

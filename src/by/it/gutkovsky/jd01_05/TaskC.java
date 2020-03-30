@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import static java.lang.Math.*;
 
-public class TaskC {
+ class TaskC {
     public static void main(String[] args) {
         task6();
         task7();

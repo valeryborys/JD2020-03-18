@@ -4,7 +4,7 @@ package by.it.gutkovsky.jd01_05;
 
 import static java.lang.Math.*;
 
-public class TaskB {
+ class TaskB {
     public static void main(String[] args) {
         step1();
         step2();
