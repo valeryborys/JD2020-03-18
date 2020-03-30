@@ -4,7 +4,7 @@ package by.it.bobrovich.jd01_04;
 import java.util.Scanner;
 
 public class TaskB {
-    static Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         int n = scanner.nextInt();
         String[] surname = getSurname(n);
@@ -13,7 +13,7 @@ public class TaskB {
     }
 
     private static String[] getSurname(int n) {
-        String surname[] = new String[n];
+        String[] surname = new String[n];
         for (int i = 0; i < surname.length; i++) {
             surname[i] = scanner.next();
         }
@@ -21,7 +21,7 @@ public class TaskB {
     }
 
     private static int[][] getSalary(int n, String[] surname) {
-        int salary[][] = new int[n][4];
+        int[][] salary = new int[n][4];
         for (int i = 0; i < n; i++) {
             System.out.println("Введите зарплату для " + surname[i]);
             for (int j = 0; j < 4; j++) {
@@ -49,6 +49,6 @@ public class TaskB {
         }
         System.out.println("-------------------------------------------------------");
         System.out.printf("%-10s%-9d\n","Итого", allSum);
-        System.out.printf("%-10s%-9.4f","Средняя", allSum/12.);
+        System.out.printf("%-10s%-9.4f","Средняя", allSum/(surname.length*4.));
     }
 }
