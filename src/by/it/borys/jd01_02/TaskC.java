@@ -1,18 +1,15 @@
 package by.it.borys.jd01_02;
 
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.lang.Integer;
+
 
 public class TaskC {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите n:");
         int n = sc.nextInt();
-        //step1(n);
         int[][] mas = step1(n);
         step2(mas);
-       // int[][] fff = new int[][]{{3, 2, 1, 4, 5, 3, 1}, {4, -5, -4, 3, 3, 3, -1}, {5, 7, 3, 1, 2, 2, 2}, {6, 3, 5, 6, 4, 4, 3}, {1, 5, 1, 3, 7, 7, 5}, {2, 1, 2, 0, 0, 6, 6}, {1, 2, 6, 2, 2, 2, 2}};
         step3(mas);
 
     }
