@@ -4,8 +4,9 @@ package by.it.bobrovich.jd01_04;
 import java.util.Scanner;
 
 public class TaskB {
-    private static Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner;
     public static void main(String[] args) {
+        scanner = new Scanner(System.in);
         int n = scanner.nextInt();
         String[] surname = getSurname(n);
         int[][] salary = getSalary(n, surname);
