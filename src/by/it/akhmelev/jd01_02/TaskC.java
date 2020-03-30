@@ -5,22 +5,26 @@ import java.util.Arrays;
 public class TaskC {
 
     public static void main(String[] args) {
-        int[][] ints = step1(3);
-        System.out.println(Arrays.deepToString(ints));
+        int[][] array = step1(3);
+        printArray(array);
+        array = step1(5);
+        printArray(array);
+        array = step3(array);
+        printArray(array);
     }
 
     static int[][] step1(int n) {
         int[][] array = new int[n][n];
-        boolean okMax ;
-        boolean okMin ;
+        boolean okMax;
+        boolean okMin;
         do {
             okMax = false;
             okMin = false;
             for (int i = 0; i < array.length; i++) {
                 for (int j = 0; j < array[i].length; j++) {
                     array[i][j] = (int) (Math.random() * (2 * n + 1)) - n;
-                    if (array[i][j]==n) okMax=true;
-                    if (array[i][j]==-n) okMin=true;
+                    if (array[i][j] == n) okMax = true;
+                    if (array[i][j] == -n) okMin = true;
                 }
             }
         }
@@ -71,6 +75,11 @@ public class TaskC {
         }
         return result;
 
+    }
+
+    private static void printArray(int[][] array) {
+        System.out.println(Arrays.deepToString(array).replace(" [", "\n["));
+        System.out.println();
     }
 
 }
