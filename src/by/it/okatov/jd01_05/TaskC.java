@@ -18,7 +18,6 @@ public class TaskC {
         double[] zArray = new double[n];
         int j = 0;
 
-
         for (double x = 5.33; x <= 9; x += 0.1) {
             zArray[j] = (pow((x * x + 4.5), 1. / 3));
             j++;
