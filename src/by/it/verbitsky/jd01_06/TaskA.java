@@ -1,10 +1,10 @@
 package by.it.verbitsky.jd01_06;
 
-import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class TaskA {
+    public static void main(String[] args) {
+        System.out.println(Poem.text);
+    }
+    /*
     private static String[] words = {};
     private static int[] counts = {};
     public static void main(String[] args) {
@@ -30,6 +30,6 @@ public class TaskA {
         }
         words = Arrays.copyOf(words, words.length+1);
        // words = Arrays.copyOf(cou, words.length+1);
-    }
+    }*/
 
 }
