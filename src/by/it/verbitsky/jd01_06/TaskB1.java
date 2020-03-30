@@ -20,7 +20,7 @@ public class TaskB1 {
                 if (word.length() > 2) {
                     checkWord(word);
                 }
-                word = new StringBuilder();
+                word.setLength(0);
             }
         }
     }
