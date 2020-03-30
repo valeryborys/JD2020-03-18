@@ -2,7 +2,7 @@ package by.it.gutkovsky.jd01_04;
 
 import java.util.Scanner;
 
-public class TaskC {
+ class TaskC {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String line = sc.nextLine();
@@ -27,7 +27,7 @@ public class TaskC {
         mergeSort(array, 0, array.length);
     }
 
-    public static void mergeSort(double[] a, int leftBorder, int rightBorder) {
+     static void mergeSort(double[] a, int leftBorder, int rightBorder) {
         if (leftBorder + 1 < rightBorder) {
             int middle = (leftBorder + rightBorder) / 2;
             mergeSort(a, leftBorder, middle);

@@ -7,7 +7,7 @@ package by.it.gutkovsky.jd01_04;
  * Class InOut: response for the input parameters and output data
  */
 
-public class InOut {
+ class InOut {
 
     /**
      * As input gets String line, performs it into array of String and then to array  of double

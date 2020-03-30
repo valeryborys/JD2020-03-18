@@ -2,7 +2,7 @@ package by.it.gutkovsky.jd01_04;
 
 import java.util.Scanner;
 
-public class TaskA {
+ class TaskA {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         printMulTable();

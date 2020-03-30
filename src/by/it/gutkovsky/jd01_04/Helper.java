@@ -8,7 +8,7 @@ package by.it.gutkovsky.jd01_04;
  * This class contains nest methods: find min number in the array, find max number in the array, sort array, multiply array on vector, array on array
  */
 
-public class Helper {
+ class Helper {
     /**
      * Find minimum number in incoming array
      *
