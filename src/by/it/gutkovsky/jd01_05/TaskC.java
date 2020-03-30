@@ -13,19 +13,20 @@ public class TaskC {
 
     private static void task6() {
 
-//        double[] z = new double[(int) (ceil(random() * 21) + 20)];
+//        double[] z = new double[40];
         double[] z = new double[(int) ((random() * 21) + 20)];
+        double deltaX = (9. - 5.33)/z.length;
 //        double[] arrayX = new double[z.length];
 
         //create array z (1 step)
         for (int i = 0; i < z.length; i++) {
-//            for (double x = 5.33; x <= 9; x += 0.1) {
+            for (double x = 5.33; x <= 9; x = x+ deltaX) {
 
 
-            double x = (random() * 3.67 + 5.33);
+//            double x = (random() * 3.67 + 5.33);
 //            arrayX[i] = x;
             z[i] = pow(((x * x) + 4.5), 1 / 3.);
-//            }
+            }
         }
         //cheсk array z and x
 //        for (int i = 0; i < z.length; i++) {
@@ -219,9 +220,9 @@ public class TaskC {
 
         int columncalc = 0;
         int index = 0;
-        int k = array.length%quantityRows; // количество элементов в последнем столбце
-        if (k==0) {
-            k =quantityRows;
+        int k = array.length % quantityRows; // количество элементов в последнем столбце
+        if (k == 0) {
+            k = quantityRows;
         }
         for (int i = 0; i < quantityRows; i++) {
             for (int j = 0; j < column; j++) {
@@ -241,7 +242,7 @@ public class TaskC {
                     }
 
                 } else {
-                    if (columncalc < column && j != 0 && j != column-1) {
+                    if (columncalc < column && j != 0 && j != column - 1) {
                         System.out.printf("║ %1s[%2d]=%-3d ", name, index, array[index]);
                         columncalc++;
                         index = index + quantityRows;
@@ -251,11 +252,11 @@ public class TaskC {
                             index = index + quantityRows;
                             columncalc++;
                         }
-                        if (j == column-1) {
+                        if (j == column - 1) {
                             System.out.print("║           ");
                         }
                     }
-                 }
+                }
 
             }
             columncalc = 0;
@@ -264,7 +265,7 @@ public class TaskC {
             System.out.println();
 
 
-            if ( i != quantityRows-1) {
+            if (i != quantityRows - 1) {
                 System.out.print("╠");
                 for (int p = 0; p <= column - 2; p++) {
                     System.out.print("═══════════╬");
