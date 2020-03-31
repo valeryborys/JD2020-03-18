@@ -64,9 +64,30 @@ class TaskB2 {
 
         for (int i = 0; i < sentence.length; i++) {
             if (sentence[i].length() != 0) {
-                System.out.printf("%s\n", sentence[i]);
+                System.out.printf("%s" + "\n", sentence[i]);
             }
         }
+
+        //варианты вывода
+//        String[] newLine2 = new String[sentence.length];
+//        String mytext = "";
+//        for (int i = 0; i < sentence.length; i++) {
+//            StringBuilder sb = new StringBuilder(sentence[i]);
+////            sb.append(sentence[i]);
+//            sb.append("\n");
+////            newLine2[i] = sb.toString();
+//
+//                   mytext = mytext.concat(sb.toString());
+//        }
+//
+//        System.out.println(mytext);
+
+
+//                for (int i = 0; i < newLine2.length; i++) {
+//            if (newLine2[i].length() != 0 && newLine2[i] != "") {
+//                System.out.printf("%s", newLine2[i]);
+//            }
+//        }
 
 
     }
