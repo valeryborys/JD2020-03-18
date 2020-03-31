@@ -21,7 +21,7 @@ public class TaskA2 {
 
 
         for (int i = 0; i < words.length; i++) {
-            System.out.printf("%s = %d%n", words[i], counts[i]);
+            System.out.printf("%s=%d%n", words[i], counts[i]);
         }
     }
 
