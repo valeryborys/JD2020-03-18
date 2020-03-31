@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 class TaskB2 {
     public static void main(String[] args) {
         String a = Poem.text;
-        String b = a.replaceAll("\n|\r\n", " ");
+        String b = a.replaceAll("\n", " ");
         StringBuilder text = new StringBuilder(b);
         Pattern pat = Pattern.compile("[\\.]{3}");
         Matcher matcher = pat.matcher(text);
