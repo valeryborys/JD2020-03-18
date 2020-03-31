@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 @SuppressWarnings("all")
 
 //поставьте курсор на следующую строку и нажмите Ctrl+Shift+F10
-class Test_jd01_02 {
+public class Test_jd01_02 {
 
     @Test(timeout = 5000)
     public void testTaskA() throws Exception {
@@ -284,7 +284,7 @@ class Test_jd01_02 {
 
 
     //метод находит и создает класс для тестирования
-    //по имени вызывающего его метода, testTaskA1 будет работать с TaskA1
+    //по имени вызывающего его метода, testTaskA будет работать с TaskA
     private static Test_jd01_02 run(String in) {
         return run(in, true);
     }
@@ -375,7 +375,7 @@ class Test_jd01_02 {
 
             @Override
             public void write(int b) throws IOException {
-                if (pos == 0 && b == '\r') //пропуск \r (чтобы win mac и linux одинаково работали
+                if (pos==0 && b=='\r') //пропуск \r (чтобы win mac и linux одинаково работали
                     return;
                 if (pos == 0) { //определим кодировку https://ru.wikipedia.org/wiki/UTF-8
                     if ((b & 0b11110000) == 0b11110000) bytes = new byte[4];

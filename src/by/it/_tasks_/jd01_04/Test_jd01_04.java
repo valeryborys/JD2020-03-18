@@ -1,12 +1,11 @@
 package by.it._tasks_.jd01_04;
 
 
-import org.junit.Test;
-
 import java.io.*;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 import java.util.Arrays;
+
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
@@ -66,12 +65,12 @@ public class Test_jd01_04 {
     @Test(timeout = 5000)
     public void testTaskB1_inputSalary__TaskB() throws Exception {
         run("3\n" +
-                    "Ivanov\n" +
-                    "Petrov\n" +
-                    "Sidorov\n" +
-                    "11 11 13 15\n" +
-                    "15 16 17 18 \n" +
-                    "19 20 11 12 \n")
+                "Ivanov\n" +
+                "Petrov\n" +
+                "Sidorov\n" +
+                "11 11 13 15\n" +
+                "15 16 17 18 \n" +
+                "19 20 11 12 \n")
                 .include("Ivanov").include("Petrov").include("Sidorov")
                 .include("11").include("13").include("13").include("13")
                 .include("15").include("16").include("17").include("18")
@@ -82,12 +81,12 @@ public class Test_jd01_04 {
     @Test(timeout = 5000)
     public void testTaskB2_sumAndAvg__TaskB() throws Exception {
         run("3\n" +
-                    "Ivanov\n" +
-                    "Petrov\n" +
-                    "Sidorov\n" +
-                    "11 11 13 15\n" +
-                    "15 16 17 18 \n" +
-                    "19 20 11 12 \n")
+                "Ivanov\n" +
+                "Petrov\n" +
+                "Sidorov\n" +
+                "11 11 13 15\n" +
+                "15 16 17 18 \n" +
+                "19 20 11 12 \n")
                 .include("178")
                 .include("14").include("833")
         ;
@@ -295,7 +294,7 @@ public class Test_jd01_04 {
 
             @Override
             public void write(int b) throws IOException {
-                if (pos == 0 && b == '\r') //пропуск \r (чтобы win mac и linux одинаково работали
+                if (pos==0 && b=='\r') //пропуск \r (чтобы win mac и linux одинаково работали
                     return;
                 if (pos == 0) { //определим кодировку https://ru.wikipedia.org/wiki/UTF-8
                     if ((b & 0b11110000) == 0b11110000) bytes = new byte[4];
