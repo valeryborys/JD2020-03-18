@@ -1,4 +1,4 @@
-package by.it._tasks_.jd01_01;
+package by.it.okatov.jd01_01;
 
 /*
 Подойдет только 20
@@ -15,15 +15,16 @@ package by.it._tasks_.jd01_01;
 4. Знаки плюс и минус должны быть расставлены правильно.
 
  */
+//DONE
 class TaskB2 {
-    private static int a = 1;
-    private static int b = 3;
-    private static int c = 9;
-    private static int d = 27;
 
     public static void main(String[] args) {
 
-        int result = +a + b + c + d;
+        int a = 1;
+        int b = 3;
+        int c = 9;
+        int d = 27;
+        int result = -a + b - c + d;
 
         System.out.println(result);
     }

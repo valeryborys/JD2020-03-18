@@ -1,4 +1,4 @@
-package by.it._tasks_.jd01_02;
+package by.it.okatov.jd01_02;
 
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 @SuppressWarnings("all")
 
 //поставьте курсор на следующую строку и нажмите Ctrl+Shift+F10
-class Test_jd01_02 {
+public class Test_jd01_02 {
 
     @Test(timeout = 5000)
     public void testTaskA() throws Exception {

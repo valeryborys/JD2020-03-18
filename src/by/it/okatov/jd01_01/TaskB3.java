@@ -1,4 +1,4 @@
-package by.it._tasks_.jd01_01;
+package by.it.okatov.jd01_01;
 
 /*
         Уберите комментарии с части кода, чтобы на экран вывелось сообщение «C Новым Годом».
@@ -15,11 +15,11 @@ class TaskB3 {
 //        System.out.println("Новым Годом");
 //        System.out.println("C Новым");
 //        System.out.println("Годом");
-//        System.out.print("C Новым");
+        System.out.print("C Новым");
 //        System.out.println("Годом");
 //        System.out.println(s);
 //        System.out.print("C Новым!");
-//        System.out.print(" ");
-//        System.out.println("Годом");
+        System.out.print(" ");
+        System.out.println("Годом");
     }
 }

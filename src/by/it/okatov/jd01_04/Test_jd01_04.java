@@ -1,4 +1,4 @@
-package by.it._tasks_.jd01_04;
+package by.it.okatov.jd01_04;
 
 
 import org.junit.Test;
