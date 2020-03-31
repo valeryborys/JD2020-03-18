@@ -1,6 +1,5 @@
 package by.it.tolstik.jd01_06;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class TaskB1 {
@@ -9,9 +8,7 @@ class TaskB1 {
         StringBuilder stringBuilder = new StringBuilder(Poem.text);
         char[] ch = {'Е', 'е', 'У', 'у', 'Ю', 'ю', 'И', 'и', 'О', 'о', 'А', 'а', 'Я', 'я', 'Ё', 'ё', 'Ы', 'ы'};
         Pattern pattern = Pattern.compile("[\\s\\.\\,\\-\\:\\!\\?]+");
-        Matcher matcher = pattern.matcher(stringBuilder);
         String[] arr = pattern.split(stringBuilder);
-
         for (int i = 0; i < arr.length; i++) {
             if (arr[i].length() >= 2) {
                 int count = 0;
