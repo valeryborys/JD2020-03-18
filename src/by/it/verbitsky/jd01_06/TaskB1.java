@@ -3,11 +3,9 @@ package by.it.verbitsky.jd01_06;
 import java.util.Arrays;
 
 public class TaskB1 {
-    private static char[] vowels = {'а', 'А', 'у', 'У', 'о', 'О', 'ы', 'и', 'И', 'э', 'Э', 'я', 'Я', 'ю', 'Ю', 'ё', 'Ё', 'е', 'Е'};
+    private static char[] vowels = {'Ё', 'А', 'Е', 'И', 'О', 'У', 'Э', 'Ю', 'Я', 'а', 'е', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я', 'ё'};
 
     public static void main(String[] args) {
-        //TODO записать сразу отсортированный
-        Arrays.sort(vowels);
         StringBuilder text = new StringBuilder(Poem.text);
         StringBuilder word = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
