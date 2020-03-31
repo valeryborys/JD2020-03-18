@@ -1,5 +1,4 @@
 package by.it.szamostyanin.jd01_02;
-
 import java.util.Scanner;
 
 public class TaskB {
