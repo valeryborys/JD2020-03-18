@@ -64,10 +64,9 @@ class TaskB2 {
 
         for (int i = 0; i < sentence.length; i++) {
             if (sentence[i].length() != 0) {
-                System.out.printf("%s\n",sentence[i]);
+                System.out.printf("%s\n", sentence[i]);
             }
         }
-
 
 
     }
