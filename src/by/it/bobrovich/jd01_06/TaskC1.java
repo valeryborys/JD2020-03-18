@@ -9,6 +9,7 @@ public class TaskC1 {
 
     public static void main(String[] args) {
         StringBuilder text = new StringBuilder(Poem.text);
+        StringBuilder text1 = new StringBuilder("");
         Pattern pattern = Pattern.compile("[^\\n]+");
         Matcher matcher = pattern.matcher(text);
         while (matcher.find()) {
@@ -18,20 +19,26 @@ public class TaskC1 {
         Matcher matcher1 = pattern.matcher(text);
         while (matcher1.find()) {
             String line = matcher1.group();
-            changeLine(line);
+            text1.append(changeLine(line));
         }
+        String line = text1.toString().replaceAll("1", " ");
+        System.out.println(line);
     }
 
-    private static void changeLine(String line) {
+    private static StringBuilder changeLine(String line) {
         StringBuilder lineBuilder = new StringBuilder(line);
         int lenght = line.length();
-        Pattern pattern = Pattern.compile(" .+? ");
-        Matcher matcher = pattern.matcher(lineBuilder);
-            while (matcher.find()) {
-                int position = matcher.start();
+        while(lenght<max){
+            Pattern pattern = Pattern.compile("(( ){1,})");
+            Matcher matcher = pattern.matcher(lineBuilder);
+            while (matcher.find() && lenght < max) {
+                int position = matcher.end();
                 lineBuilder.insert(position, "1");
+                lenght++;
             }
+        }
 
-        System.out.println(lineBuilder);
+        lineBuilder.append("\n");
+        return lineBuilder;
     }
 }
