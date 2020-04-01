@@ -4,7 +4,8 @@ class Runner {
 
     public static void main(String[] args) {
 
-        Var var = new Scalar(3.1415);
+        Scalar var = new Scalar("3.1415");
+        Scalar var1 = new Scalar(var);
 
         System.out.println(var);
     }
