@@ -1,6 +1,5 @@
 package by.it.gutkovsky.jd01_02;
 
-import com.sun.org.apache.xpath.internal.objects.XBoolean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.util.Scanner;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        sc.close();
         int[][] array = step1(n);
         step2(array);
         step3(array);

@@ -1,6 +1,5 @@
 package by.it.gutkovsky.jd01_02;
 
-import javax.crypto.spec.PSource;
 import java.util.Scanner;
 
  class TaskB {

@@ -1,6 +1,5 @@
 package by.it.gutkovsky.jd01_06;
 
-import javafx.beans.binding.When;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
