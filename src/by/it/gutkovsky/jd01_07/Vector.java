@@ -2,7 +2,7 @@ package by.it.gutkovsky.jd01_07;
 
 import java.util.Arrays;
 
-public class Vector extends Var{
+class Vector extends Var{
 
     private double[] value;
 

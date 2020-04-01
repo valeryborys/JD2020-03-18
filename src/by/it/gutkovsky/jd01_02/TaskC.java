@@ -15,7 +15,7 @@ import java.util.Scanner;
 
     }
 
-    public static int[][] step1(int n) {
+    private static int[][] step1(int n) {
         int[][] resultArray = new int[n][n];
         boolean containN = false;
         boolean containPlusN = false;
@@ -51,7 +51,7 @@ import java.util.Scanner;
         return resultArray;
     }
 
-    public static int step2(int[][] array) {
+    private static int step2(int[][] array) {
 
         /*
         Найти, вывести и вернуть сумму элементов исходной матрицы mas,
@@ -87,7 +87,7 @@ import java.util.Scanner;
 
     }
 
-    public static int[][] step3(int[][] array) {
+    private static int[][] step3(int[][] array) {
         /*
         Найти максимальный элемент(ы) в матрице и удалить из исходнойматрицы все строки и столбцы, его содержащие.
         Вывести в консоль и вернуть полученную матрицу. Сигнатура int[ ][ ] step3(int[ ][ ] mas).

@@ -16,7 +16,7 @@ import java.util.Scanner;
 //        static void step3(double a, double b, double c);
     }
 
-    public static void step1() {
+    private static void step1() {
         int n = 5;
         for (int i = 1; i <= 25; i++) {
             for (int j = 0; j < 5; j++) {
@@ -73,7 +73,7 @@ import java.util.Scanner;
 
     }
 
-    public static void step3(double a, double b, double c) {
+    private static void step3(double a, double b, double c) {
         double discriminant = Math.pow(b, 2) - (4 * a * c);
 
 
