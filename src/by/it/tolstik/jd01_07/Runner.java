@@ -8,6 +8,6 @@ class Runner {
 //        Vector vector1 = new Vector("{1.0, 2.0, 4.0}");
 //        System.out.println(vector1);
         Matrix matrix = new Matrix("{ { 1.0, 2.0 }, { 3.0, 4.0 } }");
-
+        System.out.println(matrix);
     }
 }

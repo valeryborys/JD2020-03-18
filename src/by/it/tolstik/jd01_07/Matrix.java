@@ -2,7 +2,7 @@ package by.it.tolstik.jd01_07;
 
 import java.util.Arrays;
 
-class Matrix extends Var{
+class Matrix extends Var {
     private double[][] value;
 
     Matrix(double[][] value) {
@@ -14,29 +14,21 @@ class Matrix extends Var{
     }
 
     Matrix(String strMatrix) {
-        String[] strings = strMatrix.trim().split("},");
-
+        String[] strings = strMatrix.trim().split(",");
         for (int i = 0; i < strings.length; i++) {
-            strings[i] = strings[i].replaceAll("[{ }]","");
+            strings[i] = strings[i].replaceAll("[{ }]", "");
         }
-//        System.out.println(Arrays.toString(strings));
-        double[][] doubles = new double[strings.length][strings.length];
-
-        for (int i = 0; i < doubles.length; i++) {
-            String[] finish = strings[i].trim().split(",");
-            int count = 0;
-            for (int j = 0; j < doubles[i].length; j++) {
-                while (count <= 1) {
-                    doubles[i][j] = Double.parseDouble(finish[count]);
-                    count++;
-                }
+        int count = 0;
+        value = new double[strings.length / 2][strings.length / 2];
+        for (int i = 0; i < value.length; i++) {
+            for (int j = 0; j < value[i].length; j++) {
+                value[i][j] = Double.parseDouble(strings[count++]);
             }
         }
-        System.out.println(Arrays.toString(doubles));
     }
 
     @Override
     public String toString() {
-        return Arrays.deepToString(value).replaceAll("\\[","{").replaceAll("\\]","}");
+        return Arrays.deepToString(value).replaceAll("\\[", "{").replaceAll("\\]", "}");
     }
 }
