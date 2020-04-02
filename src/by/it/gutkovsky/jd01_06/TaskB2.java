@@ -6,8 +6,23 @@ import java.util.regex.Pattern;
 
 class TaskB2 {
     public static void main(String[] args) {
-        String[] sentence = {};
-        sentence = Poem.text.split("!?\\.\\??");
+
+        String test = Poem.text.replace('.', '&'); // избавление от трех точек "..."
+        StringBuilder sbTest = new StringBuilder(test);
+        Pattern patternTest = Pattern.compile("&{2,}");
+        Matcher matcherTest = patternTest.matcher(sbTest);
+        while (matcherTest.find()) {
+            int pos = matcherTest.start();
+            sbTest.replace(pos, pos + 3, "   ");
+        }
+
+        String testTemp = sbTest.toString();
+        test = testTemp.replaceAll("&", ".");
+
+        String[] sentence = test.split("!?\\.\\??");
+
+//        String[] sentence = {};
+//        sentence = Poem.text.split("!?\\.\\??");
 
         String[] newLine = new String[sentence.length];
 
@@ -42,12 +57,12 @@ class TaskB2 {
         // удаление лишних пробелов
         for (int i = 0; i < sentence.length; i++) {
             StringBuilder nextIteration = new StringBuilder(sentence[i]);
-            Pattern pattern2 = Pattern.compile("[\\s\\-\\s]{2,}");
+            Pattern pattern2 = Pattern.compile("[\\s-\\s]{2,}");
             Matcher matcher2 = pattern2.matcher(nextIteration);
             sentence[i] = matcher2.replaceAll(" ");
         }
 
-        String temp = null;
+        String temp;
         boolean needSort = true;
         while (needSort) {
             needSort = false;
@@ -61,10 +76,10 @@ class TaskB2 {
             }
         }
 
-        for (int i = 0; i < sentence.length; i++) {
-            if (sentence[i].length() != 0) {
-                System.out.printf("%s" + "\n", sentence[i]);
-            }
+        for (String s : sentence) {
+//            if (s.length() != 0) {
+            System.out.printf("%s" + "\n", s);
+//            }
         }
 
         //варианты вывода
@@ -81,15 +96,10 @@ class TaskB2 {
 //
 //        System.out.println(mytext);
 
-
 //                for (int i = 0; i < newLine2.length; i++) {
 //            if (newLine2[i].length() != 0 && newLine2[i] != "") {
 //                System.out.printf("%s", newLine2[i]);
 //            }
 //        }
-
-
     }
-
-
 }
