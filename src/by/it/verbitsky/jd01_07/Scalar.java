@@ -10,11 +10,10 @@ class Scalar extends Var {
     Scalar(Scalar obj) {
         this.value = obj.value;
     }
+
     Scalar(String s) {
         this.value = Double.parseDouble(s);
     }
-
-
 
     @Override
     public String toString() {
