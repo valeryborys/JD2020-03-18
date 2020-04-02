@@ -4,6 +4,6 @@ abstract class Var {
 
     @Override
     public String toString() {
-        return "You must override toString in child class";
+        return "You must override toString in child class!";
     }
 }
