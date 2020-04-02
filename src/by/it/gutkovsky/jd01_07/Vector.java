@@ -6,15 +6,15 @@ class Vector extends Var {
 
     private double[] value;
 
-    public Vector(double[] value) {
+    Vector(double[] value) {
         this.value = value;
     }
 
-    public Vector(Vector vector) {
+    Vector(Vector vector) {
         this.value = Arrays.copyOf(vector.value, vector.value.length);
     }
 
-    public Vector(String strVector) {
+    Vector(String strVector) {
         //{1.0, 2.0, 3.0}
         String strVector1 = strVector.replace("{", "");
         String strVector2 = strVector1.replace("}", "");

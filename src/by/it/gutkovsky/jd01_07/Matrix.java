@@ -9,17 +9,17 @@ class Matrix extends Var {
     private double[][] value;
 
 
-    public Matrix(double[][] value) {
+    Matrix(double[][] value) {
         this.value = value;
     }
 
-    public Matrix(Matrix other) {
+    Matrix(Matrix other) {
         for (int i = 0; i < other.value.length; i++) {
             this.value = Arrays.copyOf(other.value, other.value.length);
         }
     }
 
-    public Matrix(String strMatrix) {
+    Matrix(String strMatrix) {
 //        String text = strMatrix;
         String text = strMatrix.replaceAll("\\.", "A"); // замена . на "А" - чтобы случайно не удалить
         String[] strMatrixArrayTemp = text.split("},"); // массив строк
