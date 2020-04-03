@@ -2,7 +2,7 @@ package by.it.sinevich.jd01_05;
 import static java.lang.Math.*;
 public class TaskB {
     public static void main(String[] args) {
-        //step1();
+        step1();
         step2();
     }
 
