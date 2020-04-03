@@ -2,7 +2,7 @@ package by.it.bobrovich.jd01_07;
 
 import java.util.Arrays;
 
-public class Vector extends Var {
+public class Vector {
     private double[] value;
 
     public Vector(double[] value) {
@@ -10,7 +10,7 @@ public class Vector extends Var {
     }
 
     public Vector(Vector vector) {
-        value = Arrays.copyOf(vector.value, vector.value.length);
+        value = vector.value;
     }
 
     public Vector(String strVector) {
@@ -19,7 +19,6 @@ public class Vector extends Var {
 
     @Override
     public String toString() {
-        //StringBuilder
-        return null;
+        return Arrays.toString(value);
     }
 }
