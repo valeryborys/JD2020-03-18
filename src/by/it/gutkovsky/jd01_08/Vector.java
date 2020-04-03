@@ -50,7 +50,26 @@ class Vector extends Var {
         return super.add(other);
     }
 
+    @Override
+    public Var sub(Var other) {
+        double[] resultVectorSub = Arrays.copyOf(this.value, this.value.length);
+        if (other instanceof Scalar) {
+            for (int i = 0; i < resultVectorSub.length; i++) {
+                resultVectorSub[i] = resultVectorSub[i] - ((Scalar) other).getValue();
+            }
+            return new Vector(resultVectorSub);
+        } else if (other instanceof Vector) {
+            if (resultVectorSub.length == ((Vector) other).value.length) {
+                for (int i = 0; i < resultVectorSub.length; i++) {
+                    resultVectorSub[i] = resultVectorSub[i] - ((Vector) other).value[i];
+                }
+                return new Vector(resultVectorSub);
+            }
 
+
+        }
+        return super.sub(other);
+    }
 
     @Override
     public String toString() {
