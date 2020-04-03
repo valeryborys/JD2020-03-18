@@ -92,6 +92,20 @@ class Vector extends Var {
     }
 
     @Override
+    public Var div(Var other) {
+        if (other instanceof Scalar) {
+            if (((Scalar) other).getValue() != 0) {
+                double[] divResult = Arrays.copyOf(this.value, this.value.length);
+                for (int i = 0; i < divResult.length; i++) {
+                    divResult[i] = divResult[i]/((Scalar) other).getValue();
+                }
+                return new Vector(divResult);
+            }
+        }
+        return super.div(other);
+    }
+
+    @Override
     public String toString() {
         // вывод {1.0, 2.0, 4.0}
 
