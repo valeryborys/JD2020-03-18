@@ -28,8 +28,8 @@ public class TaskC1 {
     private static StringBuilder changeLine(String line) {
         StringBuilder lineBuilder = new StringBuilder(line);
         int lenght = line.length();
+        Pattern pattern = Pattern.compile("(( ){1,})");
         while(lenght<max){
-            Pattern pattern = Pattern.compile("(( ){1,})");
             Matcher matcher = pattern.matcher(lineBuilder);
             while (matcher.find() && lenght < max) {
                 int position = matcher.end();
