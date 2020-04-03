@@ -11,12 +11,6 @@ class Vector extends Var {
         this.value = value;
     }
 
-    /*void Show(double[] value)
-    {
-        for (double v : value) {
-            System.out.println(v);
-        }
-    }*/
 
     Vector(String strValue) {
         for (char ch : strValue.toCharArray()) {
@@ -34,6 +28,48 @@ class Vector extends Var {
 
     Vector(Vector vector) {
         this.value = Arrays.copyOf(vector.value, vector.value.length);
+    }
+
+    @Override
+    public Var add(Var other) {
+        if (other instanceof Scalar) {
+            double otherValue = ((Scalar) other).getValue();
+            double[] vectorValue = Arrays.copyOf(value, value.length);
+            for (int i = 0; i < value.length; i++) {
+                value[i] += otherValue;
+            }
+
+            return new Vector(value);
+        } else if (other instanceof Vector) {
+            double[] otherValue = ((Vector) other).value;
+            double[] vectorValue = Arrays.copyOf(value, value.length);
+            if (otherValue.length != vectorValue.length) {
+                System.out.println("Size!");
+                return null;
+            }
+            for (int i = 0; i < value.length; i++) {
+                value[i] += otherValue[i];
+            }
+        } else {
+            return super.add(other);
+        }
+        return super.add(other);
+    }
+
+
+    @Override
+    public Var sub(Var other) {
+        return super.sub(other);
+    }
+
+    @Override
+    public Var mul(Var other) {
+        return super.mul(other);
+    }
+
+    @Override
+    public Var div(Var other) {
+        return super.div(other);
     }
 
     //Спросить про AtomicReference в Java и в этом методе - нужно ли и когда?
