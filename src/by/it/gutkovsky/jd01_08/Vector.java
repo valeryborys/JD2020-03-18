@@ -2,7 +2,7 @@ package by.it.gutkovsky.jd01_08;
 
 import java.util.Arrays;
 
-class Vector extends  Var {
+class Vector extends Var {
 
     private double[] value;
 
@@ -28,26 +28,29 @@ class Vector extends  Var {
 
     }
 
-//    @Override
-//    public Var add(Var other) {
-//        if (other instanceof Scalar){
-//            double otherValue = ((Scalar) other).getValue();
-//            double[] vectorValue = Arrays.copyOf(value, value.length);
-//            for (int i = 0; i < vectorValue.length; i++) {
-//                vectorValue[i] = vectorValue[i] + otherValue;
-//            }
-//            return  new Vector(vectorValue);
-//        } else
-//        if (other instanceof Vector){
-//            double[] otherValueValue = ((Vector)other).value;
-//            double[] vectorValue = Arrays.copyOf(value, value.length);
-//            for (int i = 0; i < vectorValue.length; i++) {
-//                vectorValue[i] = vectorValue[i] + otherValueValue[i];
-//
-//                return new Vector(vectorValue);
-//            }
-//        return super.add(other);
-//    } return null;
+    @Override
+    public Var add(Var other) {
+        if (other instanceof Scalar) {
+            double otherValue = ((Scalar) other).getValue();
+            double[] vectorValue = Arrays.copyOf(value, value.length);
+            for (int i = 0; i < vectorValue.length; i++) {
+                vectorValue[i] = vectorValue[i] + otherValue;
+            }
+            return new Vector(vectorValue);
+        } else if (other instanceof Vector) {
+            double[] vectorValue = Arrays.copyOf(this.value, this.value.length);
+
+            if (vectorValue.length == ((Vector) other).value.length) {
+                for (int i = 0; i < vectorValue.length; i++) {
+                    vectorValue[i] = vectorValue[i] + ((Vector) other).value[i];
+                }
+                return new Vector(vectorValue);
+            }
+        }
+        return super.add(other);
+    }
+
+
 
     @Override
     public String toString() {
