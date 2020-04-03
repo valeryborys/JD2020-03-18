@@ -6,6 +6,10 @@ import java.util.Arrays;
 public class Matrix extends Var {
     private double[][] value;
 
+    public double[][] getValue() {
+        return this.value;
+    }
+
     Matrix(double[][] value) {
         this.value = value;
     }
@@ -23,9 +27,7 @@ public class Matrix extends Var {
         }
         String[][] strTempArray2D = new String[strTempArray.length][strTempArray[0].split(",").length];
         for (int i = 0; i < strTempArray2D.length; i++) {
-            for (int j = 0; j < strTempArray2D[i].length; j++) {
-                strTempArray2D[i][j] = strTempArray[i].split(",")[j];
-            }
+            System.arraycopy(strTempArray[i].split(","), 0, strTempArray2D[i], 0, strTempArray2D[i].length);
         }
 
         value = new double[strTempArray.length][strTempArray[0].split(",").length];

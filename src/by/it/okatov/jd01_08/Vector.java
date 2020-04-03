@@ -50,20 +50,67 @@ class Vector extends Var {
             for (int i = 0; i < value.length; i++) {
                 value[i] += otherValue[i];
             }
+            return new Vector(value);
         } else {
             return super.add(other);
         }
-        return super.add(other);
+        //return super.add(other);
     }
 
 
     @Override
     public Var sub(Var other) {
-        return super.sub(other);
+        if (other instanceof Scalar) {
+            double otherValue = ((Scalar) other).getValue();
+            double[] vectorValue = Arrays.copyOf(value, value.length);
+            for (int i = 0; i < value.length; i++) {
+                value[i] -= otherValue;
+            }
+
+            return new Vector(value);
+        } else if (other instanceof Vector) {
+            double[] otherValue = ((Vector) other).value;
+            double[] vectorValue = Arrays.copyOf(value, value.length);
+            if (otherValue.length != vectorValue.length) {
+                System.out.println("Size!");
+                return null;
+            }
+            for (int i = 0; i < value.length; i++) {
+                value[i] -= otherValue[i];
+            }
+            return new Vector(value);
+        } else {
+            return super.sub(other);
+        }
     }
 
     @Override
     public Var mul(Var other) {
+        if (other instanceof Scalar) {
+            double otherValue = ((Scalar) other).getValue();
+            double[] vectorValue = Arrays.copyOf(value, value.length);
+            for (int i = 0; i < vectorValue.length; i++) {
+                vectorValue[i] *= otherValue;
+            }
+
+            return new Vector(vectorValue);
+        } else if (other instanceof Vector) {
+            double[] otherValue = ((Vector) other).value;
+            double[] vectorValue = Arrays.copyOf(value, value.length);
+            double scalarMultiplication = 0;
+            if (otherValue.length != vectorValue.length) {
+                System.out.println("Size!");
+                return null;
+            }
+            for (int i = 0; i < vectorValue.length; i++) {
+                scalarMultiplication += vectorValue[i] * otherValue[i];
+            }
+
+            return new Scalar(scalarMultiplication);
+        } else {
+            double[][] otherValue = ((Matrix) other).getValue();
+            double[] vectorValue = Arrays.copyOf(value, value.length);
+        }
         return super.mul(other);
     }
 
