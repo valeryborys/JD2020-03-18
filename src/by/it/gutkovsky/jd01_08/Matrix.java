@@ -112,6 +112,40 @@ class Matrix extends Var {
     }
 
     @Override
+    public Var add(Var other) {
+        if (other instanceof Scalar) {
+            // копирование матрицы
+            double[][] matrixResultSum = new double[this.value.length][this.value[0].length];
+            for (int i = 0; i < this.value.length; i++) {
+                matrixResultSum = Arrays.copyOf(this.value, this.value.length);
+            }
+
+            for (int i = 0; i < matrixResultSum.length; i++) {
+                for (int j = 0; j < matrixResultSum.length; j++) {
+                    matrixResultSum[i][j] = matrixResultSum[i][j] + ((Scalar) other).getValue();
+                }
+            }
+
+            return new Matrix(matrixResultSum);
+        }
+        if (other instanceof Matrix) {
+            // копирование матрицы
+            double[][] matrixResultSum = new double[this.value.length][this.value[0].length];
+            for (int i = 0; i < this.value.length; i++) {
+                matrixResultSum = Arrays.copyOf(this.value, this.value.length);
+            }
+
+            for (int i = 0; i < matrixResultSum.length; i++) {
+                for (int j = 0; j < matrixResultSum.length; j++) {
+                    matrixResultSum[i][j] = matrixResultSum[i][j] + ((Matrix) other).value[i][j];
+                }
+            }
+            return new Matrix(matrixResultSum);
+        }
+        return super.add(other);
+    }
+
+    @Override
     public String toString() {
         if (value == null)
             return "null";
@@ -121,22 +155,49 @@ class Matrix extends Var {
             return "{}";
         }
 
-        StringBuilder sb = new StringBuilder("{ ");
+        StringBuilder sb = new StringBuilder("{");
         for (int i = 0; i < value.length; i++) {
-            sb.append("{ ");
+            sb.append("{");
             for (int j = 0; j < value[0].length; j++) {
                 sb.append(value[i][j]);
                 if ((j != value[0].length - 1)) sb.append(", ");
-                else sb.append(" }");
+                else sb.append("}");
             }
             if (i != value.length - 1) sb.append(", ");
 
         }
 
-        sb.append(" }");
+        sb.append("}");
 
         return sb.toString();
     }
+
+//    @Override
+//    public String toString() {
+//        if (value == null)
+//            return "null";
+//        int iMaxRow = value.length - 1;
+//        int jMaxColumn = value[0].length - 1;
+//        if (iMaxRow == -1 && jMaxColumn == -1) {
+//            return "{}";
+//        }
+//
+//        StringBuilder sb = new StringBuilder("{ ");
+//        for (int i = 0; i < value.length; i++) {
+//            sb.append("{ ");
+//            for (int j = 0; j < value[0].length; j++) {
+//                sb.append(value[i][j]);
+//                if ((j != value[0].length - 1)) sb.append(", ");
+//                else sb.append(" }");
+//            }
+//            if (i != value.length - 1) sb.append(", ");
+//
+//        }
+//
+//        sb.append(" }");
+//
+//        return sb.toString();
+//    }
 }
 
 
