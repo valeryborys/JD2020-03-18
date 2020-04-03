@@ -110,8 +110,19 @@ class Vector extends Var {
         } else {
             double[][] otherValue = ((Matrix) other).getValue();
             double[] vectorValue = Arrays.copyOf(value, value.length);
+            double[] resVector = new double[vectorValue.length];
+            if (otherValue.length != vectorValue.length) {
+                System.out.println("Error!");
+                return null;
+            }
+            for (int i = 0; i < otherValue.length; i++) {
+                for (int j = 0; j < otherValue[i].length; j++) {
+                    resVector[i] += otherValue[i][j] * vectorValue[j];
+                }
+            }
+            return new Vector(resVector);
+
         }
-        return super.mul(other);
     }
 
     @Override

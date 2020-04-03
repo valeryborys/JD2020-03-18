@@ -46,6 +46,59 @@ public class Matrix extends Var {
     }
 
     @Override
+    public Var add(Var other) {
+        if (this.value.length == 0) {
+            System.out.println("Error! ");
+            return null;
+        }
+
+        if (other instanceof Scalar) {
+            double[][] matrixValue = Arrays.copyOf(getValue(), getValue().length);
+            double otherValue = ((Scalar) other).getValue();
+
+            for (int i = 0; i < matrixValue.length; i++) {
+                for (int j = 0; j < matrixValue[0].length; j++) {
+                    matrixValue[i][j] += otherValue;
+                }
+            }
+
+            return new Matrix(matrixValue);
+        } else if (other instanceof Matrix) {
+            double[][] matrixValue = Arrays.copyOf(getValue(), getValue().length);
+            double[][] otherValue = Arrays.copyOf(((Matrix) other).getValue(), ((Matrix) other).getValue().length);
+            if (matrixValue.length != otherValue.length || matrixValue[0].length != otherValue[0].length) {
+                System.out.println("Error! ");
+                return null;
+            }
+            double[][] resMatrix = new double[matrixValue.length][otherValue[0].length];
+            for (int i = 0; i < matrixValue.length; i++) {
+                for (int j = 0; j < matrixValue[0].length; j++) {
+                    resMatrix[i][j] = matrixValue[i][j] + otherValue[i][j];
+                }
+            }
+
+            return new Matrix(resMatrix);
+        } else {
+            return super.add(other);
+        }
+    }
+
+    @Override
+    public Var sub(Var other) {
+        return super.sub(other);
+    }
+
+    @Override
+    public Var mul(Var other) {
+        return super.mul(other);
+    }
+
+    @Override
+    public Var div(Var other) {
+        return super.div(other);
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("{");
 
