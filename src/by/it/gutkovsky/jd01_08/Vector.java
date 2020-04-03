@@ -52,23 +52,43 @@ class Vector extends Var {
 
     @Override
     public Var sub(Var other) {
-        double[] resultVectorSub = Arrays.copyOf(this.value, this.value.length);
         if (other instanceof Scalar) {
+            double[] resultVectorSub = Arrays.copyOf(this.value, this.value.length);
             for (int i = 0; i < resultVectorSub.length; i++) {
                 resultVectorSub[i] = resultVectorSub[i] - ((Scalar) other).getValue();
             }
             return new Vector(resultVectorSub);
         } else if (other instanceof Vector) {
+            double[] resultVectorSub = Arrays.copyOf(this.value, this.value.length);
             if (resultVectorSub.length == ((Vector) other).value.length) {
                 for (int i = 0; i < resultVectorSub.length; i++) {
                     resultVectorSub[i] = resultVectorSub[i] - ((Vector) other).value[i];
                 }
                 return new Vector(resultVectorSub);
             }
-
-
         }
         return super.sub(other);
+    }
+
+    @Override
+    public Var mul(Var other) {
+        if (other instanceof Scalar) {
+            double[] resultVectorMult = Arrays.copyOf(this.value, this.value.length);
+            for (int i = 0; i < resultVectorMult.length; i++) {
+                resultVectorMult[i] = resultVectorMult[i] * ((Scalar) other).getValue();
+            }
+            return new Vector(resultVectorMult);
+        } else if (other instanceof Vector) {
+            if (this.value.length == ((Vector) other).value.length) {
+                double[] resultVectorMult = Arrays.copyOf(this.value, this.value.length);
+                double resultMult = 0;
+                for (int i = 0; i < resultVectorMult.length; i++) {
+                    resultMult = resultMult + resultVectorMult[i] * ((Vector) other).value[i];
+                }
+                return new Scalar(resultMult);
+            }
+        }
+        return super.mul(other);
     }
 
     @Override
