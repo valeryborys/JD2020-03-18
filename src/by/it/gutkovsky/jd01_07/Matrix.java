@@ -20,93 +20,62 @@ class Matrix extends Var {
     }
 
     Matrix(String strMatrix) {
-//        String text = strMatrix;
-        String text = strMatrix.replaceAll("\\.", "A"); // замена . на "А" - чтобы случайно не удалить
-        String[] strMatrixArrayTemp = text.split("},"); // массив строк
+        String text = strMatrix.replaceAll("\\.", "A");
+        System.out.println(text);
 
-        String[] MatrixArrayFirst = strMatrixArrayTemp[0].split(","); // каждую строку разбиваю на отдельные элементы
-        String[] MatrixArraySecond = strMatrixArrayTemp[1].split(",");
-
-        StringBuilder[] firstMatrix = new StringBuilder[MatrixArrayFirst.length];
-        Pattern pattern = Pattern.compile("\\p{Punct}");
-
-        // удаление всех знаков пунктуации из первого массива
-        for (int i = 0; i < MatrixArrayFirst.length; i++) {
-            StringBuilder sb = new StringBuilder(MatrixArrayFirst[i]);
-            Matcher matcher = pattern.matcher(sb);
-            while (matcher.find()) {
-                int pos = matcher.start();
-                sb.setCharAt(pos, ' ');
-                firstMatrix[i] = sb;
-            }
-            firstMatrix[i] = sb; // если в строке нет совпадений по паттерну - ее просто копируем
+        // определение количества элементов
+        int element = 0;
+        StringBuilder sb = new StringBuilder(text);
+        Pattern pattern1 = Pattern.compile(",");
+        Matcher matcher1 = pattern1.matcher(sb);
+        while (matcher1.find()){
+            element++;
         }
 
-        // удаление всех знаков пунктуации из первого массива
-        StringBuilder[] SecondMatrix = new StringBuilder[MatrixArraySecond.length];
-        for (int i = 0; i < MatrixArraySecond.length; i++) {
-            StringBuilder sb = new StringBuilder(MatrixArraySecond[i]);
-            Matcher matcher = pattern.matcher(sb);
+        int elementCount = element+1;
+        System.out.println("количество элементов "+elementCount);
+
+        // разбиваю текс на массив строк
+        String[] textArray = text.split("},");
+        int rowCount = textArray.length; // число строк
+        System.out.println("число строк " + rowCount);
+
+        int columnCount = elementCount/rowCount; //число столбцов
+        System.out.println("число столбцов " + columnCount);
+        int j = 0;
+
+
+        String[][] stringArray = new String[rowCount][columnCount];
+
+        Pattern pattern = Pattern.compile("\\b\\dA?\\d?\\b");
+        for (int i = 0; i < textArray.length; i++) {
+            StringBuilder sb1 = new StringBuilder(textArray[i]);
+            Matcher matcher = pattern.matcher(sb1);
             while (matcher.find()) {
-                int pos = matcher.start();
-                sb.setCharAt(pos, ' ');
-                SecondMatrix[i] = sb;
+                int start = matcher.start();
+                int end = matcher.end();
+                stringArray[i][j] =  sb1.substring(start, end);
+                j++;
             }
-            SecondMatrix[i] = sb; // если в строке нет совпадений по паттерну - ее просто копируем
+            j = 0;
         }
 
-        // меняю обратно точку на А
-        Pattern pat = Pattern.compile("A");
-        for (int i = 0; i < firstMatrix.length; i++) {
-            StringBuilder sb = new StringBuilder(firstMatrix[i]);
-            Matcher matcher = pat.matcher(sb);
-            while (matcher.find()) {
-                int pos = matcher.start();
-                sb.setCharAt(pos, '.');
-                firstMatrix[i] = sb;
-            }
-        }
-
-        for (int i = 0; i < SecondMatrix.length; i++) {
-            StringBuilder sb = new StringBuilder(SecondMatrix[i]);
-            Matcher matcher = pat.matcher(sb);
-            while (matcher.find()) {
-                int pos = matcher.start();
-                sb.setCharAt(pos, '.');
-                SecondMatrix[i] = sb;
+        // возвращаем точку обратно
+        String[][] stringArray2 = new String[stringArray.length][stringArray[0].length];
+        for (int i = 0; i < stringArray.length; i++) {
+            for (int k = 0; k < stringArray.length; k++) {
+                stringArray2[i][k] = stringArray[i][k].replace('A','.');
             }
         }
 
-        // копирование массива из StringBuilder в  String - чтобы удилаить лишние пробелы (trim())
-        String[] firstMatrixString = new String[firstMatrix.length];
-        for (int i = 0; i < firstMatrixString.length; i++) {
-            firstMatrixString[i] = firstMatrix[i].toString();
+        // перевод массива String в double
+
+        double[][] result = new double[stringArray2.length][stringArray2[0].length];
+        for (int i = 0; i < stringArray2.length; i++) {
+            for (int k = 0; k < stringArray2.length; k++) {
+                result[i][k] = Double.parseDouble(stringArray2[i][k]);
+            }
         }
-
-        String[] secondMatrixString = new String[SecondMatrix.length];
-        for (int i = 0; i < secondMatrixString.length; i++) {
-            secondMatrixString[i] = SecondMatrix[i].toString();
-        }
-
-        // из двух массивов типа String  делаю два массива типа double
-        double[] firstMatrixArray = new double[firstMatrixString.length];
-        for (int i = 0; i < firstMatrixArray.length; i++) {
-            firstMatrixArray[i] = Double.parseDouble(firstMatrixString[i].trim());
-        }
-
-        double[] secondMatrixArray = new double[secondMatrixString.length];
-        for (int i = 0; i < secondMatrixArray.length; i++) {
-            secondMatrixArray[i] = Double.parseDouble(secondMatrixString[i].trim());
-        }
-
-        // копирую дваа одномерных массива в один двумерный
-        double[][] result = new double[2][firstMatrixArray.length];
-
-        System.arraycopy(firstMatrixArray, 0, result[0], 0, firstMatrixArray.length);
-        System.arraycopy(secondMatrixArray, 0, result[1], 0, secondMatrixArray.length);
-
-//        System.out.println(Arrays.deepToString(result)); // проверка стандартного вывода на печать
-
 
         this.value = result;
     }
