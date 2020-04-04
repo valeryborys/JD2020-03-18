@@ -6,9 +6,8 @@ import java.util.regex.Pattern;
 
 public class TaskB2 {
     public static void main(String[] args) {
-        StringBuilder text = new StringBuilder(Poem.text);
-/*        int index = text.indexOf("...");
-        text.replace(index, index+2," ");*/
+        String poemText = Poem.text.replace("... ", " ");
+        StringBuilder text = new StringBuilder(poemText);
         Pattern pattern = Pattern.compile("[//.]+");
         Pattern p = Pattern.compile("[\\n, !:.-]+");
         String[] sents = pattern.split(text);
