@@ -25,7 +25,7 @@ public class TaskC1 {
         System.out.println(line);
     }
 
-    private static StringBuilder changeLine(String line) {
+    private static String changeLine(String line) {
         StringBuilder lineBuilder = new StringBuilder(line);
         int lenght = line.length();
         Pattern pattern = Pattern.compile("(( ){1,})");
@@ -39,6 +39,6 @@ public class TaskC1 {
         }
 
         lineBuilder.append("\n");
-        return lineBuilder;
+        return lineBuilder.toString();
     }
 }
