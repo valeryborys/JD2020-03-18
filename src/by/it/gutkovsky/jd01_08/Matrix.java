@@ -146,15 +146,66 @@ class Matrix extends Var {
 //                    matrixResultSum[i][j] = this.value[i][j];
 //                }
 //            }
+            if (matrixResultSum.length == ((Matrix) other).value.length && matrixResultSum[0].length == ((Matrix) other).value.length) {
 
-            for (int i = 0; i < matrixResultSum.length; i++) {
-                for (int j = 0; j < matrixResultSum.length; j++) {
-                    matrixResultSum[i][j] = matrixResultSum[i][j] + ((Matrix) other).value[i][j];
+                for (int i = 0; i < matrixResultSum.length; i++) {
+                    for (int j = 0; j < matrixResultSum.length; j++) {
+                        matrixResultSum[i][j] = matrixResultSum[i][j] + ((Matrix) other).value[i][j];
+                    }
                 }
+                return new Matrix(matrixResultSum);
             }
-            return new Matrix(matrixResultSum);
         }
         return super.add(other);
+    }
+
+    @Override
+    public Var sub(Var other) {
+        if (other instanceof Scalar) {
+            // копирование матрицы
+            double[][] matrixResultSub = new double[this.value.length][this.value[0].length];
+            for (int i = 0; i < this.value.length; i++) {
+                matrixResultSub[i] = Arrays.copyOf(this.value[i], this.value.length);
+            }
+
+//            for (int i = 0; i < matrixResultSub.length; i++) {
+//                for (int j = 0; j < matrixResultSum.length; j++) {
+//                    matrixResultSub[i][j] = this.value[i][j];
+//                }
+//            }
+
+            for (int i = 0; i < matrixResultSub.length; i++) {
+                for (int j = 0; j < matrixResultSub.length; j++) {
+                    matrixResultSub[i][j] = matrixResultSub[i][j] - ((Scalar) other).getValue();
+                }
+            }
+
+            return new Matrix(matrixResultSub);
+        }
+        if (other instanceof Matrix) {
+            // копирование матрицы
+            double[][] matrixResultSub = new double[this.value.length][this.value[0].length];
+            for (int i = 0; i < this.value.length; i++) {
+                matrixResultSub[i] = Arrays.copyOf(this.value[i], this.value.length);
+            }
+
+//            for (int i = 0; i < matrixResultSub.length; i++) {
+//                for (int j = 0; j < matrixResultSub.length; j++) {
+//                    matrixResultSub[i][j] = this.value[i][j];
+//                }
+//            }
+            if (matrixResultSub.length == ((Matrix) other).value.length && matrixResultSub[0].length == ((Matrix) other).value.length) {
+
+                for (int i = 0; i < matrixResultSub.length; i++) {
+                    for (int j = 0; j < matrixResultSub.length; j++) {
+                        matrixResultSub[i][j] = matrixResultSub[i][j] - ((Matrix) other).value[i][j];
+                    }
+                }
+                return new Matrix(matrixResultSub);
+            }
+        }
+
+        return super.sub(other);
     }
 
     @Override
