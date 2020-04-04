@@ -58,7 +58,7 @@ class Scalar extends Var {
             if (otherValue == 0) {
                 super.div(other);
             }
-            double result = this.value + otherValue;
+            double result = this.value / otherValue;
             return new Scalar(result);
         }
         return super.div(other);

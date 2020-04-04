@@ -7,6 +7,10 @@ import java.util.Arrays;
 class Vector extends Var {
     private double[] value;
 
+    public double[] getValue() {
+        return value;
+    }
+
     Vector(double[] value) {
         this.value = value;
     }
@@ -34,23 +38,23 @@ class Vector extends Var {
     public Var add(Var other) {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).getValue();
-            double[] vectorValue = Arrays.copyOf(value, value.length);
-            for (int i = 0; i < value.length; i++) {
-                value[i] += otherValue;
+            double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
+            for (int i = 0; i < vectorValue.length; i++) {
+                vectorValue[i] += otherValue;
             }
 
-            return new Vector(value);
+            return new Vector(vectorValue);
         } else if (other instanceof Vector) {
-            double[] otherValue = ((Vector) other).value;
-            double[] vectorValue = Arrays.copyOf(value, value.length);
+            double[] otherValue = Arrays.copyOf(((Vector) other).getValue(), ((Vector) other).getValue().length);
+            double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
             if (otherValue.length != vectorValue.length) {
                 System.out.println("Size!");
                 return null;
             }
-            for (int i = 0; i < value.length; i++) {
-                value[i] += otherValue[i];
+            for (int i = 0; i < vectorValue.length; i++) {
+                vectorValue[i] += otherValue[i];
             }
-            return new Vector(value);
+            return new Vector(vectorValue);
         } else {
             return super.add(other);
         }
@@ -62,23 +66,23 @@ class Vector extends Var {
     public Var sub(Var other) {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).getValue();
-            double[] vectorValue = Arrays.copyOf(value, value.length);
-            for (int i = 0; i < value.length; i++) {
-                value[i] -= otherValue;
+            double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
+            for (int i = 0; i < vectorValue.length; i++) {
+                vectorValue[i] -= otherValue;
             }
 
-            return new Vector(value);
+            return new Vector(vectorValue);
         } else if (other instanceof Vector) {
-            double[] otherValue = ((Vector) other).value;
-            double[] vectorValue = Arrays.copyOf(value, value.length);
+            double[] otherValue = Arrays.copyOf(((Vector) other).getValue(), ((Vector) other).getValue().length);
+            double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
             if (otherValue.length != vectorValue.length) {
                 System.out.println("Size!");
                 return null;
             }
-            for (int i = 0; i < value.length; i++) {
-                value[i] -= otherValue[i];
+            for (int i = 0; i < vectorValue.length; i++) {
+                vectorValue[i] -= otherValue[i];
             }
-            return new Vector(value);
+            return new Vector(vectorValue);
         } else {
             return super.sub(other);
         }
@@ -88,15 +92,15 @@ class Vector extends Var {
     public Var mul(Var other) {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).getValue();
-            double[] vectorValue = Arrays.copyOf(value, value.length);
+            double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
             for (int i = 0; i < vectorValue.length; i++) {
                 vectorValue[i] *= otherValue;
             }
 
             return new Vector(vectorValue);
         } else if (other instanceof Vector) {
-            double[] otherValue = ((Vector) other).value;
-            double[] vectorValue = Arrays.copyOf(value, value.length);
+            double[] otherValue = Arrays.copyOf(((Vector) other).getValue(), ((Vector) other).getValue().length);
+            double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
             double scalarMultiplication = 0;
             if (otherValue.length != vectorValue.length) {
                 System.out.println("Size!");
@@ -108,29 +112,28 @@ class Vector extends Var {
 
             return new Scalar(scalarMultiplication);
         } else {
-            double[][] otherValue = ((Matrix) other).getValue();
-            double[] vectorValue = Arrays.copyOf(value, value.length);
-            double[] resVector = new double[vectorValue.length];
-            if (otherValue.length != vectorValue.length) {
-                System.out.println("Error!");
-                return null;
-            }
-            for (int i = 0; i < otherValue.length; i++) {
-                for (int j = 0; j < otherValue[i].length; j++) {
-                    resVector[i] += otherValue[i][j] * vectorValue[j];
-                }
-            }
-            return new Vector(resVector);
 
+            return super.mul(other);
         }
     }
 
     @Override
     public Var div(Var other) {
-        return super.div(other);
+        if (other instanceof Scalar) {
+            double otherValue = ((Scalar) other).getValue();
+            double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
+            for (int i = 0; i < vectorValue.length; i++) {
+                vectorValue[i] /= otherValue;
+            }
+
+            return new Vector(vectorValue);
+        } else {
+            return super.div(other);
+        }
+
     }
 
-    //Спросить про AtomicReference в Java и в этом методе - нужно ли и когда?
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("{");
