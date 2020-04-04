@@ -117,8 +117,14 @@ class Matrix extends Var {
             // копирование матрицы
             double[][] matrixResultSum = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
-                matrixResultSum = Arrays.copyOf(this.value, this.value.length);
+                matrixResultSum[i] = Arrays.copyOf(this.value[i], this.value.length);
             }
+
+//            for (int i = 0; i < matrixResultSum.length; i++) {
+//                for (int j = 0; j < matrixResultSum.length; j++) {
+//                    matrixResultSum[i][j] = this.value[i][j];
+//                }
+//            }
 
             for (int i = 0; i < matrixResultSum.length; i++) {
                 for (int j = 0; j < matrixResultSum.length; j++) {
@@ -132,8 +138,14 @@ class Matrix extends Var {
             // копирование матрицы
             double[][] matrixResultSum = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
-                matrixResultSum = Arrays.copyOf(this.value, this.value.length);
+                matrixResultSum[i] = Arrays.copyOf(this.value[i], this.value.length);
             }
+
+//            for (int i = 0; i < matrixResultSum.length; i++) {
+//                for (int j = 0; j < matrixResultSum.length; j++) {
+//                    matrixResultSum[i][j] = this.value[i][j];
+//                }
+//            }
 
             for (int i = 0; i < matrixResultSum.length; i++) {
                 for (int j = 0; j < matrixResultSum.length; j++) {
