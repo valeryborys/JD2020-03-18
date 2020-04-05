@@ -6,27 +6,24 @@ import java.util.regex.Pattern;
 class Matrix extends Var {
     private double[][] value;
 
-    public double[][] getValue() {
-        return value;
-    }
-
-    public void setValue(double[][] value) {
-        this.value = value;
-    }
-
     @Override
     public Var add(Var other) {
-        double[][] sum = Arrays.copyOf(getValue(), getValue().length);
         if (other instanceof Scalar) {
-//            double[][] sum = Arrays.copyOf(getValue(), getValue().length);
+            double[][] sum = value.clone();
+            for (int i = 0; i < sum.length; i++) {
+                sum[i] = value[i].clone();
+            }
             for (int i = 0; i < sum.length; i++) {
                 for (int j = 0; j < sum[i].length; j++) {
                     sum[i][j] = sum[i][j] + ((Scalar) other).getValue();
                 }
             }
             return new Matrix(sum);
-        } else if ((other instanceof Matrix) && (getValue().length == ((Matrix) other).value.length)) {
-//            double[][] sum = Arrays.copyOf(getValue(), getValue().length);
+        } else if ((other instanceof Matrix) && (value.length == ((Matrix) other).value.length)) {
+            double[][] sum = value.clone();
+            for (int i = 0; i < sum.length; i++) {
+                sum[i] = value[i].clone();
+            }
             for (int i = 0; i < sum.length; i++) {
                 for (int j = 0; j < sum[0].length; j++) {
                     sum[i][j] = sum[i][j] + ((Matrix) other).value[i][j];
@@ -39,28 +36,37 @@ class Matrix extends Var {
     @Override
     public Var sub(Var other) {
         if (other instanceof Scalar) {
-            double[][] sub1 = Arrays.copyOf(this.value, this.value.length);
-            for (int i = 0; i < sub1.length; i++) {
-                for (int j = 0; j < sub1[i].length; j++) {
-                    sub1[i][j] = sub1[i][j] - ((Scalar) other).getValue();
+            double[][] sub = value.clone();
+            for (int i = 0; i < sub.length; i++) {
+                sub[i] = value[i].clone();
+            }
+            for (int i = 0; i < sub.length; i++) {
+                for (int j = 0; j < sub[i].length; j++) {
+                    sub[i][j] = sub[i][j] - ((Scalar) other).getValue();
                 }
             }
-            return new Matrix(sub1);
+            return new Matrix(sub);
         } else if ((other instanceof Matrix) && (this.value.length == ((Matrix) other).value.length)) {
-            double[][] sub2 = Arrays.copyOf(this.value, this.value.length);
-            for (int i = 0; i < sub2.length; i++) {
-                for (int j = 0; j < sub2[i].length; j++) {
-                    sub2[i][j] = sub2[i][j] - ((Matrix) other).value[i][j];
+            double[][] sub = value.clone();
+            for (int i = 0; i < sub.length; i++) {
+                sub[i] = value[i].clone();
+            }
+            for (int i = 0; i < sub.length; i++) {
+                for (int j = 0; j < sub[i].length; j++) {
+                    sub[i][j] = sub[i][j] - ((Matrix) other).value[i][j];
                 }
             }
-            return new Matrix(sub2);
+            return new Matrix(sub);
         } else return super.sub(other);
     }
 
     @Override
     public Var mul(Var other) {
         if (other instanceof Scalar) {
-            double[][] mul = Arrays.copyOf(this.value, this.value.length);
+            double[][] mul = value.clone();
+            for (int i = 0; i < mul.length; i++) {
+                mul[i] = value[i].clone();
+            }
             for (int i = 0; i < mul.length; i++) {
                 for (int j = 0; j < mul[0].length; j++) {
                     mul[i][j] = mul[i][j] * ((Scalar) other).getValue();
