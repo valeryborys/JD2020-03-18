@@ -39,6 +39,10 @@ class Vector extends Var {
 
     }
 
+    public double[] getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
