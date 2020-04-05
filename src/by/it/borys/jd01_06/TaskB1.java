@@ -6,8 +6,7 @@ public class TaskB1 {
         findWords(Poem.text);
     }
   private static void findWords(String text) {
-        StringBuilder sb = new StringBuilder(text);
-        String vowels = "аеёиоыуэюяАЕЁИОУЭЮЯ";
+      String vowels = "аеёиоыуэюяАЕЁИОУЭЮЯ";
       String[] words = text.split("[^а-яА-яёЁ]");
         for (int i = 0; i < words.length; i++) {
             if (words[i].length() >= 2) {
