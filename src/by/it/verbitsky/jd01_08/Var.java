@@ -1,29 +1,34 @@
 package by.it.verbitsky.jd01_08;
 
-public abstract class Var implements Operation {
+abstract class Var implements Operation {
     @Override
     public String toString() {
         return " Abstract Var";
     }
 
     @Override
-    public by.it.verbitsky.jd01_07.Var add(by.it.verbitsky.jd01_07.Var other) {
-        System.out.printf("Operation imposible %s + %s", this);
+    public Var add(Var other) {
+        System.out.println("Вызван метод ADD Абстрактного класса VAR");
+        System.out.printf("\nOperation 'add' impossible  with arguments: %s and %s ", this.toString(), other.toString());
         return null;
     }
 
     @Override
-    public by.it.verbitsky.jd01_07.Var sub(by.it.verbitsky.jd01_07.Var other) {
+    public Var sub(Var other) {
+        System.out.printf("\nOperation 'sub' impossible  with arguments: %s and %s ", this.toString(), other.toString());
         return null;
     }
 
     @Override
-    public by.it.verbitsky.jd01_07.Var mul(by.it.verbitsky.jd01_07.Var other) {
+    public Var mul(Var other) {
+        System.out.printf("\nOperation 'mul' impossible  with arguments: %s and %s ", this.toString(), other.toString());
         return null;
     }
 
     @Override
-    public by.it.verbitsky.jd01_07.Var div(by.it.verbitsky.jd01_07.Var other) {
+    public Var div(Var other) {
+        System.out.printf("\nOperation 'div' impossible  with arguments: %s and %s ", this.toString(), other.toString());
         return null;
     }
+
 }
