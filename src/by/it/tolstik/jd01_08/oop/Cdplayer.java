@@ -1,10 +1,12 @@
 package by.it.tolstik.jd01_08.oop;
 
-class Videoplayer extends Player{
+public class Cdplayer extends Player{
 
-    Videoplayer(String model, boolean exist) {
-        super(model,exist);
+
+    Cdplayer(String model, boolean exist) {
+        super(model, exist);
     }
+
     @Override
     public void isWork() {
         if (this.getExist()) {
@@ -73,6 +75,6 @@ class Videoplayer extends Player{
 
     @Override
     public String toString() {
-        return this.getModel() + " супервидеоплеер.";
+        return this.getModel() + " суперсидиплеер.";
     }
 }
