@@ -1,7 +1,5 @@
 package by.it.tolstik.jd01_04;
 
-import java.util.Arrays;
-
 class TaskC {
     public static void main(String[] args) {
         buildOneDimArray("1 2 3");
