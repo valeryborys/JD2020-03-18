@@ -1,7 +1,5 @@
 package by.it.gutkovsky.jd01_01;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /* Нужно написать программу, которая вводит два числа с клавиатуры
