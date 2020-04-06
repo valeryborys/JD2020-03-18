@@ -12,7 +12,7 @@ public class TaskA1 {
         while (matcher.find()) {
             int position = matcher.start();
             text.setCharAt(position + 3, '#');
-            if (matcher.end() - matcher.start() >=7){
+            if (matcher.end() - matcher.start() >= 7) {
                 text.setCharAt(position + 6, '#');
             }
         }

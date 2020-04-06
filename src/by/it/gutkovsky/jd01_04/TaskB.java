@@ -1,7 +1,5 @@
 package by.it.gutkovsky.jd01_04;
 
-import jdk.nashorn.internal.ir.CallNode;
-
 import java.util.Scanner;
 
  class TaskB {
