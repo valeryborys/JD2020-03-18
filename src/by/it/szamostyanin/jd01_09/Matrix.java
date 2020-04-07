@@ -1,4 +1,4 @@
-package by.it.szamostyanin.jd01_07;
+package by.it.szamostyanin.jd01_09;
 
 import java.util.Arrays;
 
@@ -15,22 +15,20 @@ class Matrix extends Var {
     }
 
     Matrix(String strMatrix) {
-        String[] strings = strMatrix.split("},"); //strings[i] = {1,2,3}{1,2,3}{1,2,3}{1,2,3}
-        double [][] mass= new double[strings.length][];
+        String[] strings = strMatrix.split("},");
+        double[][] mass = new double[strings.length][];
         for (int i = 0; i < strings.length; i++) {
-            //вызать для каждого элемента гетэррэй и
-            //присвоить результат в соответствующую строку результирующего массива
             mass[i] = getArrayFromString(strings[i]);
         }
-        this.value=mass;
+        this.value = mass;
     }
 
-    double[ ] getArrayFromString(String s) {
+    double[] getArrayFromString(String s) {
         s = s.replaceAll("[{}\\s]", "");
         String[] strings = s.split(",");
         double[] res = new double[strings.length];
         for (int i = 0; i < strings.length; i++) {
-            res[i]=Double.parseDouble(strings[i]);
+            res[i] = Double.parseDouble(strings[i]);
         }
         return res;
     }

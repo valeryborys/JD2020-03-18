@@ -1,4 +1,5 @@
-package by.it.szamostyanin.jd01_07;
+package by.it.szamostyanin.jd01_09;
+
 import java.util.Arrays;
 
 class Vector extends Var {
@@ -6,10 +7,6 @@ class Vector extends Var {
 
     Vector(double[] value) {
         this.value = Arrays.copyOf(value, value.length);
-    }
-
-    Vector(Vector vector) {
-        this.value = Arrays.copyOf(vector.value, vector.value.length);
     }
 
     Vector(String strVector) {
@@ -20,6 +17,10 @@ class Vector extends Var {
             res[i]=Double.parseDouble(strings[i]);
         }
         this.value = res;
+    }
+
+    Vector(Vector vector) {
+        this.value = Arrays.copyOf(vector.value, vector.value.length);
     }
 
     @Override
