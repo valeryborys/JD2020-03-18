@@ -1,6 +1,6 @@
 package by.it.borys.jd01_09;
 
-public interface Pattern {
+public interface Patterns {
 
     static final String OPERATION = "[*/+-]";
     static final String SCALAR = "-?[0-9\\.]+";
