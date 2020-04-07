@@ -1,6 +1,5 @@
 package by.it.gutkovsky.jd01_02;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
  class TaskA {

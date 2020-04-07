@@ -17,7 +17,6 @@ public class TaskB1 {
             String word = matcher.group();
             if (word.length() > 1) check(word);
         }
-        System.out.println(words.length);
         for (String word : words) {
             System.out.println(word);
         }
@@ -25,11 +24,9 @@ public class TaskB1 {
 
     private static void check(String word) {
         char[] chars = word.toCharArray();
-        if (equalCons(chars)) {
-            if (equalVowels(chars)) {
-                words = Arrays.copyOf(words, words.length + 1);
-                words[words.length - 1] = word;
-            }
+        if (equalCons(chars) && equalVowels(chars)) {
+            words = Arrays.copyOf(words, words.length + 1);
+            words[words.length - 1] = word;
         }
     }
 
@@ -39,7 +36,6 @@ public class TaskB1 {
                 return false;
             }
         }
-
         return true;
     }
 
