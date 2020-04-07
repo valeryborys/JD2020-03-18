@@ -10,4 +10,8 @@ public @interface Log {
     String text();
 
     Level level() default Level.INFO;
+
+    enum Level {
+        ERROR, DEBUG, INFO, MESSAGES
+    }
 }

@@ -1,7 +1,8 @@
 package by.it._examples_.jd01_10.sample_proxylog;
 
 public interface Sender {
-    void createConnect(String uri);
+
+    void createConnection(String uri);
 
     void openTransaction();
 

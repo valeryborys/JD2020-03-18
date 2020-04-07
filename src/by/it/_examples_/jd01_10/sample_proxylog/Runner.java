@@ -9,7 +9,7 @@ public class Runner {
         sender = ProxyLogger.getLoggedSender(sender);
 
         System.out.println("sum: $" + sender.getAmount());
-        sender.createConnect("jdbc....");
+        sender.createConnection("jdbc....");
         sender.openTransaction();
         sender.sendMoney(5);
         sender.closeTransaction();

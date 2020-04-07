@@ -7,8 +7,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+/**
+ * Логгер для объектов на интерфейсе Sender
+ */
 public class ProxyLogger {
 
+    //метод который создает прокси-объект
     public static Sender getLoggedSender(Sender target) {
         return (Sender) Proxy.newProxyInstance(
                 target.getClass().getClassLoader(),
@@ -17,6 +21,7 @@ public class ProxyLogger {
         );
     }
 
+    //метод создает обработчик вызовов методов
     private static InvocationHandler getInvocationHandler(Sender target) {
         return (proxy, proxyMethod, args) -> {
             Method method = target.getClass().getMethod(
@@ -29,6 +34,7 @@ public class ProxyLogger {
         };
     }
 
+    //метод для вывод лога в консоль с данными его аннотации
     private static void log(Method method) {
         Log a = method.getAnnotation(Log.class);
         System.out.printf("\033[32mLevel:%-10s\033[0m Name: %-20s LOG: %s\n",
