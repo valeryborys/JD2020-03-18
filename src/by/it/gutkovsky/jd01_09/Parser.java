@@ -14,6 +14,10 @@ class Parser {
         }
         Var right = Var.createVar(parts[1]);
 
+        if (left == null || right == null) {
+            return null; // в этом месте нужно будет генерироавть ошибку
+        }
+
         Matcher matcherOp = Pattern.compile(Patterns.OPERATION).matcher(expresion);
         if (matcherOp.find()) {
             String operation = matcherOp.group();
@@ -28,9 +32,6 @@ class Parser {
                     return left.div(right);
             }
         }
-
         return null;
-
-
     }
 }
