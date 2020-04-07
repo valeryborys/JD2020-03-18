@@ -20,8 +20,7 @@ public class ProxyLogger {
     private static InvocationHandler getInvocationHandler(Sender target) {
         return (proxy, proxyMethod, args) -> {
             Method method = target.getClass().getMethod(
-                    proxyMethod.getName(), (Class<?>[]) proxyMethod.getGenericParameterTypes()
-            );
+                    proxyMethod.getName(), (Class<?>[]) proxyMethod.getGenericParameterTypes());
             if (method.isAnnotationPresent(Log.class)) {
                 log(method);
                 return method.invoke(target, args);

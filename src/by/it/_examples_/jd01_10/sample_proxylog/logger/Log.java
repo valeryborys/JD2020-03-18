@@ -4,8 +4,8 @@ import java.lang.annotation.*;
 
 @Documented
 @Inherited
-@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Log {
     String text();
 
