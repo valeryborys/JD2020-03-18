@@ -7,16 +7,13 @@ class ConsoleRunner {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
-        for(; ; ){
+        for (; ; ) {
             String expression = sc.nextLine();
-            if (expression.equals("end")){
+            if (expression.equals("end")) {
                 break;
             }
-            Var var =parser.calc(expression);
+            Var var = parser.calc(expression);
             printer.print(var);
         }
-
-
-
     }
 }
