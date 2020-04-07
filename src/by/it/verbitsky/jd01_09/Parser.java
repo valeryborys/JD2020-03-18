@@ -6,8 +6,11 @@ import java.util.regex.Pattern;
 class Parser {
     Var calc (String expression) {
         String[] parts = expression.split(Patterns.OPERATION, 2);
+        for (String part : parts) {
+            System.out.println(part);
+        }
         Var left = Var.createVar(parts[0]);
-        if (parts.length ==1) {
+        if (parts.length == 1) {
             return left;
         }
         Var right = Var.createVar(parts[1]);
