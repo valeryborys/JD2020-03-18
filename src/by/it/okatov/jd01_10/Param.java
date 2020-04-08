@@ -1,7 +1,14 @@
 package by.it.okatov.jd01_10;
 
-public @interface Param {
-    int firstArg();
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-    int secondArg();
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Param {
+    int a();
+
+    int b();
 }
