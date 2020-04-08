@@ -2,7 +2,7 @@ package by.it.borys.jd01_06;
 
 public class TaskC2 {
     public static void main(String[] args) {
-          String text = getWords(Poem.text);
+        String text = getWords(Poem.text);
         long start1 = System.nanoTime();//получает системное время в наносекундах до запуска метода
         System.out.println(slow(text));
         long finish1 = System.nanoTime();//получает системное время в наносекундах после выполнения метода
@@ -44,8 +44,7 @@ public class TaskC2 {
             words[j] = temp;
             sb.append(words[i]).append(" ");
         }
-        String randomwords = sb.toString();
-        return randomwords;
+        return sb.toString();
     }
 }
 
