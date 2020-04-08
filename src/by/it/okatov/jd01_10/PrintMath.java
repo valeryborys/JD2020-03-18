@@ -11,15 +11,17 @@ public class PrintMath {
     public static void main(String[] args) {
         StringBuilder sb = new StringBuilder();
         Class<?> aClass = Math.class;
-        Method[] methods = aClass.getDeclaredMethods();
+        Method[] methods = aClass.getMethods();
         Field[] fields = aClass.getDeclaredFields();
         reflectionGetMethods(sb, methods);
+        reflectionGetFields(fields);
+    }
 
-
+    private static void reflectionGetFields(Field[] fields) {
+        StringBuilder sb;
         sb = new StringBuilder();
         int mod;
         String varType;
-        Class<?>[] argTypes;
         System.out.println("Fields: ");
         for (Field f : fields) {
             mod = f.getModifiers();
@@ -52,7 +54,7 @@ public class PrintMath {
                     if (i + 1 == argTypes.length) {
                         break;
                     } else {
-                        sb.append(", ");
+                        sb.append(",");
                     }
                 }
                 sb.append(");");
@@ -62,7 +64,7 @@ public class PrintMath {
             } else {
                 System.out.println(sb);
             }
-            System.out.println(m);
+
             sb = new StringBuilder();
         }
     }
