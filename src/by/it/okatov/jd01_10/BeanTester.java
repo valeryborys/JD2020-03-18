@@ -6,6 +6,13 @@ import java.lang.reflect.Modifier;
 
 public class BeanTester {
     public static void main(String[] args) throws Exception {
+
+        beanMethodsInvocation();
+    }
+
+
+    private static void beanMethodsInvocation()
+            throws NoSuchMethodException, java.lang.reflect.InvocationTargetException {
         Bean beanClass;
         int aVar; //Первый операнд аннотации Param
         int bVar; //Второй операнд аннотации Param
@@ -26,6 +33,8 @@ public class BeanTester {
             for (Method m : methods) {
                 if (m.isAnnotationPresent(Param.class)) {
                     Annotation annotation = m.getAnnotation(annClass);
+
+                    //Вызываем методы аннотации (на самом деле просто получаем значения параметров)
                     aVar = (int) a.invoke(annotation);
                     bVar = (int) b.invoke(annotation);
 
