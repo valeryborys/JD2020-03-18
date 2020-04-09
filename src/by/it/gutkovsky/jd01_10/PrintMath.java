@@ -1,13 +1,15 @@
 package by.it.gutkovsky.jd01_10;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 
-public class PrintMath {
+class PrintMath {
     public static void main(String[] args) {
         Class<?> mathClass = Math.class;
         Method[] declaredMethods = mathClass.getDeclaredMethods();
+
+        // получение всех публичных методов
         for (Method declaredMethod : declaredMethods) {
             int modifiers = declaredMethod.getModifiers(); // получение модификатора метода
 //            System.out.println(modifierToString);
@@ -35,8 +37,15 @@ public class PrintMath {
             }
         }
 
-
+        // получение публичных полей и их типов
+        Field[] declaredFields = mathClass.getDeclaredFields();
+        for (Field declaredField : declaredFields) {
+            int fieldModifier = declaredField.getModifiers();
+            if (Modifier.isPublic(fieldModifier)) {
+                String fieldName = declaredField.getName();
+                Class<?> fieldType = declaredField.getType();
+                System.out.println(fieldType + " " + fieldName);
+            }
+        }
     }
-
-
 }
