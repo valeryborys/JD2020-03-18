@@ -30,7 +30,19 @@ class BeanTester {
                 int aValue = annotation.a();
                 int bValue = annotation.b();
                 double methodResult = (double) declaredMethod.invoke(o,aValue, bValue); // вычисление работы метода
-                System.out.println(methodName + " = " + methodResult);
+//                System.out.println(methodName + " = " + methodResult); //обычный вывод
+                System.out.printf("\033[32m method: \033[36m%s= \033[31m%s\n",methodName,methodResult); // цветной вывод
+                /*
+                \033 - далее символ отвечающий за цвет
+                [30m - черный
+                [31m - красный
+                [32m - зеленый
+                [33m - желтый
+                [34m - синий
+                [35m - пурпурный
+                [36m - голубой
+                [37m - белый.
+                 */
                 }
         }
     }
