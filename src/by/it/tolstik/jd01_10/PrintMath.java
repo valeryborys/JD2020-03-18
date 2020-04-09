@@ -26,7 +26,7 @@ class PrintMath {
         Field[] fields = mathClass.getFields();
         for (Field field : fields) {
             Class<?> type = field.getType();
-            System.out.printf("%s %s\n",type.getSimpleName(),field.getName());
+            System.out.printf("%s %s\n", type.getSimpleName(), field.getName());
         }
 
     }
