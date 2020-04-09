@@ -6,7 +6,7 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
 
-public class PrintMath {
+class PrintMath {
     public static void main(String[] args) {
         Class<?> mathClass = Math.class;
         Method[] methods = mathClass.getDeclaredMethods();
