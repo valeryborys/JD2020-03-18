@@ -10,9 +10,10 @@ class PrintString {
         for (Method method : methods) {
             int modifiers = method.getModifiers();
             if (!Modifier.isStatic(modifiers) && !(method.getName().equals("formatted"))) {
-                System.out.printf("%s\n", method.getName());
+                System.out.printf("%s\n",method.getName());
             }
         }
     }
+
 }
 
