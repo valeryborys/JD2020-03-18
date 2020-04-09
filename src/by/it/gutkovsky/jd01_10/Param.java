@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface Param {
-    int a();
+    int a() default 57; // значение по default  добавил от себя
     int b();
 }

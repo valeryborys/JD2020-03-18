@@ -1,7 +1,7 @@
 package by.it.gutkovsky.jd01_10;
 
 class Bean {
-    @Param(a = 1, b = 2)
+    @Param( b = 2) // значение для а будет браться по default (добавил от себя)
     static double sum(int a, int b) {
         return (a + b);
     }
