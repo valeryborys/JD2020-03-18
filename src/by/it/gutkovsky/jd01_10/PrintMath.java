@@ -2,6 +2,7 @@ package by.it.gutkovsky.jd01_10;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 
 public class PrintMath {
     public static void main(String[] args) {
@@ -9,30 +10,33 @@ public class PrintMath {
         Method[] declaredMethods = mathClass.getDeclaredMethods();
         for (Method declaredMethod : declaredMethods) {
             int modifiers = declaredMethod.getModifiers(); // получение модификатора метода
-            if(Modifier.isPublic(modifiers)){
+//            System.out.println(modifierToString);
+            if (Modifier.isPublic(modifiers)) {
+                String modifierToString = Modifier.toString(modifiers);
                 String methodName = declaredMethod.getName(); // имя метода
                 String returnName = declaredMethod.getReturnType().getName(); // получаем имя возвращаемоего: getReturnType() - ссылка на клас, getName() - само имя
-//                System.out.printf("%d %s %S()\n",modifiers, returnName, methodName); // пример вывода: 9 int ABS()
+//                System.out.printf("%d %s %s()\n",modifiers, returnName, methodName); // пример вывода: 9 int abs()
                 Class<?>[] parameterTypes = declaredMethod.getParameterTypes();// параметры всех методов
-//                for (int i = 0; i < parameterTypes.length; i++) {
-//                    System.out.println(parameterTypes[i]);
-//
-//                }
-                StringBuilder arg = new StringBuilder(); //  преобра зуем параметры всех методов в String
-                for (Class<?> parameterType : parameterTypes) {
-//                    if (parameterType.len)
-                    arg.append(parameterType.getSimpleName()).append(" ");
-
-                    System.out.println(arg + " "  + arg.capacity());
-//                    System.out.println(arg);
+                StringBuilder arg = new StringBuilder(); //  преобразуем параметры всех методов в String
+                for (int i = 0; i < parameterTypes.length; i++) {
+                    if (parameterTypes.length == 1) {
+                        arg.append(parameterTypes[i].getSimpleName());
+                    } else {
+                        if (parameterTypes.length > 1) {
+                            if (i == (parameterTypes.length - 1)) {
+                                arg.append(parameterTypes[i].getSimpleName());
+                            } else {
+                                arg.append(parameterTypes[i].getSimpleName()).append(",");
+                            }
+                        }
+                    }
                 }
-//                System.out.printf("%d %s %s(%s)\n",modifiers, returnName, methodName, arg); // пример вывода: 9 int abs(int,)
-
+                System.out.printf("%s %s %s(%s)\n", modifierToString, returnName, methodName, arg); // пример вывода: 9 int abs(int,)
             }
-
-
         }
 
 
     }
+
+
 }
