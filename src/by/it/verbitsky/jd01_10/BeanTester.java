@@ -14,7 +14,7 @@ class BeanTester {
         double result;
         for (Method method : clazz.getDeclaredMethods()) {
             if (method.isAnnotationPresent(Param.class)) {
-                //проверим, есть ли аннотация Param  методе классе Bean
+                //проверим, есть ли аннотация Param  на методе класса Bean
                 //Если да, то получаем ее:
                 Param ann = method.getAnnotation(Param.class);
                 //если объект еще не создавался - создадим его
