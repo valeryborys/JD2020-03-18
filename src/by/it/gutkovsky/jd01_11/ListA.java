@@ -3,9 +3,24 @@ package by.it.gutkovsky.jd01_11;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Arrays;
 import java.util.ListIterator;
 
 class ListA<T> implements List<T> {
+    private T[] elements = (T[]) new Object[]{};
+    private int size = 0;
+
+
+    @Override
+    public boolean add(T element) {
+        if (size == elements.length){
+            elements = Arrays.copyOf(elements, elements.length*3/2+1);
+        }
+        elements[size++] = element;
+        return true;
+    }
+
+// STUBS
     @Override
     public int size() {
         return 0;
@@ -34,11 +49,6 @@ class ListA<T> implements List<T> {
     @Override
     public <T1> T1[] toArray(T1[] a) {
         return null;
-    }
-
-    @Override
-    public boolean add(T t) {
-        return false;
     }
 
     @Override
