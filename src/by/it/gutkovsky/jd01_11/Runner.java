@@ -14,6 +14,13 @@ class Runner {
         list.add("five");
 
         System.out.println(list);
+        System.out.println();
+
+        System.out.println( "element 2 = " + list.get(2));
+        System.out.println();
+        System.out.println("remove element 2 = " + list.remove(2));
+        System.out.println();
+        System.out.println(list);
 
 
 

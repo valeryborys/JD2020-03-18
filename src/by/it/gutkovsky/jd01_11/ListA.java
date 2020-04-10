@@ -20,7 +20,35 @@ class ListA<T> implements List<T> {
         return true;
     }
 
-// STUBS
+    @Override
+    public T get(int index) {
+        return elements[index];
+    }
+
+    @Override
+    public T remove(int index) {
+        // 0 1 2 3 4 5 - - -
+        T ret = elements[index];
+        System.arraycopy(elements, index+1, elements, index,size-index-1);
+        size--;
+        return ret;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("[");
+        String delimiter = "";
+        for (int i = 0; i < size; i++) {
+            sb.append(delimiter).append(elements[i]);
+            delimiter = ", ";
+        }
+        sb.append("]");
+
+        return sb.toString();
+    }
+
+    // STUBS
+
     @Override
     public int size() {
         return 0;
@@ -87,11 +115,6 @@ class ListA<T> implements List<T> {
     }
 
     @Override
-    public T get(int index) {
-        return null;
-    }
-
-    @Override
     public T set(int index, T element) {
         return null;
     }
@@ -99,11 +122,6 @@ class ListA<T> implements List<T> {
     @Override
     public void add(int index, T element) {
 
-    }
-
-    @Override
-    public T remove(int index) {
-        return null;
     }
 
     @Override
