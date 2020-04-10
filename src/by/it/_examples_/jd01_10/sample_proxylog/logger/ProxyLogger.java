@@ -12,6 +12,7 @@ import java.lang.reflect.Proxy;
  */
 public class ProxyLogger {
 
+
     //метод который создает прокси-объект
     public static Sender getLoggedSender(Sender target) {
         return (Sender) Proxy.newProxyInstance(
