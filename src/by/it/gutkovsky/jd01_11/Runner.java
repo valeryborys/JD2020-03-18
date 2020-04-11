@@ -60,16 +60,55 @@ class Runner {
         System.out.println("ListB contains Dima? : " + list2.contains("Dima"));
 
  */
-        Set<String> set = new HashSet<>();
-        set.add("one");
-        set.add("two");
-        set.add("three");
-        set.add("four");
+        Set<Short> set = new HashSet<>();
 
-        Set<String> mySet = new SetC<>();
-        mySet.add("one");
-        mySet.add("two");
-        mySet.add("three");
-        mySet.add("four");
+//        set.add("one");
+//        set.add("");
+//        set.add("");
+//        set.add("four");
+//        set.add("one");
+
+        Set<Short> mySet = new SetC<>();
+//        mySet.add("one");
+//        mySet.add("");
+//        mySet.add("");
+//        mySet.add("four");
+//        mySet.add("one");
+
+        for (int i = 0; i < 10; i++) {
+            set.add((short) (i * 2));
+            mySet.add((short) (i * 2));
+        }
+//        set.add(null);
+//        mySet.add(null);
+
+        System.out.println(set);
+        System.out.println(mySet);
+        System.out.println();
+        System.out.println(set.size());
+        System.out.println(mySet.size());
+        System.out.println();
+        System.out.println("set contains 2? : " + set.contains(2));
+        System.out.println("mySet contains 2? : " + mySet.contains(2));
+        List<Short> added = new ArrayList<>();
+        added.add(null);
+        added.add(null);
+        added.add((short) 1000);
+        added.add((short) 1000);
+        added.add((short) 1001);
+        added.add((short) 1002);
+        System.out.println("Set : test addAll : " + set.addAll(added) + " : " + set + " size : " + set.size());
+        System.out.println("mySet : test addAll : " + mySet.addAll(added) + " : " + mySet + " size : " + mySet.size() );
+        System.out.println();
+        System.out.println("removeAll test: set : " + set.removeAll(added) + " : " + set);
+        System.out.println("removeAll test: mySet : " + mySet.removeAll(added) + " : " + mySet);
+        System.out.println();
+        set.clear();
+        mySet.clear();
+        System.out.println("test clear: set : " + set.size());
+        System.out.println("test clear: MySet : " + mySet.size());
+
+
+
     }
 }
