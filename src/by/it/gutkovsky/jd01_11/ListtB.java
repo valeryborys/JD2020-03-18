@@ -10,8 +10,8 @@ public class ListtB<T> implements List<T> {
 
     @Override
     public boolean add(T element) {
-        if (size == elements.length){
-            elements = Arrays.copyOf(elements, elements.length*3/2+1);
+        if (size == elements.length) {
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
         }
         elements[size++] = element;
         return true;
@@ -25,19 +25,24 @@ public class ListtB<T> implements List<T> {
     @Override
     public T remove(int index) {
         T ret = elements[index];
-        System.arraycopy(elements, index+1, elements, index,size-index-1);
+        System.arraycopy(elements, index + 1, elements, index, size - index - 1);
         size--;
         return ret;
     }
 
     @Override
-    public T set(int index, T element) {
-        return null;
+    public void add(int index, T element) {
+        if (size == elements.length) {
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+        }
+        System.arraycopy(elements, index, elements, index + 1, size - index);
+        elements[index] = element;
+        size++;
     }
 
     @Override
-    public void add(int index, T element) {
-
+    public T set(int index, T element) {
+        return null;
     }
 
     @Override
