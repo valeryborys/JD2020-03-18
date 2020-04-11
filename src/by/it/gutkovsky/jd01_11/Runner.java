@@ -1,11 +1,13 @@
 package by.it.gutkovsky.jd01_11;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 class Runner {
     public static void main(String[] args) {
-
+/*
         List<String> list = new ArrayList<>();
         list.add("one");
         list.add("two");
@@ -57,6 +59,17 @@ class Runner {
         System.out.println("ArrayList contains Dima? : " + list.contains("Dima"));
         System.out.println("ListB contains Dima? : " + list2.contains("Dima"));
 
+ */
+        Set<String> set = new HashSet<>();
+        set.add("one");
+        set.add("two");
+        set.add("three");
+        set.add("four");
 
+        Set<String> mySet = new SetC<>();
+        mySet.add("one");
+        mySet.add("two");
+        mySet.add("three");
+        mySet.add("four");
     }
 }
