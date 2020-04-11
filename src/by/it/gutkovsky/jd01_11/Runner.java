@@ -6,7 +6,7 @@ import java.util.List;
 class Runner {
     public static void main(String[] args) {
 
-        List<String> list = new ListA<>();
+        List<String> list = new ListtB<>();
         list.add("one");
         list.add("two");
         list.add("three");
@@ -16,7 +16,7 @@ class Runner {
         System.out.println(list);
         System.out.println();
 
-        System.out.println( "element 2 = " + list.get(2));
+        System.out.println( "get element 2 = " + list.get(2));
         System.out.println();
         System.out.println("remove element 2 = " + list.remove(2));
         System.out.println();

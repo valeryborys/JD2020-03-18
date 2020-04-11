@@ -1,26 +1,33 @@
 package by.it.gutkovsky.jd01_11;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public class ListtB<T> implements List<T> {
 
+    private T[] elements = (T[]) new Object[]{};
+    private int size = 0;
+
 
     @Override
-    public boolean add(T t) {
-        return false;
+    public boolean add(T element) {
+        if (size == elements.length){
+            elements = Arrays.copyOf(elements, elements.length*3/2+1);
+        }
+        elements[size++] = element;
+        return true;
     }
 
     @Override
     public T get(int index) {
-        return null;
+        return elements[index];
     }
 
     @Override
     public T remove(int index) {
-        return null;
+        T ret = elements[index];
+        System.arraycopy(elements, index+1, elements, index,size-index-1);
+        size--;
+        return ret;
     }
 
     @Override
@@ -40,7 +47,15 @@ public class ListtB<T> implements List<T> {
 
     @Override
     public String toString() {
-        return super.toString();
+        StringBuilder sb = new StringBuilder("[");
+        String delimiter = "";
+        for (int i = 0; i < size; i++) {
+            sb.append(delimiter).append(elements[i]);
+            delimiter = ", ";
+        }
+        sb.append("]");
+
+        return sb.toString();
     }
 
     //STUBS
