@@ -30,8 +30,7 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public boolean isEmpty() {
-        if (list.size() == 0) return true;
-        return false;
+        return list.size() == 0;
     }
 
     @Override
@@ -60,12 +59,7 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public void clear() {
-        Iterator<T> it = list.iterator();
-        while (it.hasNext()){
-            removeAll(list);
-        }
-
-
+        list.clear();
     }
 
     @Override
