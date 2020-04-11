@@ -10,9 +10,7 @@ class BeanTester {
         for (Method method : methods) {
             if (method.isAnnotationPresent(Param.class)) {
                 Param annotation = method.getAnnotation(Param.class);
-                int a = annotation.a();
-                int b = annotation.b();
-                double result = (double) method.invoke(instance,a,b);
+                double result = (double) method.invoke(instance,annotation.a(),annotation.b());
                 System.out.println(method.getName() + " = " + result);
             }
         }
