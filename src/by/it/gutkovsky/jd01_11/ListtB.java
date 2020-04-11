@@ -6,6 +6,45 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class ListtB<T> implements List<T> {
+
+
+    @Override
+    public boolean add(T t) {
+        return false;
+    }
+
+    @Override
+    public T get(int index) {
+        return null;
+    }
+
+    @Override
+    public T remove(int index) {
+        return null;
+    }
+
+    @Override
+    public T set(int index, T element) {
+        return null;
+    }
+
+    @Override
+    public void add(int index, T element) {
+
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> c) {
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+    //STUBS
+
     @Override
     public int size() {
         return 0;
@@ -37,22 +76,12 @@ public class ListtB<T> implements List<T> {
     }
 
     @Override
-    public boolean add(T t) {
-        return false;
-    }
-
-    @Override
     public boolean remove(Object o) {
         return false;
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends T> c) {
         return false;
     }
 
@@ -74,26 +103,6 @@ public class ListtB<T> implements List<T> {
     @Override
     public void clear() {
 
-    }
-
-    @Override
-    public T get(int index) {
-        return null;
-    }
-
-    @Override
-    public T set(int index, T element) {
-        return null;
-    }
-
-    @Override
-    public void add(int index, T element) {
-
-    }
-
-    @Override
-    public T remove(int index) {
-        return null;
     }
 
     @Override
