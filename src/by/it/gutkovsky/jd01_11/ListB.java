@@ -2,7 +2,7 @@ package by.it.gutkovsky.jd01_11;
 
 import java.util.*;
 
-public class ListtB<T> implements List<T> {
+class ListB<T> implements List<T> {
 
     private T[] elements = (T[]) new Object[]{};
     private int size = 0;
@@ -42,12 +42,48 @@ public class ListtB<T> implements List<T> {
 
     @Override
     public T set(int index, T element) {
-        return null;
+        T ret = elements[index];
+        elements[index] = element;
+        return ret;
     }
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        return false;
+        for (T t : c) {
+            add(t);
+        }
+        return true;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public int indexOf(Object o) {
+        if (o == null) {
+            for (int i = 0; i < size; i++) {
+                if (elements[i] == null) {
+                    return i;
+                }
+            }
+        } else
+            for (int i = 0; i < size; i++) {
+                if (o.equals(elements[i])) {
+                    return i;
+                }
+            }
+        return -1;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        int index = indexOf(o);
+        if (index > -1) {
+            remove(index);
+        }
+        return (index > -1);
     }
 
     @Override
@@ -63,20 +99,27 @@ public class ListtB<T> implements List<T> {
         return sb.toString();
     }
 
-    //STUBS
-
     @Override
-    public int size() {
-        return 0;
-    }
-
-    @Override
-    public boolean isEmpty() {
+    public boolean contains(Object o) {
+        if (o == null) {
+            for (int i = 0; i < size; i++) {
+                if (elements[i] == null) {
+                    return true;
+                }
+            }
+        } else
+            for (int i = 0; i < size; i++) {
+                if (o.equals(elements[i])) {
+                    return true;
+                }
+            }
         return false;
     }
 
+    //STUBS
+
     @Override
-    public boolean contains(Object o) {
+    public boolean isEmpty() {
         return false;
     }
 
@@ -93,11 +136,6 @@ public class ListtB<T> implements List<T> {
     @Override
     public <T1> T1[] toArray(T1[] a) {
         return null;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        return false;
     }
 
     @Override
@@ -123,11 +161,6 @@ public class ListtB<T> implements List<T> {
     @Override
     public void clear() {
 
-    }
-
-    @Override
-    public int indexOf(Object o) {
-        return 0;
     }
 
     @Override
