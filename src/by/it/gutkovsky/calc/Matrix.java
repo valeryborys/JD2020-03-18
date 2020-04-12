@@ -21,7 +21,7 @@ class Matrix extends Var {
 
     Matrix(String strMatrix) {
         String text = strMatrix.replaceAll("\\.", "A");
-        System.out.println(text);
+//        System.out.println(text);
 
         // определение количества элементов
         int element = 0;
@@ -33,15 +33,15 @@ class Matrix extends Var {
         }
 
         int elementCount = element+1;
-        System.out.println("количество элементов "+elementCount);
+//        System.out.println("количество элементов "+elementCount);
 
         // разбиваю текс на массив строк
         String[] textArray = text.split("},");
         int rowCount = textArray.length; // число строк
-        System.out.println("число строк " + rowCount);
+//        System.out.println("число строк " + rowCount);
 
         int columnCount = elementCount/rowCount; //число столбцов
-        System.out.println("число столбцов " + columnCount);
+//        System.out.println("число столбцов " + columnCount);
         int j = 0;
 
 
@@ -79,6 +79,8 @@ class Matrix extends Var {
 
         this.value = result;
     }
+
+
 
     @Override
     public Var add(Var other) {

@@ -9,6 +9,7 @@ class ConsoleRunner {
         Printer printer = new Printer();
         for (; ; ) {
             String expression = sc.nextLine();
+
             if (expression.equals("end")) {
                 break;
             }
