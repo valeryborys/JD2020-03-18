@@ -99,6 +99,5 @@ class Runner {
 
         System.out.println("my - " + myset.size());
         System.out.println("set - " + set2.size());
-
     }
 }
