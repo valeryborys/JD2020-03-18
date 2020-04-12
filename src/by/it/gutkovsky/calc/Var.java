@@ -4,19 +4,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 abstract class Var implements Operation {
+
+    private static Map<String, Var> vars = new HashMap<>();
+
+    static Var saveVar (String name, Var var){
+        vars.put(name, var);
+        return var;
+    }
+
     static Var createVar(String strVar) {
-
-        Map<String, Var> vars = new HashMap<>();
-
         strVar = strVar.trim().replaceAll("\\s", "");
         if (strVar.matches(Patterns.SCALAR))
             return new Scalar(strVar);
-        if (strVar.matches(Patterns.VECTOR))
+        else if (strVar.matches(Patterns.VECTOR))
             return new Vector(strVar);
-        if (strVar.matches(Patterns.MATRIX))
+        else if (strVar.matches(Patterns.MATRIX))
             return new Matrix(strVar);
+        else if (vars.containsKey(strVar))
+            return vars.get(strVar);
         return null;
     }
+
 
     @Override
     public Var add(Var other) {

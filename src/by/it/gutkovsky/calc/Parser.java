@@ -8,11 +8,15 @@ class Parser {
     Var calc(String expresion) {
         //2+2;
         String[] parts = expresion.split(Patterns.OPERATION, 2);
+        Var right = Var.createVar(parts[1]);
+        if (expresion.contains("=")){
+            return Var.saveVar(parts[0], right);
+        }
+
         Var left = Var.createVar(parts[0]);
         if (parts.length == 1) {
             return left;
         }
-        Var right = Var.createVar(parts[1]);
 
         if (left == null || right == null) {
             return null; // в этом месте нужно будет генерироавть ошибку
