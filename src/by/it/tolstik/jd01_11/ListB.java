@@ -4,24 +4,25 @@ import java.util.*;
 
 public class ListB<T> implements List<T> {
 
-    private T[] elements = (T[]) new Object[] {};
+    private T[] elements = (T[]) new Object[]{};
     private int size = 0;
 
     @Override
     public boolean add(T t) {
-        if (size==elements.length) {
-            elements = Arrays.copyOf(elements,(size*3)/2+1);
+        if (size == elements.length) {
+            elements = Arrays.copyOf(elements, (size * 3) / 2 + 1);
         }
-        elements[size++]=t;
+        elements[size++] = t;
         return false;
     }
+
     @Override
     public void add(int index, T element) {
-        if (size==elements.length) {
-            elements = Arrays.copyOf(elements,(size*3)/2+1);
+        if (size == elements.length) {
+            elements = Arrays.copyOf(elements, (size * 3) / 2 + 1);
         }
-        System.arraycopy(elements,index,elements,index+1,size-index);
-        elements[index]=element;
+        System.arraycopy(elements, index, elements, index + 1, size - index);
+        elements[index] = element;
         size++;
     }
 
@@ -31,7 +32,7 @@ public class ListB<T> implements List<T> {
         String delimiter = "";
         for (int i = 0; i < size; i++) {
             stringBuilder.append(delimiter).append(elements[i]);
-            delimiter=", ";
+            delimiter = ", ";
         }
         stringBuilder.append("]");
         return stringBuilder.toString();
@@ -40,7 +41,7 @@ public class ListB<T> implements List<T> {
     @Override
     public T remove(int index) {
         T del = elements[index];
-        System.arraycopy(elements,index+1,elements,index,size-1-index);
+        System.arraycopy(elements, index + 1, elements, index, size - 1 - index);
         size--;
         return del;
     }
@@ -51,8 +52,7 @@ public class ListB<T> implements List<T> {
             for (int i = 0; i < size; i++) {
                 return i;
             }
-        }
-        else {
+        } else {
             for (int i = 0; i < size; i++) {
                 if (o.equals(elements[i])) {
                     return i;
@@ -64,11 +64,11 @@ public class ListB<T> implements List<T> {
 
     @Override
     public boolean remove(Object o) {
-        int index=indexOf(o);
-        if (index>-1) {
+        int index = indexOf(o);
+        if (index > -1) {
             remove(index);
         }
-        return (index>-1);
+        return (index > -1);
     }
 
     @Override
