@@ -3,19 +3,17 @@ package by.it.tolstik.jd01_11;
 import java.util.*;
 
 public class SetC<T> implements Set<T> {
-    private Map map = new HashMap();
+    private final HashMap<T,Object> map = new HashMap();
     private static final Object objects = new Object();
 
     @Override
     public boolean add(T t) {
-        map.put(t, objects);
-        return false;
+        return map.put(t, objects)==null;
     }
 
     @Override
     public boolean remove(Object o) {
-        map.remove(o);
-        return false;
+        return map.remove(o)==objects;
     }
 
     @Override
