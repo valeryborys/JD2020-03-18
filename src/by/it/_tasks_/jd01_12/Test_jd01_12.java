@@ -1,12 +1,14 @@
 package by.it._tasks_.jd01_12;
 
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -239,31 +241,94 @@ public class Test_jd01_12 {
             arra.add("n" + i);
             arrl.add("n" + i);
         }
-        Long t= System.nanoTime();
-        String rA= (String) mA.invoke(null, arra);
-        Long tA= System.nanoTime()-t;
+        Long t = System.nanoTime();
+        String rA = (String) mA.invoke(null, arra);
+        Long tA = System.nanoTime() - t;
 
-        t= System.nanoTime();
-        String rL= (String) mL.invoke(null, arrl);
-        Long tL= System.nanoTime()-t;
+        t = System.nanoTime();
+        String rL = (String) mL.invoke(null, arrl);
+        Long tL = System.nanoTime() - t;
 
         assertEquals("Метод c ArrayList  работает неверно", rA, "n" + expectedRes[n - 1]);
         assertEquals("Метод с LinkedList работает неверно", rL, "n" + expectedRes[n - 1]);
 
-        System.out.println(" Время работы для  ArrayList="+tA/1000+" мкс."); System.out.flush();
-        System.out.println(" Время работы для LinkedList="+tL/1000+" мкс."); System.out.flush();
+        System.out.println(" Время работы для  ArrayList=" + tA / 1000 + " мкс.");
+        System.out.flush();
+        System.out.println(" Время работы для LinkedList=" + tL / 1000 + " мкс.");
+        System.out.flush();
 
-        assertTrue(" Время работы для  ArrayList должно быть существенно больше LinkedList",tA>tL*12/10);
+        assertTrue(" Время работы для  ArrayList должно быть существенно больше LinkedList", tA > tL * 12 / 10);
 
-}
+    }
 
+    @Test(timeout = 1500)
+    public void testTaskC1() throws Exception {
+        String t = text.replaceAll("[^a-zA-Z']+", "\n");
+        Test_jd01_12 app = run(t.replaceFirst("\\n", "").concat("end\n"));
+        app.strOut.flush();
+        System.out.println("------ Проверка начинается ------");
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(app.strOut.toString().split("\\n")));
+        list.removeIf(line -> !line.contains("{"));
+        Assert.assertEquals("Ошибка вывода (нужны две карты через toString)", 2, list.size());
+        Map<Long, String> mapC1 = mapC1(list.get(0));
+        System.out.println(mapC1);
+        Assert.assertEquals("Неверное число элементов на входе", 782, mapC1.size());
+        Map<Long, String> mapC2 = mapC1(list.get(1));
+        System.out.println(mapC2);
+        Assert.assertEquals("Неверное число элементов на выходе", 400, mapC2.size());
+    }
 
-/*
-===========================================================================================================
-НИЖЕ ВСПОМОГАТЕЛЬНЫЙ КОД ТЕСТОВ. НЕ МЕНЯЙТЕ В ЭТОМ ФАЙЛЕ НИЧЕГО.
-Но изучить как он работает - можно, это всегда будет полезно.
-===========================================================================================================
- */
+    @Test(timeout = 1500)
+    public void testTaskC2() throws Exception {
+        Class<?> aclass = findClass("TaskC2");
+        Set<Long> a = new HashSet<Long>(Arrays.asList(1L, 2L, 3L, 4L, 5L, 6L));
+        Set<Integer> b = new HashSet<Integer>(Arrays.asList(4, 3, 5, 6, 7, 8));
+        Set<Double> c = new HashSet<Double>(Arrays.asList(0., 1., 2., 3., 4., 5.));
+        Set<Double> d = new HashSet<Double>(Arrays.asList(2., 3., 4., 9.));
+
+        Class[] sets = new Class[]{Set[].class};
+        Method union = findMethod(aclass, "getUnion", sets);
+        union.setAccessible(true);
+        Set<?> result = (Set<?>) union.invoke(null, (Object) new Set[]{a, b, b, c, c, d});
+        System.out.println(result);
+        assertEquals("Метод getUnion работает некорректно",
+                10, result.size());
+        Method cross = findMethod(aclass, "getCross", sets);
+        cross.setAccessible(true);
+        Set<?> result2 = (Set<?>) cross.invoke(null, (Object) new Set[]{a, a, b, c, c, d});
+        System.out.println(result2);
+        assertEquals("Метод getCross работает некорректно",
+                2, result2.size());
+        System.out.println("проверка прошла успешно.");
+    }
+
+    @Test(timeout = 1500)
+    public void testTaskC3() throws Exception {
+        run("{[{()}][()]{()}}\n").include("true").exclude("false");
+        run("{[{()}][()]{()}]\n").include("false").exclude("true");
+        run("{[{()}]([)]{()}}\n").include("false").exclude("true");
+        run("{[{()}][()]{()}}}\n").include("false").exclude("true");
+    }
+
+    private Map<Long, String> mapC1(String line) {
+        Map<Long, String> map = new TreeMap<>();
+        line = line.replace("{", "").replace("}", "");
+        String[] array = line.split(",\\s*");
+        for (String s : array) {
+            String[] lr = s.split("=");
+            long key = Long.parseLong(lr[0]);
+            String value = lr.length == 2 ? lr[1] : "";
+            map.put(key, value);
+        }
+        return map;
+    }
+
+    /*
+    ===========================================================================================================
+    НИЖЕ ВСПОМОГАТЕЛЬНЫЙ КОД ТЕСТОВ. НЕ МЕНЯЙТЕ В ЭТОМ ФАЙЛЕ НИЧЕГО.
+    Но изучить как он работает - можно, это всегда будет полезно.
+    ===========================================================================================================
+     */
     //-------------------------------  методы ----------------------------------------------------------
     private Class findClass(String SimpleName) {
         String full = this.getClass().getName();
