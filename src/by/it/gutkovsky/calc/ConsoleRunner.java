@@ -9,9 +9,14 @@ class ConsoleRunner {
         Printer printer = new Printer();
         for (; ; ) {
             String expression = sc.nextLine();
-            if (expression.equals("end")) {
+            if (expression.equals("printvar")){ // jd01_11 - taskB part2
+                Var.printVar();
                 break;
             }
+            else if (expression.equals("end")) {
+                break;
+            }
+
             Var var = parser.calc(expression);
             printer.print(var);
         }

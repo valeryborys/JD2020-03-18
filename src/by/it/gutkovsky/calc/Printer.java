@@ -6,4 +6,5 @@ class Printer {
             System.out.println(var);
         }
     }
+
 }
