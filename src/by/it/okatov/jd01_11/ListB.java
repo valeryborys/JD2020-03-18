@@ -8,20 +8,25 @@ public class ListB<T> implements List<T> {
     private int size = 0;
 
     @Override
+    public boolean addAll(Collection<? extends T> c) {
+        Object[] colObj = c.toArray();
+        if (size == elements.length) {
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+        } else if ((colObj.length + size) >= elements.length) {
+            elements = Arrays.copyOf(elements, elements.length + colObj.length + 1);
+        }
+        System.arraycopy(colObj, 0, elements, size, colObj.length);
+        size += colObj.length;
+        return true;
+    }
+
+    @Override
     public boolean add(T element) {
         if (size == elements.length) {
             elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
         }
         elements[size++] = element;
         return true;
-    }
-
-    @Override
-    public T remove(int index) {
-        T returnValue = elements[index];
-        System.arraycopy(elements, index + 1, elements, index, size - index - 1);
-        size--;
-        return returnValue;
     }
 
     @Override
@@ -49,17 +54,37 @@ public class ListB<T> implements List<T> {
     }
 
     @Override
-    public void add(int index, T element) {
-
+    public T remove(int index) {
+        T returnValue = elements[index];
+        System.arraycopy(elements, index + 1, elements, index, size - index - 1);
+        size--;
+        return returnValue;
     }
 
     @Override
-    public boolean addAll(int index, Collection<? extends T> c) {
+    public void add(int index, T element) {
+        //0 1 2 () 3 4 5 - - -
+        if (size == elements.length) {
+            elements = Arrays.copyOf(elements, elements.length * 3 / 2 + 1);
+        }
+        System.arraycopy(elements, index, elements, index + 1, size - index);
+        elements[index] = element;
+        size++;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        //TODO: Future realization
         return false;
     }
 
-
     //----------------------------------------------STUBs-----------------------------------//
+
     @Override
     public void replaceAll(UnaryOperator<T> operator) {
 
@@ -76,17 +101,7 @@ public class ListB<T> implements List<T> {
     }
 
     @Override
-    public int size() {
-        return 0;
-    }
-
-    @Override
     public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public boolean contains(Object o) {
         return false;
     }
 
@@ -116,7 +131,7 @@ public class ListB<T> implements List<T> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
+    public boolean addAll(int index, Collection<? extends T> c) {
         return false;
     }
 
