@@ -9,16 +9,19 @@ class ConsoleRunner {
         Printer printer = new Printer();
         for (; ; ) {
             String expression = sc.nextLine();
-            if (expression.equals("printvar")){ // jd01_11 - taskB part2
-                Var.printVar();
+            if (expression.equals("end")) {
                 break;
             }
-            else if (expression.equals("end")) {
-                break;
+            else if (expression.equals("printvar")) { // jd01_11 - taskB part2
+                Printer.printVar();
             }
-
-            Var var = parser.calc(expression);
-            printer.print(var);
+            else if (expression.equals("sortvar")){ // jd01_11 - taskC part2
+                Printer.sortvar();
+            }
+            else {
+                Var var = parser.calc(expression);
+                printer.print(var);
+            }
         }
     }
 }
