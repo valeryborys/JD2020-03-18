@@ -77,13 +77,12 @@ public class ListB<T> implements List<T> {
         return size;
     }
 
-    @Override
-    public boolean contains(Object o) {
-        //TODO: Future realization
-        return false;
-    }
 
     //----------------------------------------------STUBs-----------------------------------//
+    @Override
+    public boolean contains(Object o) {
+        return false;
+    }
 
     @Override
     public void replaceAll(UnaryOperator<T> operator) {
