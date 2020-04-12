@@ -4,11 +4,11 @@ import java.util.*;
 
 public class SetC<T> implements Set<T> {
     private Map map = new HashMap();
-    private static final Object PRESENT = new Object();
+    private static final Object objects = new Object();
 
     @Override
     public boolean add(T t) {
-        map.put(t, PRESENT);
+        map.put(t, objects);
         return false;
     }
 
@@ -38,7 +38,7 @@ public class SetC<T> implements Set<T> {
     public boolean addAll(Collection<? extends T> collection) {
         Iterator<T> it = (Iterator<T>) collection.iterator();
         while (it.hasNext()) {
-            map.put(it.next(), PRESENT);
+            map.put(it.next(), objects);
         }
         return false;
     }
@@ -68,10 +68,10 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public String toString() {
-        Set<T> hSet = map.keySet();
+        Set<T> set = map.keySet();
         StringBuilder sb = new StringBuilder("[");
         String dilimeter = "";
-        for (T t : hSet) {
+        for (T t : set) {
             sb.append(dilimeter).append(t);
             dilimeter = ", ";
         }
