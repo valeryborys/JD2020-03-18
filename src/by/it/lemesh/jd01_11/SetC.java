@@ -1,48 +1,82 @@
 package by.it.lemesh.jd01_11;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class SetC<T> implements Set<T> {
-    public int size = 0;
-    public T[] elements = (T[]) new Object[]{};
+    private Map map = new HashMap();
+    private static final Object PRESENT = new Object();
 
     @Override
     public boolean add(T t) {
-        if (size == elements.length) {
-            elements = Arrays.copyOf(elements, size * 3 / 2 + 1);
-        }
-        elements[size++] = t;
+        map.put(t, PRESENT);
         return false;
     }
 
     @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("[");
-        String dilimeter = "";
-        for (int i = size-1; i >= 0; i--) {
-            sb.append(dilimeter).append(elements[i]);
-            dilimeter = ", ";
-        }
-        sb.append("]");
-        return sb.toString();
-    }
-
-    @Override
-    public int size() {
-        return 0;
-    }
-
-    @Override
-    public boolean isEmpty() {
+    public boolean remove(Object o) {
+        map.remove(o);
         return false;
     }
 
     @Override
     public boolean contains(Object o) {
+        return map.containsKey(o);
+    }
+
+
+    @Override
+    public int size() {
+        return map.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return map.isEmpty();
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> collection) {
+        Iterator<T> it = (Iterator<T>) collection.iterator();
+        while (it.hasNext()) {
+            map.put(it.next(), PRESENT);
+        }
         return false;
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> collection) {
+        boolean flag = true;
+        Iterator<T> it = (Iterator<T>) collection.iterator();
+        while (it.hasNext()) {
+            boolean res = map.containsKey(it.next());
+            if (!res) flag = false;
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> collection) {
+        boolean flag = false;
+        for (Object o : collection) {
+            if (map.containsKey(o)) {
+                map.remove(o);
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    @Override
+    public String toString() {
+        Set<T> hSet = map.keySet();
+        StringBuilder sb = new StringBuilder("[");
+        String dilimeter = "";
+        for (T t : hSet) {
+            sb.append(dilimeter).append(t);
+            dilimeter = ", ";
+        }
+        sb.append("]");
+        return sb.toString();
     }
 
     @Override
@@ -61,32 +95,12 @@ public class SetC<T> implements Set<T> {
     }
 
     @Override
-    public boolean remove(Object o) {
-        return false;
-    }
-
-    @Override
-    public boolean containsAll(Collection<?> collection) {
-        return false;
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends T> collection) {
-        return false;
-    }
-
-    @Override
     public boolean retainAll(Collection<?> collection) {
         return false;
     }
 
     @Override
-    public boolean removeAll(Collection<?> collection) {
-        return false;
-    }
-
-    @Override
     public void clear() {
-
+        map.clear();
     }
 }

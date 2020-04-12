@@ -1,9 +1,6 @@
 package by.it.lemesh.jd01_11;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Runner {
     public static void main(String[] args) {
@@ -12,9 +9,7 @@ public class Runner {
         for (int i = 0; i < 10; i++) {
             myList.add((short) (i * 2));
             arrList.add((short) (i * 2));
-            System.out.println("myList:  "+myList+"\narrList: "+arrList);
+            System.out.println("myList:  " + myList + "\narrList: " + arrList + "\n");
         }
-   //     myList.addAll(arrList);
-
     }
 }

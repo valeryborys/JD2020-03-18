@@ -3,8 +3,8 @@ package by.it.lemesh.jd01_11;
 import java.util.*;
 
 public class ListA<T> implements List<T> {
-    public int size = 0;
-    public T[] elements = (T[]) new Object[]{};
+    private int size = 0;
+    private T[] elements = (T[]) new Object[]{};
 
     @Override
     public boolean add(T t) {
