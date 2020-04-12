@@ -3,9 +3,8 @@ package by.it.okatov.jd01_11;
 import java.util.*;
 
 public class SetC<T> implements Set<T> {
-    private T[] elements = (T[]) new Object[]{};
-    private int size = 0;
-    private HashMap<T, Object> map;
+
+    private final HashMap<T, Object> map;
     private static final Object IS_PRESENT = new Object();
 
     public SetC() {
@@ -17,12 +16,37 @@ public class SetC<T> implements Set<T> {
         return map.put(element, IS_PRESENT) == null;
     }
 
-    @Override
-    public boolean remove(Object o) {
-        return map.remove(0) == IS_PRESENT;
+    @SuppressWarnings({"unused", "SuspiciousMethodCalls"})
+    //Testing method
+    public boolean removeHashMapImplementation(Object o) {
+        return map.remove(o).equals(IS_PRESENT);
     }
 
+    @Override
+    public boolean remove(Object o) {
+        Iterator<T> it = this.iterator();
+        boolean isRemoved = false;
+        if (o == null) {
+            while (it.hasNext()) {
+                if (it.next() == null) {
+                    it.remove();
+                    isRemoved = true;
+                }
+            }
+        } else {
+            while (it.hasNext()) {
+                if (it.next().equals(o)) {
+                    it.remove();
+                    isRemoved = true;
+                }
+            }
+        }
 
+        return isRemoved;
+    }
+
+    @SuppressWarnings({"unused", "SuspiciousMethodCalls"})
+    //Testing method
     public boolean containsHashMapImplementation(Object o) {
         return map.containsKey(o);
     }
@@ -54,9 +78,10 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public boolean isEmpty() {
-        return map.isEmpty();
+        return size() == 0;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean addAll(Collection<? extends T> c) {
         Object[] colObject = c.toArray();
@@ -82,7 +107,7 @@ public class SetC<T> implements Set<T> {
     public boolean removeAll(Collection<?> c) {
         boolean isRemoved = false;
         Iterator<T> it = this.iterator();
-        if (c.size() != 0 && c != null) {
+        if (c.size() != 0 /*&& c != null*/) {
             while (it.hasNext()) {
                 if (c.contains(it.next())) {
                     it.remove();
@@ -126,6 +151,7 @@ public class SetC<T> implements Set<T> {
         return new Object[0];
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public <T1> T1[] toArray(T1[] a) {
         return null;
