@@ -1,4 +1,4 @@
-package by.it.gutkovsky.jd01_08;
+package by.it.gutkovsky.calc;
 
 import java.util.Arrays;
 import java.util.regex.Matcher;
@@ -79,6 +79,8 @@ class Matrix extends Var {
 
         this.value = result;
     }
+
+
 
     @Override
     public Var add(Var other) {
