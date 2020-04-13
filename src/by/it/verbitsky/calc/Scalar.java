@@ -1,5 +1,6 @@
-package by.it.verbitsky.jd01_08;
+package by.it.verbitsky.calc;
 
+//class Scalar extends Var implements ScalarOperations {
 class Scalar extends Var {
     private double value;
 
@@ -26,6 +27,7 @@ class Scalar extends Var {
 
     //------------------------------------------------------------------------------
 
+    //Сложение
     @Override
     public Var add(Var other) {
         if (other instanceof Scalar) {
