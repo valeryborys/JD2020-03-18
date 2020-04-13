@@ -16,18 +16,20 @@ public class Matrix extends Var {
     }
 
     public Matrix(String strMaxtrix) {
+        int i1 = 0;
         StringBuilder sb = new StringBuilder(strMaxtrix);
         Pattern pattern = Pattern.compile("[{}]");
         Matcher matcher = pattern.matcher(sb);
         while (matcher.find()) {
             int position = matcher.start();
             sb.setCharAt(position, ' ');
+            i1 += 1;
         }
         String[] matrix = sb.toString().trim().split(",");
-        double[][] value1 = new double[2][2];
+        double[][] value1 = new double[(i1 - 2) / 2][(i1 - 2) / 2];
         for (int i = 0, k = 0; i < value1.length; i++) {
             for (int j = 0; j < value1.length; j++) {
-                if(k<5){
+                if (k < (Math.pow(value1.length, 2))) {
                     value1[i][j] = Double.parseDouble(matrix[k]);
                     k++;
                 }
