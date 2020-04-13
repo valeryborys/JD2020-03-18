@@ -1,6 +1,6 @@
-package by.it.novikov.jd01_08;
+package by.it.novikov.jd01_09;
 
-class Scalar extends Var implements Operation{
+class Scalar extends Var implements Operation {
     private double value;
 
     public double getValue() {
@@ -39,7 +39,7 @@ class Scalar extends Var implements Operation{
              double result = this.value - ((Scalar) other).value;
              return new Scalar(result);
          }
-        return other.sub(this).mul(new Scalar (-1));
+        return other.sub(this).mul(new Scalar(-1));
     }
 
     @Override
