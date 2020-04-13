@@ -1,6 +1,5 @@
-package by.it.borys.jd01_08;
+package by.it.borys.jd01_09;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -85,7 +84,7 @@ class Vector extends Var {
               }
               return new Vector(res);
           }
-          else if(other instanceof Vector&& this.value.length==((Vector) other).value.length){
+          else if(other instanceof Vector && this.value.length==((Vector) other).value.length){
               double[] res = Arrays.copyOf(this.value, this.value.length);
               for (int i = 0; i < res.length; i++) {
                   res[i] = res[i] - ((Vector) other).value[i];
