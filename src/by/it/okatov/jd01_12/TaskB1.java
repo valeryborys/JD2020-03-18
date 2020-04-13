@@ -2,8 +2,6 @@ package by.it.okatov.jd01_12;
 
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class TaskB1 {
@@ -14,11 +12,8 @@ public class TaskB1 {
         Collection<String> col = new ArrayList<>();
         //Нужна для хранения и вывода количества вхождений каждого слова в тексте
         Map<String, Integer> map = new HashMap<>();
-        Pattern pattern = Pattern.compile("(\\bend\\b)");
-        Matcher m1;
         HashSet<String> hs = new HashSet<>();
         String word;
-        String tmp = "";
         boolean isPresent;
 
         while (true) {
@@ -29,10 +24,10 @@ public class TaskB1 {
         }
 
         System.out.println(input);
-        tmp = input;
-        tmp = tmp.replaceAll("[,:;.!?/\\-\\n]", " ");
-        System.out.println(tmp);
-        String[] sArr = tmp.split(" ");
+
+        input = input.replaceAll("[,:;.!?/\\-\\n]", " ");
+        System.out.println(input);
+        String[] sArr = input.split(" ");
         for (String s : sArr) {
             s = s.trim();
             col.add(s);
