@@ -1,6 +1,5 @@
 package by.it.verbitsky.jd01_08;
 
-//class Scalar extends Var implements ScalarOperations {
 class Scalar extends Var {
     private double value;
 
@@ -27,36 +26,6 @@ class Scalar extends Var {
 
     //------------------------------------------------------------------------------
 
-   /*
-    public Var add(Var other) {
-        System.out.println("Scalar add");
-       // System.out.println(other.getClass());
-        if (other instanceof Scalar) {
-            return new Scalar(this.getValue() + ((Scalar) other).getValue());
-        }
-
-        if (other instanceof Vector) {
-            Vector vector = new Vector(Arrays.copyOf(((Vector) other).getVector(), ((Vector) other).getVector().length));
-            for (int i = 0; i < vector.getVector().length; i++) {
-                vector.getVector()[i]+=getValue();
-            }
-            return vector;
-        }
-
-        if (other instanceof Matrix) {
-        Matrix matrix = new Matrix(Arrays.copyOf(((Matrix) other).getMatrix(), ((Matrix) other).getMatrix().length));
-            for (double[] doubles : matrix.getMatrix()) {
-                for (int j = 0; j < doubles.length; j++) {
-                    doubles[j]+=getValue();
-                }
-            }
-            return matrix;
-        }
-       return super.add(other);
-    }
-*/
-
-    //Сложение
     @Override
     public Var add(Var other) {
         if (other instanceof Scalar) {
@@ -95,37 +64,6 @@ class Scalar extends Var {
         }
         return super.div(other);
     }
-
-
-/*
-    // методы для динамической связки (полиморфизма)
-    @Override
-    public Var add(Scalar operand) {
-        //System.out.println("Сложение скаляра и скаляра");
-        return new Scalar(this.getValue() + operand.getValue());
-    }
-
-    @Override
-    public Var add(Vector operand) {
-        //System.out.println("Сложение Скаляра и вектора");
-        Vector vector = new Vector(Arrays.copyOf(operand.getVector(), operand.getVector().length));
-        for (double element : vector.getVector()) {
-            element += this.getValue();
-        }
-        return vector;
-    }
-
-    @Override
-    public Var add(Matrix operand) {
-        //System.out.println("Сложение скаляра и матрицы");
-        Matrix matrix = new Matrix(Arrays.copyOf(operand.getMatrix(), operand.getMatrix().length));
-        for (int i = 0; i < matrix.getMatrix().length; i++) {
-            for (int j = 0; j < matrix.getMatrix()[i].length; j++) {
-                matrix.getMatrix()[i][j] += this.getValue();
-            }
-        }
-        return matrix;
-    }*/
 }
 
 

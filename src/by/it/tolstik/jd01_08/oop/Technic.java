@@ -6,6 +6,6 @@ interface Technic {
     void play();
     void pause();
     void stop();
-    void destroy();
+    void destroy(boolean smt);
     void switchOff();
 }

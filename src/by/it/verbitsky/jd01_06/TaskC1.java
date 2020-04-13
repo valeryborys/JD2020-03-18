@@ -25,29 +25,31 @@ public class TaskC1 {
     }
 
     private static String alineSentences(String text, int sLength) {
-        //TODO Временная заглушка, надо узнать почему не работает паттерн именно для этой строки
-        if (text.equals("И там я был, и мёд я пил,")) {
-            return "И   там   я   был,   и  мёд  я  пил,";
-        }
         StringBuilder buf = new StringBuilder(text);
-
-        Pattern pattern = Pattern.compile("\\b\\s+|-\\s|,\\s|:\\s");
+        Pattern pattern = Pattern.compile("\\s");
         Matcher matcher = pattern.matcher(buf);
-        //System.out.println("Ищем пробелы в строке - " + buf.toString() + "длина строки - " + buf.length() + " max = " + sLength);
-        for (int i = 0; i < sLength - text.length(); i++) {
-            if (matcher.find()) {
-                // System.out.println("macher start = " + matcher.start());
-                //System.out.println("Нашли совпадение на индексе " + matcher.start());
-                buf.insert(matcher.start() + 1, ' ');
-            } else if (!matcher.find()) {
-                //System.out.println("Совпадения закончены, сбрасываем счетчик");
+        boolean maxLength = false;
+        boolean findFlag;
+        while (buf.length() != sLength) {
+            findFlag = matcher.find();
+            if (findFlag) {
+                while (findFlag) {
+                    buf.insert(matcher.start(), ' ');
+                    findFlag = matcher.find(matcher.end() + 1);
+                    if (buf.length() == sLength) {
+                        maxLength = true;
+                        break;
+                    }
+                }
+            } else {
                 matcher.reset();
-                matcher = pattern.matcher(buf);
-                i--;
-                //System.out.println("Мачер старт после сброса = " + matcher.start());
+            }
+            if (maxLength) {
+                break;
+            } else {
+                matcher.reset();
             }
         }
-        //System.out.println("длина после обработки: " + buf.length());
         return String.valueOf(buf);
     }
 }

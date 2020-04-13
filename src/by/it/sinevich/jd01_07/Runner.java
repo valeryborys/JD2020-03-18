@@ -2,8 +2,8 @@ package by.it.sinevich.jd01_07;
 
 public class Runner extends Var{
     public static void main(String[] args) {
-        double[][] x = new double[][]{{1,2}, {3,4}};
-        Var v1 = new Matrix(x);
+       String s = "{1,2,3}";
+        Var v1 = new Vector(s);
         System.out.println(v1);
 
     }

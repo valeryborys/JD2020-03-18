@@ -5,8 +5,12 @@ class Runner {
         Videoplayer videoplayer = new Videoplayer("Sony",true);
         System.out.println(videoplayer);
         videoplayer.isWork();
-        videoplayer.destroy();
+        videoplayer.destroy(true);
         videoplayer.isWork();
         videoplayer.isOpenDrive();
+        videoplayer.destroy(false);
+        videoplayer.isWork();
+        videoplayer.isOpenDrive();
+
     }
 }
