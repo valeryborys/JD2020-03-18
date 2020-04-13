@@ -1,4 +1,4 @@
-package by.it.szamostyanin.jd01_07;
+package by.it.szamostyanin.jd01_08;
 
 import java.util.Arrays;
 
