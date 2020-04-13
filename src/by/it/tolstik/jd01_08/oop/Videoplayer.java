@@ -57,8 +57,8 @@ class Videoplayer extends Player{
     }
 
     @Override
-    public void destroy() {
-        this.setExist(false);
+    public void destroy(boolean choose) {
+        this.setExist(choose);
     }
 
     @Override

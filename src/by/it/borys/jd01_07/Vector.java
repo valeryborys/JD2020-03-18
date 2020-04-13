@@ -17,7 +17,7 @@ class Vector extends Var {
 
     Vector (String strVector){
         StringBuilder strArr = new StringBuilder(strVector);
-        Pattern p1 = Pattern.compile("\\s*+[^0-9.]+\\s*");
+        Pattern p1 = Pattern.compile("\\s*+[^0-9.-]+\\s*");
         Matcher m1 = p1.matcher(strArr);
         int pos=0;
         while (m1.find(pos)){
