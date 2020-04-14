@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class TaskA1 {
-    private List<Integer> list = new ArrayList<>();
+class TaskA1 {
+    private ArrayList<Integer> list = new ArrayList<>();
 
     void clearBad(List<Integer> grades) {
         Iterator<Integer> iterator = grades.iterator();
