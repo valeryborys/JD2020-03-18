@@ -1,36 +1,52 @@
 package by.it.gutkovsky.jd01_12;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
 class TaskB2 {
     public static void main(String[] args) {
         // создание двух списков людей
-        Random random = new Random();
+        Random random = new Random(123L);
         ArrayList<String> list1 = new ArrayList<>();
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 6; i++) {
             list1.add("name" + random.nextInt(5000));
         }
         LinkedList<String> list2 = new LinkedList<>();
-            for (int i = 0; i < 25; i++) {
-                list2.add("name" + random.nextInt(5000));
-            }
-// печать полученных спискоа - для проверки
-//        System.out.println("list1 =" + list1);
-//        System.out.println("list2 =" + list2);
+        for (int i = 0; i < 6; i++) {
+            list2.add("name" + random.nextInt(5000));
+        }
 
-        process(list1);
-        process(list2);
-
+        System.out.println(process(list1));
+        System.out.println(process(list2));
     }
 
     static String process(ArrayList<String> peoples) {
-        return null;
+        ArrayList<String> peoplesCopy = new ArrayList<>(peoples);
+        int even = 1;
+        while (peoplesCopy.size() != 1) {
+            Iterator<String> iterator = peoplesCopy.iterator();
+            while (iterator.hasNext()) {
+                iterator.next();
+                if (even % 2 == 0) iterator.remove();
+                even++;
+            }
+        }
+        return peoplesCopy.get(0);
     }
 
     static String process(LinkedList<String> peoples) {
-        return null;
+        LinkedList<String> peoplesCopy = new LinkedList<>(peoples);
+        int even = 1;
+        while (peoplesCopy.size() != 1) {
+            Iterator<String> iterator = peoplesCopy.iterator();
+            while (iterator.hasNext()) {
+                iterator.next();
+                if (even % 2 == 0) iterator.remove();
+                even++;
+            }
+        }
+        return peoplesCopy.get(0);
     }
-
 }
