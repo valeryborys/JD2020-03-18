@@ -20,7 +20,7 @@ class Matrix extends Var {
         String[] rows = strMatrix.split("}");
         for (int i = 0; i < rows.length; i++) {
             StringBuilder sb = new StringBuilder(rows[i]);
-            Pattern p1 = Pattern.compile("\\s*+[^0-9.]+\\s*");
+            Pattern p1 = Pattern.compile("\\s*+[^0-9.-]+\\s*");
             Matcher m1 = p1.matcher(sb);
             int pos = 0;
             while (m1.find(pos)) {
