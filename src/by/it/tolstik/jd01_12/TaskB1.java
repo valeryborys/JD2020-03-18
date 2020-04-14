@@ -18,7 +18,6 @@ class TaskB1 {
         System.out.println(nextList);
 
         HashMap<String, Integer> hashMap = new HashMap<>();
-        boolean flag = false;
         Iterator<String> iterator = nextList.iterator();
         while (iterator.hasNext()) {
             String elem = iterator.next();
@@ -34,8 +33,8 @@ class TaskB1 {
         }
         for (Map.Entry<String, Integer> pair : hashMap.entrySet()) {
             String key = pair.getKey();
-            Integer value = pair.getValue();
-            System.out.printf("%s=%s\n", key, value);
+            int value = pair.getValue();
+            System.out.printf("%s=%d\n", key, value);
         }
     }
 }
