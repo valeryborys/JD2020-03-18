@@ -13,6 +13,7 @@ class TaskB3 {
         for (int i = 0; i < 4096; i++) {
             list1.add("name" + random.nextInt(5000));
         }
+
         LinkedList<String> list2 = new LinkedList<>();
         for (int i = 0; i < 4096; i++) {
             list2.add("name" + random.nextInt(5000));
@@ -20,9 +21,9 @@ class TaskB3 {
         Timer t1=new Timer();
         process(list1);
         System.out.println("Время работы для  ArrayList=" + t1 );
-        Timer t2=new Timer();
+//        Timer t2=new Timer();
         process(list2);
-        System.out.println("Время работы для LinkedList=" +t2);
+        System.out.println("Время работы для LinkedList=" +t1);
     }
 
     static String process(ArrayList<String> peoples) {
