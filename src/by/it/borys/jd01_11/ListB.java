@@ -49,12 +49,18 @@ public class ListB<T> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
+        int length = c.size();
         Object[] objects = c.toArray();
-        int length = objects.length;
+        //int length = objects.length;
         elements = Arrays.copyOf(elements, elements.length +length);
         System.arraycopy(objects, 0, elements, size, length);
         size += length;
       return true;
+    }
+
+    @Override
+    public int size() {
+        return this.size;
     }
 
     @Override
@@ -85,11 +91,6 @@ public class ListB<T> implements List<T> {
     }
 
     @Override
-    public int size() {
-        return 0;
-    }
-
-    @Override
     public boolean isEmpty() {
         return false;
     }
@@ -106,7 +107,7 @@ public class ListB<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        return Arrays.copyOf(elements,size);
     }
 
     @Override
