@@ -17,9 +17,12 @@ public class ConsoleRunner {
                 Var.printvar(Var.getSortmap());
                 continue;
             }
-
-            Var result = parser.calc(line);
-            printer.print(result);
+try {
+    Var result = parser.calc(line);
+    printer.print(result);
+} catch (CalcExeption e){
+    System.out.println(e.getMessage());
+}
         }
     }
 }
