@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 class Parser {
 
-    Var calc(String expresion) {
+    Var calc(String expresion) throws CalcException {
         //2+2;
         String[] parts = expresion.split(Patterns.OPERATION, 2);
         Var right = Var.createVar(parts[1]);

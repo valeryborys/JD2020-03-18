@@ -20,8 +20,13 @@ class ConsoleRunner {
                 Printer.sortvar();
             }
             else {
-                Var var = parser.calc(expression);
-                printer.print(var);
+
+                try {
+                    Var var = parser.calc(expression);
+                    printer.print(var);
+                } catch (CalcException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
     }

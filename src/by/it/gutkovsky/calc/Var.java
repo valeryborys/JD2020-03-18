@@ -15,7 +15,7 @@ abstract class Var implements Operation {
         return vars;
     }
 
-    static Var createVar(String strVar) {
+    static Var createVar(String strVar) throws CalcException {
         strVar = strVar.trim().replaceAll("\\s", "");
         if (strVar.matches(Patterns.SCALAR))
             return new Scalar(strVar);
@@ -25,32 +25,28 @@ abstract class Var implements Operation {
             return new Matrix(strVar);
         else if (vars.containsKey(strVar))
             return vars.get(strVar);
-        return null;
+        throw  new CalcException("It is impossible to create " + strVar);
     }
 
 
     @Override
-    public Var add(Var other) {
-        System.out.printf("Operation %s + %s is impossible\n", this, other);
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new  CalcException("Operation " + this + " + " + other + " is impossible");
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.printf("Operation %s - %s is impossible\n", this, other);
-        return null;
+    public Var sub(Var other) throws CalcException{
+        throw new  CalcException("Operation " + this + " - " + other + " is impossible");
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.printf("Operation %s * %s is impossible\n", this, other);
-        return null;
+    public Var mul(Var other) throws CalcException{
+        throw new  CalcException("Operation " + this + " * " + other + " is impossible");
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.printf("Operation %s / %s is impossible\n", this, other);
-        return null;
+    public Var div(Var other) throws CalcException{
+        throw new  CalcException("Operation " + this + " / " + other + " is impossible");
     }
 
     @Override

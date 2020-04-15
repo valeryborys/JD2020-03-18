@@ -163,7 +163,7 @@ class Matrix extends Var {
 //                    matrixResultSub[i][j] = this.value[i][j];
 //                }
 //            }
-            if (matrixResultSub.length == ((Matrix) other).value.length && matrixResultSub[0].length == ((Matrix) other).value.length) {
+            if (matrixResultSub.length == ((Matrix) other).value.length && matrixResultSub[0].length == ((Matrix) other).value[0].length) {
 
                 for (int i = 0; i < matrixResultSub.length; i++) {
                     for (int j = 0; j < matrixResultSub.length; j++) {
