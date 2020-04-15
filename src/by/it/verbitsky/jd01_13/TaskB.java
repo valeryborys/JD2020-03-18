@@ -12,7 +12,6 @@ class TaskB {
             if (input.equals("END")) {
                 break;
             }
-
             try {
                 double number = Double.parseDouble(input);
                 sum += number;
@@ -31,23 +30,6 @@ class TaskB {
                     }
                 }
             }
-/*
-            try {
-                sqrt = Math.sqrt(sum);
-                System.out.printf(Locale.ENGLISH,"%3.1f %3.3f\n", number, sqrt);
-            }catch (ArithmeticException ex){
-                for (StackTraceElement element : ex.getStackTrace()) {
-                    if (element.getClassName().equals(TaskB.class.getName())) {
-                        String name = ex.getClass().getName();
-                        String classname = element.getClassName();
-                        int lineNum = element.getLineNumber();
-                        System.out.printf(Locale.ROOT,"  name: %s\n class: %s \n  line: %d", name, classname, lineNum);
-                    }
-                }
-            }
-*/
-
-
         }
     }
 }
