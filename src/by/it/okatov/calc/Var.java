@@ -1,6 +1,12 @@
 package by.it.okatov.calc;
 
+
+import java.util.HashMap;
+import java.util.Map;
+
 abstract class Var implements Operation {
+
+    private static final Map<String, Var> hMap = new HashMap<>();
 
     static Var createVar(String strVar) {
         if (strVar.matches(Patterns.SCALAR))
@@ -9,7 +15,19 @@ abstract class Var implements Operation {
             return new Vector(strVar);
         if (strVar.matches(Patterns.MATRIX))
             return new Matrix(strVar);
-        return null;
+        else {
+            Var var = hMap.get(strVar);
+            return var;
+        }
+    }
+
+    //Метод, сохраняющий переменные и их значения в карте
+    public static void saveVars(String varName, Var var) {
+        hMap.put(varName, var);
+    }
+
+    public static Map<String, Var> getVars() {
+        return hMap;
     }
 
     @Override
