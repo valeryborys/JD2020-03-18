@@ -7,6 +7,7 @@ public class TaskA {
         try {
             if (Math.random() > 0.5) {
                 new HashMap<String, String>(null);
+
             } else Integer.parseInt("привет");
         } catch (Exception e) {
             StackTraceElement[] stackTrace = e.getStackTrace();
