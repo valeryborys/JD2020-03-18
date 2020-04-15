@@ -5,7 +5,7 @@ import java.util.Scanner;
 class TaskB {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        double squareRoot = 0;
+        double squareRoot;
         double sum = 0;
 
         while (true) {
@@ -22,7 +22,7 @@ class TaskB {
 
             } catch (NumberFormatException | NullPointerException | ArithmeticException e) {
                 StackTraceElement[] trace = e.getStackTrace();
-                for (StackTraceElement element : e.getStackTrace()) {
+                for (StackTraceElement element : trace) {
                     if (element.getClassName().equals(TaskB.class.getName())) {
                         System.out.printf(
                                 " name: %s\n" +
