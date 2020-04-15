@@ -8,6 +8,7 @@ interface Patterns {
     String MATRIX = "\\{" + VECTOR + "(," + VECTOR + ")*}";
     String COMMAND_PRINTVAR = "printvar";
     String COMMAND_SORTVAR = "sortvar";
+    String COMMAND_CLEAR_MEMORY = "clear";
 
 
     String EMPTY_BUFFER = "Buffer is empty";

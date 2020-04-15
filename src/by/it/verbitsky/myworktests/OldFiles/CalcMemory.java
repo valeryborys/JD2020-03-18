@@ -1,12 +1,24 @@
-package by.it.verbitsky.calc;
+package by.it.verbitsky.myworktests.OldFiles;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+//import by.it.verbitsky.calc.Patterns;
+//import by.it.verbitsky.calc.Var;
 
 class CalcMemory implements MemoryCalc {
-    //Будет хранить значения, добавленные в память
+    @Override
+    public void printvar() {
+
+    }
+
+    @Override
+    public void sortvar() {
+
+    }
+
+    @Override
+    public void clearMemory() {
+
+    }
+    /*  //Будет хранить значения, добавленные в память
     private Map<String, Var> buffer = new HashMap<>();
 
     @Override
@@ -39,5 +51,5 @@ class CalcMemory implements MemoryCalc {
     public void clearMemory() {
         buffer.clear();
     }
-
+*/
 }
