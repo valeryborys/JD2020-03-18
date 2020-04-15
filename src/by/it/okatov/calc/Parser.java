@@ -70,7 +70,7 @@ class Parser {
     }
 
     private void printVar() {
-        String str = "";
+        String str;
         Printer printer = new Printer();
         for (Map.Entry<String, Var> entry : Var.getVars().entrySet()) {
             str = String.format("%s=%s", entry.getKey(), entry.getValue()).toUpperCase();
