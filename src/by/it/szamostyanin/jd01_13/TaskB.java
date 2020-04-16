@@ -12,7 +12,7 @@ public class TaskB {
         double sum = 0;
         for (;;){
             String scan = sc.nextLine();
-            if (scan.equals("end"))
+            if (scan.equals("END"))
                 break;
             try {
                 Double value = Double.valueOf(scan);
