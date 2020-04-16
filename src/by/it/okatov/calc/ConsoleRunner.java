@@ -14,8 +14,14 @@ public class ConsoleRunner {
                 return;
             }
 
-            Var var = parse.calc(expression);
-            print.print(var);
+
+            try {
+                Var var = parse.calc(expression);
+                print.print(var);
+            } catch (CalcException calcException) {
+                System.out.println(calcException.getMessage());
+            }
+
         }
     }
 }

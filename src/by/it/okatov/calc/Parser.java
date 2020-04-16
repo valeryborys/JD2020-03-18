@@ -9,9 +9,11 @@ import java.util.stream.Stream;
 
 class Parser {
 
-    Var calc(String expression) {
+    Var calc(String expression) throws CalcException {
         expression = expression.replaceAll(" ", "");
-
+        if (expression.length() == 0) {
+            throw new CalcException("no operation");
+        }
         //Если пользователь ввел printVar, то вызываем одноименный метод для печати выражения
         if (expression.equals("printVar") || expression.equals("printvar")) {
             printVar();
@@ -20,9 +22,9 @@ class Parser {
         }
 
         String[] parts = expression.split(Patterns.OPERATION, 2);//Делим входную строку на 2 элемента
-        Var left = Var.createVar(parts[0]);//Получаем левую часть выражения как первый элемент массива строк
+
         if (parts.length == 1) {//Если в массиве только один элемент, то он остается левой частью выражения
-            return left;
+            return Var.createVar(parts[0]);
         }
 
         Var right = Var.createVar(parts[1]); //Правая часть выражения
@@ -30,7 +32,7 @@ class Parser {
             Var.saveVars(parts[0], right);//Сохраняем в карту имя переменной и присвоенное ей значение
             return right;
         }
-
+        Var left = Var.createVar(parts[0]);//Получаем левую часть выражения как первый элемент массива строк
 
         //Паттерн регулярки: -+*/=
         Matcher matcherOp = Pattern.compile(Patterns.OPERATION).matcher(expression);

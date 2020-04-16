@@ -4,7 +4,7 @@ package by.it.okatov.calc;
 import java.util.Arrays;
 
 public class Matrix extends Var {
-    private double[][] value;
+    private final double[][] value;
 
     public double[][] getValue() {
         return this.value;
@@ -46,10 +46,11 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (this.value.length == 0) {
-            System.out.println("Error! ");
-            return null;
+            throw new CalcException(
+                    "It's impossible to perform addition on empty matrix!\n"
+            );
         }
 
         if (other instanceof Scalar) {
@@ -67,8 +68,13 @@ public class Matrix extends Var {
             double[][] matrixValue = Arrays.copyOf(getValue(), getValue().length);
             double[][] otherValue = Arrays.copyOf(((Matrix) other).getValue(), ((Matrix) other).getValue().length);
             if (matrixValue.length != otherValue.length || matrixValue[0].length != otherValue[0].length) {
-                System.out.println("Error! ");
-                return null;
+                throw new CalcException(
+                        String.format(
+                                "Matrix %s and Matrix %s have incompatible sizes%n",
+                                new Matrix(matrixValue),
+                                new Matrix(otherValue)
+                        )
+                );
             }
             double[][] resMatrix = new double[matrixValue.length][otherValue[0].length];
             for (int i = 0; i < matrixValue.length; i++) {
@@ -84,10 +90,11 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (this.value.length == 0) {
-            System.out.println("Error! ");
-            return null;
+            throw new CalcException(
+                    "It's impossible to perform subtraction on empty matrix!\n"
+            );
         }
 
         if (other instanceof Scalar) {
@@ -105,8 +112,13 @@ public class Matrix extends Var {
             double[][] matrixValue = Arrays.copyOf(getValue(), getValue().length);
             double[][] otherValue = Arrays.copyOf(((Matrix) other).getValue(), ((Matrix) other).getValue().length);
             if (matrixValue.length != otherValue.length || matrixValue[0].length != otherValue[0].length) {
-                System.out.println("Error! ");
-                return null;
+                throw new CalcException(
+                        String.format(
+                                "Matrix %s and Matrix %s have incompatible sizes%n",
+                                new Matrix(matrixValue),
+                                new Matrix(otherValue)
+                        )
+                );
             }
             double[][] resMatrix = new double[matrixValue.length][otherValue[0].length];
             for (int i = 0; i < matrixValue.length; i++) {
@@ -122,10 +134,11 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (this.value.length == 0) {
-            System.out.println("Error! ");
-            return null;
+            throw new CalcException(
+                    "It's impossible to perform multiplication on empty matrix!\n"
+            );
         }
         if (other instanceof Scalar) {
             double[][] matrixValue = Arrays.copyOf(getValue(), getValue().length);
@@ -143,8 +156,12 @@ public class Matrix extends Var {
             double[][] matrixValue = Arrays.copyOf(getValue(), getValue().length);
             double[][] otherValue = Arrays.copyOf(((Matrix) other).getValue(), ((Matrix) other).getValue().length);
             if (matrixValue[0].length != otherValue.length) {
-                System.out.println("Error! ");
-                return null;
+                throw new CalcException(
+                        String.format(
+                                "Matrix %s and Matrix %s have incompatible sizes%n",
+                                new Matrix(matrixValue),
+                                new Matrix(otherValue)
+                        ));
             }
             double[][] resMatrix = new double[matrixValue.length][otherValue[0].length];
 
@@ -162,8 +179,12 @@ public class Matrix extends Var {
             double[] otherValue = Arrays.copyOf(((Vector) other).getValue(), ((Vector) other).getValue().length);
             double[] resVector = new double[otherValue.length];
             if (matrixValue[0].length != otherValue.length) {
-                System.out.println("Error!");
-                return null;
+                throw new CalcException(
+                        String.format(
+                                "Vector %s and Matrix %s have incompatible sizes%n",
+                                new Vector(otherValue),
+                                new Matrix(matrixValue)
+                        ));
             }
             for (int i = 0; i < matrixValue.length; i++) {
                 for (int j = 0; j < matrixValue[i].length; j++) {
@@ -178,7 +199,7 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         return super.div(other);
     }
 

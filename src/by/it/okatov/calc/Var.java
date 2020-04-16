@@ -8,7 +8,7 @@ abstract class Var implements Operation {
 
     private static final Map<String, Var> hMap = new HashMap<>();
 
-    static Var createVar(String strVar) {
+    static Var createVar(String strVar) throws CalcException {
         if (strVar.matches(Patterns.SCALAR))
             return new Scalar(strVar);
         if (strVar.matches(Patterns.VECTOR))
@@ -17,7 +17,11 @@ abstract class Var implements Operation {
             return new Matrix(strVar);
         else {
             Var var = hMap.get(strVar);
-            return var;
+            if (var != null) {
+                return var;
+            } else {
+                throw new CalcException("incorrect name of variable: " + strVar);
+            }
         }
     }
 
@@ -31,27 +35,35 @@ abstract class Var implements Operation {
     }
 
     @Override
-    public Var add(Var other) {
-        System.out.printf("Error! ");
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException(
+                String.format("ERROR! ") +
+                        String.format("Operation %s + %s is impossible\n", this, other)
+        );
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.printf("Error! ");
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException(
+                String.format("ERROR! ") +
+                        String.format("Operation %s - %s is impossible\n", this, other)
+        );
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.printf("Error! ");
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException(
+                String.format("ERROR! ") +
+                        String.format("Operation %s * %s is impossible\n", this, other)
+        );
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.printf("Error! ");
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException(
+                String.format("ERROR! ") +
+                        String.format("Operation %s / %s is impossible\n", this, other)
+        );
     }
 
     @Override
