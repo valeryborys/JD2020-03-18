@@ -19,9 +19,15 @@ abstract class Var implements Operation {
             return new Vector(operand);
         else if (operand.matches(Patterns.MATRIX))
             return new Matrix(operand);
-        else if (vars.containsKey(operand))
-            return vars.get(operand);
-        throw new CalcException("Невозможно создать " + operand);
+        else {
+            if (vars.get(operand)!=null) {
+                return vars.get(operand);
+            }
+            else {
+                throw new CalcException("Operand don't exist: " + operand);
+            }
+        }
+
     }
     @Override
     public Var add(Var other) throws CalcException{
