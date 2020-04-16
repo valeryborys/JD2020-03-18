@@ -13,13 +13,15 @@ class Printer {
     static  void printVar(){
 
         Map<String, Var> printMap = Var.getVars();
-        for (Map.Entry<String, Var> pair : printMap.entrySet()){
-            String key = pair.getKey();
-            Var value = pair.getValue();
-            System.out.printf("%s=%s\n",key, value);
-        }
-        // варианты вывода (все рабочие)
+        if (printMap.size() != 0) {
+            for (Map.Entry<String, Var> pair : printMap.entrySet()) {
+                String key = pair.getKey();
+                Var value = pair.getValue();
+                System.out.printf("%s=%s\n", key, value);
+            }
+        } else System.out.println("There is no var");
 
+        // варианты вывода (все рабочие)
 //        Map<String, Var> map1 = Var.getVars();
 //        for (Map.Entry<String, Var> pair : map1.entrySet()){
 //            System.out.println(pair.getKey() + "=" + pair.getValue());
@@ -35,14 +37,16 @@ class Printer {
     }
 
     // jd01_11 - taskC part2
-    public static void sortvar() {
+    public static void sortVar() {
         Map<String, Var> varMap = Var.getVars();
-        TreeMap<String, Var> sortedMap = new TreeMap<>(varMap);
-        for (Map.Entry<String, Var> pair : sortedMap.entrySet()) {
-            String key = pair.getKey();
-            Var value = pair.getValue();
-            System.out.printf("%s=%s\n", key, value);
-        }
+        if(varMap.size()!=0) {
+            TreeMap<String, Var> sortedMap = new TreeMap<>(varMap);
+            for (Map.Entry<String, Var> pair : sortedMap.entrySet()) {
+                String key = pair.getKey();
+                Var value = pair.getValue();
+                System.out.printf("%s=%s\n", key, value);
+            }
+        } else System.out.println("There is no var");
     }
 
 }

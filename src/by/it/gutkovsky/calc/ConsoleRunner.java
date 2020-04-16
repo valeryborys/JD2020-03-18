@@ -17,7 +17,7 @@ class ConsoleRunner {
                 Printer.printVar();
             }
             else if (expression.equals("sortvar")){ // jd01_11 - taskC part2
-                Printer.sortvar();
+                Printer.sortVar();
             }
             else {
 

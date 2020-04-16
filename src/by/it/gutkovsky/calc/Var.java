@@ -6,10 +6,6 @@ abstract class Var implements Operation {
 
     private static Map<String, Var> vars = new HashMap<>();
     // jd01_11 - taskA part2
-    static Var saveVar (String name, Var var){
-        vars.put(name, var);
-        return var;
-    }
 
     public static Map<String, Var> getVars() {
         return vars;
@@ -25,7 +21,7 @@ abstract class Var implements Operation {
             return new Matrix(strVar);
         else if (vars.containsKey(strVar))
             return vars.get(strVar);
-        throw  new CalcException("It is impossible to create " + strVar);
+        throw  new CalcException("Unknown var: " + strVar);
     }
 
 
@@ -52,5 +48,10 @@ abstract class Var implements Operation {
     @Override
     public String toString() {
         return "Abstract Var{}";
+    }
+
+    static Var saveVar (String name, Var var){
+        vars.put(name, var);
+        return var;
     }
 }

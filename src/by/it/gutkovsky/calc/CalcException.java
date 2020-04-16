@@ -2,7 +2,8 @@ package by.it.gutkovsky.calc;
 
 class CalcException extends Exception{
     public CalcException() {
-        super();
+//        super();
+        this("ERROR: unknown error");
     }
 
     public CalcException(String message) {
@@ -14,6 +15,7 @@ class CalcException extends Exception{
     }
 
     public CalcException(Throwable cause) {
-        super(cause);
+//        super("ERROR: " + cause);
+        this("ERROR: unknown error" + cause);
     }
 }
