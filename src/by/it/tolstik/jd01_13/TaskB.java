@@ -1,32 +1,29 @@
 package by.it.tolstik.jd01_13;
+
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class TaskB {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         double sum = 0;
-
         while (true) {
-            String text = sc.nextLine();
-            if (text.equals("END")) {
-                break;
-            }
+            String text = scanner.next();
+            if (text.equalsIgnoreCase("END")) break;
             try {
-                double number = Double.parseDouble(text);
-                sum += number;
+                double value = Double.parseDouble(text);
+                sum += value;
                 if (sum <= 0) throw new ArithmeticException();
-                System.out.println(number + " " + Math.sqrt(sum));
-
+                System.out.println("input: " + value + " Sqrt: " + Math.sqrt(sum));
             } catch (NumberFormatException | NullPointerException | ArithmeticException e) {
-                StackTraceElement[] trace = e.getStackTrace();
-                for (StackTraceElement element : trace) {
+                StackTraceElement[] stackTrace = e.getStackTrace();
+                for (StackTraceElement element : stackTrace) {
                     if (element.getClassName().equals(TaskB.class.getName())) {
-                        System.out.printf(
-                                " name: %s\n" +"class: %s\n" +" line: %d\n"
+                        System.out.printf("name: %s \nclass: %s \nline: %d \n"
                                 , e.getClass().getName()
                                 , element.getClassName()
                                 , element.getLineNumber());
-                        break;
                     }
                 }
             }
