@@ -11,12 +11,11 @@ class TaskA {
                 Integer.parseInt("привет");
         }
         catch (NumberFormatException | NullPointerException e) {
-            Class<? extends RuntimeException> aClass = e.getClass();
             StackTraceElement[] stackTrace = e.getStackTrace();
             for (StackTraceElement element : stackTrace) {
                 if (element.getClassName().equals(TaskA.class.getName())) {
                     System.out.printf("name: %s \nclass: %s \nline: %d \n"
-                            ,aClass.getName()
+                            ,e.getClass().getName()
                             ,element.getClassName()
                             ,element.getLineNumber());;
                 }
