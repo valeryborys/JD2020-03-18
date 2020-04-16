@@ -10,9 +10,9 @@ public class ListB<T> implements List<T> {
     private int size = 0;
     @Override
     public boolean add(T t) {
-        //if (size==elements.length){
-            elements = Arrays.copyOf(elements, elements.length + 1);
-        //}
+        if (size==elements.length){
+            elements = Arrays.copyOf(elements, elements.length*3/2 + 1);
+        }
         elements[size++] = t;
         return true;
     }
@@ -51,7 +51,6 @@ public class ListB<T> implements List<T> {
     public boolean addAll(Collection<? extends T> c) {
         int length = c.size();
         Object[] objects = c.toArray();
-        //int length = objects.length;
         elements = Arrays.copyOf(elements, elements.length +length);
         System.arraycopy(objects, 0, elements, size, length);
         size += length;
@@ -61,6 +60,11 @@ public class ListB<T> implements List<T> {
     @Override
     public int size() {
         return this.size;
+    }
+
+    @Override
+    public Object[] toArray() {
+        return Arrays.copyOf(elements,size);
     }
 
     @Override
@@ -103,11 +107,6 @@ public class ListB<T> implements List<T> {
     @Override
     public Iterator<T> iterator() {
         return null;
-    }
-
-    @Override
-    public Object[] toArray() {
-        return Arrays.copyOf(elements,size);
     }
 
     @Override
