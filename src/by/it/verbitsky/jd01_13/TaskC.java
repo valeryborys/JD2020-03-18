@@ -1,7 +1,6 @@
 package by.it.verbitsky.jd01_13;
 
 import java.util.*;
-
 class TaskC {
     private static Scanner scanner;
     private static double errorCount;
@@ -44,3 +43,4 @@ class TaskC {
         }
     }
 }
+
