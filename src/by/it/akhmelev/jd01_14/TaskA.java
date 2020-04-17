@@ -6,13 +6,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class TaskA {
-    private static String getFilename(Class<?> aClass, String simpleName) {
-        String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
-        path = path + aClass.getName().replace(".", File.separator);
-        path = path.replace(aClass.getSimpleName(), "");
-        return path + simpleName;
-    }
-
     public static void main(String[] args) {
         Locale.setDefault(Locale.ENGLISH);
         String binFilename = getFilename(TaskA.class, "dataTaskA.bin");
@@ -22,6 +15,13 @@ public class TaskA {
         List<Integer> list = readInt(binFilename);
         printConsole(list);
         printToTxt(txtFilename, list);
+    }
+
+    private static String getFilename(Class<?> aClass, String simpleName) {
+        String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
+        path = path + aClass.getName().replace(".", File.separator);
+        path = path.replace(aClass.getSimpleName(), "");
+        return path + simpleName;
     }
 
     private static void printToTxt(String filename, List<Integer> list) {
