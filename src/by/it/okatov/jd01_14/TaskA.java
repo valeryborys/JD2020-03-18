@@ -18,19 +18,60 @@ public class TaskA {
 
         //Читает содержимое файла и записывает его в ArrayList
         // после чего выводит в консоль и считает среднее из всех чисел
-        readToArrayList(fileName, arrList, sum);
+        arrList = readToArrayList(fileName);
 
+        printList(arrList);
         //Создает новый файл и записывает в него все числа из старого через
         // пробел, добавляя строку с подсчетом среднего арифметического этих чисел
         simpleName = "resultTaskA.txt";
-        writeInputToFile(getFileName(TaskA.class, simpleName), arrList, sum);
+        writeInputToFile(getFileName(TaskA.class, simpleName), arrList);
     }
 
-    private static void writeInFile(String fileName) {
+    private static String getFileName(Class<?> aClass, String simpleName) {
+        String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
+        path += aClass.getName()
+                        .replace(".", File.separator)
+                        .replace(aClass.getSimpleName(), "")
+                        + simpleName;
+        return path;
+    }
+
+    private static void printList(List<Integer> arrList) {
+        double sum = 0;
+        for (Integer i : arrList) {
+            sum += i;
+            System.out.printf("%d ", i);
+        }
+        System.out.printf("\navg=%f\n", sum / arrList.size());
+    }
+
+    private static List<Integer> readToArrayList(String filename) {
+        List<Integer> arrList;
+        try (DataInputStream input =
+                     new DataInputStream(
+                             new BufferedInputStream(
+                                     new FileInputStream(filename)
+                             )
+                     )
+        ) {
+            arrList = new ArrayList<>();
+            while (input.available() > 0) {
+                arrList.add(input.readInt());
+            }
+
+            //Печатает список в консоль
+            //printList(arrList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return arrList;
+    }
+
+    private static void writeInFile(String filename) {
         try (DataOutputStream output =
                      new DataOutputStream(
                              new BufferedOutputStream(
-                                     new FileOutputStream(fileName)
+                                     new FileOutputStream(filename)
                              )
                      )
         ) {
@@ -42,60 +83,16 @@ public class TaskA {
         }
     }
 
-    private static void readToArrayList(String fileName, List<Integer> arrList, double sum) {
-        try (DataInputStream input =
-                     new DataInputStream(
-                             new BufferedInputStream(
-                                     new FileInputStream(fileName)
-                             )
-                     )
-        ) {
-            while (input.available() > 0) {
-                arrList.add(input.readInt());
-            }
-
-            //Печатает список в консоль
-            printList(arrList, sum);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static void printList(List<Integer> arrList, double sum) {
-        for (Integer i : arrList) {
-            System.out.printf("%d ", i);
-            sum += i;
-        }
-        //DecimalFormat dc = new DecimalFormat("#.########E##");
-        //String output = dc.format(sum / arrList.size());
-        //System.out.println(output);
-        System.out.printf("%navg=%f", sum / arrList.size());
-    }
-
-    private static void writeInputToFile(String fileName, List<Integer> arrList, double sum) {
+    private static void writeInputToFile(String fileName, List<Integer> arrList) {
         try (PrintWriter print = new PrintWriter(fileName)) {
+            double sum = 0;
             for (Integer i : arrList) {
                 print.printf("%d ", i);
                 sum += i;
             }
-            print.printf("%navg=%e", sum / arrList.size());
+            print.printf("%navg=%f", sum / arrList.size());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    /***
-     * Получает путь для создания, записи или чтения файла, находящегося в текущем пакете
-     * @param aClass - класс, вызывающий метод
-     * @param simpleName - названия файла для чтения/записи
-     * @return полный путь к файлу для чтения/записи
-     */
-    static String getFileName(Class<?> aClass, String simpleName) {
-        String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
-        path += aClass.getName()
-                        .replace(".", File.separator)
-                        .replace(aClass.getSimpleName(), "")
-                        + simpleName;
-        return path;
     }
 }
