@@ -1,7 +1,5 @@
 package by.it.tolstik.jd01_13;
 
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 class TaskB {
