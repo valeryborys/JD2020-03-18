@@ -27,7 +27,7 @@ public class TaskA {
         writeInputToFile(getFileName(TaskA.class, simpleName), arrList);
     }
 
-    private static String getFileName(Class<?> aClass, String simpleName) {
+    static String getFileName(Class<?> aClass, String simpleName) {
         String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
         path += aClass.getName()
                         .replace(".", File.separator)
