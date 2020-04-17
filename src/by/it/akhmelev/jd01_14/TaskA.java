@@ -24,19 +24,6 @@ public class TaskA {
         return path + simpleName;
     }
 
-    private static void printToTxt(String filename, List<Integer> list) {
-        try (PrintWriter out = new PrintWriter(filename)) {
-            double sum2 = 0;
-            for (Integer i : list) {
-                sum2 += i;
-                out.printf("%d ", i);
-            }
-            out.printf("\navg=%f\n", sum2 / list.size());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
     private static void printConsole(List<Integer> list) {
         double sum = 0;
         for (Integer i : list) {
@@ -78,6 +65,19 @@ public class TaskA {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private static void printToTxt(String filename, List<Integer> list) {
+        try (PrintWriter out = new PrintWriter(filename)) {
+            double sum2 = 0;
+            for (Integer i : list) {
+                sum2 += i;
+                out.printf("%d ", i);
+            }
+            out.printf("\navg=%f\n", sum2 / list.size());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }
