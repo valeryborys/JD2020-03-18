@@ -41,6 +41,9 @@ abstract class CalcMemoryManager {
         }
     }
 
+    //не работает с ветором и матрицей, почему-то не может создать вектор или матрицу из строки
+    //хотя если эту же строку вставить в консоль - все работает и вектор создается
+    //возможно что-то с парсингом
     private static void memoryAdd(String line) throws CalcException {
         String[] parts = line.replace("\n", "").split("=");
         try {
