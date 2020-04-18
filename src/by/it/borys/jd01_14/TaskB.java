@@ -7,18 +7,7 @@ import java.util.regex.Pattern;
 public class TaskB {
     public static void main(String[] args) {
         StringBuilder sb = new StringBuilder();
-        try (DataInputStream input = new DataInputStream
-                (new BufferedInputStream
-                        (new FileInputStream(TaskA.dir(TaskB.class) + "text.txt")))
-            ) {
-            InputStreamReader isr = new InputStreamReader(input, "UTF-8");
-            int b = 0;
-            while ((b = isr.read()) != -1) {
-                sb.append((char) b);
-              }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        inputToString(sb);
         int countwords = 0;
         int countmarks = 0;
         Pattern p1 = Pattern.compile("[А-яЁёA-z]+");
@@ -33,28 +22,30 @@ public class TaskB {
         }
         String res = "words=" + countwords + ", punctuation marks=" + countmarks;
         System.out.println(res);
-        DataOutputStream dos = null;
-        try{
-            dos = new DataOutputStream
-                    (new BufferedOutputStream
-                            (new FileOutputStream(TaskA.dir(TaskB.class)+"resultTaskB.txt")
-                            )
-                    );
-          byte[] resBytes = res.getBytes();
-          dos.write(resBytes);
-
-        } catch (IOException e){
-            System.out.println("Ошибка");
-        }
-        finally {
-            if (dos !=null){
-                try {
-                    dos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        printToTxt(res);
 
     }
-}
+
+    private static void inputToString(StringBuilder sb) {
+        try (DataInputStream input = new DataInputStream
+                (new BufferedInputStream
+                        (new FileInputStream(TaskA.dir(TaskB.class) + "text.txt")))
+            ) {
+            InputStreamReader isr = new InputStreamReader(input, "UTF-8");
+            int b = 0;
+            while ((b = isr.read()) != -1) {
+                sb.append((char) b);
+              }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void printToTxt(String res) {
+        try(PrintWriter out = new PrintWriter(TaskA.dir(TaskB.class)+"resultTaskB.txt")){
+            out.print(res);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+  }
