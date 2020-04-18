@@ -23,17 +23,17 @@ class Parser {
                     return null;
                 }
                 default:
-                    return Var.createVar(parts[0]);
+                    return Var.createVar(parts[0].trim());
             }
         }
 
-        Var right = Var.createVar(parts[1]);
+        Var right = Var.createVar(parts[1].trim());
 
         if (expression.contains("=")) {
-            Var.memoryAdd(parts[0], right);
+            Var.memoryAdd(parts[0].trim(), right);
             return right;
         }
-        Var left = Var.createVar(parts[0]);
+        Var left = Var.createVar(parts[0].trim());
         Matcher matcher = Pattern
                 .compile(Patterns.OPERATION)
                 .matcher(expression);

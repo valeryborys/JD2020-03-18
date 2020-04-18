@@ -94,5 +94,4 @@ abstract class Var implements Operation {
         getCalcMemory().clear();
     }
 
-
 }
