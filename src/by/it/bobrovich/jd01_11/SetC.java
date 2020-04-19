@@ -1,9 +1,6 @@
 package by.it.bobrovich.jd01_11;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class SetC<T> implements Set<T> {
     private T[] elements = (T[]) new Object[]{};
@@ -13,7 +10,7 @@ public class SetC<T> implements Set<T> {
     public boolean add(T t) {
         if (!contains(t)) {
             if (size == elements.length) {
-                elements = Arrays.copyOf(elements, (size * 3) / 2 + 1);
+                elements = Arrays.copyOf(elements, elements.length + 1);
             }
             elements[size++] = t;
             return true;
@@ -23,23 +20,21 @@ public class SetC<T> implements Set<T> {
 
     @Override
     public boolean remove(Object o) {
-        if (contains(o)) {
-            for (int i = 0; i < size; i++) {
-                if (elements[i].equals(o))
-                    elements[i] = null;
+        for (int i = 0; i < elements.length; i++) {
+            if (Objects.equals(elements[i], o)) {
+                System.arraycopy(elements, i + 1, elements, i, elements.length - i - 1);
+                size--;
             }
-            size--;
-            return true;
         }
+        if(size > 0)
+            elements = Arrays.copyOf(elements, size);
         return false;
     }
 
     @Override
     public boolean contains(Object o) {
-        for (int i = 0; i < size; i++) {
-            if (elements[i].equals(o)) {
-                return true;
-            }
+        for (T element : elements) {
+            if (Objects.equals(element, o)) return true;
         }
         return false;
     }
@@ -55,24 +50,44 @@ public class SetC<T> implements Set<T> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends T> c) {
-        for (T t : c) {
-            if(!contains(t)){
-                add(t);
-            }
-            return true;
-        }
-        return false;
+    public void clear() {
+        removeAll(Arrays.asList(elements));
     }
 
     @Override
+    public boolean addAll(Collection<? extends T> c) {
+        if (c == null)
+            return false;
+        Object[] objects = c.toArray();
+        for (Object object : objects) {
+            if (!contains(object)) {
+                elements = Arrays.copyOf(elements, elements.length + 1);
+                elements[size++] = (T) object;
+            }
+        }
+        return true;
+    }
+
+
+    @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        Object[] objects = c.toArray();
+        boolean check = true;
+        for (Object object : objects) {
+            if (!contains(object))
+                check = false;
+        }
+        return check;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        Object[] objects = c.toArray();
+        for (Object object : objects) {
+            if (this.contains(object))
+                this.remove(object);
+        }
+        return true;
     }
 
     @Override
@@ -107,8 +122,4 @@ public class SetC<T> implements Set<T> {
         return false;
     }
 
-    @Override
-    public void clear() {
-
-    }
 }
