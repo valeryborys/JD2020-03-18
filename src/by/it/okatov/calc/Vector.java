@@ -35,7 +35,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).getValue();
             double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
@@ -48,8 +48,12 @@ class Vector extends Var {
             double[] otherValue = Arrays.copyOf(((Vector) other).getValue(), ((Vector) other).getValue().length);
             double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
             if (otherValue.length != vectorValue.length) {
-                System.out.println("Size!");
-                return null;
+                throw new CalcException(
+                        String.format(
+                                "Vector %s and Matrix %s have incompatible sizes%n",
+                                new Vector(otherValue),
+                                new Vector(vectorValue)
+                        ));
             }
             for (int i = 0; i < vectorValue.length; i++) {
                 vectorValue[i] += otherValue[i];
@@ -63,7 +67,7 @@ class Vector extends Var {
 
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).getValue();
             double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
@@ -76,8 +80,12 @@ class Vector extends Var {
             double[] otherValue = Arrays.copyOf(((Vector) other).getValue(), ((Vector) other).getValue().length);
             double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
             if (otherValue.length != vectorValue.length) {
-                System.out.println("Size!");
-                return null;
+                throw new CalcException(
+                        String.format(
+                                "Vector %s and Matrix %s have incompatible sizes%n",
+                                new Vector(otherValue),
+                                new Vector(vectorValue)
+                        ));
             }
             for (int i = 0; i < vectorValue.length; i++) {
                 vectorValue[i] -= otherValue[i];
@@ -89,7 +97,7 @@ class Vector extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).getValue();
             double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
@@ -103,8 +111,12 @@ class Vector extends Var {
             double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
             double scalarMultiplication = 0;
             if (otherValue.length != vectorValue.length) {
-                System.out.println("Size!");
-                return null;
+                throw new CalcException(
+                        String.format(
+                                "Vector %s and Matrix %s have incompatible sizes%n",
+                                new Vector(otherValue),
+                                new Vector(vectorValue)
+                        ));
             }
             for (int i = 0; i < vectorValue.length; i++) {
                 scalarMultiplication += vectorValue[i] * otherValue[i];
@@ -118,9 +130,15 @@ class Vector extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).getValue();
+            if (otherValue == 0) {
+                throw new CalcException(String.format(
+                        "ERROR! Division by zero: Scalar equals to %s",
+                        otherValue
+                ));
+            }
             double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
             for (int i = 0; i < vectorValue.length; i++) {
                 vectorValue[i] /= otherValue;
