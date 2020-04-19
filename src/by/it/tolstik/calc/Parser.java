@@ -32,6 +32,6 @@ class Parser {
                     return one.mul(two);
             }
         }
-        return null;
+        throw new CalcException();
     }
 }

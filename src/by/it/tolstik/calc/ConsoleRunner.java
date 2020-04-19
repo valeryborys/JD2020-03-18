@@ -16,6 +16,8 @@ class ConsoleRunner {
                 printer.print(result);
             } catch (CalcException e) {
                 System.out.println(e.getMessage());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

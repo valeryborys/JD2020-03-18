@@ -67,6 +67,8 @@ class Matrix extends Var {
             return new Matrix(matrixResultSub);
         }
         if (other instanceof Matrix) {
+            if ((this.value.length != ((Matrix) other).value.length) || (this.value[0].length != ((Matrix) other).value[0].length))
+                throw new CalcException("Матрицы разного размера. Вычитание невозможно!");
             double[][] matrixResultSub = new double[this.value.length][this.value[0].length];
             for (int i = 0; i < this.value.length; i++) {
                 matrixResultSub[i] = Arrays.copyOf(this.value[i], this.value.length);
@@ -80,6 +82,7 @@ class Matrix extends Var {
                 }
                 return new Matrix(matrixResultSub);
             }
+            else return super.sub(other);
         }
 
         return super.sub(other);
