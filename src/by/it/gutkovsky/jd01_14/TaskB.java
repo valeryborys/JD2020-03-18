@@ -4,59 +4,69 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 class TaskB {
     public static void main(String[] args) {
         String file = getFileName(TaskB.class, "text.txt");
-        List<String> listOfWords = new ArrayList<>();
-
         File f = new File(file);
-        //readWordsFromTxtFile
-        try (final Scanner sc = new Scanner(f)) {
-            sc.useDelimiter("\\s+(-\\s)?");
-            while (sc.hasNext()) {
-                listOfWords.add(sc.next());
-            }
-//            System.out.println("words=" + (listOfWords.size()));
-//            for (int i = 0; i < listOfWords.size(); i++) {
-//                System.out.println(listOfWords.get(i));
-////                System.out.println();
-//            }
-        } catch (RuntimeException | FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-//
+        List<String> listOfWords = new ArrayList<>();
+        readWordsFromFile(listOfWords, f);
+        String text = getText(f);
         List<String> listOfMarks = new ArrayList<>();
+        readMarks(text, listOfMarks);
+        printToConsole(listOfWords, listOfMarks);
+        printToFile(TaskB.class,"resultTaskB.txt", listOfWords, listOfMarks);
+    }
 
-        //readMarksFromTxtFile
-        try (final Scanner sc = new Scanner(f)) {
-            sc.useDelimiter("[^(а-яА-ЯёЁ)+\\s]");
-            while (sc.hasNext()) {
-                listOfMarks.add(sc.next());
-            }
-//            System.out.println("marks=" + (listOfMarks.size()));
-//            for (int i = 0; i < listOfMarks.size(); i++) {
-//                System.out.println(listOfMarks.get(i));
-////                System.out.println();
-//            }
-        } catch (RuntimeException | FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        String fileToPrint =getFileName(TaskB.class, "resultTaskB.txt");
-
-        //printToConsole
-        System.out.println(" words="+listOfWords.size()+", punctuation marks="+(listOfMarks.size()-2));
-//        System.out.println(" words="+listOfWords.size()+", marks="+listOfMarks.size());
-
-        //printToFile
+    private static void printToFile(Class<?> aClass, String fileSimpleName, List<String> listOfWords, List<String> listOfMarks) {
+        String fileToPrint =getFileName(aClass, fileSimpleName);
         try (PrintWriter out = new PrintWriter(fileToPrint)){
-            out.print(" words="+listOfWords.size()+", punctuation marks="+(listOfMarks.size()-2));
+            out.print(" words="+listOfWords.size()+", punctuation marks="+(listOfMarks.size()));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
+    private static void printToConsole(List<String> listOfWords, List<String> listOfMarks) {
+        System.out.println(" words="+listOfWords.size()+", punctuation marks="+listOfMarks.size());
+    }
 
+    private static void readMarks(String text, List<String> listOfMarks) {
+        Pattern pattern = Pattern.compile("[^(а-яА-ЯёЁ)+\\s]");
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find()){
+            listOfMarks.add(matcher.group());
+        }
+    }
+
+    private static String getText(File f) {
+        StringBuilder sb = new StringBuilder();
+        int symbol;
+        String text = null;
+
+        try (FileReader fr = new FileReader(f)) {
+            while ( (symbol = fr.read()) != -1){
+                sb.append((char)symbol);
+            }
+            text = sb.toString().replace("...",".");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return text;
+    }
+
+    private static void readWordsFromFile(List<String> listOfWords, File f) {
+        try (Scanner sc = new Scanner(f)) {
+            sc.useDelimiter("\\s+(-\\s)?");
+            while (sc.hasNext()) {
+                listOfWords.add(sc.next());
+            }
+        } catch (RuntimeException | FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static String getFileName(Class<?> aClass, String simpleName) {
