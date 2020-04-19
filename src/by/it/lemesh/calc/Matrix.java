@@ -7,7 +7,7 @@ class Matrix extends Var {
     private double[][] value;
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[][] sum = value.clone();
             for (int i = 0; i < sum.length; i++) {
@@ -34,7 +34,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double[][] sub = value.clone();
             for (int i = 0; i < sub.length; i++) {
@@ -46,7 +46,9 @@ class Matrix extends Var {
                 }
             }
             return new Matrix(sub);
-        } else if ((other instanceof Matrix) && (this.value.length == ((Matrix) other).value.length)) {
+        } else if (other instanceof Matrix) {
+            if ((this.value.length != ((Matrix) other).value.length) || (this.value[0].length != ((Matrix) other).value[0].length))
+                throw new CalcException("Матрицы разного размера. Вычитание невозможно!");
             double[][] sub = value.clone();
             for (int i = 0; i < sub.length; i++) {
                 sub[i] = value[i].clone();
@@ -95,7 +97,7 @@ class Matrix extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         return super.div(other);
     }
 
