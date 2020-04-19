@@ -4,6 +4,11 @@ import java.io.*;
 
 public class TaskA {
 
+    public static void main(String[] args) {
+        randomOutput();
+        randomInput();
+    }
+
     private static String dir(Class<?> aClass) {
         String path = System.getProperty("user.dir") + File.separator
                 + "src" + File.separator;
@@ -46,9 +51,4 @@ public class TaskA {
         }
     }
 
-
-    public static void main(String[] args) {
-        randomOutput();
-        randomInput();
-    }
 }

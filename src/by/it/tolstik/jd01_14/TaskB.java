@@ -23,20 +23,16 @@ class TaskB {
         ) {
             StringBuilder text = new StringBuilder();
             while (sc.hasNext()) {
-                text.append(sc.next()).append(" ");
+                text.append(sc.nextLine()).append("\n");
             }
             String[] words = text.toString().split("[^а-яА-ЯёЁ]+");
-            System.out.println(text);
             String[] punctuations = text.toString()
                     .replace(" ", "")
-                    .split("[а-яА-ЯёЁ]+");
-            for (int i = 0; i < punctuations.length; i++) {
-                System.out.println(punctuations[i]);
-            }
-            System.out.printf("words=%d, punctuation marks=%d \n", words.length, punctuations.length-1);
-            pw.printf("words=%d, punctuation marks=%d \n", words.length, punctuations.length-1);
+                    .split("[^,!.-]+");
+            System.out.printf("words=%d, punctuation marks=%d \n", words.length, punctuations.length);
+            pw.printf("words=%d, punctuation marks=%d \n", words.length, punctuations.length);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Ошибка! " + e);;
         }
     }
 }
