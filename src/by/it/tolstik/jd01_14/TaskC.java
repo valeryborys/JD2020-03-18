@@ -18,7 +18,7 @@ class TaskC {
     //@param dir = name current directory for printing by step up in your directory;
     private static String getPath(Class<?> aClass, String dir) {
         return System.getProperty("user.dir") + File.separator + "src" + File.separator
-                + aClass.getPackage().getName().replace(dir, "")
+                + aClass.getPackage().getName().replace(dir, "") //fix khmelov: getPackageName() - @since Java 9
                 .replace(".", File.separator);
     }
 
