@@ -32,8 +32,9 @@ public class TaskA {
                 sum += i;
                 count++;
             }
-            System.out.println("\navg=" + sum / count);
-            pw.println("\navg=" + sum / count);
+            System.out.println();
+            System.out.println("avg=" + sum / count);
+            pw.println("avg=" + sum / count);
         } catch (IOException e) {
             e.printStackTrace();
         }
