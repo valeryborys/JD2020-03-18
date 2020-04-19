@@ -7,24 +7,24 @@ public class TaskC1 {
         ArrayList<String> values = getWords();
         int length = values.size();
         Set<Integer> keys = getKeys(length);
-        Map<Integer,String> C = new TreeMap<>();
+        Map<Integer,String> c = new TreeMap<>();
         int i=0;
         for (Integer key : keys) {
-            C.put(key, values.get(i));
+            c.put(key, values.get(i));
             i++;
         }
-        System.out.println(C);
+        System.out.println(c);
         Map<String,Integer> temp = new HashMap<>();
-        Set<Map.Entry<Integer, String>> entries = C.entrySet();
+        Set<Map.Entry<Integer, String>> entries = c.entrySet();
         for (Map.Entry<Integer, String> entry : entries) {
             temp.put(entry.getValue(),entry.getKey());
         }
-        C.clear();
+        c.clear();
         Set<Map.Entry<String, Integer>> entries1 = temp.entrySet();
         for (Map.Entry<String, Integer> ent : entries1) {
-            C.put(ent.getValue(),ent.getKey());
+            c.put(ent.getValue(),ent.getKey());
         }
-        System.out.println(C);
+        System.out.println(c);
     }
 
     private static ArrayList<String> getWords(){
