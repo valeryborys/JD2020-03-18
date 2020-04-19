@@ -1,7 +1,5 @@
 package by.it.sinevich.jd01_10;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
-
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
