@@ -1,4 +1,4 @@
-package by.it.tolstik.jd01_09;
+package by.it.tolstik.calc;
 
 interface Patterns {
     String OPERATION = "[-=+/*]";
