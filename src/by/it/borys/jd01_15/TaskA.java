@@ -9,7 +9,7 @@ public class TaskA {
         readToConsole(fileName);
     }
 
-    private static String dir(Class<?> dir) {
+    public static String dir(Class<?> dir) {
         String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
         String clD = dir.getName().replace("TaskA", "").replace(".", File.separator);
         return path + clD;
