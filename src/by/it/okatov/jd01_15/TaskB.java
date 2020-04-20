@@ -108,7 +108,7 @@ public class TaskB {
      * @param fileName новое/искомое имя файла
      * @return полный путь
      */
-    private static String getFileName(Class<?> aClass, String fileName) {
+    public static String getFileName(Class<?> aClass, String fileName) {
         return System.getProperty("user.dir") +
                        File.separator +
                        "src" +
