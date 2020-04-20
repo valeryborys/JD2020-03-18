@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class TaskC {
@@ -13,7 +14,7 @@ public class TaskC {
         String input;
         String directory = TaskB.getFileName(TaskC.class, "");
         Path path = Paths.get(directory);
-        
+
         while (true) {
             System.out.print(path + "> ");
             input = sc.nextLine();
@@ -30,7 +31,7 @@ public class TaskC {
 
     private static Path switchState(String input, Path path) {
         Date lastModDate;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyy hh.mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy hh.mm");
         String sDate;
         int countFiles = 0;
         int countDirs = 0;
@@ -46,9 +47,9 @@ public class TaskC {
             case Directory:
                 File f = new File(path.toString());
                 File[] dirs = f.listFiles();
-                for (File dir : dirs) {
+                for (File dir : Objects.requireNonNull(dirs)) {
                     lastModDate = new Date(dir.lastModified());
-                    sDate = String.format(dateFormat.format(lastModDate));
+                    sDate = dateFormat.format(lastModDate);
                     if (dir.isDirectory()) {
                         System.out.printf("%s%15s%7s %s%n", sDate, "<DIR>", "", dir.getName());
                         countDirs++;
