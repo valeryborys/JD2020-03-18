@@ -9,8 +9,11 @@ public class TaskA {
         //createMatrix
         int[][] matrix = createMatrix();
 
+        Class<TaskA> aClass = TaskA.class;
+        String fileName = "matrix.txt";
+
         //getFileName
-        String path = getFileName();
+        String path = getFileName(aClass, fileName);
 
         //writeMatrixToFile
         writeMatrixToFile(matrix, path);
@@ -29,9 +32,7 @@ public class TaskA {
         }
     }
 
-    private static String getFileName() {
-        Class<TaskA> aClass = TaskA.class;
-        String fileName = "matrix.txt";
+    private static String getFileName(Class<?> aClass, String fileName) {
         return System.getProperty("user.dir") +
                        File.separator +
                        "src" +
