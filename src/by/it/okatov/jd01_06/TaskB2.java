@@ -41,7 +41,7 @@ public class TaskB2 {
     }
 
 
-    private static void sortingBasedOnLettersCount(String[] splited) {
+    public static void sortingBasedOnLettersCount(String[] splited) {
         Comparator<String> stringLengthComparator = new StringLengthSort();
         Arrays.sort(splited, stringLengthComparator);
         for (String s : splited) {

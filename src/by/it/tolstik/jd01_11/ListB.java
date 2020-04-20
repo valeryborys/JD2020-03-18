@@ -2,7 +2,7 @@ package by.it.tolstik.jd01_11;
 
 import java.util.*;
 
-public class ListB<T> implements List<T> {
+class ListB<T> implements List<T> {
 
     private T[] elements = (T[]) new Object[]{};
     private int size = 0;

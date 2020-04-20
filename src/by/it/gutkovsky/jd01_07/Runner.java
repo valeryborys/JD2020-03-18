@@ -11,7 +11,7 @@ class Runner {
         Var vector = new Vector("{1.0, 2.0, 4.0}");
         System.out.println(vector);
 // check toString
-        Matrix matrix = new Matrix( "{{ 1.0, 2.0}, { 3.0, 4.0}}");
+        Matrix matrix = new Matrix( "{{ 1.0, 2.0, 2.5}, { 3.0, 4.0, 2.5}}");
         System.out.println(matrix);
     }
 }

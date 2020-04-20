@@ -1,8 +1,9 @@
 package by.it.okatov.calc;
 
+
 class Scalar extends Var {
 
-    private double value;
+    private final double value;
 
 
     Scalar(double value) {
@@ -22,7 +23,7 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).value;
             double result = this.value + otherValue;
@@ -32,7 +33,7 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).value;
             double result = this.value + -otherValue;
@@ -42,7 +43,7 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).value;
             double result = this.value * otherValue;
@@ -52,14 +53,14 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).value;
-            if (otherValue == 0) {
-                super.div(other);
-            }
-            double result = this.value / otherValue;
-            return new Scalar(result);
+            if (otherValue != 0) {
+                double result = value / otherValue;
+                return new Scalar(result);
+            } else
+                throw new CalcException("ERROR! Division by zero");
         }
         return super.div(other);
     }

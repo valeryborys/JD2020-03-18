@@ -1,10 +1,5 @@
 package by.it.gutkovsky.jd01_08;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-import org.w3c.dom.ls.LSOutput;
-
-import javax.security.auth.Subject;
-
 class Scalar extends Var {
 
     private double value;

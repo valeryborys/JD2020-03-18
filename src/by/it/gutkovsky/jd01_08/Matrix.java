@@ -18,7 +18,7 @@ class Matrix extends Var {
             this.value = Arrays.copyOf(other.value, other.value.length);
         }
     }
-
+/*
     Matrix(String strMatrix) {
         String text = strMatrix.replaceAll("\\.", "A");
 //        System.out.println(text);
@@ -79,6 +79,31 @@ class Matrix extends Var {
 
         this.value = result;
     }
+ */
+
+    Matrix(String strMatrix) {
+        String text = strMatrix.replaceAll("\\{", "");
+        StringBuilder textCopy = new StringBuilder(text);
+        Pattern pattern = Pattern.compile("},");
+        String[] arrayOfRow = pattern.split(textCopy);
+
+//        System.out.println(Arrays.toString(arrayOfRow));
+//        System.out.println(arrayOfRow[0]);
+//        System.out.println(arrayOfRow[1]);
+
+        this.value = new double[arrayOfRow.length][];
+        for (int i = 0; i < arrayOfRow.length; i++) {
+            String row = arrayOfRow[i].replaceAll("}", "").trim();
+            String[] column = row.split(",");
+            this.value[i] = new double[column.length];
+            for (int j = 0; j < column.length; j++) {
+                this.value[i][j] = Double.parseDouble(column[j]);
+            }
+        }
+
+//        System.out.println(Arrays.deepToString(this.value));
+    }
+
 
     @Override
     public Var add(Var other) {
@@ -163,7 +188,7 @@ class Matrix extends Var {
 //                    matrixResultSub[i][j] = this.value[i][j];
 //                }
 //            }
-            if (matrixResultSub.length == ((Matrix) other).value.length && matrixResultSub[0].length == ((Matrix) other).value.length) {
+            if (matrixResultSub.length == ((Matrix) other).value.length && matrixResultSub[0].length == ((Matrix) other).value[0].length) {
 
                 for (int i = 0; i < matrixResultSub.length; i++) {
                     for (int j = 0; j < matrixResultSub.length; j++) {
