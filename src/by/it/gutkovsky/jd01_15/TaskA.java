@@ -4,6 +4,7 @@ import java.io.*;
 
 class TaskA {
     public static void main(String[] args) {
+
         int[][] matrix = new int[6][4];
         createMatrix(matrix);
         String fileMatrix = getFileName(TaskA.class, "matrix.txt");
