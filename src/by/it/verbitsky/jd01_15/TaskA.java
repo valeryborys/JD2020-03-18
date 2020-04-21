@@ -27,19 +27,6 @@ class TaskA {
         return matrix;
     }
 
-    private static int[][] getMatrixFromFile(String fileName) {
-        int[][] matrix = new int[rowCount][colCount];
-        int lineNum = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            while (reader.ready()) {
-                matrix[lineNum++] = getArrayFromLine(reader.readLine(), matrix[0].length);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return matrix;
-    }
-
     private static int[] getArrayFromLine(String readLine, int size) {
         int[] array = new int[size];
 
@@ -68,6 +55,19 @@ class TaskA {
                         .replace(aClass.getSimpleName(), ""))
                 .append(name);
         return fullPath.toString();
+    }
+
+    private static int[][] getMatrixFromFile(String fileName) {
+        int[][] matrix = new int[rowCount][colCount];
+        int lineNum = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            while (reader.ready()) {
+                matrix[lineNum++] = getArrayFromLine(reader.readLine(), matrix[0].length);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return matrix;
     }
 
     private static void printMatrix(int[][] matrix) {

@@ -25,17 +25,19 @@ abstract class CalcMemoryManager {
         }
     }
 
-    public static void readMemoryFromFile(String fName) throws CalcException {
+    public static void readMemoryFromFile(String fName, CalcLogger logger) throws CalcException {
         //читаем если файл не пустой
         Parser parser = new Parser();
         if (new File(fName).length() > 1) {
             try (BufferedReader reader = new BufferedReader(new FileReader(fName))) {
                 while (reader.ready()) {
-                    parser.calc(reader.readLine());
+                    parser.calc(reader.readLine(), logger);
                 }
             } catch (CalcException e) {
+                logger.writeLog("Error reading calc memory file");
                 throw new CalcException("Error reading calc memory file");
             } catch (IOException e) {
+                logger.writeLog(e.getMessage());
                 throw new RuntimeException(e);
             }
         }

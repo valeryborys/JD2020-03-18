@@ -84,7 +84,6 @@ abstract class Var implements Operation {
 
 
     public static void sortvar() {
-        //calcMemory = new TreeMap<>(calcMemory);
         setCalcMemory(new TreeMap<>(getCalcMemory()));
         printvar();
     }
