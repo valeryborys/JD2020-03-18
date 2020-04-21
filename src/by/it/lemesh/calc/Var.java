@@ -15,7 +15,7 @@ public abstract class Var implements Operation {
         return vars;
     }
 
-    static Var createVar(String line) {
+    static Var createVar(String line) throws CalcException {
         line.trim().replace(" ", "");
         if (line.matches(Patterns.SCALAR))
             return new Scalar(line);
@@ -25,30 +25,26 @@ public abstract class Var implements Operation {
             return new Matrix(line);
         if (vars.containsKey(line))
             return vars.get(line);
-        else return null;
+        else throw  new CalcException("Невозможно создать "+ line);
     }
 
     @Override
-    public Var add(Var other) {
-        System.out.println("Операция сложения невозмжна.");
-        return null;
+    public Var add(Var other) throws CalcException {
+        throw new CalcException("Операция сложения невозмжна.");
     }
 
     @Override
-    public Var sub(Var other) {
-        System.out.println("Операция вычитания невозмжна.");
-        return null;
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException("Операция вычитания невозмжна.");
     }
 
     @Override
-    public Var mul(Var other) {
-        System.out.println("Операция умножения невозмжна.");
-        return null;
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException("Операция умножения невозмжна.");
     }
 
     @Override
-    public Var div(Var other) {
-        System.out.println("Операция деления невозмжна.");
-        return null;
+    public Var div(Var other) throws CalcException {
+        throw new CalcException("Операция деления невозмжна.");
     }
 }
