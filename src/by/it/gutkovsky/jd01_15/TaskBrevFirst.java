@@ -4,17 +4,17 @@ package by.it.gutkovsky.jd01_15;
 import java.io.*;
 import java.util.*;
 
-class TaskB {
+class TaskBrevFirst {
     public static void main(String[] args) {
         //creating var
         StringBuilder text = new StringBuilder();
         //getFileName
-        String path = getFileName(TaskB.class, "TaskB.txt");
+        String path = getFileName(TaskBrevFirst.class, "TaskBrevFirst.txt");
         /* get file from which we will read data
         *
         *
         */
-        String sourceFile = getFileName(TaskB.class, "TaskB.java");
+        String sourceFile = getFileName(TaskBrevFirst.class, "TaskBrevFirst.java");
         /* ReadFromFile
          */
         try (BufferedReader reader = new BufferedReader(new FileReader(sourceFile))) {
