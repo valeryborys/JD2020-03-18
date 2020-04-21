@@ -1,7 +1,7 @@
 package by.it.verbitsky.jd01_15;
 
 interface FileManagerCommands {
-     void changeDir(String path);
+    void changeDir(Command cmd);
 
-     void printDir(String path);
+    void printCurrentDir(Command cmd);
 }

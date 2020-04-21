@@ -5,13 +5,15 @@ import java.util.Scanner;
 class TaskC {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        FileManagerParser parser = new FileManagerParser();
+        FileManager fm = new FileManager(
+                FileManager.getPath(TaskC.class),
+                new FileManagerParser());
         while (true) {
             String expression = scanner.nextLine();
             if (expression.equals("end")) {
                 break;
             }
-            parser.parse(expression);
+            fm.process(expression);
         }
     }
 
