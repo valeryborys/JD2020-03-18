@@ -2,7 +2,7 @@ package by.it.tolstik.jd01_11;
 
 import java.util.*;
 
-public class SetC<T> implements Set<T> {
+class SetC<T> implements Set<T> {
     private final HashMap<T,Object> map = new HashMap();
     private static final Object objects = new Object();
 

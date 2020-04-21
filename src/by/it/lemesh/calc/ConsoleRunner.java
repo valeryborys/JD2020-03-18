@@ -14,8 +14,13 @@ public class ConsoleRunner {
             } else if (line.equals("sortvar")) {
                 printer.printSortVars();
             } else {
-                Var result = parser.calc(line);
-                printer.print(result);
+                try {
+                    Var result = parser.calc(line);
+                    printer.print(result);
+                } catch (CalcException e) {
+                    System.out.println(e.getMessage());
+                }
+
             }
         }
     }

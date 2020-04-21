@@ -29,7 +29,7 @@ class Scalar extends Var {
 
     //Сложение
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
             return new Scalar(this.getValue() + ((Scalar) other).getValue());
         } else {
@@ -39,7 +39,7 @@ class Scalar extends Var {
 
     //Вычитание
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         if (other instanceof Scalar) {
             return new Scalar(this.getValue() - ((Scalar) other).getValue());
         } else {
@@ -49,7 +49,7 @@ class Scalar extends Var {
 
     //Умножение
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar) {
             return new Scalar(this.getValue() * ((Scalar) other).getValue());
         } else {
@@ -59,7 +59,7 @@ class Scalar extends Var {
 
     //Деление
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             if (((Scalar) other).getValue() != 0)
                 return new Scalar(this.getValue() / ((Scalar) other).getValue());

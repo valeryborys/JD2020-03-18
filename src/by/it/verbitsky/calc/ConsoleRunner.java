@@ -2,23 +2,49 @@ package by.it.verbitsky.calc;
 
 import java.util.Scanner;
 
-class ConsoleRunner {
-    // создать бесконечный цикл, скангер ввода читать в цикле парсить и выводить
+class ConsoleRunner implements CalcFiles {
+
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
-        CalcMemory buffer = new CalcMemory();
-        Var res;
-        String command;
+        //Читаем файл памяти и добавляем содержимое в память калькулятора
+        try {
+            CalcMemoryManager.readMemoryFromFile(
+                    CalcMemoryManager.getFullPath(
+                            ConsoleRunner.class,
+                            CalcFiles.MEMORY_FILENAME));
+        } catch (CalcException e) {
+            System.out.println(e.getMessage());
+        }
+        printIntro();
 
         while (true) {
-            command = scanner.nextLine();
-            if (command.equals("end")) {
+            String expression = scanner.nextLine();
+            if (expression.equals("end")) {
+                //Пробуем записать память калькулятора в файл
+                CalcMemoryManager.writeMemoryToFile(CalcMemoryManager.getFullPath(
+                        ConsoleRunner.class,
+                        CalcFiles.MEMORY_FILENAME)
+                );
                 break;
             }
-            res = parser.calc(command, buffer);
-            printer.Print(res);
+
+            try {
+                Var res = parser.calc(expression);
+                printer.Print(res);
+            } catch (CalcException e) {
+                System.out.println(e.getMessage());
+            }
         }
+    }
+
+    private static void printIntro() {
+        System.out.println("--------------------------------------------------------");
+        System.out.println("Use <var name> = <value> to put value in calc memory");
+        System.out.println("Use <var name> to get value from calc memory\n");
+        System.out.println("Available commands:\nprintvar - show calc memory\nsortvar - show sorted list of calc memory");
+        System.out.println("--------------------------------------------------------");
     }
 }

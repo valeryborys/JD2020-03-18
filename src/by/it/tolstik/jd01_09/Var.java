@@ -1,15 +1,26 @@
 package by.it.tolstik.jd01_09;
 
+import java.util.HashMap;
+import java.util.Map;
+
 abstract class Var implements Operation{
+
+    private static Map<String,Var> vars= new HashMap<>();
+    static Var saveVar(String name, Var var) {
+        vars.put(name,var);
+        return var;
+    }
 
     static Var createVar(String operand){
         operand = operand.trim().replaceAll("\\s","");
         if (operand.matches(Patterns.SCALAR))
             return new Scalar(operand);
-        if (operand.matches(Patterns.VECTOR))
+        else if (operand.matches(Patterns.VECTOR))
             return new Vector(operand);
-        if (operand.matches(Patterns.MATRIX))
+        else if (operand.matches(Patterns.MATRIX))
             return new Matrix(operand);
+        else if (vars.containsKey(operand))
+            return vars.get(operand);
         return null;
     }
     @Override
