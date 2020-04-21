@@ -12,11 +12,9 @@ public class TaskA {
     }
 
     public static void main(String[] args) {
-        String filename = getFileName(TaskA.class,"matrix.txt");
+        String filename = getFileName(TaskA.class, "matrix.txt");
         writeMatrix(filename);
-        //readMatrix();
-        //consoleMatrix();
-
+        System.out.println(readMatrix(filename));
     }
 
     private static void writeMatrix(String filename) throws RuntimeException {
@@ -25,10 +23,8 @@ public class TaskA {
             for (int i = 0; i < 6; i++) {
                 for (int j = 0; j < 4; j++) {
                     matrix[i][j] = (int) ((Math.random() * 31) - 15);
-                    //System.out.printf("%3d ",matrix[i][j]);
-                    pw.printf("%3d ",matrix[i][j]);
+                    pw.printf("%3d ", matrix[i][j]);
                 }
-                //System.out.println();
                 pw.println();
             }
         } catch (IOException e) {
@@ -36,19 +32,17 @@ public class TaskA {
         }
     }
 
-    /*private static List<Integer> readMatrix(String filename) {
-        try () {
+    private static StringBuilder readMatrix(String filename) throws RuntimeException {
+        StringBuilder sb = new StringBuilder();
 
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
+            while (bufferedReader.ready()) {
+                sb.append(bufferedReader.readLine()).append("\n");
             }
+
+            return sb;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return ;
     }
-
-    private static void consoleMatrix(String filename) {
-            System.out.printf("%3d ",matrix[i][j]);
-        }
-        System.out.prinln();
-    }*/
 }
