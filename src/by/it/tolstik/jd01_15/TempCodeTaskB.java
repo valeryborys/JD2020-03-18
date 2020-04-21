@@ -2,7 +2,7 @@ package by.it.tolstik.jd01_15;
 
 import java.io.*;
 
-class TaskB {
+class TempCodeTaskB {
 
     private static String name = "TaskB.txt";
 
