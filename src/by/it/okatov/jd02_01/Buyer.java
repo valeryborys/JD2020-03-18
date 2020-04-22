@@ -3,6 +3,16 @@ package by.it.okatov.jd02_01;
 import java.util.Map;
 
 public class Buyer extends Thread implements IBuyer, IUseBacket {
+    private static boolean isElder;
+    private static final float ELDERY_COEF = 1.5f;
+
+    public static boolean isElder() {
+        return isElder;
+    }
+
+    public static void setEldery(boolean eldery) {
+        isElder = eldery;
+    }
 
     public Buyer(int num) {
         super(String.format("Buyer #%d ", num));
@@ -10,6 +20,7 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
 
     public Buyer(int num, boolean isElder) {
         super(String.format("Buyer (pensioneer) #%d ", num));
+        setEldery(true);
     }
 
 
@@ -31,7 +42,13 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
     public void chooseGoods() {
         System.out.println(this + "starts to collect goods");
         int timeout = Utils.getRandom(1, 3);
-        Utils.waitForSeconds(timeout);
+        if (isElder()) {
+            Utils.waitForSeconds(timeout * ELDERY_COEF);
+        } else {
+            Utils.waitForSeconds(timeout);
+        }
+
+
         System.out.println(this + "finishes collecting goods");
 
     }
@@ -39,7 +56,11 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goOut() {
         System.out.println(this + "returns a cart in the supermarket");
-        Utils.waitForSeconds(1);
+        if (isElder()) {
+            Utils.waitForSeconds(1 * ELDERY_COEF);
+        } else {
+            Utils.waitForSeconds(1);
+        }
         System.out.println(this + "leaves the supermarket");
 
     }
@@ -47,7 +68,11 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void takeCart() {
         int timeout = Utils.getRandom(0, 2);
-        Utils.waitForSeconds(timeout);
+        if (isElder()) {
+            Utils.waitForSeconds(timeout * ELDERY_COEF);
+        } else {
+            Utils.waitForSeconds(timeout);
+        }
         System.out.println(this + "takes a cart in the supermarket");
     }
 
@@ -58,7 +83,11 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
         int timeout = Utils.getRandom(0, 2);
 
         for (Map.Entry<String, Integer> entry : Utils.gethMap().entrySet()) {
-            Utils.waitForSeconds(timeout);
+            if (isElder()) {
+                Utils.waitForSeconds(timeout * ELDERY_COEF);
+            } else {
+                Utils.waitForSeconds(timeout);
+            }
             if (i >= goodsQuant) {
                 break;
             }

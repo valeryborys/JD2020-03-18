@@ -20,13 +20,28 @@ public class Utils {
         Utils.hMap.put("Мас-кар-поне!!", 5);
         Utils.hMap.put("Утка с хреном", 12);
     }
+    
 
     public static int getRandom(int startRange, int endRange) {
         return startRange + generator.nextInt(endRange - startRange + 1);
     }
 
+    public static int getRandom(float startRange, float endRange) {
+        return (int) startRange + generator.nextInt((int) (endRange - startRange + 1));
+    }
+
     public static void waitForSeconds(int seconds) {
         long millisec = seconds * 1000;
+        try {
+            Thread.sleep(millisec);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Wait() was interrupted by thread " + Thread.currentThread()
+                                               + "trace:\n", e);
+        }
+    }
+
+    public static void waitForSeconds(float seconds) {
+        long millisec = (long) (seconds * 1000);
         try {
             Thread.sleep(millisec);
         } catch (InterruptedException e) {
