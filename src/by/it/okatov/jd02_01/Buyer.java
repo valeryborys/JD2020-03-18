@@ -36,6 +36,7 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void enterToMarket() {
         System.out.println(this + "enters the supermarket");
+        Utils.globalCounter++;
     }
 
     @Override
@@ -55,6 +56,7 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void goOut() {
+        Utils.globalCounter--;
         System.out.println(this + "returns a cart in the supermarket");
         if (isElder()) {
             Utils.waitForSeconds(1 * ELDERY_COEF);

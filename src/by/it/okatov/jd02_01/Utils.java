@@ -20,7 +20,8 @@ public class Utils {
         Utils.hMap.put("Мас-кар-поне!!", 5);
         Utils.hMap.put("Утка с хреном", 12);
     }
-    
+
+    public static int globalCounter = 0;
 
     public static int getRandom(int startRange, int endRange) {
         return startRange + generator.nextInt(endRange - startRange + 1);
