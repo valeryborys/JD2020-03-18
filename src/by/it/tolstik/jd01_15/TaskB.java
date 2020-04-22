@@ -2,7 +2,7 @@ package by.it.tolstik.jd01_15;
 
 import java.io.*;
 
-class TaskB {
+class TaskB implements Const{
 
     private static String name = "TaskB.txt";
 
@@ -18,12 +18,8 @@ class TaskB {
         //1
         //2
         /*3*/
-        /*4
-         *
-         *
-         * */
-        /**5
-         * */
+        /*4*/
+        /**5*/
         saveToFile(name);
     }
 
@@ -33,13 +29,45 @@ class TaskB {
                 (new FileReader(dir(TempCodeTaskB.class) + "TaskB.java"))) {
             String output;
             while ((output = br.readLine()) != null) {
-                if (output.contains("/") | output.contains("*")) {
-                    sb.append("");
-                } else {
-                    sb.append(output).append("\n");
-                }
+                sb.append(output).append("\n");
             }
-            System.out.println(sb);
+            StringBuilder result = new StringBuilder(sb);
+            int start = 0;
+            int end;
+            boolean flag = true;
+            while (flag) {
+                try {
+                    if (result.indexOf(a1, start) > 0) {
+                        start = result.indexOf(a1, start);
+                        end = result.indexOf(a2, start);
+                        result.delete(start, end);
+                        continue;
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    throw new RuntimeException(e);
+                }
+                flag = false;
+            }
+            start = 0;
+            end = 0;
+            flag = true;
+            while (flag) {
+                try {
+                    if (result.indexOf(b1, end) > 0) {
+                        start = result.indexOf(b1, start);
+                        end = result.indexOf(b2, start) + 2;
+                        result.delete(start, end);
+                        end += 2;
+                        continue;
+                    }
+                } catch (IndexOutOfBoundsException ex) {
+                    throw new RuntimeException(ex);
+                }
+                flag = false;
+            }
+            return result;
+
+
         } catch (IOException e) {
             e.getStackTrace();
         }
