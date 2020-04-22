@@ -1,6 +1,6 @@
 package by.it.gutkovsky.jd02_01;
 
-class Buyer extends Thread implements IBuyer {
+class Buyer extends Thread implements IBuyer, IUseBacket{
     public Buyer(int number) {
         super("Buyer № " + number + " ");
     }
@@ -8,6 +8,7 @@ class Buyer extends Thread implements IBuyer {
     @Override
     public void run() {
         enterToMarket();
+        takeBacket();
         chooseGoods();
         goOut();
     }
@@ -17,6 +18,11 @@ class Buyer extends Thread implements IBuyer {
     public void enterToMarket() {
         System.out.println(this + "enter to shop");
 
+    }
+
+    @Override
+    public void takeBacket() {
+        System.out.println(this + "take a basket");
     }
 
     @Override
@@ -31,6 +37,12 @@ class Buyer extends Thread implements IBuyer {
         }
 
         System.out.println(this + "finished to choose goods");
+
+    }
+
+    @Override
+    public void putGoodsToBacket() {
+        System.out.println(this + "put goods to basket");
 
     }
 
