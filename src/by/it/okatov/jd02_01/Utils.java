@@ -1,14 +1,13 @@
 package by.it.okatov.jd02_01;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class Utils {
 
     static Random generator = new Random();
 
     private static final Map<String, Integer> hMap = new HashMap<>();
+    public static int GLOBAL_COUNTER = 0;
 
     public static Map<String, Integer> gethMap() {
         return hMap;
@@ -21,7 +20,9 @@ public class Utils {
         Utils.hMap.put("Утка с хреном", 12);
     }
 
-    public static int globalCounter = 0;
+
+    public static List<Buyer> lBuyer = new ArrayList<>();
+
 
     public static int getRandom(int startRange, int endRange) {
         return startRange + generator.nextInt(endRange - startRange + 1);
@@ -32,7 +33,7 @@ public class Utils {
     }
 
     public static void waitForSeconds(int seconds) {
-        long millisec = seconds * 10;
+        long millisec = seconds * 1000;
         try {
             Thread.sleep(millisec);
         } catch (InterruptedException e) {
@@ -42,7 +43,7 @@ public class Utils {
     }
 
     public static void waitForSeconds(float seconds) {
-        long millisec = (long) (seconds * 10);
+        long millisec = (long) (seconds * 1000);
         try {
             Thread.sleep(millisec);
         } catch (InterruptedException e) {
