@@ -32,7 +32,7 @@ public class Utils {
     }
 
     public static void waitForSeconds(int seconds) {
-        long millisec = seconds * 1000;
+        long millisec = seconds * 10;
         try {
             Thread.sleep(millisec);
         } catch (InterruptedException e) {
@@ -42,7 +42,7 @@ public class Utils {
     }
 
     public static void waitForSeconds(float seconds) {
-        long millisec = (long) (seconds * 1000);
+        long millisec = (long) (seconds * 10);
         try {
             Thread.sleep(millisec);
         } catch (InterruptedException e) {
