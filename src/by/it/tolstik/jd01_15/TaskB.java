@@ -60,8 +60,8 @@ class TaskB implements Const{
                         end += 2;
                         continue;
                     }
-                } catch (IndexOutOfBoundsException ex) {
-                    throw new RuntimeException(ex);
+                } catch (IndexOutOfBoundsException e) {
+                    throw new RuntimeException(e);
                 }
                 flag = false;
             }
