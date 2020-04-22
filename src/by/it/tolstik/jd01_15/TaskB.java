@@ -1,6 +1,7 @@
 package by.it.tolstik.jd01_15;
 
 import java.io.*;
+import java.util.Comparator;
 
 class TaskB implements Const{
 
@@ -21,6 +22,7 @@ class TaskB implements Const{
         /*4*/
         /**5*/
         saveToFile(name);
+//        Comparator
     }
 
     private static StringBuilder deleteAllComments() {

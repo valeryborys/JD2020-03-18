@@ -5,4 +5,5 @@ public interface Const {
     String a2 = "\n";
     String b1 = "/*";
     String b2 = "*/";
+    String B3 = "*";
 }
