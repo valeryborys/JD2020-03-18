@@ -30,7 +30,7 @@ class TempCodeTaskB {
     private static StringBuilder deleteAllComments() {
         StringBuilder sb = new StringBuilder();
         try (BufferedReader br = new BufferedReader
-                (new FileReader(dir(TempCodeTaskB.class) + "TaskB.java"))) {
+                (new FileReader(dir(TempCodeTaskB.class) + "TempCodeTaskB.java"))) {
             String output;
             while ((output = br.readLine()) != null) {
                 if (output.contains("/") | output.contains("*")) {
