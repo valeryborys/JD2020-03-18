@@ -8,7 +8,7 @@ class Shop {
         System.out.println("Магазин открылся");
         int number = 1;
         List<Buyer> buyers = new ArrayList<>();
-        for (int time = 0; time < 120; time++) {
+        for (int time = 0; time < 5; time++) {
             int count = Helper.getRandom(0,2);
             for (int i = 0; i <= count ; i++) {
                 Buyer buyer = new Buyer(number++);

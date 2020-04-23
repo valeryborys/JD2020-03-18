@@ -3,6 +3,7 @@ package by.it.tolstik.jd02_01;
 import java.util.Random;
 
 class Helper {
+
     private static final Random random = new Random();
     private Helper() {
 

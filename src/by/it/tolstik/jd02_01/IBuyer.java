@@ -7,4 +7,6 @@ public interface IBuyer {
     void chooseGoods(); //выбрал товар (от 0,5 до 2 секунд)
 
     void goOut(); //отправился на выход(мгновенно)
+
+    boolean isPensioner(); //проверка пенсионер ли
 }
