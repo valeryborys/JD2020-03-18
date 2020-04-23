@@ -13,15 +13,16 @@ public class Shop {
             System.out.println("Second "+time);
             int count = Helper.getRandom(0, 2);
             for (int i = 0; i <= count; i++) {
-                new Buyer(++buyerNumber).start(); //запуск потока (покупателя)
-                Helper.sleep(2000); //остановка
+                Buyer buyer = new Buyer(++buyerNumber);
+                buyer.start(); //запуск потока (покупателя)
+                buyers.add(buyer);
             }
             Helper.sleep(1000);
         }
         Helper.sleep(2000);
         for (Buyer buyer : buyers) {
             try {
-                buyer.join();
+                buyer.join(); //main поток будет ожидать завершения потока buyer
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
