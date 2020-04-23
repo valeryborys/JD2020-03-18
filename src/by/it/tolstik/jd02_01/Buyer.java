@@ -8,10 +8,9 @@ class Buyer extends Thread implements IBuyer,IUseBacket {
 
     @Override
     public void run() {
-        enterToMarket();
-        takeBacket();
-        chooseGoods();
-        goOut();
+        enterToMarket(); //вошел в магазин
+        chooseGoods(); //взял корзину, начал выбирать товары, положил товары в корзину, завершил выбирать товары
+        goOut(); //вышел из магазина
 
     }
 
@@ -22,10 +21,12 @@ class Buyer extends Thread implements IBuyer,IUseBacket {
 
     @Override
     public void chooseGoods() {
-        System.out.println(this + "начал выбирать товары");
+        takeBacket(); //взял корзину
+        System.out.println(this + "начал выбирать товары"); //начал выбирать товары
         int timeout = Helper.getRandom(500, 2000);
         Helper.sleep(timeout);
-        System.out.println(this + "завершил выбирать товары");
+        putGoodsToBacket(); //положил товары в корзину
+        System.out.println(this + "завершил выбирать товары"); //завершил выбирать товары
     }
 
     @Override
