@@ -1,12 +1,10 @@
 package by.it.tolstik.jd02_01;
 
-import java.util.HashMap;
 import java.util.Map;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
     boolean pensioner;
-
 
     public Buyer(int number) {
         super("Buyer № " + number + " ");
@@ -58,7 +56,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void putGoodsToBacket() {
-        Map<String, Integer> goods = new HashMap<>();
         int timeout;
         if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Finals.K_FOR_OLDER_PEOPLE);
         else timeout = Helper.getRandom(500, 2000);
