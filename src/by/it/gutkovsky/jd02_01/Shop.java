@@ -14,9 +14,16 @@ class Shop {
         for (int time = 0; time < 120; time++) {
             int count = Helper.getRandom(0, 2);
             for (int i = 0; i < count; i++) {
+                if ((buyers.size() %4 != 0)) {
                 Buyer buyer = new Buyer(++number);
                 buyer.start();
                 buyers.add(buyer);
+                } else {                                    // pensioner is coming!!!
+                    Buyer buyer = new Buyer(++number, true);
+                    buyer.start();
+                    buyers.add(buyer);
+                }
+
             }
             Helper.sleep(1000);
         }

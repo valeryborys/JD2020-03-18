@@ -1,13 +1,20 @@
 package by.it.gutkovsky.jd02_01;
 
-import java.util.Map;
-
 class Buyer extends Thread implements IBuyer, IUseBacket {
+
+    private int goodsQuantityInTheBasket = 4; // goods quantity in buyers shopping list
+    private boolean pensioner;
+    private static final double PENSIONER_FACTOR = 1.5;
+
     public Buyer(int number) {
         super("Buyer № " + number + " ");
+        this.pensioner = false;
     }
 
-    private int goodsQuantityInTheBasket = 4; // quantity goods in buyers shopping list
+    public Buyer(int number, boolean pensioner) {
+        super("Buyer № " + number + "(The Buyer is pensioner)" + " ");
+        this.pensioner = pensioner;
+    }
 
     @Override
     public void run() {
@@ -15,6 +22,20 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         takeBacket();
         chooseGoods(); // in this method buyer choose goods and put them into the basket
         goOut();
+    }
+
+    private void sleepMethod(int start, int stop, boolean pensione) {
+        int timeout;
+        if (pensioner) {
+            timeout = (int) (Helper.getRandom(start, stop) * PENSIONER_FACTOR);
+        } else {
+            timeout = Helper.getRandom(start, start);
+        }
+        try {
+            Thread.sleep(timeout);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Interrupted " + Thread.currentThread(), e);
+        }
     }
 
     @Override
@@ -25,12 +46,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void takeBacket() {
-        int timeout = Helper.getRandom(500, 2000);
-        try {
-            Thread.sleep(timeout);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Interrupted " + Thread.currentThread(), e);
-        }
+        sleepMethod(500, 2000, pensioner);
         System.out.println(this + "take a basket");
     }
 
@@ -38,12 +54,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void chooseGoods() {
         System.out.println(this + "started to choose goods");
         for (int i = 0; i < goodsQuantityInTheBasket; i++) {
-            int timeout = Helper.getRandom(500, 2000);
-            try {
-                Thread.sleep(timeout);
-            } catch (InterruptedException e) {
-                throw new RuntimeException("Interrupted " + Thread.currentThread(), e);
-            }
+            sleepMethod(500,2000, pensioner);
 
             //choose goods from goods shelf
             String goodsName = "Product" + Helper.getRandom(1, GoodsShelf.LIST_OF_GOODS_ON_SHELF.size()); // key for Map goodsOnShelf - chosenGoods
@@ -51,18 +62,12 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
             putGoodsToBacket(goodsName, price); // call the method which puts goods into the basket
         }
-
         System.out.println(this + "finished to choose goods");
     }
 
     @Override
     public void putGoodsToBacket(String goodsName, int price) {
-        int timeout = Helper.getRandom(500, 2000);
-        try {
-            Thread.sleep(timeout);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Interrupted " + Thread.currentThread(), e);
-        }
+        sleepMethod(500, 2000, pensioner);
         System.out.println(this + "put " + goodsName + " to the basket, price for it is " + price);
     }
 
