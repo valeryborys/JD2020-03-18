@@ -20,7 +20,7 @@ class Shop {
         for (Buyer buyer : buyers) {
             buyer.join();
         }
-        System.out.println("Магазин закрылся");
+        System.out.println("Магазин закрылся. Кол-во посетителей: " + number);
     }
 }
 
