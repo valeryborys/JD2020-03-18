@@ -19,12 +19,12 @@ public class Supermarket {
         Utils.sethMap();
 
 
-        long lt = System.nanoTime();
-        int n = 0;
+        long lt = System.nanoTime(); //Считаем время выполнения
 
         for (int time = 0; time < 120; time++) {
-            letinBuyersInRange(time);
+            letinBuyersInRange(time); //Устанавливаем отрезки времени для запуска людей
             tmp.put(time, Utils.GLOBAL_COUNTER);
+
             Utils.waitForSeconds(1);//Ждем одну секунду, чтобы превратить цикл в отсчет 2 минут
         }
 
@@ -40,12 +40,25 @@ public class Supermarket {
         System.out.println("Количество обычных покупателей: " + (number - numberOfElders));
         System.out.println("Количество пенсионеров: " + numberOfElders);
         System.out.println("Время исполнения: " + dt / 1e9 + "секунд");
-        writeToFile();
+        writeToFile(); //Пишем в файл измерения: "Секунда -> Количество людей в данную секунду"
     }
 
+    /***
+     * Устанавливает макисмальное количество народа на каждом из отрезков времени.
+     * Всего отрезков четыре:
+     * 1. Время работы time < 30
+     * 2. Время работы 30 < time < 60
+     * 3. Время работы 60 < time < 90
+     * 4. Время работы 90 < time < 120
+     * Макисмальное количество народа для 1-го и 3-го отрезка рассчитывается
+     * по формуле (Время+10).
+     * Максимальное количество народа для 2-го и 4-го отрезка рассчитывается
+     * по формуле (25 - (30 - Время))
+     * @param time
+     */
     private static void letinBuyersInRange(int time) {
         if (time < 30) {
-            if (Utils.GLOBAL_COUNTER <= time + 10) {
+            if (Utils.GLOBAL_COUNTER <= time + 10) { //Максимум находящегося в магазине народа на текущий момент
                 addBuyers(time);
             }
         } else if (time < 60) {
@@ -64,15 +77,22 @@ public class Supermarket {
 
     }
 
-    private static void addBuyers(int time) {
+    /***
+     * Добавляет покупателей в магазин. Количество единовременно заходящих
+     * покупателей зависит от текущей секунды работы магазина. Вычисляется
+     * по формуле N = 8+(currentSecond/10). Единовременно может зайти от
+     * 0 до N покупателей.
+     * @param currentSecond текущая секунда работы магазина.
+     */
+    private static void addBuyers(int currentSecond) {
         int n;
         Buyer buyer;
-        n = 8 + (time / 10);
+        n = 8 + (currentSecond / 10); //Максимум добавляемых покупателей
         int count = Utils.getRandom(0, n);
         for (int i = 0; i <= count; i++) {
             if (i % 4 == 0) {
                 buyer = new Buyer(++number, true);
-                numberOfElders++;
+                numberOfElders++; //Кол-во пенсионеров
             } else {
                 buyer = new Buyer(++number);
             }
@@ -83,6 +103,10 @@ public class Supermarket {
 
     }
 
+    /***
+     * Записывает данные измерений в файл. Данные выглядят
+     * как набор из "текущая секунда___текущее кол-во людей"
+     */
     private static void writeToFile() {
         try (PrintWriter print = new PrintWriter(
                 new File(
