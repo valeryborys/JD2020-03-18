@@ -1,5 +1,11 @@
 package by.it.verbitsky.jd02_01;
 
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +15,6 @@ class Shop {
     //можно попробовать сделать volatile
     private static volatile ShopManager shopManager;
     private static List<Buyer> threads = new ArrayList<>();
-
 
     public static void main(String[] args) {
         generateOffers();
@@ -56,6 +61,7 @@ class Shop {
                 Buyer buyer = new Buyer(++num, oldMan);
                 oldMan = false; //обнуляем флаг
                 getShopManager().addBuyer(buyer);
+
                 threads.add(buyer);
                 //запускаем поток
                 buyer.start();
@@ -74,6 +80,8 @@ class Shop {
 
             System.out.println("---------------------" +
                     "Всего покупателей в магазине: " + getShopManager().getBuyers().size());
+            //Для построения диаграммы чтобы проверить график
+            writeLog(getShopManager().getBuyers().size());
         }
 
         //теперь нужна задержка для того, чтобы закрепить потоки покупателей перед основным поток main
@@ -112,5 +120,20 @@ class Shop {
     //вернуть шоп манагера
     public static ShopManager getShopManager() {
         return shopManager;
+    }
+
+    private static void writeLog(int count) {
+        try {
+            String fName = "I:\\__Javastudy\\_training\\JD2020-03-18\\src\\by\\it\\verbitsky\\jd02_01\\logshop.txt";
+            File f = new File(fName);
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+            String text = "" + count;
+            Files.write(Paths.get(fName), text.concat("\n").getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
