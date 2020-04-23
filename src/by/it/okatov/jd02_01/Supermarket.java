@@ -49,7 +49,7 @@ public class Supermarket {
                 addBuyers(time);
             }
         } else if (time < 60) {
-            if (Utils.GLOBAL_COUNTER <= 40 + (30 - time)) {
+            if (Utils.GLOBAL_COUNTER <= 25 + (30 - time)) {
                 addBuyers(time);
             }
         } else if (time < 90) {
@@ -57,7 +57,7 @@ public class Supermarket {
                 addBuyers(time);
             }
         } else {
-            if (Utils.GLOBAL_COUNTER <= 40 + (30 - time - 60)) {
+            if (Utils.GLOBAL_COUNTER <= 25 + (30 - time - 60)) {
                 addBuyers(time);
             }
         }
@@ -67,10 +67,10 @@ public class Supermarket {
     private static void addBuyers(int time) {
         int n;
         Buyer buyer;
-        n = 10 + time / 9;
+        n = 8 + (time / 10);
         int count = Utils.getRandom(0, n);
         for (int i = 0; i <= count; i++) {
-            if (time % 4 == 0) {
+            if (i % 4 == 0) {
                 buyer = new Buyer(++number, true);
                 numberOfElders++;
             } else {

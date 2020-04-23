@@ -71,7 +71,7 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void takeCart() {
-        int timeout = Utils.getRandom(0, 2);
+        int timeout = Utils.getRandom(1, 3);
         if (isElder()) {
             Utils.waitForSeconds(timeout * ELDERY_COEF);
         } else {
@@ -84,7 +84,7 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
     public void putGoodsToCart() {
         int goodsQuant = Utils.getRandom(0, 4);
         int i = 0;
-        int timeout = Utils.getRandom(0, 2);
+        int timeout = Utils.getRandom(1, 3);
 
         for (Map.Entry<String, Integer> entry : Utils.gethMap().entrySet()) {
             if (isElder()) {
