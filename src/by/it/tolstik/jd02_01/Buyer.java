@@ -31,7 +31,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         takeBacket(); //взял корзину
         System.out.println(this + "начал выбирать товары"); //начал выбирать товары
         int timeout;
-        if (pensioner) timeout = (int) (Helper.getRandom(500, 2000)*Finals.K_FOR_OLDER_PEOPLE);
+        if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Finals.K_FOR_OLDER_PEOPLE);
         else timeout = Helper.getRandom(500, 2000);
         Helper.sleep(timeout);
         putGoodsToBacket(); //положил товары в корзину
@@ -46,7 +46,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public boolean isPensioner() {
-        int flag = Helper.getRandom(1,4);
+        int flag = Helper.getRandom(1, 4);
         if (flag == 1) pensioner = true;
         return pensioner;
     }
@@ -60,7 +60,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void putGoodsToBacket() {
         Map<String, Integer> goods = new HashMap<>();
         int timeout;
-        if (pensioner) timeout = (int) (Helper.getRandom(500, 2000)*Finals.K_FOR_OLDER_PEOPLE);
+        if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Finals.K_FOR_OLDER_PEOPLE);
         else timeout = Helper.getRandom(500, 2000);
         Helper.sleep(timeout);
         int count = Helper.getRandom(1, 4);

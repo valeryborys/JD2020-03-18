@@ -5,7 +5,7 @@ import java.util.HashMap;
 class Goods {
 
     static HashMap<String, Integer> goodsList() {
-        //доработать рандомный вывод
+        //TODO доработать рандомный вывод
         HashMap<String, Integer> goods = new HashMap<>();
         goods.put("молоко", 100);
         goods.put("хлеб", 90);
