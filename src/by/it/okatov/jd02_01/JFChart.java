@@ -1,3 +1,7 @@
+/***
+ * График с чартом запускаются отдельно от основной программы!
+ */
+
 package by.it.okatov.jd02_01;
 
 import by.it.okatov.jd01_15.TaskB;

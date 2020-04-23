@@ -15,6 +15,9 @@ public class Supermarket {
     static Map<Integer, Integer> tmp = new HashMap<>();
 
     public static void main(String[] args) {
+        /***
+         * График с чартом запускаются отдельно от основной программы!
+         */
         System.out.println("Grand opening!");
         Utils.sethMap();
 
