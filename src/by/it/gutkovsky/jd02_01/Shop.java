@@ -5,6 +5,9 @@ import java.util.List;
 
 class Shop {
     public static void main(String[] args) {
+
+        GoodsShelf goodsShelf = new GoodsShelf(); // creating list of goods in the shop
+
         System.out.println("shop is opened");
         int number = 0;
         List<Buyer> buyers = new ArrayList<>();
