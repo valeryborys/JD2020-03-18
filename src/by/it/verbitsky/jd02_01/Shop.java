@@ -35,7 +35,7 @@ class Shop {
     private static void openShop() {
         int num = 0;
         System.out.println("Shop opened\n\n");
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 120; i++) {
             //каждую секунду запускаем несколько покупателей (зависит от времени и кол-ва которые уже находятся в магазине
             int countEntered = Helper.getCountFactor(i, getShopManager().getBuyers().size());
             boolean oldMan = false;//флаг для определения пенсионера

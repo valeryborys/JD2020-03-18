@@ -3,6 +3,8 @@ package by.it.verbitsky.jd02_01;
 import java.util.Random;
 
 class Helper {
+    //для тестирования
+    private static final int K_SPEED = 1;
     //Чем больше коэффициент - тем больше ускоряются действия покупателей,
     // при 1 - коэффициент не учитывается при определении задержек
     public static int accelerationFactor = 1;
@@ -20,7 +22,7 @@ class Helper {
 
     public static void sleep(int timeout) {
         try {
-            Thread.sleep(timeout);
+            Thread.sleep(timeout/K_SPEED);
         } catch (InterruptedException e) {
             throw new RuntimeException("Interrupt " + Thread.currentThread(), e);
         }
@@ -39,8 +41,54 @@ class Helper {
         return generator.nextDouble() * 100;
     }
 
+    public static int getCountFactor(int currentSec, int buyerCount) {
+        int factor = 0;
+        currentSec = currentSec % 60;
+        //if (currentSec % )
 
+        if (currentSec <= 30) {
+            factor = 10 + currentSec - buyerCount;
+            if (factor < 0) {
+                factor = 0;
+            }
+        }
+
+        if (currentSec > 30 && currentSec <= 40) {
+            if (buyerCount <= 30) {
+                factor = 10;
+            }
+            if (buyerCount > 30 && buyerCount < 35) {
+                factor = 7;
+            }
+        }
+
+        if (currentSec > 40 && currentSec <= 50) {
+            if (buyerCount > 30 && buyerCount <= 35) {
+                factor = 7;
+            }
+            if (buyerCount > 20 && buyerCount <= 30) {
+                factor = 6;
+            }
+        }
+        if (currentSec > 50 && currentSec <= 59) {
+            if (buyerCount > 25) {
+                factor = 5;
+            }
+            if (buyerCount > 12 && buyerCount < 25) {
+                factor = 3;
+            }
+            if (buyerCount > 8 && buyerCount < 12) {
+                factor = 2;
+            }
+
+        }
+
+
+        return factor;
+    }
+/*
     //фактор регулирования потока покупателей в зависимости от времени и кол-ва покупателей в магазине
+    //не совсем понял правильно задание, поэтому не совсем правильно корректировал коэффициент
     public static int getCountFactor(int currentSec, int buyerCount) {
         int factor = 0;
 
@@ -93,5 +141,5 @@ class Helper {
         }
         return factor;
     }
-
+*/
 }
