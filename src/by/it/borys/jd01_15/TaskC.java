@@ -70,7 +70,6 @@ public class TaskC {
         if (str.length()==0) return bufferdir;
         else{
             File catalogue = new File(bufferdir);
-          //  System.out.println(catalogue.getTotalSpace());
             File[] dirs = catalogue.listFiles();
             for (File dir : dirs) {
                 if (dir.getName().equals(str) && bufferdir.length()==3) return bufferdir+str;
