@@ -3,8 +3,10 @@ package by.it.verbitsky.jd02_01;
 import java.util.Random;
 
 class Helper {
-    //для тестирования
+    //для тестирования - уменьшает все задержки в N раз
     private static final int K_SPEED = 1;
+
+
     //Чем больше коэффициент - тем больше ускоряются действия покупателей,
     // при 1 - коэффициент не учитывается при определении задержек
     public static int accelerationFactor = 1;
@@ -30,7 +32,8 @@ class Helper {
 
     public static int getRandomTimeout(int start, int end, double buyerSpeedFactor) {
         return (int) (Math.round(
-                (start + generator.nextInt(end - start + 1) * buyerSpeedFactor) + slowFactor) / accelerationFactor);
+                (start + generator.nextInt(end - start + 1) * buyerSpeedFactor) + slowFactor)
+                / accelerationFactor / K_SPEED);
     }
 
     public static int getRandom(int start, int end) {

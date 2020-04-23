@@ -12,7 +12,6 @@ import java.util.List;
 class Shop {
     private static Offer shopOffer;
 
-    //можно попробовать сделать volatile
     private static volatile ShopManager shopManager;
     private static List<Buyer> threads = new ArrayList<>();
 
