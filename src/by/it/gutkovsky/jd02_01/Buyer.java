@@ -9,11 +9,13 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public Buyer(int number) {
         super("Buyer № " + number + " ");
         this.pensioner = false;
+        Manager.customerComeIn();
     }
 
     public Buyer(int number, boolean pensioner) {
         super("Buyer № " + number + "(The Buyer is pensioner)" + " ");
         this.pensioner = pensioner;
+        Manager.customerComeIn();
     }
 
     @Override
@@ -70,6 +72,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goOut() {
         System.out.println(this + "left the shop");
+        Manager.customerComeOut();
     }
 
     @Override

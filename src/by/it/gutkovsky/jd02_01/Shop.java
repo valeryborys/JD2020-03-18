@@ -1,12 +1,17 @@
 package by.it.gutkovsky.jd02_01;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class Shop {
     public static void main(String[] args) {
 
         System.out.println("shop is opened");
+
+        Map<Integer, Integer> mapForChecking = new HashMap<>(); // temporary map for checking
+
         int number = 0;
         List<Buyer> buyers = new ArrayList<>();
         for (int time = 0; time < 120; time++) {
@@ -15,6 +20,7 @@ class Shop {
                 number++;
                 buyers.add(creatCustomer(number, buyers));
             }
+            mapForChecking.put(time, Manager.checkingQuantityInShop()); // temprory method method that helping to test
             Helper.sleep(1000);
         }
 
@@ -26,6 +32,10 @@ class Shop {
             }
         }
         System.out.println("Shop is closed");
+
+
+        // testing block
+        ForTesting.printingMap(mapForChecking);
 
 
     }
