@@ -10,4 +10,5 @@ public interface IBuyer {
     void goOut(); //отправился на выход(мгновенно)
 
 
+    String printCheck();
 }

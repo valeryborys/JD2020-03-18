@@ -30,7 +30,8 @@ class Utils {
     /***
      * Список покупателей в магазине
      */
-    public static List<Thread> threads = new ArrayList<>();
+    static List<Thread> lBuyers = new ArrayList<>();
+    static List<Thread> lCashiers = new ArrayList<>();
 
 
     /***

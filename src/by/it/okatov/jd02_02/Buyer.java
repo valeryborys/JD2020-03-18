@@ -1,10 +1,12 @@
 package by.it.okatov.jd02_02;
 
+import java.util.HashMap;
 import java.util.Map;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
     private static boolean isElder;
     private static final float ELDERY_COEF = 1.5f;
+    private final Map<String, Integer> tmp = new HashMap<>();//Список покупок
 
     static boolean isElder() {
         return isElder;
@@ -38,7 +40,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void enterToMarket() {
-        Utils.threads.add(this);
+        //Utils.threads.add(this);
         System.out.println(this + "enters the supermarket");
         Utils.GLOBAL_COUNTER++;//Увеличиваем счетчик покупателей
     }
@@ -83,8 +85,26 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         } else {
             Utils.waitForSeconds(1);
         }
+        //System.out.println(printCheck());
         System.out.println(this + "leaves the supermarket");
-        Utils.threads.remove(this);
+        Manager.removeBuyer();
+        //Utils.threads.remove(this);
+    }
+
+    @Override
+    public String printCheck() {
+        int sum = 0;
+        StringBuilder sb = new StringBuilder();
+        sb.append("\t\tСписок покупок ").append(this).append(":\n");
+
+        for (Map.Entry<String, Integer> entry : tmp.entrySet()) {
+            sum += entry.getValue();
+            sb.append("\t\t");
+            sb.append(entry.getKey()).append(".....................................")
+                    .append(entry.getValue()).append(" р.\n");
+        }
+        sb.append("\t\tСумма счета ").append(this).append(sum);
+        return sb.toString();
     }
 
     @Override
@@ -98,6 +118,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         System.out.println(this + "takes a cart in the supermarket");
     }
 
+
     @Override
     public void putGoodsToCart() {
         int goodsQuant = Utils.getRandom(0, 4);
@@ -105,6 +126,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         int timeout = Utils.getRandom(1, 3);
 
         for (Map.Entry<String, Integer> entry : Utils.gethMap().entrySet()) {
+
             if (isElder()) {
                 Utils.waitForSeconds(timeout * ELDERY_COEF);
             } else {
@@ -115,6 +137,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             }
             String key = entry.getKey();
             int val = entry.getValue();
+            tmp.put(key, val);
             System.out.println(this + "puts " + key + " for $" + val);
             i++;
         }

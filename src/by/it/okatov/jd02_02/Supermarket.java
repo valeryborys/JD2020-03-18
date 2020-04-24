@@ -20,27 +20,87 @@ public class Supermarket {
          */
         System.out.println("Grand opening!");
         Utils.sethMap();
-
+        Cashier cashier;
+        Thread thread;
 
         long lt = System.nanoTime(); //Считаем время выполнения
 
-        for (int i = 0; i < 2; i++) {
-            Cashier cashier = new Cashier(i);
-            Thread thread = new Thread(cashier);
-            Utils.threads.add(thread);
+
+
+        /*for (int i = 0; i < 5; i++) {
+            cashier = new Cashier(i);
+            thread = new Thread(cashier);
+            Utils.lCashiers.add(thread);
             thread.start();
 
-        }
-        while (!Manager.supermarketOpened()) {
-            int count = Utils.getRandom(0, 2);
-            for (int i = 0; Manager.supermarketOpened() && i < count; i++) {
-                Buyer buyer = new Buyer(++number);
+        }*/
 
-                buyer.start();
-                Utils.threads.add(buyer);
+        while (Manager.supermarketOpened()) {
+            if (Utils.GLOBAL_COUNTER <= 5) {
+                if (Utils.lCashiers.isEmpty()) {
+                    thread = new Thread(new Cashier(0));
+                    Utils.lCashiers.add(new Thread(thread));
+                    thread.start();
+                } else {
+                    for (int i = 1; i < Utils.lCashiers.size(); i++) {
+                        Utils.lCashiers.remove(i);
+                    }
+                }
+
+            } else if (Utils.GLOBAL_COUNTER <= 10) {
+                if (Utils.lCashiers.isEmpty() || Utils.lCashiers.size() < 2) {
+                    thread = new Thread(new Cashier(1));
+                    Utils.lCashiers.add(new Thread(thread));
+                    thread.start();
+                } else {
+                    for (int i = 2; i < Utils.lCashiers.size(); i++) {
+                        Utils.lCashiers.remove(i);
+                    }
+                }
+            } else if (Utils.GLOBAL_COUNTER <= 15) {
+                if (Utils.lCashiers.isEmpty() || Utils.lCashiers.size() < 3) {
+                    thread = new Thread(new Cashier(2));
+                    Utils.lCashiers.add(new Thread(thread));
+                    thread.start();
+                } else {
+                    for (int i = 3; i < Utils.lCashiers.size(); i++) {
+                        Utils.lCashiers.remove(i);
+                    }
+                }
+            } else if (Utils.GLOBAL_COUNTER <= 20) {
+                if (Utils.lCashiers.isEmpty() || Utils.lCashiers.size() < 4) {
+                    thread = new Thread(new Cashier(3));
+                    Utils.lCashiers.add(new Thread(thread));
+                    thread.start();
+                } else {
+                    for (int i = 4; i < Utils.lCashiers.size(); i++) {
+                        Utils.lCashiers.remove(i);
+                    }
+                }
+            } else if (Utils.GLOBAL_COUNTER > 20 && Utils.lCashiers.size() < 5) {
+                thread = new Thread(new Cashier(4));
+                Utils.lCashiers.add(new Thread(thread));
+                thread.start();
+            }
+
+            int count = Utils.getRandom(0, 2);
+            for (int i = 0; Manager.supermarketOpened() && i <= count; i++) {
+                if (number % 4 == 0) {
+                    Buyer buyer = new Buyer(++number, true);
+                    numberOfElders++;
+                    buyer.start();
+                    Utils.lBuyers.add(buyer);
+                } else {
+                    Buyer buyer = new Buyer(++number);
+                    buyer.start();
+                    Utils.lBuyers.add(buyer);
+                }
+
+
             }
             Utils.waitForSeconds(1);//Ждем одну секунду, чтобы превратить цикл в отсчет 2 минут
         }
+        Utils.waitForSeconds(2);
         /*for (int time = 0; time < 120; time++) {
             letinBuyersInRange(time); //Устанавливаем отрезки времени для запуска людей
             tmp.put(time, Utils.GLOBAL_COUNTER);
@@ -49,13 +109,22 @@ public class Supermarket {
         }*/
 
         long dt = System.nanoTime() - lt;
-        for (Thread threads : Utils.threads) {
+        for (Thread t : Utils.lCashiers) {
             try {
-                threads.join();
+                t.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
+        for (Thread customer : Utils.lBuyers) {
+            try {
+                customer.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
         System.out.println("Grand closing!");
         System.out.println("Количество обычных покупателей: " + (number - numberOfElders));
         System.out.println("Количество пенсионеров: " + numberOfElders);
