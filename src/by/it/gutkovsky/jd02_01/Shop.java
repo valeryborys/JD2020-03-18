@@ -17,7 +17,7 @@ class Shop {
         int factor;
         for (int time = 0; time < 240; time++) {
             int count; // quantity of buyers that will enter to the shop
-            factor = time / 60;
+            factor = time / 60; // корректирующий фактор для разных отрезков времени
 //            factor = 0;
 
             if (((60 * factor) <= time) && (time <= (30 + 60 * factor))) {
