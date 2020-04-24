@@ -3,19 +3,28 @@ package by.it.bobrovich.jd02_01;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Buyer extends Thread implements IBuyer, IUseBacket{
+public class Buyer extends Thread implements IBuyer, IUseBacket {
+    public static volatile int count;
+    private boolean isPensioneer;
+
     //переписать логику в соответствии с backet и goods
-    public Buyer(int number) {
-        super("Buyer №" + number + " ");
+    public Buyer(int number, boolean isPensioneer) {
+        super("Buyer №" + number + " " + isPensioneer + " ");
+        this.isPensioneer = isPensioneer;
     }
 
     @Override
     public void run() {
+        count++;
         enterToMarket();
+        breakTime(this.isPensioneer);
         Backet backet = takeBacket();
+        breakTime(this.isPensioneer);
         chooseGoods();
-
+        breakTime(this.isPensioneer);
+        putGoodsToBacket(backet);
         goOut();
+        count--;
     }
 
     @Override
@@ -25,26 +34,42 @@ public class Buyer extends Thread implements IBuyer, IUseBacket{
 
     @Override
     public Backet takeBacket() {
-        List<Goods> listGoods = new ArrayList<>();
-        return new Backet(listGoods);
+        System.out.println(this + "take backet");
+        return new Backet();
     }
 
     @Override
     public void chooseGoods() {
         System.out.println(this + "start to choose goods");
-        int timeout = Helper.getRandom(500, 2000);
         System.out.println(this + "finished to choose goods");
-        Helper.sleep(timeout);
     }
 
     @Override
-    public void putGoodsToBacket(Backet backet, Goods goods) {
-        backet.addGoods(goods);
+    public void putGoodsToBacket(Backet backet) {
+
+        List<String> listGoods = new ArrayList<>(Manager.goods.keySet());
+        int count = Helper.getRandom(0, 4);
+        for (int i = 0; i < count; i++) {
+            int count1 = Helper.getRandom(0, 3);
+            backet.addGoods(listGoods.get(count1));
+        }
+        for (String listGood : backet.getListGoods()) {
+            System.out.println(this + "take " + listGood + " " + Manager.goods.get(listGood));
+        }
     }
 
     @Override
     public void goOut() {
         System.out.println(this + "leave the shop");
+    }
+
+    public void breakTime(boolean isPensioneer) {
+        int timeout;
+        if (isPensioneer)
+            timeout = Helper.getRandom(750, 3000);
+        else
+            timeout = Helper.getRandom(500, 2000);
+        Helper.sleep(timeout);
     }
 
     @Override
