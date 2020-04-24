@@ -1,4 +1,4 @@
-package by.it.okatov.jd02_01;
+package by.it.okatov.jd02_02;
 
 import java.util.*;
 
@@ -30,7 +30,7 @@ class Utils {
     /***
      * Список покупателей в магазине
      */
-    public static List<Buyer> lBuyer = new ArrayList<>();
+    public static List<Thread> threads = new ArrayList<>();
 
 
     /***
@@ -61,7 +61,7 @@ class Utils {
      * @param seconds целое количество секунд ожидания
      */
     public static void waitForSeconds(int seconds) {
-        long millisec = seconds * 1000;
+        long millisec = seconds * 10;
         try {
             Thread.sleep(millisec);
         } catch (InterruptedException e) {
@@ -76,7 +76,7 @@ class Utils {
      * @param seconds дробное количество секунд ожидания
      */
     public static void waitForSeconds(float seconds) {
-        long millisec = (long) (seconds * 1000);
+        long millisec = (long) (seconds * 10);
         try {
             Thread.sleep(millisec);
         } catch (InterruptedException e) {

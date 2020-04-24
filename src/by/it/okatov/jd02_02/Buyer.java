@@ -1,4 +1,4 @@
-package by.it.okatov.jd02_01;
+package by.it.okatov.jd02_02;
 
 import java.util.Map;
 
@@ -16,11 +16,13 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     Buyer(int num) {
         super(String.format("Buyer #%d ", num));
+        Manager.addBuyer();
     }
 
     Buyer(int num, boolean isElder) {
         super(String.format("Buyer (pensioneer) #%d ", num));
         setEldery(true);
+        Manager.addBuyer();
     }
 
 
@@ -30,12 +32,13 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         takeCart(); //Взять тележку
         chooseGoods(); //Выбрать товары
         putGoodsToCart(); //Положить товары в корзину
+        goToQueue();
         goOut();//Уйти из магазина (разумеется, не заплатив ХDDD)
     }
 
     @Override
     public void enterToMarket() {
-        Utils.lBuyer.add(this);
+        Utils.threads.add(this);
         System.out.println(this + "enters the supermarket");
         Utils.GLOBAL_COUNTER++;//Увеличиваем счетчик покупателей
     }
@@ -56,6 +59,21 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     }
 
     @Override
+    public void goToQueue() {
+        synchronized (this) {
+            BuyersQueue.add(this);
+            try {
+                System.out.println(this + " added to queue");
+                wait();
+                System.out.println(this + " leaves queue");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+    @Override
     public void goOut() {
 
         Utils.GLOBAL_COUNTER--;//Уменьшаем количество покупателей
@@ -66,7 +84,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             Utils.waitForSeconds(1);
         }
         System.out.println(this + "leaves the supermarket");
-        Utils.lBuyer.remove(this);
+        Utils.threads.remove(this);
     }
 
     @Override
