@@ -14,7 +14,7 @@ class Shop {
 
         int number = 0;
         List<Buyer> buyers = new ArrayList<>();
-        for (int time = 0; time < 31; time++) {
+        for (int time = 0; time < 120; time++) {
             int count; // quantity of buyers that will enter to the shop
 
             if (time >= 0 && time <=30) {
@@ -25,8 +25,32 @@ class Shop {
                         buyers.add(creatCustomer(number,buyers));
                     }
                 }
+            }
 
+            if (time > 30 && time <= 60) {
+                count = (40 + (30 - time))-Manager.checkingQuantityInShop();
+                for (int i = 0; i < count; i++) {
+                    number++;
+                    buyers.add(creatCustomer(number,buyers));
+                }
+            }
 
+            if (time > 60 && time <= 90) {
+                if(Manager.checkingQuantityInShop() < ((time-60) + 10)) {
+                    count = (time-60)+10-Manager.checkingQuantityInShop();
+                    for (int i = 0; i < count; i++) {
+                        number++;
+                        buyers.add(creatCustomer(number,buyers));
+                    }
+                }
+            }
+
+            if (time > 90 && time <= 120) {
+                count = (40 + (30 - (time-60)))-Manager.checkingQuantityInShop();
+                for (int i = 0; i < count; i++) {
+                    number++;
+                    buyers.add(creatCustomer(number,buyers));
+                }
             }
 
 
