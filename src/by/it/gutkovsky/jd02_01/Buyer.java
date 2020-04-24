@@ -64,7 +64,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void putGoodsToBacket(String goodsName, int price) {
         sleepMethod(500, 2000, pensioner);
-        System.out.println(this + "put " + goodsName + " to the basket, price for it is " + price);
+        System.out.println(this + "put " + goodsName + " to the basket, price for it is " + price + " BYN");
     }
 
     @Override

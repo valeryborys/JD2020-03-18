@@ -12,14 +12,8 @@ class Shop {
         for (int time = 0; time < 120; time++) {
             int count = Helper.getRandom(0, 2);
             for (int i = 0; i < count; i++) {
-                Buyer buyer;
-                if ((buyers.size() % 4 != 0)) {
-                    buyer = new Buyer(++number);
-                } else {                                    // pensioner is coming
-                    buyer = new Buyer(++number, true);
-                }
-                buyer.start();
-                buyers.add(buyer);
+                number++;
+                buyers.add(creatCustomer(number, buyers));
             }
             Helper.sleep(1000);
         }
@@ -34,5 +28,16 @@ class Shop {
         System.out.println("Shop is closed");
 
 
+    }
+
+    static Buyer creatCustomer(int number, List<Buyer> buyers){
+        Buyer buyer;
+        if ((buyers.size() % 4 != 0)) {
+            buyer = new Buyer(number);
+        } else {                                    // pensioner is coming
+            buyer = new Buyer(number, true);
+        }
+        buyer.start();
+        return buyer;
     }
 }
