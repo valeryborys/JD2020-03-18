@@ -1,11 +1,6 @@
 package by.it.verbitsky.jd02_01;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +54,6 @@ class Shop {
 
                 Buyer buyer = new Buyer(++num, oldMan);
                 oldMan = false; //обнуляем флаг
-                getShopManager().addBuyer(buyer);
 
                 threads.add(buyer);
                 //запускаем поток
@@ -80,7 +74,7 @@ class Shop {
             System.out.println("---------------------" +
                     "Всего покупателей в магазине: " + getShopManager().getBuyers().size());
             //Для построения диаграммы чтобы проверить график
-            writeLog(getShopManager().getBuyers().size());
+            // writeLog(getShopManager().getBuyers().size());
         }
 
         //теперь нужна задержка для того, чтобы закрепить потоки покупателей перед основным поток main
@@ -120,7 +114,7 @@ class Shop {
     public static ShopManager getShopManager() {
         return shopManager;
     }
-
+/*
     private static void writeLog(int count) {
         try {
             String fName = "I:\\__Javastudy\\_training\\JD2020-03-18\\src\\by\\it\\verbitsky\\jd02_01\\logshop.txt";
@@ -134,5 +128,5 @@ class Shop {
             throw new RuntimeException(e);
         }
 
-    }
+    }*/
 }

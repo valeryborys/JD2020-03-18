@@ -2,6 +2,8 @@ package by.it.verbitsky.jd02_01;
 
 import java.util.Locale;
 
+import static by.it.verbitsky.jd02_01.Shop.getShopManager;
+
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
     private Backet backet;
@@ -25,6 +27,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         } else {
             speedFactor = 1;
         }
+        getShopManager().addBuyer(this);
     }
 
     public Backet getBacket() {
@@ -68,7 +71,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goOut() {
         System.out.println(this + " покинул магазин");
-        Shop.getShopManager().removeBuyer(this);
+        getShopManager().removeBuyer(this);
     }
 
 
