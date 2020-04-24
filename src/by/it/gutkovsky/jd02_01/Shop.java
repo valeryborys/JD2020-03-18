@@ -14,46 +14,51 @@ class Shop {
 
         int number = 0;
         List<Buyer> buyers = new ArrayList<>();
-        for (int time = 0; time < 120; time++) {
+        int factor;
+        for (int time = 0; time < 240; time++) {
             int count; // quantity of buyers that will enter to the shop
+            factor = time / 60;
+//            factor = 0;
 
-            if (time >= 0 && time <=30) {
-                if(Manager.checkingQuantityInShop() < (time + 10)) {
-                    count = time+10-Manager.checkingQuantityInShop();
+            if (((60 * factor) <= time) && (time <= (30 + 60 * factor))) {
+                if (Manager.checkingQuantityInShop() < ((time - (60 * factor)) + 10)) {
+                    count = (time - 60 * factor) + 10 - Manager.checkingQuantityInShop();
                     for (int i = 0; i < count; i++) {
                         number++;
-                        buyers.add(creatCustomer(number,buyers));
+                        buyers.add(creatCustomer(number, buyers));
                     }
                 }
             }
 
-            if (time > 30 && time <= 60) {
-                count = (40 + (30 - time))-Manager.checkingQuantityInShop();
-                for (int i = 0; i < count; i++) {
-                    number++;
-                    buyers.add(creatCustomer(number,buyers));
-                }
-            }
-
-            if (time > 60 && time <= 90) {
-                if(Manager.checkingQuantityInShop() < ((time-60) + 10)) {
-                    count = (time-60)+10-Manager.checkingQuantityInShop();
+//            if (time > 30 && time <= 60) {
+            if (time > (30 + (factor * 60)) && time < (60 + (factor * 60))) {
+                if (Manager.checkingQuantityInShop() < (40 + (30 - (time - (60 * factor))))) {
+//                if (Manager.checkingQuantityInShop() < 40) {
+                    count = (40 + (30 - (time - (60 * factor)))) - Manager.checkingQuantityInShop();
                     for (int i = 0; i < count; i++) {
                         number++;
-                        buyers.add(creatCustomer(number,buyers));
+                        buyers.add(creatCustomer(number, buyers));
                     }
                 }
             }
 
-            if (time > 90 && time <= 120) {
-                count = (40 + (30 - (time-60)))-Manager.checkingQuantityInShop();
-                for (int i = 0; i < count; i++) {
-                    number++;
-                    buyers.add(creatCustomer(number,buyers));
-                }
-            }
-
-
+//            if (time > 60 && time <= 90) {
+//                if(Manager.checkingQuantityInShop() < ((time-60) + 10)) {
+//                    count = (time-60)+10-Manager.checkingQuantityInShop();
+//                    for (int i = 0; i < count; i++) {
+//                        number++;
+//                        buyers.add(creatCustomer(number,buyers));
+//                    }
+//                }
+//            }
+//
+//            if (time > 90) {
+//                count = (40 + (30 - (time-60)))-Manager.checkingQuantityInShop();
+//                for (int i = 0; i < count; i++) {
+//                    number++;
+//                    buyers.add(creatCustomer(number,buyers));
+//                }
+//            }
 
             // it was before start C part 2
 //            count = Helper.getRandom(0, 2);
@@ -80,10 +85,9 @@ class Shop {
         // testing block
         ForTesting.printingMap(mapForChecking);
 
-
     }
 
-    static Buyer creatCustomer(int number, List<Buyer> buyers){
+    static Buyer creatCustomer(int number, List<Buyer> buyers) {
         Buyer buyer;
         if ((buyers.size() % 4 != 0)) {
             buyer = new Buyer(number);
