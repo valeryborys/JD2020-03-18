@@ -24,18 +24,14 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         goOut();
     }
 
-    private void sleepMethod(int start, int stop, boolean pensione) {
+    private void sleepMethod(int start, int stop, boolean pensioner) {
         int timeout;
         if (pensioner) {
             timeout = (int) (Helper.getRandom(start, stop) * PENSIONER_FACTOR);
         } else {
-            timeout = Helper.getRandom(start, start);
+            timeout = Helper.getRandom(start, stop);
         }
-        try {
-            Thread.sleep(timeout);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Interrupted " + Thread.currentThread(), e);
-        }
+        Helper.sleep(timeout);
     }
 
     @Override
@@ -54,7 +50,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void chooseGoods() {
         System.out.println(this + "started to choose goods");
         for (int i = 0; i < goodsQuantityInTheBasket; i++) {
-            sleepMethod(500,2000, pensioner);
+            sleepMethod(500, 2000, pensioner);
 
             //choose goods from goods shelf
             String goodsName = "Product" + Helper.getRandom(1, GoodsShelf.LIST_OF_GOODS_ON_SHELF.size()); // key for Map goodsOnShelf - chosenGoods
@@ -73,7 +69,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void goOut() {
-        System.out.println(this + "get out from the shop");
+        System.out.println(this + "left the shop");
     }
 
     @Override
