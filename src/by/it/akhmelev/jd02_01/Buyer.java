@@ -23,11 +23,6 @@ public class Buyer extends Thread implements IBuyer {
         System.out.println(this + "started to choose goods");
         int timeout = Helper.getRandom(500, 2000);
         Helper.sleep(timeout);
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         System.out.println(this + "finished to choose goods");
     }
 
