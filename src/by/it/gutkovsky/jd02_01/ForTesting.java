@@ -3,10 +3,6 @@ package by.it.gutkovsky.jd02_01;
 import java.util.*;
 
 class ForTesting {
-//    public static void main(String[] args) {
-//        int k = 59 / 60;
-//        System.out.println(k);
-//    }
 
     static void printingMap(Map<Integer, Integer>  mapForChecking) {
 
