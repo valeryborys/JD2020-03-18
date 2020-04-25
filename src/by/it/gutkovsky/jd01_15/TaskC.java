@@ -5,7 +5,6 @@ import java.util.Scanner;
 class TaskC {
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
         while (true) {
             String input = sc.nextLine().trim();
