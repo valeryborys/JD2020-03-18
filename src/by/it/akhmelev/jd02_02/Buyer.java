@@ -1,15 +1,17 @@
-package by.it.akhmelev.jd02_01;
+package by.it.akhmelev.jd02_02;
 
-public class Buyer extends Thread implements IBuyer {
+class Buyer extends Thread implements IBuyer {
 
     public Buyer(int number) {
         super("Buyer № " + number + " ");
+        Manager.buyerAddToShop();
     }
 
     @Override
     public void run() {
         enterToMarket();
         chooseGoods();
+        goToQueue();
         goOut();
     }
 
@@ -27,8 +29,25 @@ public class Buyer extends Thread implements IBuyer {
     }
 
     @Override
+    public void goToQueue() {
+        synchronized (this){
+            QueueBuyers.add(this);
+            try {
+                System.out.println(this+" added to queue");
+                wait();
+                System.out.println(this+" leave the queue");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+    @Override
     public void goOut() {
         System.out.println(this + "leave the shop");
+        Manager.buyerLeaveShop();
     }
 
     @Override
