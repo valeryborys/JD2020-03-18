@@ -17,7 +17,7 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void enterToMarket() {
-        System.out.println(this+"entered into the shop");
+        System.out.println(this+"entered into the shop ==========>");
     }
 
     @Override
@@ -30,11 +30,6 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
         System.out.println(this+"began shopping");
         int timeout= Helper.getRandom(500,2000);
         Helper.sleep(timeout);
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         System.out.println(this+"finished shopping");
     }
 
