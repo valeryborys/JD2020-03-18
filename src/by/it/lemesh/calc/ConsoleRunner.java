@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class ConsoleRunner {
     public static void main(String[] args) {
+        Var.loadMap();
         Scanner sc = new Scanner(System.in);
         String line;
         Parser parser = new Parser();
@@ -15,12 +16,14 @@ public class ConsoleRunner {
                 printer.printSortVars();
             } else {
                 try {
+                    printer.printLog(line);
                     Var result = parser.calc(line);
                     printer.print(result);
+                    printer.printLog(result.toString());
                 } catch (CalcException e) {
                     System.out.println(e.getMessage());
+                    printer.printLog(e.getMessage());
                 }
-
             }
         }
     }
