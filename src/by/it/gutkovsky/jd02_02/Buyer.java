@@ -1,10 +1,14 @@
 package by.it.gutkovsky.jd02_02;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
-    private int goodsQuantityInTheBasket = 4; // goods quantity in buyers shopping list
+    private int goodsQuantityInTheBasket = Helper.getRandom(1,4); // goods quantity in buyers shopping list
     private boolean pensioner;
     private static final double PENSIONER_FACTOR = 1.5;
+
 
     public Buyer(int number) {
         super("Buyer № " + number + " ");
@@ -50,24 +54,33 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     }
 
     @Override
-    public void chooseGoods() {
+    public Map<String, Double> chooseGoods() {
         System.out.println(this + "started to choose goods");
+        Map<String, Double> shoppingList = new HashMap<>();
         for (int i = 0; i < goodsQuantityInTheBasket; i++) {
             sleepMethod(500, 2000, pensioner);
 
             //choose goods from goods shelf
             String goodsName = "Product" + Helper.getRandom(1, GoodsShelf.LIST_OF_GOODS_ON_SHELF.size()); // key for Map goodsOnShelf - chosenGoods
             double price = GoodsShelf.LIST_OF_GOODS_ON_SHELF.get(goodsName); // value for Map chosenGoods
-
+            shoppingList.put(goodsName, price); // add chosen goods into private shopping list
             putGoodsToBacket(goodsName, price); // call the method which puts goods into the basket
         }
         System.out.println(this + "finished to choose goods");
+
+        return shoppingList;
     }
 
     @Override
     public void putGoodsToBacket(String goodsName, double price) {
         sleepMethod(500, 2000, pensioner);
         System.out.println(this + "put " + goodsName + " to the basket, price for it is " + price + " BYN");
+    }
+
+    @Override
+    public Map<String, Double> provideChosenGoodsToCashier(Map<String, Double> shoppingList) {
+        return shoppingList;
+
     }
 
     @Override
