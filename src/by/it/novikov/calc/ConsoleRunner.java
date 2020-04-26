@@ -12,6 +12,9 @@ class ConsoleRunner {
             if (expr.equals("end")){
                 break;
             }
+            else if (expr.equals("printvar")){
+                Var.printvar();
+            }
 
             try {
                 Var var = parser.calc(expr);
@@ -21,6 +24,6 @@ class ConsoleRunner {
             }
 
         }
-        Var.printvar();
+
     }
 }
