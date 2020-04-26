@@ -12,8 +12,15 @@ class ConsoleRunner {
             if (expr.equals("end")){
                 break;
             }
-            Var var = parser.calc(expr);
-            printer.print(var);
+
+            try {
+                Var var = parser.calc(expr);
+                printer.print(var);
+            } catch (CalcException e) {
+                System.out.println(e.getMessage());
+            }
+
         }
+        Var.printvar();
     }
 }

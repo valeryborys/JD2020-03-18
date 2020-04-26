@@ -46,7 +46,7 @@ class Vector extends Var implements Operation {
 
 
     @Override
-    public Var add(Var other) {
+    public Var add(Var other) throws CalcException {
         double[] result = Arrays.copyOf(values, values.length);
         if (other instanceof Scalar){
             double s = ((Scalar) other).getValue();
@@ -65,7 +65,7 @@ class Vector extends Var implements Operation {
     }
 
     @Override
-    public Var sub(Var other) {
+    public Var sub(Var other) throws CalcException {
         double[] result = Arrays.copyOf(values, values.length);
         if (other instanceof Scalar){
             double s = ((Scalar) other).getValue();
@@ -84,7 +84,7 @@ class Vector extends Var implements Operation {
     }
 
     @Override
-    public Var mul(Var other) {
+    public Var mul(Var other) throws CalcException {
         if (other instanceof Scalar){
             double[] result = Arrays.copyOf(this.values, values.length);
             for (int i = 0; i < result.length; i++) {
@@ -103,7 +103,7 @@ class Vector extends Var implements Operation {
     }
 
     @Override
-    public Var div(Var other) {
+    public Var div(Var other) throws CalcException {
         if (other instanceof Scalar){
             double[] result = Arrays.copyOf(this.values, values.length);
             for (int i = 0; i < result.length; i++) {
