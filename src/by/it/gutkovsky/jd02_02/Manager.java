@@ -31,6 +31,10 @@ class Manager {
         }
     }
 
+    static boolean allCustomersCameOut(){
+        return  comeOut == comeIn;
+    }
+
     static int checkingQuantityInShop() { // temporary method for checking
         return comeIn - comeOut;
     }

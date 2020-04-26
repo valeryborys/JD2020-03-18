@@ -15,6 +15,7 @@ class Shop {
         for (int i = 1; i <=2; i++) {
             Cashier cashier = new Cashier(i);
             Thread thread = new Thread(cashier);
+            threads.add(thread);
             thread.start();
         }
 
@@ -25,7 +26,6 @@ class Shop {
                     number++;
                     threads.add(creatCustomer(number, threads));
                 }
-
 //            mapForChecking.put(time, Manager.checkingQuantityInShop()); // temporary method method that helping to test
                 Helper.sleep(1000);
             }
