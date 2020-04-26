@@ -8,13 +8,21 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     private boolean pensioner;
     private double speedFactor;
 
+    public boolean isPensioner() {
+        return pensioner;
+    }
+
+    public double getSpeedFactor() {
+        return speedFactor;
+    }
+
     /*
-        public Buyer(int number) {
-            //передали имя в суперкласс
-            //конструктор присвоит потоку переданное имя
-            super("Buyer № " + number + " ");
-        }
-    */
+                public Buyer(int number) {
+                    //передали имя в суперкласс
+                    //конструктор присвоит потоку переданное имя
+                    super("Buyer № " + number + " ");
+                }
+            */
     public Buyer(int number, boolean oldMan) {
         //передали имя в суперкласс
         //конструктор присвоит потоку переданное имя
@@ -25,6 +33,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         } else {
             speedFactor = 1;
         }
+        Shop.getShopManager().addBuyer(this);
+
     }
 
     public Backet getBacket() {
@@ -36,7 +46,21 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         enterToMarket();//мгновенно
         takeBacket();// мгновенно
         chooseGoods();//0,5 - 2 секунды / *1.5 для пенсионеров
+        goToQueue();
         goOut(); //мгновенно
+    }
+
+    private void goToQueue() {
+        synchronized (this) {
+            ShopQueue.lineUp(this);
+            try {
+                System.out.println(this + " стал в очередь");
+                wait();
+                System.out.println(this + " покинул очередь");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

@@ -6,11 +6,9 @@ class Helper {
     //для тестирования - уменьшает все задержки в N раз
     private static final int K_SPEED = 1;
 
-
     //Чем больше коэффициент - тем больше ускоряются действия покупателей,
-    // при 1 - коэффициент не учитывается при определении задержек
+    // при 1 - коэффициент не влияет на задержки
     public static int accelerationFactor = 1;
-
 
     //коэффициент для ускорения/замедления процессов
     //в зависимости от времени и кол-ва покупателей
@@ -18,9 +16,6 @@ class Helper {
     public static int slowFactor = 0;
 
     private static Random generator = new Random();
-
-    private Helper() {
-    }
 
     public static void sleep(int timeout) {
         try {
@@ -33,7 +28,8 @@ class Helper {
     public static int getRandomTimeout(int start, int end, double buyerSpeedFactor) {
         return (int) (Math.round(
                 (start + generator.nextInt(end - start + 1) * buyerSpeedFactor) + slowFactor)
-                / accelerationFactor / K_SPEED);
+                / accelerationFactor
+                / K_SPEED);
     }
 
     public static int getRandom(int start, int end) {
@@ -44,6 +40,7 @@ class Helper {
         return generator.nextDouble() * 100;
     }
 
+    //Немного захардкодил этот метод - определяет предел кол-ва генерируемых покупателей за цикл
     public static int getCountFactor(int currentSec, int buyerCount) {
         int factor = 0;
         currentSec = currentSec % 60;
@@ -88,6 +85,9 @@ class Helper {
 
 
         return factor;
+    }
+
+    private Helper() {
     }
 /*
     //фактор регулирования потока покупателей в зависимости от времени и кол-ва покупателей в магазине
