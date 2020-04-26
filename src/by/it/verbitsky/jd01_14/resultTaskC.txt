@@ -1,6 +1,9 @@
 dir:verbitsky
 dir:calc
 file:CalcException.java
+file:CalcFiles.java
+file:calcMemory.txt
+file:CalcMemoryManager.java
 file:ConsoleRunner.java
 file:Matrix.java
 file:Operation.java
@@ -124,6 +127,9 @@ file:TaskB.txt
 file:TaskC.java
 file:TestFileReader.java
 file:Test_jd01_14.java
+dir:jd01_15
+file:TaskA.java
+file:Test_jd01_15.java
 dir:myworktests
 dir:OldFiles
 file:CalcMemory.java

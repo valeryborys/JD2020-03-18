@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
-    Var calc(String expression) throws CalcException {
+    Var calc(String expression, CalcLogger logger) throws CalcException {
         expression = expression.replace(" ", "");
         String[] parts = expression.split(Patterns.OPERATION, 2);
         //Если был введн 1 операнд
@@ -51,55 +51,7 @@ class Parser {
                     return left.div(right);
             }
         }
-
+        logger.writeLog("Unknown operation");
         throw new CalcException("Unknown operation");
     }
-
 }
-
-//мой старый вариант
-    /*
-    Var calc(String expression, CalcMemory buffer) {
-
-
-        String[] parts = expression.split(Patterns.OPERATION, 2);
-
-        Pattern pattern = Pattern.compile(Patterns.OPERATION);
-        Matcher matcher = pattern.matcher(expression);
-        if (parts.length > 1) {
-            if (matcher.find()) {
-                String operation = matcher.group();
-                switch (operation) {
-                    case "+":
-                        return Var.createVar(parts[0]).add(Var.createVar(parts[1]));
-                    case "-":
-                        return Var.createVar(parts[0]).sub(Var.createVar(parts[1]));
-                    case "*":
-                        return Var.createVar(parts[0]).mul(Var.createVar(parts[1]));
-                    case "/":
-                        return Var.createVar(parts[0]).div(Var.createVar(parts[1]));
-                    case "=": {
-                        buffer.memoryAdd(parts[0], Var.createVar(parts[1]));
-                        return null;
-                    }
-                }
-            }
-        } else {
-            if (parts.length == 1) {
-                switch (parts[0]) {
-                    case Patterns.COMMAND_PRINTVAR: {
-                        buffer.printvar();
-                        return null;
-                    }
-
-                    case Patterns.COMMAND_SORTVAR: {
-                        buffer.sortvar();
-                        return null;
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-}*/
