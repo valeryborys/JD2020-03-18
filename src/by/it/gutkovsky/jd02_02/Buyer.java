@@ -57,7 +57,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
             //choose goods from goods shelf
             String goodsName = "Product" + Helper.getRandom(1, GoodsShelf.LIST_OF_GOODS_ON_SHELF.size()); // key for Map goodsOnShelf - chosenGoods
-            int price = GoodsShelf.LIST_OF_GOODS_ON_SHELF.get(goodsName); // value for Map chosenGoods
+            double price = GoodsShelf.LIST_OF_GOODS_ON_SHELF.get(goodsName); // value for Map chosenGoods
 
             putGoodsToBacket(goodsName, price); // call the method which puts goods into the basket
         }
@@ -65,7 +65,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     }
 
     @Override
-    public void putGoodsToBacket(String goodsName, int price) {
+    public void putGoodsToBacket(String goodsName, double price) {
         sleepMethod(500, 2000, pensioner);
         System.out.println(this + "put " + goodsName + " to the basket, price for it is " + price + " BYN");
     }
