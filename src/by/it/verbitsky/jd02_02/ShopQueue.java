@@ -12,12 +12,9 @@ class ShopQueue {
     static void lineUp(Buyer buyer) {
         if (buyer.isPensioner()) {
             shopPensionerQueue.addLast(buyer);
-            // говорим мэнеджеру, что в очереди есть покупатель
-            //Helper.wakeUpShopManager();
             return;
         }
         shopQueue.addLast(buyer);
-        //Helper.wakeUpShopManager();
     }
 
     static synchronized Buyer extract() {

@@ -11,10 +11,12 @@ class Shop {
     private static List<Buyer> threads = new ArrayList<>();
 
     public static void main(String[] args) {
+        System.out.println("SERVICE SPEED FACTOR = " + Helper.getServiceSpeedFactor());
         generateOffers();
         createShopmanager();
         createCashiers();
-        Helper.sleep(1000);
+        //сервис слип замораживает поток на точное время, без учета коэффициента ускорения
+        Helper.serviceSleep(2000);
         openShop();
         closeShop();
     }
@@ -22,7 +24,7 @@ class Shop {
     private static void createCashiers() {
         for (int i = 1; i < 6; i++) {
             Cashier cashier = new Cashier(i);
-            System.out.println("создали кассира " + i);
+            ShopPrinter.printMessage("Create cashier " + i);
             synchronized (ShopManager.getCashierMonitor()) {
                 cashier.start();
             }
@@ -31,34 +33,36 @@ class Shop {
     }
 
     private static void createShopmanager() {
-        System.out.println("create shop manager");
+        ShopPrinter.printMessage("Create shop manager");
         shopManager = new ShopManager();
         shopManager.start();
         //манагер управляет главным потоком (магазином)
-        //т.е. пока живет поток манагера - магазин открыт
-        System.out.println("end create shop manager");
+        //т.е. пока живет поток манагера - живет поток магазина
     }
 
     private static void generateOffers() {
-        System.out.println("create offers");
+        ShopPrinter.printMessage("create offers");
         shopOffer = new Offer();
     }
 
     private static void closeShop() {
-        System.out.println("\n\nshop closed");
+        ShopPrinter.printMessage("\n\nshop closed");
     }
 
     private static void openShop() {
         int num = 0;
         int i = 0;
-        System.out.println("Shop opened\n\n");
-        //разбиать на отдельные методы
+        ShopPrinter.printMessage("\n\nShop opened\n");
         while (!ShopManager.isShopOpen()) {
             i++;
             //каждую секунду запускаем несколько покупателей (зависит от времени и кол-ва которые уже находятся в магазине
             int countEntered = Helper.getCountFactor(i, shopManager.getCurrentBuyersCount());
             boolean oldMan = false;//флаг для определения пенсионера
             for (int j = 0; !ShopManager.isShopOpen() && j < countEntered; j++) {
+                if (shopManager.getCurrentBuyersCount() == 40) {
+                    //не более 40 человек после 30 сек
+                    break;
+                }
                 if (num % 4 == 0) {
                     //если покупатель 4-й, то с вероятностью 50/50 он будет пенсионер, но если нет, то 5-й будет точно
                     int coin = Helper.getRandom(1, 2); //подкидываем монетку
@@ -79,50 +83,16 @@ class Shop {
             }
 
             Helper.sleep(1000);
-            System.out.println("---------------------------------------------------------Прошло секунд " + i % 60);
-            System.out.println("кол-во людей в очереди: " + ShopQueue.getQueueCount());
-            System.out.println("кол-во свободных касс: " + shopManager.getAvailableCashes());
+            ShopPrinter.printMessage("----------------------Seconds passed " + i % 60);
+            ShopPrinter.printMessage("----------------------Buyers in: " + shopManager.getCurrentBuyersCount());
         }
         try {
             System.out.println("закрепили манагера в основном потоке");
-            shopManager.printFreeCashiers();
+            shopManager.printCashiersStatus();
             shopManager.join();
         } catch (InterruptedException e) {
             throw new RuntimeException(e.getMessage());
         }
-
-/*
-            System.out.println("---------------------" +
-                    "Всего покупателей в магазине: " + getShopManager().getBuyers().size());
-            //Для построения диаграммы чтобы проверить график
-            writeLog(getShopManager().getBuyers().size());
-        }
-
-        //теперь нужна задержка для того, чтобы закрепить потоки покупателей перед основным поток main
-        //слипаем на пару мс основной поток и после этого закрепляем потоки
-
-        Helper.sleep(3000);
-        for (Buyer buyer : threads) {
-            try {
-                //закрепляем поток каждого покупателя перед основным поток выполнения
-                //чтобы главный поток магазина не закрылся ранньше чем потоки покупателей
-                buyer.join();
-            } catch (InterruptedException e) {
-                //throw new RuntimeException(e);
-                System.out.println(e.getMessage());
-            }
-        }
-/*
-        for (Buyer buyer : getShopManager().getBuyers()) {
-            try {
-                //закрепляем поток каждого покупателя перед основным поток выполнения
-                //чтобы главный поток магазина не закрылся ранньше чем потоки покупателей
-                buyer.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        */
     }
 
     //вернуть предложения товаров с ценами
@@ -134,19 +104,4 @@ class Shop {
     public static ShopManager getShopManager() {
         return shopManager;
     }
-/*  тестовый лог
-    private static void writeLog(int count) {
-        try {
-            String fName = "I:\\__Javastudy\\_training\\JD2020-03-18\\src\\by\\it\\verbitsky\\jd02_02\\logshop.txt";
-            File f = new File(fName);
-            if (!f.exists()) {
-                f.createNewFile();
-            }
-            String text = "" + count;
-            Files.write(Paths.get(fName), text.concat("\n").getBytes(), StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }*/
 }

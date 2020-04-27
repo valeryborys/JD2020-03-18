@@ -4,5 +4,4 @@ interface CashierStrings {
     String END = "end";
     String WORK = "work";
     String SLEEP = "sleep";
-
 }
