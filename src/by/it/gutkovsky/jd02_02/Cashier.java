@@ -24,7 +24,10 @@ class Cashier implements Runnable {
                     int timeout = Helper.getRandom(2000, 5000);
                     Helper.sleep(timeout);
                     double billAmount = 0;
-                    Iterator<Map.Entry<String, Double>> cashBox = buyer.provideChosenGoodsToCashier(buyer.chooseGoods()).entrySet().iterator();
+//                    Iterator<Map.Entry<String, Double>> cashBox = buyer.provideChosenGoodsToCashier(buyer.chooseGoods()).entrySet().iterator();
+                    Iterator<Map.Entry<String, Double>> cashBox = buyer.getBasket().getBasketList().entrySet().iterator();
+//                    Iterator<Map.Entry<String, Double>> cashBox = Buyer.getShoppingList().entrySet().iterator();
+//                    Iterator<Map.Entry<String, Double>> cashBox = buyer.provideChosenGoodsToCashier(Buyer.shoppingList).entrySet().iterator();
                     while (cashBox.hasNext()) {
                         Map.Entry<String, Double> pair = cashBox.next();
                         String product = pair.getKey();

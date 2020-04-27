@@ -5,10 +5,20 @@ import java.util.Map;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
-    private int goodsQuantityInTheBasket = Helper.getRandom(1,4); // goods quantity in buyers shopping list
+    private Basket basket;
+
+    public Basket getBasket() {
+        return basket;
+    }
+
+    private int goodsQuantityInTheBasket = Helper.getRandom(1, 4); // goods quantity in buyers shopping list
     private boolean pensioner;
     private static final double PENSIONER_FACTOR = 1.5;
-
+//    private Map<String, Double> shoppingList = new HashMap<>();
+//
+//    public static Map<String, Double> getShoppingList() {
+//        return shoppingList;
+//    }
 
     public Buyer(int number) {
         super("Buyer № " + number + " ");
@@ -27,6 +37,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         enterToMarket();
         takeBacket();
         chooseGoods(); // in this method buyer choose goods and put them into the basket
+//        Map<String, Double> shoppingListCorrentBuyer = chooseGoods();
+//        provideChosenGoodsToCashier(shoppingListCorrentBuyer);
         goToQueue();
         goOut();
     }
@@ -50,6 +62,9 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void takeBacket() {
         sleepMethod(500, 2000, pensioner);
+        if (basket == null) {
+            basket = new Basket();
+        }
         System.out.println(this + "take a basket");
     }
 
@@ -57,6 +72,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public Map<String, Double> chooseGoods() {
         System.out.println(this + "started to choose goods");
         Map<String, Double> shoppingList = new HashMap<>();
+
         for (int i = 0; i < goodsQuantityInTheBasket; i++) {
             sleepMethod(500, 2000, pensioner);
 
@@ -67,6 +83,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             putGoodsToBacket(goodsName, price); // call the method which puts goods into the basket
         }
         System.out.println(this + "finished to choose goods");
+        basket.setBasketList(shoppingList);
 
         return shoppingList;
     }
@@ -78,9 +95,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     }
 
     @Override
-    public Map<String, Double> provideChosenGoodsToCashier(Map<String, Double> shoppingList) {
-        return shoppingList;
-
+    public Map<String, Double> provideChosenGoodsToCashier(Map<String, Double> shoppingListCorrentBuyer) {
+        return shoppingListCorrentBuyer;
     }
 
     @Override
