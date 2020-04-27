@@ -6,9 +6,20 @@ import java.util.Map;
 class Buyer extends Thread implements IBuyer, IUseBacket {
     private static boolean isElder;
     private static final float ELDERY_COEF = 1.5f;
+    private static int numberOfBuyer;
     private final Map<String, Integer> tmp = new HashMap<>();//Список покупок
+    private static int sum = 0;
 
-    static boolean isElder() {
+    public int getSum() {
+        return sum;
+    }
+
+    public void setSum(int pm) {
+        sum = pm;
+    }
+
+
+    boolean isElder() {
         return isElder;
     }
 
@@ -18,12 +29,14 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     Buyer(int num) {
         super(String.format("Buyer #%d ", num));
+        numberOfBuyer = num;
         Manager.addBuyer();
     }
 
     Buyer(int num, boolean isElder) {
         super(String.format("Buyer (pensioneer) #%d ", num));
         setEldery(true);
+        numberOfBuyer = num;
         Manager.addBuyer();
     }
 
@@ -92,20 +105,30 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     }
 
     @Override
-    public String printCheck() {
-        int sum = 0;
+    public String printCheck(int spaces) {
+        int payment = 0;
         StringBuilder sb = new StringBuilder();
-        sb.append("\t\tСписок покупок ").append(this).append(":\n");
+        //setDelimiters
+        StringBuilder delimiter = Utils.setDelimiters(spaces);
+        delimiter.toString();
+
+        sb.append(delimiter).append("Список покупок ").append(this).append(":").append("\n");
+        sb.append(delimiter).append("┌──────────────────────────────────────┐\n");
+
 
         for (Map.Entry<String, Integer> entry : tmp.entrySet()) {
-            sum += entry.getValue();
-            sb.append("\t\t");
-            sb.append(entry.getKey()).append(".....................................")
-                    .append(entry.getValue()).append(" р.\n");
+            payment += entry.getValue();
+            setSum(payment);
+            sb.append(delimiter).append("│");
+            sb.append(entry.getKey()).append("..................")
+                    .append(entry.getValue()).append(" р.│\n");
         }
-        sb.append("\t\tСумма счета ").append(this).append(sum);
+
+        sb.append(delimiter).append("└──────────────────────────────────────┘\n");
+        sb.append(delimiter).append("Сумма счета ").append(this).append(": ").append(getSum()).append("\n");
         return sb.toString();
     }
+
 
     @Override
     public void takeCart() {
@@ -148,4 +171,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public String toString() {
         return getName();
     }
+
+
 }

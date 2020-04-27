@@ -26,15 +26,6 @@ public class Supermarket {
         long lt = System.nanoTime(); //Считаем время выполнения
 
 
-
-        /*for (int i = 0; i < 5; i++) {
-            cashier = new Cashier(i);
-            thread = new Thread(cashier);
-            Utils.lCashiers.add(thread);
-            thread.start();
-
-        }*/
-
         while (Manager.supermarketOpened()) {
             if (Utils.GLOBAL_COUNTER <= 5) {
                 if (Utils.lCashiers.isEmpty()) {

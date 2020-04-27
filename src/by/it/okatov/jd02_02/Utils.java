@@ -21,10 +21,10 @@ class Utils {
     }
 
     public static void sethMap() {
-        Utils.hMap.put("Хлеб Дор-блю", 2);
-        Utils.hMap.put("Дедушкины яйца", 4);
-        Utils.hMap.put("Мас-кар-поне!!", 5);
-        Utils.hMap.put("Утка с хреном", 12);
+        Utils.hMap.put("Хлеб Дор-блю...", 12);
+        Utils.hMap.put("Дедушкины яйца.", 13);
+        Utils.hMap.put("Мас-кар-поне!!.", 15);
+        Utils.hMap.put("Утка с хреном..", 17);
     }
 
     /***
@@ -86,5 +86,13 @@ class Utils {
         }
     }
 
+
+    static StringBuilder setDelimiters(int spaces) {
+        StringBuilder delimiter = new StringBuilder();
+        for (int i = 0; i < spaces; i++) {
+            delimiter.append(" ");
+        }
+        return delimiter;
+    }
 
 }
