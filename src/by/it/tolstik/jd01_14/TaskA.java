@@ -2,7 +2,7 @@ package by.it.tolstik.jd01_14;
 
 import java.io.*;
 
-public class TaskA {
+class TaskA {
 
     public static void main(String[] args) {
         randomOutput();
