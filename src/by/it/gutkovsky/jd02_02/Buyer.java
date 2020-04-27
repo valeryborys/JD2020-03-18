@@ -14,11 +14,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     private int goodsQuantityInTheBasket = Helper.getRandom(1, 4); // goods quantity in buyers shopping list
     private boolean pensioner;
     private static final double PENSIONER_FACTOR = 1.5;
-//    private Map<String, Double> shoppingList = new HashMap<>();
-//
-//    public static Map<String, Double> getShoppingList() {
-//        return shoppingList;
-//    }
 
     public Buyer(int number) {
         super("Buyer № " + number + " ");
@@ -37,8 +32,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         enterToMarket();
         takeBacket();
         chooseGoods(); // in this method buyer choose goods and put them into the basket
-//        Map<String, Double> shoppingListCorrentBuyer = chooseGoods();
-//        provideChosenGoodsToCashier(shoppingListCorrentBuyer);
         goToQueue();
         goOut();
     }
@@ -56,7 +49,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void enterToMarket() {
         System.out.println(this + "enter to shop");
-
     }
 
     @Override
@@ -69,7 +61,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     }
 
     @Override
-    public Map<String, Double> chooseGoods() {
+    public void chooseGoods() {
         System.out.println(this + "started to choose goods");
         Map<String, Double> shoppingList = new HashMap<>();
 
@@ -84,19 +76,12 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         }
         System.out.println(this + "finished to choose goods");
         basket.setBasketList(shoppingList);
-
-        return shoppingList;
     }
 
     @Override
     public void putGoodsToBacket(String goodsName, double price) {
         sleepMethod(500, 2000, pensioner);
         System.out.println(this + "put " + goodsName + " to the basket, price for it is " + price + " BYN");
-    }
-
-    @Override
-    public Map<String, Double> provideChosenGoodsToCashier(Map<String, Double> shoppingListCorrentBuyer) {
-        return shoppingListCorrentBuyer;
     }
 
     @Override
