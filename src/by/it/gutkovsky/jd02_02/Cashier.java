@@ -6,7 +6,12 @@ import java.util.Map;
 class Cashier implements Runnable {
     private String name;
     static final Object MONITOR2 = new Object();
-    private static volatile double TotalSum = 0;
+
+    private static volatile double totalSum = 0;
+
+    public static double getTotalSum() {
+        return totalSum;
+    }
 
 
     Cashier(int number) {
@@ -22,7 +27,7 @@ class Cashier implements Runnable {
                 if (buyer != null) {
                     double billAmount = getBillAmount(buyer);
                     synchronized (MONITOR2){
-                        TotalSum = TotalSum+billAmount;
+                        totalSum = totalSum +billAmount;
                     }
                     synchronized (buyer) {
                         buyer.notify();
@@ -35,6 +40,7 @@ class Cashier implements Runnable {
             }
         }
         System.out.println(this + " closed");
+
     }
 
     private double getBillAmount(Buyer buyer) {

@@ -40,6 +40,8 @@ class Shop {
                 throw new RuntimeException(e);
             }
         }
+
+        System.out.println("Total revenue per working day: "+ Cashier.getTotalSum() + "BYN");
         System.out.println("Shop is closed");
 
         // testing block
