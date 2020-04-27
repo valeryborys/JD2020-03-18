@@ -1,4 +1,4 @@
-package by.it.borys.jd02_01;
+package by.it.borys.jd02_02;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,25 +19,32 @@ public class Shop {
         goods.put("beer",2);
         System.out.println("Shop opened");
         int number = 0;
-        List<Buyer> buyers = new ArrayList<>();
-        for (int time = 0; time < 120; time++) {
-         //   int count = Helper.getRandom(0, 2);
-            for (int i = 0; i < Manager.buyersReg(time); i++) {
+        List<Thread> threads = new ArrayList<>();
+        for (int i = 1; i <=2 ; i++) {
+            Cashier cashier = new Cashier(i);
+             Thread thread = new Thread(cashier);
+            threads.add(thread);
+            thread.start();
+        }
+        while (Manager.shopOpen()){
+       // for (int time = 0; time < 120; time++) {
+            int count = Helper.getRandom(0, 2);
+            for (int i = 0; Manager.shopOpen() && i <= count; i++) {
                 Buyer buyer = new Buyer(++number);
                 buyer.start();
-                buyers.add(buyer);
+                threads.add(buyer);
             }
             Helper.sleep(1000);
-            Manager.graph.put(time,Manager.count);
+            //Manager.graph.put(time, Manager.count);
             }
-        for (Buyer buyer : buyers) {
+        for (Thread th : threads) {
             try {
-                buyer.join();
+                th.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
         System.out.println("Shop closed");
-        Manager.printToFile();
+        //Manager.printToFile();
     }
 }
