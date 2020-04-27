@@ -28,7 +28,7 @@ class TaskB {
 
     private static int getPunctsCount(String fName) {
         StringBuilder text = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader((getFullPath(TaskB.class, inputFileName))))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fName))) {
             while (reader.ready()) {
                 text.append(reader.readLine());
             }
@@ -41,7 +41,7 @@ class TaskB {
 
     private static int getWordsCountFromFile(String fName) {
         StringBuilder text = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader((getFullPath(TaskB.class, inputFileName))))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fName))) {
             while (reader.ready()) {
                 text.append(reader.readLine()).append("\n");
             }
