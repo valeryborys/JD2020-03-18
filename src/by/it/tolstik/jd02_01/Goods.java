@@ -23,6 +23,15 @@ class Goods {
         goods.put("водка", 450);
         goods.put("подгузники", 3700);
         goods.put("рюмки", 510);
+        goods.put("сыр", 260);
+        goods.put("креветки", 960);
+        goods.put("рыба", 750);
+        goods.put("салат", 150);
+        goods.put("полотенце", 210);
+        goods.put("мыло", 40);
+        goods.put("веревка", 30);
+        goods.put("порошок", 180);
+        goods.put("тушенка", 195);
         goods.put("вилки", 150);
         return goods;
     }
