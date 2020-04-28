@@ -5,7 +5,9 @@ import java.util.Map;
 
 class Cashier implements Runnable {
     private String name;
+    private int number;
     static final Object MONITOR2 = new Object();
+    static final Object MONITORTEST = new Object();
 
     private static volatile double totalSum = 0;
 
@@ -16,6 +18,7 @@ class Cashier implements Runnable {
 
     Cashier(int number) {
         name = "\tCashier № " + number + ": ";
+        this.number = number;
     }
 
     @Override
@@ -25,9 +28,12 @@ class Cashier implements Runnable {
             while (!Manager.allCustomersCameOut()) { // this condition is necessary that cashiers don't close while customers in shop
                 Buyer buyer = QueueBuyers.extract();
                 if (buyer != null) {
-                    double billAmount = getBillAmount(buyer);
-                    synchronized (MONITOR2){
-                        totalSum = totalSum +billAmount;
+                    double billAmount;
+                    synchronized (MONITORTEST) {
+                        billAmount = getBillAmount(buyer);
+                    }
+                    synchronized (MONITOR2) {
+                        totalSum = totalSum + billAmount;
                     }
                     synchronized (buyer) {
                         buyer.notify();
@@ -43,26 +49,80 @@ class Cashier implements Runnable {
 
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    //        private double getBillAmount(Buyer buyer) {
+//        int timeout = Helper.getRandom(2000, 5000);
+//        Helper.sleep(timeout);
+//        System.out.println(this + " start to service a buyer - " + buyer.getName());
+//        double billAmount = 0;
+//        Iterator<Map.Entry<String, Double>> cashBox = buyer.getBasket().getBasketList().entrySet().iterator();
+//        while (cashBox.hasNext()) {
+//            Map.Entry<String, Double> pair = cashBox.next();
+//            String product = pair.getKey();
+//            double price = pair.getValue();
+//            billAmount += price;
+//            System.out.println("\t" + this + " : line :" + product + " price : " + price + "BYN");
+//        }
+//        System.out.println("\t" + this + " says: Total price: " + billAmount + "BYN");
+//        System.out.println("\t" + this + " finished to service a buyer");
+//        System.out.println("\t\tCurrent revenue in shop:" + totalSum + "BYN");
+//        return billAmount;
+//    }
     private double getBillAmount(Buyer buyer) {
         int timeout = Helper.getRandom(2000, 5000);
         Helper.sleep(timeout);
         System.out.println(this + " start to service a buyer - " + buyer.getName());
         double billAmount = 0;
         Iterator<Map.Entry<String, Double>> cashBox = buyer.getBasket().getBasketList().entrySet().iterator();
+        printTopRow();
         while (cashBox.hasNext()) {
             Map.Entry<String, Double> pair = cashBox.next();
             String product = pair.getKey();
             double price = pair.getValue();
             billAmount += price;
-            System.out.println("\t" + this + " : line :" + product + " price : " + price + "BYN");
+            System.out.println(printBillFormat() + product + "-" + price + "BYN");
         }
-        System.out.println("\t" + this + " says: Total price: " + billAmount + "BYN");
-        System.out.println("\t" + this + " finished to service a buyer");
+        System.out.println(printBillFormat() + "Sum: " + billAmount + "BYN");
+        System.out.printf("%-110s%-3d%-19s%6.2f\n", " ", QueueBuyers.queueSize(), " ", (totalSum + billAmount));
+
+
+//        System.out.println("\t" + this + " says: Total price: " + billAmount + "BYN");
+        System.out.println(this + " finished to service a buyer");
+//        System.out.println("\t\tCurrent revenue in shop:" + totalSum + "BYN");
+        System.out.flush();
         return billAmount;
     }
 
-    @Override
-    public String toString() {
-        return name;
+    private void printTopRow() {
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------");
+        System.out.printf("%-22s%-22s%-22s%-22s%-22s%-22s%-22s\n", "Cashier №1", "Cashier №2", "Cashier №3", "Cashier №4", "Cashier №5", "Queue size", "Total sum");
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------");
+    }
+
+    private String printBillFormat() {
+        String billFormat = "";
+
+        switch (this.number) {
+            case 1:
+                billFormat = "";
+                break;
+            case 2:
+                System.out.printf("%-22s", " ");
+                break;
+            case 3:
+                System.out.printf("%-44s", " ");
+                break;
+            case 4:
+                System.out.printf("%-66s", " ");
+                break;
+            case 5:
+                System.out.printf("%-88s", " ");
+                break;
+        }
+        return billFormat;
     }
 }

@@ -23,4 +23,8 @@ class QueueBuyers {
         else return queue.pollFirst();
     }
 
+    static synchronized int queueSize(){
+        return queue.size()+pensioneerQueue.size();
+    }
+
 }
