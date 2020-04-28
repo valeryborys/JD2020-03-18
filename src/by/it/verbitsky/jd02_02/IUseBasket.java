@@ -1,11 +1,11 @@
 package by.it.verbitsky.jd02_02;
 
-interface IUseBacket {
+interface IUseBasket {
 
     //взял корзину
-    void takeBacket();
+    void takeBasket();
 
     // положил выбранный товар в корзину
-    void putGoodsToBacket();
+    void putGoodsToBasket();
 
 }
