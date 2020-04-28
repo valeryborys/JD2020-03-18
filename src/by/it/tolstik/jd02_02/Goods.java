@@ -1,6 +1,7 @@
-package by.it.tolstik.jd02_01;
+package by.it.tolstik.jd02_02;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 class Goods {
     static ArrayList<String> getGoodsName() {
