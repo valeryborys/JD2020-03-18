@@ -52,4 +52,21 @@ public class Manager {
         }
 
     }
+
+    synchronized static int getBuyersRange(int pseudoTime) {
+        int count = Buyer.globalCount;
+        Utils.forPrinting.put(pseudoTime, count);
+        pseudoTime %= 60;
+        System.out.println("//---------------------------------------------------------inCount:" + count);
+        System.out.println("//---------------------------------------------------------pseudoTime:" + pseudoTime);
+
+        if (pseudoTime <= 30 && count < pseudoTime + 10) {
+            return Utils.getRandom(0, pseudoTime + 10 - count);
+        } else if (pseudoTime > 30 && count <= 70 - pseudoTime) {
+            System.out.println("//---------------------------------------------count < 70 - pseudoTime:" + (count < 70 - pseudoTime));
+            return Utils.getRandom(0, 70 - pseudoTime - count);
+        } else {
+            return 0;
+        }
+    }
 }

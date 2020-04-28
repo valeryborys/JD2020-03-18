@@ -10,6 +10,7 @@ public class Utils {
 
     private static final Random generator = new Random();
     private static final Map<String, Integer> hMapOfGoods = new HashMap<>();
+    static Map<Integer, Integer> forPrinting = new HashMap<>();
 
     public static String getBottomLine() {
         return bottomLine;
