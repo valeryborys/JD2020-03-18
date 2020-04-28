@@ -1,173 +1,213 @@
 package by.it.okatov.jd02_02;
 
+import java.util.Map;
+
 class Cashier implements Runnable {
 
+    boolean isActive = false;
     private final String name;
-    private final int cNum;
-    private int cashBounty = 0;
-    private int counter = 0;
-    final StringBuilder bottomLine = new StringBuilder();
+    static final Object CASHIER_MONITOR = new Object();
+    private int sumOnCashBox = 0;
+    StringBuilder totalAmount = new StringBuilder();
 
-    int getNumberOfServed() {
-        return counter;
+
+    public int getSumOnCashBox() {
+        return sumOnCashBox;
     }
 
-    void setNumberOfServed(int counter) {
-        this.counter = counter;
+    public void setSumOnCashBox(int nextSum) {
+        this.sumOnCashBox += nextSum;
     }
+
+    private volatile int cNum = 0;
 
     Cashier(int number) {
-        this.cNum = number + 1;
-        name = "\tCashier #" + (number + 1);
+        cNum = number;
+        name = "\tCashier № " + (number) + ": ";
     }
 
     @Override
     public void run() {
-        System.out.println(this + " Opened");
-        //serveBuyer
-        serveBuyer();
-        System.out.println(this + " closed");
-        System.out.println("Количество обслуженных покупателей у" + this + " равняется: " + getNumberOfServed());
-    }
+        System.out.println(this + " opened");
+        if (cNum != 1) {
+            this.deactivate();
+        }
 
-    private void serveBuyer() {
         while (!Manager.planComplete()) {
-            Buyer buyer = BuyersQueue.extract();
-            if (buyer != null) {
-                System.out.println(this + " begins to service " + buyer);
-                int t = Utils.getRandom(2, 5);
+            Buyer elder = QueueBuyers.extractElder();
+            if (elder != null) {
+                System.out.println(this + " begin to service " + elder);
+                int t = Utils.getRandom(1, 5);
                 Utils.waitForSeconds(t);
-                //System.out.println(buyer.printCheck());
 
-                //cashboxOnScreen
-                cashboxOnScreen(buyer);
+                System.out.println(this + " finished to service " + elder);
+                cashboxOnScreen(elder);
+                synchronized (elder) {
 
-
-                counter++;
-
-
-                System.out.println(this + " finishes servicing " + buyer);
-                synchronized (buyer) {
-
-                    buyer.notify();
+                    elder.notify();
                     System.out.flush();
                 }
-
             } else {
-                Utils.waitForSeconds(1);
+                Buyer buyer = QueueBuyers.extract();
+                if (buyer != null) {
+                    System.out.println(this + " begin to service " + buyer);
+                    int t = Utils.getRandom(1, 5);
+                    Utils.waitForSeconds(t);
+
+                    System.out.println(this + " finished to service " + buyer);
+                    cashboxOnScreen(buyer);
+
+
+                    synchronized (buyer) {
+
+                        buyer.notify();
+                        System.out.flush();
+                    }
+                } else {
+                    Utils.waitForSeconds(0.1f);
+                }
             }
+
+        }
+        System.out.println(this + " closed");
+    }
+
+
+    Cashier setActive() {
+        synchronized (this) {
+            if (!this.isActive) {
+                this.notify();
+                System.out.println(this + " reactivated due to excess of customers.");
+                this.isActive = true;
+            }
+
+        }
+        return this;
+    }
+
+    synchronized void deactivate() {
+        try {
+            if (this.isActive) {
+                System.out.println(this + " suspended due to lack of customers.");
+                this.wait();
+                isActive = false;
+            }
+
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    @SuppressWarnings({"UnclearExpression", "DuplicateBranchesInSwitch"})
-    private void cashboxOnScreen(Buyer buyer) {
+
+    public String printCheck(int spaces, Buyer buyer) {
+        int payment = 0;
+        StringBuilder sb = new StringBuilder();
+        //setDelimiters
+        StringBuilder delimiter = Utils.setDelimiters(spaces);
+        delimiter.toString();
+
+        sb.append(delimiter).append("Список покупок ").append(buyer).append(":").append("\n");
+        sb.append(delimiter).append("┌──────────────────────────────────────┐\n");
+
+
+        for (Map.Entry<String, Integer> entry : buyer.getGoods().entrySet()) {
+            payment += entry.getValue();
+            sb.append(delimiter).append("|");
+            sb.append(entry.getKey())
+                    .append(".........")
+                    .append(entry.getValue())
+                    .append(" р.│\n");
+
+        }
+        setSumOnCashBox(payment);
+
+        sb.append(delimiter).append("└──────────────────────────────────────┘\n");
+        sb.append(delimiter)
+                .append("Сумма счета ")
+                .append(buyer)
+                .append(": ")
+                .append(payment)
+                .append("\n");
+        return sb.toString();
+    }
+
+    @SuppressWarnings("DuplicateBranchesInSwitch")
+    private synchronized void cashboxOnScreen(Buyer buyer) {
         //cashBounty += buyer.getSum();
         StringBuilder sb = new StringBuilder();
+        StringBuilder footer = new StringBuilder();
+        String strCash;
 
-        String strCash = "";
         //printTop
-        printTop(sb); //╔═╗
+        Utils.printTop(sb); //╔═╗
         //printHeader
-        printHeader(sb);
+        Utils.printHeader(sb);
         //printBottom
-        printBottom(sb);//╚═╝
-        printTop(sb);//╔═╗
+        Utils.printBottom(sb);//╚═╝
+        Utils.printTop(sb);//╔═╗
 
         switch (cNum) {
             case 1:
-                sb.append(buyer.printCheck(cNum));
-
-                cashBounty += buyer.getSum();
-                strCash = String.format("%s%s%d", Utils.setDelimiters(cNum), "Сумма по кассе: ", cashBounty);
-                bottomLine.append(String.format("%40s\n", strCash));
+                sb.append(printCheck(0, buyer));
+                strCash = String.format(
+                        "%s%s%d", Utils.setDelimiters(cNum), "Сумма по кассе: ", getSumOnCashBox()
+                );
+                footer.append(String.format("%40s\n", strCash));
                 break;
             case 2:
-                sb.append(buyer.printCheck(40 + cNum));
-                cashBounty += buyer.getSum();
-                strCash = String.format("%s%s%d", Utils.setDelimiters(40 + cNum), "Сумма по кассе: ", cashBounty);
-                bottomLine.append(String.format("%40s\n", strCash));
+                sb.append(printCheck(40 + cNum, buyer));
+                strCash = String.format(
+                        "%s%s%d", Utils.setDelimiters(40 + cNum), "Сумма по кассе: ", getSumOnCashBox()
+                );
+                footer.append(String.format("%40s\n", strCash));
                 break;
             case 3:
-                sb.append(buyer.printCheck((cNum - 1) * 40 + cNum));
-                cashBounty += buyer.getSum();
+                sb.append(printCheck((cNum - 1) * 40 + cNum, buyer));
                 strCash = String.format(
-                        "%s%s%d", Utils.setDelimiters((cNum - 1) * 40 + cNum), "Сумма по кассе: ", cashBounty
+                        "%s%s%d",
+                        Utils.setDelimiters((cNum - 1) * 40 + cNum),
+                        "Сумма по кассе: ",
+                        getSumOnCashBox()
                 );
-                bottomLine.append(String.format("%40s\n", strCash));
+                footer.append(String.format("%40s\n", strCash));
                 break;
             case 4:
-                sb.append(buyer.printCheck((cNum - 1) * 40 + cNum));
-                cashBounty += buyer.getSum();
+                sb.append(printCheck((cNum - 1) * 40 + cNum, buyer));
                 strCash = String.format(
-                        "%s%s%d", Utils.setDelimiters((cNum - 1) * 40 + cNum), "Сумма по кассе: ", cashBounty
+                        "%s%s%d",
+                        Utils.setDelimiters((cNum - 1) * 40 + cNum),
+                        "Сумма по кассе: ",
+                        getSumOnCashBox()
                 );
-                bottomLine.append(String.format("%40s\n", strCash));
+                footer.append(String.format("%40s\n", strCash));
                 break;
             case 5:
-                sb.append(buyer.printCheck((cNum - 1) * 40 + cNum));
-                cashBounty += buyer.getSum();
+                sb.append(printCheck((cNum - 1) * 40 + cNum, buyer));
                 strCash = String.format(
-                        "%s%s%d", Utils.setDelimiters((cNum - 1) * 40 + cNum), "Сумма по кассе: ", cashBounty
+                        "%s%s%d",
+                        Utils.setDelimiters((cNum - 1) * 40 + cNum),
+                        "Сумма по кассе: ",
+                        getSumOnCashBox()
                 );
-                bottomLine.append(String.format("%40s\n", strCash));
+                footer.append(String.format("%40s\n", strCash));
                 break;
             default:
                 break;
         }
-
-        printBottom(sb);//╚═╝
-        printTop(sb);//╔═╗
-        sb.append(bottomLine.toString());
-        printBottom(sb);//╚═╝
+        Utils.setBottomLine(footer.toString());
+        Utils.printBottom(sb);//╚═╝
+        Utils.printTop(sb);//╔═╗
+        sb.append(Utils.getBottomLine());
+        Utils.printBottom(sb);//╚═╝
         System.out.println(sb.toString());
+        System.out.printf("Текущий размер очереди: %d\n\n", Manager.currentQueueSize());
     }
 
-    private void printHeader(StringBuilder sb) {
-
-        sb.append("║---------------").append("Cashier #1").append("---------------")
-                .append("║---------------").append("Cashier #2").append("---------------")
-                .append("║---------------").append("Cashier #3").append("---------------")
-                .append("║---------------").append("Cashier #4").append("---------------")
-                .append("║---------------").append("Cashier #5").append("---------------║\n");
-
-    }
-
-    private void printBottom(StringBuilder sb) {
-        sb.append("╚════════════════════════════════════════╩")
-                .append("════════════════════════════════════════╩")
-                .append("════════════════════════════════════════╩")
-                .append("════════════════════════════════════════╩")
-                .append("════════════════════════════════════════╝\n");
-    }
-
-    private void printTop(StringBuilder sb) {
-        sb.append("╔════════════════════════════════════════╦")
-                .append("════════════════════════════════════════╦")
-                .append("════════════════════════════════════════╦")
-                .append("════════════════════════════════════════╦")
-                .append("════════════════════════════════════════╗\n");
-    }
 
     @Override
     public String toString() {
         return name;
     }
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

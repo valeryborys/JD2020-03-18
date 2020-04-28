@@ -2,7 +2,7 @@
  * График с чартом запускаются отдельно от основной программы!
  */
 
-package by.it.okatov.jd02_02.Test;
+package by.it.okatov.jd02_02;
 
 import by.it.okatov.jd01_15.TaskB;
 import org.jfree.chart.ChartFactory;

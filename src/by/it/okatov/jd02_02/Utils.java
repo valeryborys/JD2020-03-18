@@ -1,91 +1,63 @@
 package by.it.okatov.jd02_02;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
-class Utils {
+public class Utils {
 
-    static Random generator = new Random();
+    private static String bottomLine;
 
-    /***
-     * Хэш-карта для хранения списка продуктов
-     */
-    private static final Map<String, Integer> hMap = new HashMap<>();
-    /***
-     * Глобальный счетчик количества людей на данный момент
-     * находящихся в магазине
-     */
-    public static int GLOBAL_COUNTER = 0;
+    private static final Random generator = new Random();
+    private static final Map<String, Integer> hMapOfGoods = new HashMap<>();
+    static Map<Integer, Integer> forPrinting = new HashMap<>();
 
-    public static Map<String, Integer> gethMap() {
-        return hMap;
+    public static String getBottomLine() {
+        return bottomLine;
     }
 
-    public static void sethMap() {
-        Utils.hMap.put("Хлеб Дор-блю...", 12);
-        Utils.hMap.put("Дедушкины яйца.", 13);
-        Utils.hMap.put("Мас-кар-поне!!.", 15);
-        Utils.hMap.put("Утка с хреном..", 17);
+    public static void setBottomLine(String bottomLine) {
+        Utils.bottomLine = bottomLine;
     }
 
-    /***
-     * Список покупателей в магазине
-     */
-    static List<Thread> lBuyers = new ArrayList<>();
-    static List<Thread> lCashiers = new ArrayList<>();
 
-
-    /***
-     * Возвращает случайное число в заданном диапазоне по формуле
-     * начало + случайное_от(конец - начало + 1)
-     * @param startRange типа Integer. Стартовое значение диапазона
-     * @param endRange типа Integer. Заключительное значение диапазона
-     * @return возвращает рандомное число типа Integer
-     */
-    public static int getRandom(int startRange, int endRange) {
-        return startRange + generator.nextInt(endRange - startRange + 1);
+    private Utils() {
     }
 
-    /***
-     * Для чисел с плавающей точкой.
-     * Возвращает случайное число в заданном диапазоне по формуле
-     * начало + случайное_от(конец - начало + 1)
-     * @param startRange типа Float. Стартовое значение диапазона
-     * @param endRange типа Float. Заключительное значение диапазона
-     * @return возвращает рандомное число типа Integer
-     */
-    public static int getRandom(float startRange, float endRange) {
-        return (int) startRange + generator.nextInt((int) (endRange - startRange + 1));
+
+    public static int getRandom(int start, int end) {
+        return start + generator.nextInt(end - start + 1);
     }
 
-    /***
-     * Таймер ожидания в секундах. Вызывает внутри Thread.sleep()
-     * @param seconds целое количество секунд ожидания
-     */
-    public static void waitForSeconds(int seconds) {
-        long millisec = seconds * 10;
+    public static void waitForSeconds(int timeout) {
         try {
-            Thread.sleep(millisec);
+            timeout = timeout * 10;
+            Thread.sleep(timeout);
         } catch (InterruptedException e) {
-            throw new RuntimeException("Wait() was interrupted by thread " + Thread.currentThread()
-                                               + "trace:\n", e);
+            throw new RuntimeException("Interrupted " + Thread.currentThread(), e);
         }
     }
 
-    /***
-     * Для чисел с плавающей точкой
-     * Таймер ожидания в секундах. Вызывает внутри Thread.sleep()
-     * @param seconds дробное количество секунд ожидания
-     */
-    public static void waitForSeconds(float seconds) {
-        long millisec = (long) (seconds * 10);
+    public static void waitForSeconds(float timeout) {
         try {
-            Thread.sleep(millisec);
+            timeout = timeout * 10;
+            Thread.sleep((int) (timeout));
         } catch (InterruptedException e) {
-            throw new RuntimeException("Wait() was interrupted by thread " + Thread.currentThread()
-                                               + "trace:\n", e);
+            throw new RuntimeException("Interrupted " + Thread.currentThread(), e);
         }
     }
 
+    public static Map<String, Integer> gethMapOfGoods() {
+        return hMapOfGoods;
+    }
+
+    public static void sethMapOfGoods() {
+        hMapOfGoods.put("Хлеб Дор-блю............", 12);
+        hMapOfGoods.put("Дедушкины яйца..........", 13);
+        hMapOfGoods.put("Мас-кар-поне!!..........", 15);
+        hMapOfGoods.put("Утка с хреном...........", 17);
+        hMapOfGoods.put("Моя баварская колбаска..", 17);
+    }
 
     static StringBuilder setDelimiters(int spaces) {
         StringBuilder delimiter = new StringBuilder();
@@ -94,5 +66,33 @@ class Utils {
         }
         return delimiter;
     }
+
+
+    static void printHeader(StringBuilder sb) {
+
+        sb.append("║---------------").append("Cashier #1").append("---------------")
+                .append("║---------------").append("Cashier #2").append("---------------")
+                .append("║---------------").append("Cashier #3").append("---------------")
+                .append("║---------------").append("Cashier #4").append("---------------")
+                .append("║---------------").append("Cashier #5").append("---------------║\n");
+
+    }
+
+    static void printBottom(StringBuilder sb) {
+        sb.append("╚════════════════════════════════════════╩")
+                .append("════════════════════════════════════════╩")
+                .append("════════════════════════════════════════╩")
+                .append("════════════════════════════════════════╩")
+                .append("════════════════════════════════════════╝\n");
+    }
+
+    static void printTop(StringBuilder sb) {
+        sb.append("╔════════════════════════════════════════╦")
+                .append("════════════════════════════════════════╦")
+                .append("════════════════════════════════════════╦")
+                .append("════════════════════════════════════════╦")
+                .append("════════════════════════════════════════╗\n");
+    }
+
 
 }
