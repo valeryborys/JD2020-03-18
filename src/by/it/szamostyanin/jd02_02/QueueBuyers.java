@@ -1,15 +1,16 @@
 package by.it.szamostyanin.jd02_02;
 
 import java.util.ArrayDeque;
+import java.util.Deque;
 
-public class QueueBuyers extends ArrayDeque {
-    private static ArrayDeque<Buyer> queue = new ArrayDeque<>();
+public class QueueBuyers {
+    private static Deque<Buyer> queue = new ArrayDeque<>();
 
-    static synchronized void add(Buyer buyer){
+    static synchronized void add(Buyer buyer) {
         queue.addLast(buyer);
     }
 
-    static synchronized Buyer extract (){
+    static synchronized Buyer extract() {
         return queue.pollFirst();
     }
 

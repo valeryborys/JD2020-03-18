@@ -20,16 +20,15 @@ public class Shop {
             int count = Helper.getRandom(0, 2);
             for (int i = 0; Manager.shopOpened() && i <= count; i++) {
                 Buyer buyer = new Buyer(++buyerNumber);
-                Manager.addBuyer();
                 buyer.start(); //запуск потока (покупателя)
                 threads.add(buyer);
             }
             Helper.sleep(1000);
         }
         Helper.sleep(2000);
-        for (Thread t : threads) {
+        for (Thread thread2 : threads) {
             try {
-                t.join(); //main поток будет ожидать завершения потока buyer
+                thread2.join(); //main поток будет ожидать завершения потока t
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

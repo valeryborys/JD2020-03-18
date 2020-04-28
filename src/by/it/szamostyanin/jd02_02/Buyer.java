@@ -10,29 +10,29 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void run() {
         enterToMarket();
-        takeBasket();
+        //takeBasket();
         chooseGoods();
         toQueue();
-        putGoodsToBasket();
+        //putGoodsToBasket();
         goOut();
     }
 
     @Override
     public void enterToMarket() {
-        System.out.println(this+"entered into the shop ==========>");
+        System.out.println(this+"entered into the shop");
     }
 
     @Override
     public void takeBasket() {
-        System.out.println(this+"took the basket");
+        System.out.println(" "+this+"took the basket");
     }
 
     @Override
     public void chooseGoods() {
-        System.out.println(this+"began choosing");
+        System.out.println("  "+this+"began choosing");
         int timeout= Helper.getRandom(500,2000);
         Helper.sleep(timeout);
-        System.out.println(this+"finished choosing");
+        System.out.println("  "+this+"finished choosing");
     }
 
     @Override
@@ -40,11 +40,11 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
         synchronized (this){
         QueueBuyers.add(this);
             try {
-                System.out.println(this+"added to queue");
+                System.out.println("   "+this+"added to queue");
                 wait();
-                System.out.println(this+"left the queue");
+                System.out.println("   "+this+"left the queue");
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }
@@ -56,7 +56,7 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void goOut() {
-        System.out.println(this+"left the shop <=========");
+        System.out.println(this+"left the shop");
         Manager.removeBuyer();
     }
 
