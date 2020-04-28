@@ -7,7 +7,6 @@ class Cashier implements Runnable {
     private String name;
     private int number;
     static final Object MONITOR2 = new Object();
-    static final Object MONITORTEST = new Object();
 
     private static volatile double totalSum = 0;
 
@@ -29,7 +28,7 @@ class Cashier implements Runnable {
                 Buyer buyer = QueueBuyers.extract();
                 if (buyer != null) {
                     double billAmount;
-                    synchronized (MONITORTEST) {
+                    synchronized (System.out) {
                         billAmount = getBillAmount(buyer);
                     }
                     synchronized (MONITOR2) {
@@ -54,24 +53,6 @@ class Cashier implements Runnable {
         return name;
     }
 
-    //        private double getBillAmount(Buyer buyer) {
-//        int timeout = Helper.getRandom(2000, 5000);
-//        Helper.sleep(timeout);
-//        System.out.println(this + " start to service a buyer - " + buyer.getName());
-//        double billAmount = 0;
-//        Iterator<Map.Entry<String, Double>> cashBox = buyer.getBasket().getBasketList().entrySet().iterator();
-//        while (cashBox.hasNext()) {
-//            Map.Entry<String, Double> pair = cashBox.next();
-//            String product = pair.getKey();
-//            double price = pair.getValue();
-//            billAmount += price;
-//            System.out.println("\t" + this + " : line :" + product + " price : " + price + "BYN");
-//        }
-//        System.out.println("\t" + this + " says: Total price: " + billAmount + "BYN");
-//        System.out.println("\t" + this + " finished to service a buyer");
-//        System.out.println("\t\tCurrent revenue in shop:" + totalSum + "BYN");
-//        return billAmount;
-//    }
     private double getBillAmount(Buyer buyer) {
         int timeout = Helper.getRandom(2000, 5000);
         Helper.sleep(timeout);
@@ -88,8 +69,6 @@ class Cashier implements Runnable {
         }
         System.out.println(printBillFormat() + "Sum: " + billAmount + "BYN");
         System.out.printf("%-110s%-3d%-19s%6.2f\n", " ", QueueBuyers.queueSize(), " ", (totalSum + billAmount));
-
-
 //        System.out.println("\t" + this + " says: Total price: " + billAmount + "BYN");
         System.out.println(this + " finished to service a buyer");
 //        System.out.println("\t\tCurrent revenue in shop:" + totalSum + "BYN");
