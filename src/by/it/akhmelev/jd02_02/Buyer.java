@@ -2,6 +2,8 @@ package by.it.akhmelev.jd02_02;
 
 class Buyer extends Thread implements IBuyer {
 
+
+
     public Buyer(int number) {
         super("Buyer № " + number + " ");
         Manager.buyerAddToShop();
@@ -40,8 +42,6 @@ class Buyer extends Thread implements IBuyer {
                 e.printStackTrace();
             }
         }
-
-
     }
 
     @Override

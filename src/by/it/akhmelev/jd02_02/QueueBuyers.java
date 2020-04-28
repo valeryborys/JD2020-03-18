@@ -1,9 +1,14 @@
 package by.it.akhmelev.jd02_02;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Deque;
 
 public class QueueBuyers  {
+
+    private QueueBuyers() {
+
+    }
 
     private static Deque<Buyer> queue=new ArrayDeque<>();
 
