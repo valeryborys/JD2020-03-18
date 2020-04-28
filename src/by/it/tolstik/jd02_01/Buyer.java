@@ -29,7 +29,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         takeBacket(); //взял корзину
         System.out.println(this + "начал выбирать товары"); //начал выбирать товары
         int timeout;
-        if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Manager.K_FOR_OLDER_PEOPLE);
+        if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Manager.K_FOR_OLDER_PEOPLE);//коэф пенсионера
         else timeout = Helper.getRandom(500, 2000);
         Helper.sleep(timeout);
         putGoodsToBacket(); //положил товары в корзину
@@ -57,16 +57,15 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void putGoodsToBacket() {
         int timeout;
-        if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Manager.K_FOR_OLDER_PEOPLE);
+        if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Manager.K_FOR_OLDER_PEOPLE);//коэф пенсионера
         else timeout = Helper.getRandom(500, 2000);
         Helper.sleep(timeout);
+        //загрузка в тележку рандомных продуктов из Goods
         int count = Helper.getRandom(1, 4);
-        int iteration = 0;
-        for (Map.Entry<String, Integer> entry : Goods.goodsList().entrySet()) {
-            if (iteration < count) {
-                System.out.println(this + "положил в корзину " + entry.getKey() + " за " + entry.getValue() + " рублей.");
-                iteration++;
-            }
+        for (int i = 0; i < count; i++) {
+            int value = Helper.getRandom(1,Goods.goodsList().size()-1);
+            System.out.println(this + "положил в корзину " + Goods.getGoodsName().get(value)
+                    + " за " + Goods.getGoodsPrice().get(value) + " рублей.");
         }
     }
 

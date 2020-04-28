@@ -1,11 +1,16 @@
 package by.it.tolstik.jd02_01;
 
-import java.util.HashMap;
+import java.util.*;
 
 class Goods {
+    static ArrayList<String> getGoodsName() {
+        return new ArrayList<>(goodsList().keySet());
+    }
+    static ArrayList<Integer> getGoodsPrice() {
+        return new ArrayList<>(goodsList().values());
+    }
 
     static HashMap<String, Integer> goodsList() {
-        //TODO доработать рандомный вывод
         HashMap<String, Integer> goods = new HashMap<>();
         goods.put("молоко", 100);
         goods.put("хлеб", 90);
@@ -21,5 +26,7 @@ class Goods {
         goods.put("вилки", 150);
         return goods;
     }
+
+
 
 }

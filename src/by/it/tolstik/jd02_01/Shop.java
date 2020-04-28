@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Shop {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
         System.out.println("Магазин открылся");
         int number = 1;
         List<Buyer> buyers = new ArrayList<>();
@@ -18,8 +18,13 @@ class Shop {
             Helper.sleep(1000, 1000);
         }
         for (Buyer buyer : buyers) {
-            buyer.join();
+            try {
+                buyer.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
         System.out.println("Магазин закрылся. Кол-во посетителей: " + number);
     }
 }
