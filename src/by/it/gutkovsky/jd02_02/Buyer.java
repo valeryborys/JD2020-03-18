@@ -15,6 +15,10 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     private boolean pensioner;
     private static final double PENSIONER_FACTOR = 1.5;
 
+    public boolean isPensioner() {
+        return pensioner;
+    }
+
     public Buyer(int number) {
         super("Buyer № " + number + " ");
         this.pensioner = false;
@@ -89,7 +93,11 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         synchronized (this) {
             QueueBuyers.add(this);
             try {
-                System.out.println(this + " added to queue");
+                if (this.isPensioner()) {
+                    System.out.println(this + " added to queue for Pensioners");
+                } else {
+                    System.out.println(this + " added to queue");
+                }
                 wait();
                 System.out.println(this + " left the queue");
             } catch (InterruptedException e) {

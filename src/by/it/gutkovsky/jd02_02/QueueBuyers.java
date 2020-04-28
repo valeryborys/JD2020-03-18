@@ -6,13 +6,21 @@ class QueueBuyers {
 
 
     private static ArrayDeque<Buyer> queue = new ArrayDeque<>();
+    private static ArrayDeque<Buyer> pensioneerQueue = new ArrayDeque<>();
 
     static synchronized void  add(Buyer buyer){
-        queue.addLast(buyer);
+        if (buyer.isPensioner()) {
+            pensioneerQueue.addLast(buyer);
+        } else {
+            queue.addLast(buyer);
+        }
     }
 
     static synchronized Buyer extract(){
-        return queue.pollFirst();
+        if(pensioneerQueue.size() > 0) {
+            return pensioneerQueue.pollFirst();
+        }
+        else return queue.pollFirst();
     }
 
 }
