@@ -1,9 +1,11 @@
 package by.it.lemesh.jd02_01;
 
 public class Buyer extends Thread implements IBuyer, IUseBasket {
+
     private boolean pensioner;
     private String pens = "";
-    volatile static Integer buyersOnline = 0;
+    static int buyersOnline = 0;
+    final Object MONITOR = new Object();
 
     public Buyer(int number, boolean pensioner) {
         super("Buyer №:" + number + " ");
@@ -21,7 +23,7 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void enterToMarket() {
-        synchronized (buyersOnline) {
+        synchronized (MONITOR) {
             buyersOnline++;
         }
         System.out.println(this + pens + " enter to market");
@@ -53,7 +55,7 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void goOut() {
-        synchronized (buyersOnline) {
+        synchronized (MONITOR) {
             buyersOnline--;
         }
         System.out.println(this + pens + " exit market");

@@ -31,5 +31,6 @@ public class Market {
             }
         }
         System.out.println("Market is closed");
+ //       Manager.print();
     }
 }
