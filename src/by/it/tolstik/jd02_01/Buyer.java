@@ -1,7 +1,5 @@
 package by.it.tolstik.jd02_01;
 
-import java.util.Map;
-
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
     private boolean pensioner;
