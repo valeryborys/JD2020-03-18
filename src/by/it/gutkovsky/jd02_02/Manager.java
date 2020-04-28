@@ -11,6 +11,10 @@ class Manager {
     private volatile static int comeIn = 0;
     private volatile static int comeOut = 0;
 
+    public static int getComeIn() {
+        return comeIn;
+    }
+
     static boolean shopOpen() {
         return comeIn < PLAN;
     }
