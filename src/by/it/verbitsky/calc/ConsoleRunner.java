@@ -9,14 +9,18 @@ class ConsoleRunner implements CalcFiles {
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
+        CalcLogger logger = new CalcLogger(CalcMemoryManager.getFullPath(ConsoleRunner.class, CalcFiles.LOG_FILENAME));
+
         //Читаем файл памяти и добавляем содержимое в память калькулятора
         try {
             CalcMemoryManager.readMemoryFromFile(
                     CalcMemoryManager.getFullPath(
                             ConsoleRunner.class,
-                            CalcFiles.MEMORY_FILENAME));
+                            CalcFiles.MEMORY_FILENAME),
+                    logger);
         } catch (CalcException e) {
             System.out.println(e.getMessage());
+            logger.writeLog(e.getMessage());
         }
         printIntro();
 
@@ -32,9 +36,11 @@ class ConsoleRunner implements CalcFiles {
             }
 
             try {
-                Var res = parser.calc(expression);
+                Var res = parser.calc(expression, logger);
+                logger.writeLog(expression + " = " + res);
                 printer.Print(res);
             } catch (CalcException e) {
+                logger.writeLog(e.getMessage());
                 System.out.println(e.getMessage());
             }
         }
