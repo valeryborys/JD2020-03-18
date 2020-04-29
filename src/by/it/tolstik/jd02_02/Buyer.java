@@ -1,4 +1,4 @@
-package by.it.tolstik.jd02_01;
+package by.it.tolstik.jd02_02;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
@@ -61,7 +61,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         //загрузка в тележку рандомных продуктов из Goods
         int count = Helper.getRandom(1, 4);
         for (int i = 0; i < count; i++) {
-            int value = Helper.getRandom(1,Goods.goodsList().size()-1);
+            int value = Helper.getRandom(1, Goods.goodsList().size()-1);
             System.out.println(this + "положил в корзину " + Goods.getGoodsName().get(value)
                     + " за " + Goods.getGoodsPrice().get(value) + " рублей.");
         }

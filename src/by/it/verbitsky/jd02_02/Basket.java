@@ -3,11 +3,11 @@ package by.it.verbitsky.jd02_02;
 import java.util.ArrayList;
 import java.util.List;
 
-class Backet {
+class Basket {
 
     private List<Good> goodList = new ArrayList<>();
 
-    public Backet() {
+    public Basket() {
     }
 
     public List<Good> getGoodList() {

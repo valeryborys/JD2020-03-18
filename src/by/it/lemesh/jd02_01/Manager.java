@@ -5,13 +5,13 @@ import java.util.TreeMap;
 
 public class Manager {
     static final int K_SPEED = 10;
-    private static Map<Integer, Integer> treeMap = new TreeMap<>();
+    private static Map<Integer, Integer> map = new TreeMap<>();
 
     public static void report(int time) {
-        treeMap.put(time, Buyer.buyersOnline);
+        map.put(time, Buyer.buyersOnline);
     }
 
     public static void print() {
-        System.out.println(treeMap.toString());
+        System.out.println(map.toString());
     }
 }

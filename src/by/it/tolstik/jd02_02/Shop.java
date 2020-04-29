@@ -1,4 +1,4 @@
-package by.it.tolstik.jd02_01;
+package by.it.tolstik.jd02_02;
 
 import java.util.ArrayList;
 import java.util.List;
