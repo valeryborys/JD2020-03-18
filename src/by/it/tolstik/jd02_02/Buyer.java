@@ -79,11 +79,14 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         Helper.sleep(timeout);
         //загрузка в тележку рандомных продуктов из Goods
         int count = Helper.getRandom(1, 4);
+        int sum = 0; //инициализация суммы чека
         for (int i = 0; i < count; i++) {
-            int value = Helper.getRandom(1, Goods.goodsList().size()-1);
+            int value = Helper.getRandom(1, Goods.goodsList().size() - 1);
             System.out.println(this + "положил в корзину " + Goods.getGoodsName().get(value)
                     + " за " + Goods.getGoodsPrice().get(value) + " рублей.");
+            sum += Goods.getGoodsPrice().get(value);
         }
+        System.out.println(this + "набрал товаров на " + sum + " рублей.");
     }
 
     @Override

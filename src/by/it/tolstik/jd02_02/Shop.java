@@ -10,7 +10,7 @@ class Shop {
 
         List<Thread> threads = new ArrayList<>();
 
-            for (int i = 0; i < 2; i++) {
+            for (int i = 1; i <= 5; i++) {
                 Cashier cashier = new Cashier(i);
                 Thread thread = new Thread(cashier);
                 threads.add(thread);
