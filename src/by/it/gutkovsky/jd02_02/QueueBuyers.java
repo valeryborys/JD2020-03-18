@@ -4,9 +4,10 @@ import java.util.ArrayDeque;
 
 class QueueBuyers {
 
+    static final Object MONITOR_BUYERS = new Object();
 
-    private static ArrayDeque<Buyer> queue = new ArrayDeque<>();
-    private static ArrayDeque<Buyer> pensioneerQueue = new ArrayDeque<>();
+    private static final ArrayDeque<Buyer> queue = new ArrayDeque<>();
+    private static final ArrayDeque<Buyer> pensioneerQueue = new ArrayDeque<>();
 
     static synchronized void  add(Buyer buyer){
         if (buyer.isPensioner()) {
@@ -24,7 +25,9 @@ class QueueBuyers {
     }
 
     static synchronized int queueSize(){
-        return queue.size()+pensioneerQueue.size();
+//        synchronized (MONITOR_BUYERS) {
+            return queue.size() + pensioneerQueue.size();
+//        }
     }
 
 }

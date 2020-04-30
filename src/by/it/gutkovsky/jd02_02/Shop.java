@@ -42,7 +42,7 @@ class Shop {
 
                 if (((60 * timeFactor) <= time) && (time <= (30 + 60 * timeFactor)) && Manager.shopOpen()) {
                     if (Manager.checkingQuantityInShop() < ((time - (60 * timeFactor)) + 10)) {
-                        if (Manager.getComeIn() < 98) {
+                        if (Manager.getComeIn() < 96) {
                             count = (time - 60 * timeFactor) + 5 - Manager.checkingQuantityInShop();
                             for (int i = 0; i < count; i++) {
                                 number++;
@@ -59,7 +59,7 @@ class Shop {
                 }
                 if (time > (30 + (timeFactor * 60)) && time < (60 + (timeFactor * 60)) && Manager.shopOpen()) {
                     if (Manager.checkingQuantityInShop() < (40 + (30 - (time - (60 * timeFactor))))) {
-                        if (Manager.getComeIn() < 98) {
+                        if (Manager.getComeIn() < 96) {
                             count = (35 + (30 - (time - (60 * timeFactor)))) - Manager.checkingQuantityInShop();
                             for (int i = 0; i < count; i++) {
                                 number++;
@@ -76,6 +76,7 @@ class Shop {
                     }
                 }
 //                mapForChecking.put(time, Manager.checkingQuantityInShop()); // temporary method method that helping to test
+                Manager.openCashier();
                 Helper.sleep(1000);
             }
         }

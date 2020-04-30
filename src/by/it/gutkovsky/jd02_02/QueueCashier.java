@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 
 class QueueCashier {
 
-    private static ArrayDeque<Cashier> staff = new ArrayDeque<>();
+    private static final ArrayDeque<Cashier> staff = new ArrayDeque<>();
 
     static synchronized void addStaff(Cashier cashier) {
         staff.addLast(cashier);
@@ -16,5 +16,9 @@ class QueueCashier {
 
     static int waitingStaff() {
         return staff.size();
+    }
+
+    static ArrayDeque<Cashier> queueStaff(){
+        return staff;
     }
 }

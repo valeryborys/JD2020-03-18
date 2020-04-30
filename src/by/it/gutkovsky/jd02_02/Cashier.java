@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 class Cashier implements Runnable {
-    private String name;
-    private int number;
+    private final String name;
+    private final int number;
     static final Object MONITOR2 = new Object();
 
     private static volatile double totalSum = 0;
@@ -25,6 +25,22 @@ class Cashier implements Runnable {
         System.out.println(this + " opened");
         while (!Manager.planComplete()) {
             while (!Manager.allCustomersCameOut()) { // this condition is necessary that cashiers don't close while customers in shop
+            if (Manager.closeCashier()){
+                synchronized (this){
+                    QueueCashier.addStaff(this);
+                    System.out.println(this + " closing for the rest");
+                    try {
+                        this.wait();
+                    } catch (InterruptedException e) {
+                        throw new  RuntimeException(e);
+                    }
+                }
+            }
+
+
+
+
+//            while (!Manager.allCustomersCameOut()) { // this condition is necessary that cashiers don't close while customers in shop
                 Buyer buyer = QueueBuyers.extract();
                 if (buyer != null) {
                     double billAmount;

@@ -11,8 +11,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         return basket;
     }
 
-    private int goodsQuantityInTheBasket = Helper.getRandom(1, 4); // goods quantity in buyers shopping list
-    private boolean pensioner;
+    private final int goodsQuantityInTheBasket = Helper.getRandom(1, 4); // goods quantity in buyers shopping list
+    private final boolean pensioner;
     private static final double PENSIONER_FACTOR = 1.5;
 
     public boolean isPensioner() {
@@ -110,6 +110,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void goOut() {
         System.out.println(this + "left the shop");
         Manager.customerComeOut();
+        Manager.closeTheShop();
     }
 
     @Override
