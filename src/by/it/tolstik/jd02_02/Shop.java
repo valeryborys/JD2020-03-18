@@ -27,35 +27,6 @@ class Shop {
             Helper.sleep(1000,100);
         }
 
-
-
-//            if (time <= 30) {
-//                Buyer buyer = new Buyer(number++);
-//                buyer.start();
-//                buyers.add(buyer);
-//                Helper.sleep(3000,100);
-//                time += 3;
-//            } else if (time <=60) {
-//                Buyer buyer = new Buyer(number++);
-//                buyer.start();
-//                buyers.add(buyer);
-//                Helper.sleep(1000,100);
-//                time++;
-//            } else if (time <=90) {
-//                Buyer buyer = new Buyer(number++);
-//                buyer.start();
-//                buyers.add(buyer);
-//                Helper.sleep(3000,100);
-//                time += 3;
-//            } else {
-//                Buyer buyer = new Buyer(number++);
-//                buyer.start();
-//                buyers.add(buyer);
-//                Helper.sleep(1000,100);
-//                time++;
-//            }
-//        }
-
         for (Thread buyer : threads) {
             try {
                 buyer.join();
