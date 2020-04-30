@@ -1,16 +1,17 @@
 package by.it.gutkovsky.jd02_03;
 
-import java.util.ArrayDeque;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
 
 class QueueCashier {
 
-    private static final ArrayDeque<Cashier> staff = new ArrayDeque<>();
+    private static final BlockingDeque<Cashier> staff = new LinkedBlockingDeque<>();
 
-    static synchronized void addStaff(Cashier cashier) {
+    static void addStaff(Cashier cashier) {
         staff.addLast(cashier);
     }
 
-    static synchronized Cashier getStaff() {
+    static Cashier getStaff() {
         return staff.pollFirst();
     }
 
@@ -18,7 +19,7 @@ class QueueCashier {
         return staff.size();
     }
 
-    static ArrayDeque<Cashier> queueStaff(){
+    static BlockingDeque<Cashier> queueStaff(){
         return staff;
     }
 }

@@ -36,10 +36,6 @@ class Cashier implements Runnable {
                     }
                 }
             }
-
-
-
-
 //            while (!Manager.allCustomersCameOut()) { // this condition is necessary that cashiers don't close while customers in shop
                 Buyer buyer = QueueBuyers.extract();
                 if (buyer != null) {
@@ -51,12 +47,14 @@ class Cashier implements Runnable {
                         totalSum = totalSum + billAmount;
                     }
                     synchronized (buyer) {
+                        buyer.setWaitSatet(false);
                         buyer.notify();
                         System.out.flush();
                     }
 
                 } else {
-                    Helper.sleep(1000);
+                    Helper.sleep(1000); // УБРАТЬ!!!! кассир засыпал: wait  с таймаутом, notify может прислать покупатель перед тем как уснуть - либо реализация на concerrent
+
                 }
             }
         }

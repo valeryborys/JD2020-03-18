@@ -5,6 +5,12 @@ import java.util.Map;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
+    private boolean waitSatet = false;
+
+    public void setWaitSatet(boolean waitSatet) {
+        this.waitSatet = waitSatet;
+    }
+
     private Basket basket;
 
     public Basket getBasket() {
@@ -92,16 +98,19 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void goToQueue() {
         synchronized (this) {
             QueueBuyers.add(this);
-            try {
-                if (this.isPensioner()) {
-                    System.out.println(this + " added to queue for Pensioners");
-                } else {
-                    System.out.println(this + " added to queue");
+            waitSatet = true;
+            while (waitSatet) {
+                try {
+                    if (this.isPensioner()) {
+                        System.out.println(this + " added to queue for Pensioners");
+                    } else {
+                        System.out.println(this + " added to queue");
+                    }
+                    this.wait();
+                    System.out.println(this + " left the queue");
+                } catch (InterruptedException e) {
+                    throw new RuntimeException("InterruptedException" + Thread.currentThread(), e);
                 }
-                wait();
-                System.out.println(this + " left the queue");
-            } catch (InterruptedException e) {
-                throw new RuntimeException("InterruptedException" + Thread.currentThread(), e);
             }
         }
     }

@@ -1,37 +1,32 @@
 package by.it.gutkovsky.jd02_03;
 
-import java.util.ArrayDeque;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
 
 
 class QueueBuyers {
 
-    static final Object MONITOR_BUYERS = new Object();
+    private static final BlockingDeque<Buyer> queue = new LinkedBlockingDeque<>(30);
 
-        private static final ArrayDeque<Buyer> queue = new ArrayDeque<>();
-        private static final ArrayDeque<Buyer> pensioneerQueue = new ArrayDeque<>();
+    static void add(Buyer buyer) {
+        try {
+            queue.putLast(buyer);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
-        static synchronized void  add(Buyer buyer){
+    static Buyer extract() {
+        for (Buyer buyer : queue) {
             if (buyer.isPensioner()) {
-                pensioneerQueue.addLast(buyer);
-            } else {
-                queue.addLast(buyer);
+                return queue.remove();
             }
         }
+        return queue.pollFirst();
+    }
 
-        static synchronized Buyer extract(){
-            if(pensioneerQueue.size() > 0) {
-                return pensioneerQueue.pollFirst();
-            }
-            else return queue.pollFirst();
-        }
-
-        static synchronized int queueSize(){
-    //        synchronized (MONITOR_BUYERS) {
-                return queue.size() + pensioneerQueue.size();
-    //        }
-        }
-
-
-
+    static int queueSize() {
+        return queue.size();
+    }
 
 }
