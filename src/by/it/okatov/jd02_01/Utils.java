@@ -2,7 +2,7 @@ package by.it.okatov.jd02_01;
 
 import java.util.*;
 
-public class Utils {
+class Utils {
 
     static Random generator = new Random();
 

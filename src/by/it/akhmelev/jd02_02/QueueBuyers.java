@@ -5,6 +5,10 @@ import java.util.Deque;
 
 public class QueueBuyers  {
 
+    private QueueBuyers() {
+
+    }
+
     private static Deque<Buyer> queue=new ArrayDeque<>();
 
     static synchronized void add(Buyer buyer){

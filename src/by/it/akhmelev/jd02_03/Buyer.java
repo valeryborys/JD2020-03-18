@@ -1,8 +1,12 @@
-package by.it.akhmelev.jd02_02;
+package by.it.akhmelev.jd02_03;
 
 class Buyer extends Thread implements IBuyer {
 
+    private boolean waitState = false;
 
+    public void setWaitState(boolean waitState) {
+        this.waitState = waitState;
+    }
 
     public Buyer(int number) {
         super("Buyer № " + number + " ");
@@ -32,15 +36,17 @@ class Buyer extends Thread implements IBuyer {
 
     @Override
     public void goToQueue() {
-        synchronized (this){
+        synchronized (this) {
             QueueBuyers.add(this);
-            try {
-                System.out.println(this+" added to queue");
-                wait();
-                System.out.println(this+" leave the queue");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            waitState = true;
+            while (waitState)
+                try {
+                    System.out.println(this + " added to queue");
+                    this.wait();
+                    System.out.println(this + " leave the queue");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
         }
     }
 

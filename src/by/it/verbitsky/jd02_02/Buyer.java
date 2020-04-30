@@ -2,57 +2,74 @@ package by.it.verbitsky.jd02_02;
 
 import java.util.Locale;
 
-class Buyer extends Thread implements IBuyer, IUseBacket {
+class Buyer extends Thread implements IBuyer, IUseBasket {
 
-    private Backet backet;
+    private Basket basket;
     private boolean pensioner;
     private double speedFactor;
 
-    /*
-        public Buyer(int number) {
-            //передали имя в суперкласс
-            //конструктор присвоит потоку переданное имя
-            super("Buyer № " + number + " ");
-        }
-    */
-    public Buyer(int number, boolean oldMan) {
+    public boolean isPensioner() {
+        return pensioner;
+    }
+
+    public double getSpeedFactor() {
+        return speedFactor;
+    }
+
+    public Buyer(int number, boolean isPensioner) {
         //передали имя в суперкласс
         //конструктор присвоит потоку переданное имя
         super("Buyer № " + number + " ");
-        this.pensioner = oldMan;
+        this.pensioner = isPensioner;
         if (pensioner) {
             speedFactor = 1.5;
         } else {
             speedFactor = 1;
         }
+        Shop.getShopManager().addBuyer(this);
+
     }
 
-    public Backet getBacket() {
-        return backet;
+    public Basket getBasket() {
+        return basket;
     }
 
     @Override
     public void run() {
         enterToMarket();//мгновенно
-        takeBacket();// мгновенно
+        takeBasket();// мгновенно
         chooseGoods();//0,5 - 2 секунды / *1.5 для пенсионеров
+        goToQueue();
         goOut(); //мгновенно
+    }
+
+    private void goToQueue() {
+        synchronized (this) {
+            ShopQueue.lineUp(this);
+            try {
+                ShopPrinter.printMessage(this + " add in queue");
+                wait();
+                ShopPrinter.printMessage(this + " покинул queue");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void enterToMarket() {
-        System.out.println(this + " вошел в магазин");
+        ShopPrinter.printMessage(this + " entered the shop");
     }
 
     @Override
     public void chooseGoods() {
-        System.out.println(this + " начал выбирать товары");
+        ShopPrinter.printMessage(this + " begin to choose goods");
         int chooseTimeOut = Helper.getRandomTimeout(500, 2000, speedFactor);
         Helper.sleep(chooseTimeOut);
         int goodsCount = Helper.getRandom(1, 4);
         for (int i = 0; i < goodsCount; i++) {
             Helper.sleep(Helper.getRandomTimeout(500, 2000, speedFactor));
-            putGoodsToBacket();
+            putGoodsToBasket();
         }
 
         try {
@@ -60,41 +77,43 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(this + "закончил выбор товаров");
+        ShopPrinter.printMessage(this + "finish to choose goods");
 
 
     }
 
     @Override
     public void goOut() {
-        System.out.println(this + " покинул магазин");
+        ShopPrinter.printMessage(this + " leave the shop");
         Shop.getShopManager().removeBuyer(this);
     }
 
 
     // Работа с корзиной покупателя
     @Override
-    public void takeBacket() {
-        System.out.println(this + " взял корзину");
-        if (backet == null) {
-            backet = new Backet();
+    public void takeBasket() {
+        ShopPrinter.printMessage(this + " take a basket ");
+        if (basket == null) {
+            basket = new Basket();
         }
     }
 
     @Override
-    public void putGoodsToBacket() {
+    public void putGoodsToBasket() {
         Good good = Shop.getShopOffer().getRandomGood();
-        backet.getGoodList().add(good);
-        System.out.printf(Locale.ENGLISH,
-                "%s положил товар %s по цене %3.2f в корзину\n",
+        basket.getGoodList().add(good);
+        String msg = String.format(Locale.ENGLISH,
+                "%s put: %s with price: %3.2f in basket\n",
                 this, good.getName(), good.getPrice());
+
+        ShopPrinter.printMessage(msg);
     }
 
     @Override
     public String toString() {
         String status = "";
         if (pensioner) {
-            status = " (пенсионер)";
+            status = " (pensioner)";
         }
         return getName().concat(status);
     }

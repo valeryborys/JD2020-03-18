@@ -2,23 +2,23 @@ package by.it.okatov.jd02_01;
 
 import java.util.Map;
 
-public class Buyer extends Thread implements IBuyer, IUseBacket {
+class Buyer extends Thread implements IBuyer, IUseBacket {
     private static boolean isElder;
     private static final float ELDERY_COEF = 1.5f;
 
-    public static boolean isElder() {
+    static boolean isElder() {
         return isElder;
     }
 
-    public static void setEldery(boolean eldery) {
+    static void setEldery(boolean eldery) {
         isElder = eldery;
     }
 
-    public Buyer(int num) {
+    Buyer(int num) {
         super(String.format("Buyer #%d ", num));
     }
 
-    public Buyer(int num, boolean isElder) {
+    Buyer(int num, boolean isElder) {
         super(String.format("Buyer (pensioneer) #%d ", num));
         setEldery(true);
     }
