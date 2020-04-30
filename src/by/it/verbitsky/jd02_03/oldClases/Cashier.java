@@ -1,5 +1,6 @@
-package by.it.verbitsky.jd02_03;
+package by.it.verbitsky.jd02_03.oldClases;
 
+/*
 class Cashier extends Thread implements CashierStrings {
     private String name;
     private int cashierId;
@@ -60,3 +61,4 @@ class Cashier extends Thread implements CashierStrings {
         }
     }
 }
+*/

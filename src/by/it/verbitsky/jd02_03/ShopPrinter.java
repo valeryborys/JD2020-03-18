@@ -1,8 +1,10 @@
 package by.it.verbitsky.jd02_03;
 
+
 class ShopPrinter {
     private ShopPrinter() {
     }
+
 
     private static final String DELAULT_COLUMN_TAB = "\t\t\t\t\t\t";
     private static final String HEADER_COLUMN_TAB = "\t\t\t\t";
@@ -32,7 +34,7 @@ class ShopPrinter {
         }
     }
 
-    public static void printCheck(Cashier cashier, Buyer buyer) {
+    public static void printCheck(NCashier cashier, Buyer buyer, Shop shop) {
         int tabsCount = cashier.getCashierId() - 1;
         StringBuilder checkTab = new StringBuilder();
         double checkSum = 0;
@@ -40,7 +42,7 @@ class ShopPrinter {
             checkTab.append(DELAULT_COLUMN_TAB);
         }
         StringBuilder totalTab = new StringBuilder();
-        for (int i = 0; i < ShopManager.MAX_CASHIER_COUNT - cashier.getCashierId(); i++) {
+        for (int i = 0; i < shop.getCashierLimit() - cashier.getCashierId() - 1; i++) {
             totalTab.append(DELAULT_COLUMN_TAB);
         }
         synchronized (printMonitor) {
@@ -51,14 +53,14 @@ class ShopPrinter {
                 checkSum += good.getPrice();
                 System.out.printf("%s%s : %3.2f\n", checkTab, good.getName(), good.getPrice());
             }
-            Shop.getShopManager().setTotalCash(checkSum);
+            shop.getShopManager().setTotalCash(checkSum);
 
-            System.out.printf("%s%s%3.2f%s \t\t%5.2f\n",
+            System.out.printf("%s%s%3.2f%S  \t\t%5.2f\n",
                     checkTab,
                     CHECK_FOOTER,
                     checkSum,
                     totalTab,
-                    Shop.getShopManager().getTotalCash());
+                    shop.getShopManager().getTotalCash());
         }
     }
 }

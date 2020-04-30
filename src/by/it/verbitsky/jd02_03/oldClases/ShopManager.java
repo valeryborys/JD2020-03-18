@@ -1,10 +1,12 @@
-package by.it.verbitsky.jd02_03;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+package by.it.verbitsky.jd02_03.oldClases;
+/*
+import by.it.verbitsky.jd02_03.Buyer;
+import by.it.verbitsky.jd02_03.CashierStrings;
+import by.it.verbitsky.jd02_03.ShopPrinter;
+import by.it.verbitsky.jd02_03.ShopQueue;
+import by.it.verbitsky.jd02_03.oldClases.Cashier;
+*/
+/*
 class ShopManager extends Thread implements CashierStrings {
     private static final Object BUYER_MONITOR = new Object();
     private static final Object CASHIER_MONITOR = new Object();
@@ -177,3 +179,4 @@ class ShopManager extends Thread implements CashierStrings {
         return "ShopManager:";
     }
 }
+        */

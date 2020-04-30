@@ -1,32 +1,37 @@
 package by.it.verbitsky.jd02_03;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
 
 class ShopQueue {
-    private static Deque<Buyer> shopQueue = new ArrayDeque<>();
+    //очередь обычных покупателей
+    private BlockingDeque<Buyer> shopQueue;
     //отдельная очередь для пенсионеров,
-    private static Deque<Buyer> shopPensionerQueue = new ArrayDeque<>();
+    private BlockingDeque<Buyer> shopPensionerQueue;
 
-    //методы синхронизируются на самом классе, т.к. они статичен
-    static void lineUp(Buyer buyer) {
+
+    public ShopQueue(int capacity) {
+        shopPensionerQueue = new LinkedBlockingDeque<>(capacity);
+        shopQueue = new LinkedBlockingDeque<>(capacity);
+    }
+
+    //добавляет покупателя в очередь
+    protected boolean add(Buyer buyer) {
         if (buyer.isPensioner()) {
-            shopPensionerQueue.addLast(buyer);
-            return;
+            return this.shopPensionerQueue.offerLast(buyer);
         }
-        shopQueue.addLast(buyer);
+        return this.shopPensionerQueue.offerLast(buyer);
     }
 
-    static synchronized Buyer extract() {
-        if (shopPensionerQueue.size() > 0) {
-            return shopPensionerQueue.pollFirst();
+    //извлекает покупателя из очереди
+    protected Buyer extract() {
+        if (this.shopPensionerQueue.size() > 0) {
+            return this.shopPensionerQueue.pollFirst();
         }
-        return shopQueue.pollFirst();
+        return this.shopQueue.pollFirst();
     }
 
-    static synchronized int getQueueCount() {
+    protected int getShopQueueSize() {
         return shopQueue.size() + shopPensionerQueue.size();
     }
-
-
 }

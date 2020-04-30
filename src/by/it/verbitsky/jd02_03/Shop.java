@@ -1,47 +1,66 @@
 package by.it.verbitsky.jd02_03;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
-class Shop {
-    private static Offer shopOffer;
+class Shop extends Thread {
+//class Shop implements Runnable {
 
-    private static volatile ShopManager shopManager;
-    private static List<Buyer> threads = new ArrayList<>();
+    private Offer shopOffer;
+    private AtomicReference<NShopManager> shopManager;
+    private AtomicReference<QueueManager> queueManager;
+    private int plan = 100;
+    private int cashierLimit = 5;
+    private int queueCapacity = 30;
+    private ExecutorService shopManagerPool;
 
-    public static void main(String[] args) {
+    public Shop() {
+        super("shop");
+    }
+
+    public Shop(int plan, int limit, int queueCapacity) {
+        this.plan = plan;
+        this.cashierLimit = limit;
+        this.queueCapacity = queueCapacity;
+    }
+
+    //private List<Buyer> threads = new ArrayList<>();
+
+
+    @Override
+    public void run() {
         System.out.println("SERVICE SPEED FACTOR = " + Helper.getServiceSpeedFactor());
         generateOffers();
-        createShopmanager();
-        createCashiers();
+        createQueueManager();
+        createShopManager();
         //сервис слип замораживает поток на точное время, без учета коэффициента ускорения
         Helper.serviceSleep(2000);
         openShop();
         closeShop();
     }
 
-    private static void createCashiers() {
-        for (int i = 1; i < 6; i++) {
-            Cashier cashier = new Cashier(i);
-            ShopPrinter.printMessage("Create cashier " + i);
-            synchronized (ShopManager.getCashierMonitor()) {
-                cashier.start();
-            }
-            shopManager.getCashiers().add(cashier);
-        }
+    private void createQueueManager() {
+        System.out.println("создаем манагера очереди");
+        queueManager = new AtomicReference<>(new QueueManager(this));
+        System.out.println("размер очереди: " + queueManager.get().getQueueSize());
     }
 
-    private static void createShopmanager() {
-        ShopPrinter.printMessage("Create shop manager");
-        shopManager = new ShopManager();
-        shopManager.start();
+    private void createShopManager() {
+        // ShopPrinter.printMessage("Create shop manager");
+        shopManager = new AtomicReference<>(new NShopManager(this));
+        shopManagerPool = Executors.newFixedThreadPool(1);
+        shopManagerPool.execute(shopManager.get());
         //манагер управляет главным потоком (магазином)
         //т.е. пока живет поток манагера - живет поток магазина
+
+
     }
 
-    private static void generateOffers() {
-        ShopPrinter.printMessage("create offers");
+    private void generateOffers() {
+        //ShopPrinter.printMessage("create offers");
         shopOffer = new Offer();
     }
 
@@ -49,17 +68,18 @@ class Shop {
         ShopPrinter.printMessage("\n\nshop closed");
     }
 
-    private static void openShop() {
+    private void openShop() {
         int num = 0;
         int i = 0;
-        ShopPrinter.printMessage("\n\nShop opened\n");
-        while (!ShopManager.isShopOpen()) {
+        // ShopPrinter.printMessage("\n\nShop opened\n");
+
+        while (!shopManager.get().isShopOpen()) {
             i++;
             //каждую секунду запускаем несколько покупателей (зависит от времени и кол-ва которые уже находятся в магазине
-            int countEntered = Helper.getCountFactor(i, shopManager.getCurrentBuyersCount());
+            int countEntered = Helper.getCountFactor(i, shopManager.get().getCurrentBuyersCount());
             boolean oldMan = false;//флаг для определения пенсионера
-            for (int j = 0; !ShopManager.isShopOpen() && j < countEntered; j++) {
-                if (shopManager.getCurrentBuyersCount() == 40) {
+            for (int j = 0; !shopManager.get().isShopOpen() & j < countEntered; j++) {
+                if (shopManager.get().getCurrentBuyersCount() == 40) {
                     //не более 40 человек после 30 сек
                     break;
                 }
@@ -75,33 +95,66 @@ class Shop {
                     oldMan = true;
                 }
                 //создали поток (но он еще не запущен)
-                Buyer buyer = new Buyer(++num, oldMan);
+                Buyer buyer = new Buyer(this, ++num, oldMan);
                 oldMan = false; //обнуляем флаг
-                threads.add(buyer);
+                //threads.add(buyer);
                 //запускаем поток
                 buyer.start();
             }
 
             Helper.sleep(1000);
-            ShopPrinter.printMessage("----------------------Seconds passed " + i % 60);
-            ShopPrinter.printMessage("----------------------Buyers in: " + shopManager.getCurrentBuyersCount());
+            //ShopPrinter.printMessage("----------------------Seconds passed " + i % 60);
+            // ShopPrinter.printMessage("----------------------Buyers in: " + shopManager.getCurrentBuyersCount());
+            System.out.println("----------------------Seconds passed " + i % 60);
+            System.out.println("----------------------Buyers in: " + shopManager.get().getCurrentBuyersCount());
         }
+
+        shopManagerPool.shutdown();
+        //ждем пока не завершится поток шоп манагера
         try {
-            System.out.println("закрепили манагера в основном потоке");
-            shopManager.printCashiersStatus();
-            shopManager.join();
+            while (!shopManagerPool.awaitTermination(1, TimeUnit.SECONDS)) {
+            }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e.getMessage());
+            e.printStackTrace();
         }
     }
 
     //вернуть предложения товаров с ценами
-    public static Offer getShopOffer() {
+    protected Offer getShopOffer() {
         return shopOffer;
     }
 
     //вернуть шоп манагера
-    public static ShopManager getShopManager() {
-        return shopManager;
+    public NShopManager getShopManager() {
+        return shopManager.get();
+    }
+
+    //вернуть манагера очереди
+    public QueueManager getQueueManager() {
+        return queueManager.get();
+    }
+
+    public void setBuyersPlan(int plan) {
+        this.plan = plan;
+    }
+
+    public int getBuyersPlan() {
+        return this.plan;
+    }
+
+    public int getCashierLimit() {
+        return this.cashierLimit;
+    }
+
+    public void setCashierLimit(int limit) {
+        this.cashierLimit = limit;
+    }
+
+    public void setQueueCapacity(int capacity) {
+        this.queueCapacity = capacity;
+    }
+
+    public int getQueueCapacity() {
+        return queueCapacity;
     }
 }
