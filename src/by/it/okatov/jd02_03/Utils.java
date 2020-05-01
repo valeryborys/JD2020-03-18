@@ -3,9 +3,11 @@ package by.it.okatov.jd02_03;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Utils {
 
+    static final AtomicInteger GLOBAL_COUNTER = new AtomicInteger(0);
     private static String bottomLine;
 
     private static final Random generator = new Random();
