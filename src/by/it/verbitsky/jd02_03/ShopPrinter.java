@@ -31,7 +31,7 @@ class ShopPrinter {
     public static void printMessage(String message) {
         synchronized (printMonitor) {
             System.out.println(message);
-        }
+       }
     }
 
     public static void printCheck(NCashier cashier, Buyer buyer, Shop shop) {
@@ -42,7 +42,7 @@ class ShopPrinter {
             checkTab.append(DELAULT_COLUMN_TAB);
         }
         StringBuilder totalTab = new StringBuilder();
-        for (int i = 0; i < shop.getCashierLimit() - cashier.getCashierId() - 1; i++) {
+        for (int i = 0; i < shop.getCashierLimit() - cashier.getCashierId(); i++) {
             totalTab.append(DELAULT_COLUMN_TAB);
         }
         synchronized (printMonitor) {
@@ -61,6 +61,11 @@ class ShopPrinter {
                     checkSum,
                     totalTab,
                     shop.getShopManager().getTotalCash());
+
+            System.out.println("Queue size: " +
+                    shop.getQueueManager().getQueueSize() +
+                    " Working cashiers count: " +
+                    (shop.getCashierLimit() - shop.getShopManager().getFreeCashiersCount()));
         }
     }
 }

@@ -6,11 +6,13 @@ class NCashier implements Runnable, CashierStrings {
     private boolean active;
     private int cashierId;
 
-    public NCashier(Shop shop, String name) {
+    public NCashier(Shop shop, String name, int id) {
         this.shop = shop;
-        this.name = name;
+        this.name = name + id;
+        this.cashierId = id;
         this.active = false;
-        System.out.println("Касса " + this.name + " создана");
+
+        System.out.println(this.name + " created");
     }
 
     @Override
@@ -25,18 +27,24 @@ class NCashier implements Runnable, CashierStrings {
         //работает пока есть кто-то в очереди
         //за кол-вом необходимых касс следим манагер
 
-        //можно убрать внутренний цикл. из задания не совсем понятно, когда именно должна закрываться касса
+        //можно убрать/добавить коммент на внутренний цикл. из задания не совсем понятно, когда именно должна закрываться касса
         //если она открылась в помощь уже работающим - обслужив 1 покупателя, или пока очередь не опустеет
-
+        //System.out.println(this + "начал работу");
         while (needWork) {
             Buyer buyer = shop.getQueueManager().extractBuyer();
-            while (buyer != null) {
+            //System.out.println("Достали из очереди покупателя "+buyer);
+            //while (buyer != null) {
+            //System.out.println(this+"\t\tПокупатель не пустой - надо обслужить");
+            if (buyer != null) {
                 service(buyer);
-                buyer = shop.getQueueManager().extractBuyer();
             }
+
+            // buyer = shop.getQueueManager().extractBuyer();
+            //}
             needWork = shop.getShopManager().getStatusForCashier();
         }
         this.active = false;
+        //System.out.println(this + "закончил работу");
     }
 
     private void service(Buyer buyer) {

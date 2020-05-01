@@ -19,145 +19,6 @@ class NShopManager extends Thread implements CashierStrings {
 //  private Set<Cashier> cashiers = new HashSet<>();
 //  private List<Buyer> buyers = new ArrayList<>();
 
-/*
-    public double getTotalCash() {
-        return totalCash;
-    }
-
-        public void setTotalCash(double checkSum) {
-            synchronized (TOTAL_SUM_MONITOR) {
-                this.totalCash += checkSum;
-          }
-        }
-
-        public int getFreeCashierCount() {
-            int count = 0;
-            for (Cashier cashier : cashiers) {
-                switch (cashier.getState()) {
-                    case WAITING: {
-                        count++;
-                        break;
-                    }
-                }
-            }
-            return count;
-        }
-
- /*
-    @Override
-    public void run() {
-        ShopPrinter.printMessage("Start shop manager");
-        while (outBuyersCount < PLAN) {
-
-        }
-
-        //все покупатели вышли, проверим что все кассы успели завершить свои потоки и находятся в состоянии WAITING
-        //если касса будет в состоянии WAITING, то при запросе статуса от манагера получит команду завершить цикл опроса
-        //и поток корректно завершиться
-
-    }
-    /*
-        private void printFinishBlock() {
-            ShopPrinter.printMessage("\n\nAll buyers are served");
-            ShopPrinter.printMessage("\nTotal cash = " + String.format("%6.2f", getTotalCash()));
-            ShopPrinter.printMessage("\nAll cashiers are stopped:");
-            ShopPrinter.printMessage(getCashiersStatus());
-            ShopPrinter.printMessage("Possible to ose the shop");
-        }
-    /*
-        private void stopCashiersThreads() {
-            int stopCount = 1;
-            while (stopCount > 0) {
-                stopCount = 0;
-                for (Cashier cashier : cashiers) {
-                    switch (cashier.getState()) {
-                        case WAITING:
-                        case RUNNABLE:
-                        case BLOCKED:
-                        case TIMED_WAITING: {
-                            stopCount++;
-                            break;
-                        }
-                    }
-                }
-                notifyAllCashiers();
-                ShopPrinter.printMessage("Waiting until cashiers finish ...");
-            }
-        }
-
-        private void notifyAllCashiers() {
-            for (Cashier cashier : cashiers) {
-                synchronized (cashier) {
-                    cashier.notify();
-                }
-            }
-        }
-
-        private String getCashiersStatus() {
-            StringBuilder status = new StringBuilder();
-            for (Cashier cashier : getCashiers()) {
-                status.append(cashier.getName()).append(" ").append(cashier.getState().toString()).append("\n");
-            }
-            return status.toString();
-        }
-
-        public void printCashiersStatus() {
-            StringBuilder text = new StringBuilder();
-            for (Cashier cashier : cashiers) {
-                text
-                        .append(cashier.getName())
-                        .append(" ")
-                        .append(cashier.getState())
-                        .append("\n");
-
-            }
-            ShopPrinter.printMessage(text.toString());
-        }
-
-    public void addBuyer(Buyer buyer) {
-        synchronized (BUYER_MONITOR) {
-            buyers.add(buyer);
-            inBuyerCount++;
-        }
-    }
-
-    public void removeBuyer(Buyer buyer) {
-        synchronized (BUYER_MONITOR) {
-            buyers.remove(buyer);
-            outBuyersCount++;
-        }
-    }
-    */
-/*
-    public boolean getStatusForCashier() {
-        return outBuyersCount != PLAN;
-    }
-
-    public static int getOutBuyersCount() {
-        return outBuyersCount;
-    }
-
-    public int getCurrentBuyersCount() {
-        return inBuyerCount - outBuyersCount;
-    }
-
-    static boolean planCompleted() {
-        return PLAN == outBuyersCount;
-    }
-
-    static boolean isShopOpen() {
-        return inBuyerCount == PLAN;
-    }
-/*
-    public Set<Cashier> getCashiers() {
-        return cashiers;
-    }
-
-    public static Object getCashierMonitor() {
-        return CASHIER_MONITOR;
-    }
-*/
-
     private Shop shop;
 
     private static final int BUYER_COUNT_FACTOR = 5; //коэффициент, при котором нужно увеличивать кол-во кассиров
@@ -196,8 +57,7 @@ class NShopManager extends Thread implements CashierStrings {
                 NCashier free = getFreeCashier();
                 if (free != null) {
                     cashierPool.execute(free);
-                } else {
-                    System.out.println("All cashiers is busy now");
+                    Helper.sleep(100);
                 }
             }
         }
@@ -214,7 +74,8 @@ class NShopManager extends Thread implements CashierStrings {
         System.out.println("Все покупатели обслужены, можно закрывтаь магазин");
     }
 
-    private int getFreeCashiersCount() {
+
+    public int getFreeCashiersCount() {
         int count = 0;
         for (NCashier cashier : cashiersSet) {
             if (!cashier.isActive()) {
@@ -235,15 +96,12 @@ class NShopManager extends Thread implements CashierStrings {
 
     private void createCashiers() {
         for (int i = 0; i < shop.getCashierLimit(); i++) {
-            cashiersSet.add(new NCashier(shop, ("Cashier-" + (1 + i))));
+            cashiersSet.add(new NCashier(shop, "Cashier-", (1 + i)));
         }
     }
 
     public void buyerServed() {
         outBuyersCount.getAndIncrement();
-        System.out.printf("Размер очереди: %s, свободных касс: %d\n",
-                shop.getQueueManager().getQueueSize(),
-                getFreeCashiersCount());
     }
 
     public void buyerComeIn() {
@@ -274,6 +132,23 @@ class NShopManager extends Thread implements CashierStrings {
     }
 
     public void setTotalCash(double totalCash) {
-        this.totalCash.getAndSet(totalCash);
+        this.totalCash.getAndAccumulate(totalCash, Double::sum);
+    }
+
+
+    public void printFreeCashiers() {
+        StringBuilder msg = new StringBuilder();
+        for (NCashier cashier : cashiersSet) {
+            msg.append(cashier).append(" ").append(cashier.isActive()).append("\n");
+        }
+        ShopPrinter.printMessage(msg.toString());
+    }
+
+    public String getStatusCashiers() {
+        StringBuilder msg = new StringBuilder();
+        for (NCashier cashier : cashiersSet) {
+            msg.append(cashier).append(" ").append(cashier.isActive()).append("\n");
+        }
+        return msg.toString();
     }
 }

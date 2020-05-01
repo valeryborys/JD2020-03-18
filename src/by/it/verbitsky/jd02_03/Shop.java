@@ -103,10 +103,10 @@ class Shop extends Thread {
             }
 
             Helper.sleep(1000);
-            //ShopPrinter.printMessage("----------------------Seconds passed " + i % 60);
-            // ShopPrinter.printMessage("----------------------Buyers in: " + shopManager.getCurrentBuyersCount());
-            System.out.println("----------------------Seconds passed " + i % 60);
-            System.out.println("----------------------Buyers in: " + shopManager.get().getCurrentBuyersCount());
+            ShopPrinter.printMessage("----------------------Seconds passed " + i % 60);
+            ShopPrinter.printMessage("----------------------Count of buyers in the shop: " + shopManager.get().getCurrentBuyersCount());
+            //System.out.println("----------------------Seconds passed " + i % 60);
+            //System.out.println("----------------------Buyers in: " + shopManager.get().getCurrentBuyersCount());
         }
 
         shopManagerPool.shutdown();

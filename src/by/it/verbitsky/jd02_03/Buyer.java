@@ -55,7 +55,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         }
         //переводим покупателя в режим фиктивного ожидания
         this.waitState = true;
-        System.out.println(this + " стал в очередь");
+        ShopPrinter.printMessage(this + " add to queue");
         //стали в очередь - ожидаем окончания обслуживания
         while (waitState) {
             Helper.sleep(100);
@@ -64,14 +64,13 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
 
     @Override
     public void enterToMarket() {
-        System.out.println(this + "вошел в магазин");
-        // ShopPrinter.printMessage(this + " entered the shop");
+        ShopPrinter.printMessage(this + " entered the shop");
     }
 
     @Override
     public void chooseGoods() {
-        System.out.println(this + " begin to choose goods");
-        //  ShopPrinter.printMessage(this + " begin to choose goods");
+        //System.out.println(this + " begin to choose goods");
+        ShopPrinter.printMessage(this + " begin to choose goods");
         int chooseTimeOut = Helper.getRandomTimeout(500, 2000, speedFactor);
         Helper.sleep(chooseTimeOut);
         int goodsCount = Helper.getRandom(1, 4);
@@ -85,14 +84,14 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        // ShopPrinter.printMessage(this + "finish to choose goods");
+        ShopPrinter.printMessage(this + "finish to choose goods");
     }
 
     @Override
     public void goOut() {
-        System.out.println(this + " leave the shop");
+        //System.out.println(this + " leave the shop");
         shop.getShopManager().buyerServed();
-        // ShopPrinter.printMessage(this + " leave the shop");
+        ShopPrinter.printMessage(this + " leave the shop");
         //Shop.getShopManager().removeBuyer(this);
     }
 
@@ -100,8 +99,8 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     // Работа с корзиной покупателя
     @Override
     public void takeBasket() {
-        System.out.println(this + " take a basket ");
-        //  ShopPrinter.printMessage(this + " take a basket ");
+        //System.out.println(this + " take a basket ");
+        ShopPrinter.printMessage(this + " take a basket ");
         if (basket == null) {
             basket = new Basket();
         }
@@ -115,8 +114,8 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
                 "%s put: %s with price: %3.2f in basket\n",
                 this, good.getName(), good.getPrice());
 
-        //  ShopPrinter.printMessage(msg);
-        System.out.println(msg);
+        ShopPrinter.printMessage(msg);
+        //System.out.println(msg);
     }
 
     @Override
