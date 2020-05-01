@@ -5,7 +5,6 @@ import java.util.Map;
 class Cashier implements Runnable {
     private String name;
     private int number;
-    static final Object MONITOR_CASHIER = new Object();
 
     public Cashier(int number) {
         name = "\tCashier # " + number + ": ";
@@ -14,7 +13,7 @@ class Cashier implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(this + " is open");
+//        System.out.println(this + " is open");
         while (!Manager.planComplete()) {
             if (Manager.needToClose()) {
                 synchronized (this) {
@@ -25,7 +24,6 @@ class Cashier implements Runnable {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
                 }
             }
             Buyer extract = QueueBuyers.extract();

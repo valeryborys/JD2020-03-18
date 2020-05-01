@@ -12,7 +12,8 @@ public class Market {
         List<Buyer> list = new ArrayList<>();
 //        long t1 = System.nanoTime();
         for (int time = 0; time < 120; time++) {
-            int count = Helper.getCount(time);
+ //           int count = Helper.getCount(time);
+            int count = Helper.getRandom(0, Helper.getCount2(time));
             for (int i = 0; i < count; i++) {
                 if (number % 4 == 0) pensioner = true;
                 Buyer buyer = new Buyer(++number, pensioner);
@@ -20,8 +21,8 @@ public class Market {
                 list.add(buyer);
                 pensioner = false;
             }
+            Manager.report(time);
             Helper.sleep(999);
-//            Manager.report(time);
         }
         for (Buyer buyer : list) {
             try {
@@ -31,6 +32,6 @@ public class Market {
             }
         }
         System.out.println("Market is closed");
- //       Manager.print();
+        Manager.print();
     }
 }

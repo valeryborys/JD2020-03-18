@@ -19,7 +19,7 @@ public class Market {
             thread.start();
         }
         while (Manager.marketIsOpen()) {
-            int count = Helper.getCount(time++);
+            int count = Helper.getRandom(0,Helper.getCount(time++));
             for (int i = 0; Manager.marketIsOpen() && i < count; i++) {
                 if (number % 4 == 0) pensioner = " (p)";
                 Buyer buyer = new Buyer(++number, pensioner);
@@ -27,7 +27,7 @@ public class Market {
                 list.add(buyer);
                 pensioner = "";
             }
-            Manager.cashierControl();
+
             Helper.sleep(999);
         }
         for (Thread t : list) {

@@ -2,7 +2,6 @@ package by.it.lemesh.jd02_02;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.Iterator;
 
 public class QueueBuyers {
     static Deque<Buyer> deque = new ArrayDeque<>();
