@@ -2,7 +2,7 @@ package by.it.tolstik.jd02_02;
 
 class Cashier implements Runnable{
 
-    private String name;
+    private final String name;
 
     Cashier(int number){
         name = "\tCashier # " + number + ": ";
