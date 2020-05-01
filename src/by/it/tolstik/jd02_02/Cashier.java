@@ -12,14 +12,15 @@ class Cashier implements Runnable{
     public void run() {
         System.out.println(this + "открылся");
         while (!Manager.planComplete()) {
-            Buyer extract = QueueBuyers.extract();
-            if (extract != null) {
-                System.out.println(this + "начинает обслуживать " + extract);
+            Buyer extractBuyer = QueueBuyers.extract();
+            if (extractBuyer != null) {
+                System.out.println(this + "начинает обслуживать " + extractBuyer);
                 int random = Helper.getRandom(2000, 5000);
                 Helper.sleep(random,100);
-                System.out.println(this + "закончил обслуживать " + extract);
-                synchronized (extract) {
-                    extract.notify();
+                System.out.println("\tCумма чека " + extractBuyer + ": " + extractBuyer.putGoodsToBacket() + " рублей.");
+                System.out.println(this + "закончил обслуживать " + extractBuyer);
+                synchronized (extractBuyer) {
+                    extractBuyer.notify();
                     System.out.flush();
                 }
             } else {

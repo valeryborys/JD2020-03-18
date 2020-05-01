@@ -72,7 +72,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     }
 
     @Override
-    public void putGoodsToBacket() {
+    public int putGoodsToBacket() {
         int timeout;
         if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Manager.K_FOR_OLDER_PEOPLE);//коэф пенсионера
         else timeout = Helper.getRandom(500, 2000);
@@ -87,6 +87,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             sum += Goods.getGoodsPrice().get(value);
         }
         System.out.println(this + "набрал товаров на " + sum + " рублей.");
+        return sum;
     }
 
     @Override
