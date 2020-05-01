@@ -3,6 +3,7 @@ package by.it.verbitsky.jd02_03;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -15,16 +16,28 @@ class Shop extends Thread {
     private int plan = 100;
     private int cashierLimit = 5;
     private int queueCapacity = 30;
+    private int basketCount = 50;
+    private int chooseGoodsCount = 20;
     private ExecutorService shopManagerPool;
+    private AtomicReference<Semaphore> basketsSemaphore;
+    private AtomicReference<Semaphore> chooseGoodsSemaphore;
+
+
 
     public Shop() {
         super("shop");
+        basketsSemaphore = new AtomicReference<>(new Semaphore(this.basketCount, true));
+        chooseGoodsSemaphore = new AtomicReference<>(new Semaphore(this.chooseGoodsCount, true));
     }
 
-    public Shop(int plan, int limit, int queueCapacity) {
+    public Shop(int plan, int limit, int queueCapacity, int basketCount, int chooseGoodsCount) {
         this.plan = plan;
         this.cashierLimit = limit;
         this.queueCapacity = queueCapacity;
+        this.basketCount = basketCount;
+        this.chooseGoodsCount = chooseGoodsCount;
+        basketsSemaphore = new AtomicReference<>(new Semaphore(basketCount, true));
+        chooseGoodsSemaphore = new AtomicReference<>(new Semaphore(this.chooseGoodsCount, true));
     }
 
     //private List<Buyer> threads = new ArrayList<>();
@@ -55,8 +68,6 @@ class Shop extends Thread {
         shopManagerPool.execute(shopManager.get());
         //манагер управляет главным потоком (магазином)
         //т.е. пока живет поток манагера - живет поток магазина
-
-
     }
 
     private void generateOffers() {
@@ -134,6 +145,13 @@ class Shop extends Thread {
         return queueManager.get();
     }
 
+    public Semaphore getBasketsSemaphore() {
+        return basketsSemaphore.get();
+    }
+    public Semaphore getChooseGoodsSemaphore() {
+        return chooseGoodsSemaphore.get();
+    }
+
     public void setBuyersPlan(int plan) {
         this.plan = plan;
     }
@@ -156,5 +174,13 @@ class Shop extends Thread {
 
     public int getQueueCapacity() {
         return queueCapacity;
+    }
+
+    public void setBasketCount(int count) {
+        this.basketCount = count;
+    }
+
+    public void setSynchronousChooseCount(int count) {
+        this.chooseGoodsCount = count;
     }
 }

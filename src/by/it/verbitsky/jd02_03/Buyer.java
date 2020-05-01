@@ -42,7 +42,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     public void run() {
 
         enterToMarket();//мгновенно
-        takeBasket();// мгновенно
+        takeBasket();// мгновенно при условии что есть совбодные корзины
         chooseGoods();//0,5 - 2 секунды / *1.5 для пенсионеров
         goToQueue();
         goOut(); //мгновенно
@@ -60,6 +60,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         while (waitState) {
             Helper.sleep(100);
         }
+        shop.getBasketsSemaphore().release(); //отпустили корзинку в общий пул
     }
 
     @Override
@@ -70,6 +71,13 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void chooseGoods() {
         //System.out.println(this + " begin to choose goods");
+        //берем тикет на выбор товаров (не более 20 штук на всех покупателей одновременно)
+        try {
+            shop.getChooseGoodsSemaphore().acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         ShopPrinter.printMessage(this + " begin to choose goods");
         int chooseTimeOut = Helper.getRandomTimeout(500, 2000, speedFactor);
         Helper.sleep(chooseTimeOut);
@@ -79,11 +87,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
             putGoodsToBasket();
         }
 
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        shop.getChooseGoodsSemaphore().release();
         ShopPrinter.printMessage(this + "finish to choose goods");
     }
 
@@ -99,7 +103,12 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     // Работа с корзиной покупателя
     @Override
     public void takeBasket() {
-        //System.out.println(this + " take a basket ");
+        ShopPrinter.printMessage(this + " try to take a basket ");
+        try {
+            shop.getBasketsSemaphore().acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e.getMessage());
+        }
         ShopPrinter.printMessage(this + " take a basket ");
         if (basket == null) {
             basket = new Basket();
