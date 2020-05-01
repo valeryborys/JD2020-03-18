@@ -6,27 +6,24 @@ import java.util.List;
 import java.util.Map;
 
 public class Shop {
-    public static long starttime;
-    public static Map<String, Integer> goods;
+   // public static long starttime;
     public static void main(String[] args) {
-        starttime = System.nanoTime();
-        goods = new HashMap<>();
-        goods.put("bread",2);
-        goods.put("milk",2);
-        goods.put("meat",8);
-        goods.put("fish",5);
-        goods.put("oranges",3);
-        goods.put("beer",2);
+       // starttime = System.nanoTime();
+        Good.createGoods();
         System.out.println("Shop opened");
         int number = 0;
         List<Thread> threads = new ArrayList<>();
-        for (int i = 1; i <=2 ; i++) {
-            Cashier cashier = new Cashier(i);
-             Thread thread = new Thread(cashier);
-            threads.add(thread);
-            thread.start();
-        }
+//        for (int i = 1; i <=5 ; i++) {
+//        }
         while (Manager.shopOpen()){
+            synchronized (QueueBuyers.MONITOR){
+            if (Cashier.getCashiersOpened() < QueueBuyers.getCashNeed()){
+                Cashier cashier = new Cashier(Cashier.getCashiersOpened()+1);
+                Thread thread = new Thread(cashier);
+                threads.add(thread);
+                thread.start();
+            }
+            }
        // for (int time = 0; time < 120; time++) {
             int count = Helper.getRandom(0, 2);
             for (int i = 0; Manager.shopOpen() && i <= count; i++) {
