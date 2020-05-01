@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 class Manager {
 
     static final int K_SPEED = 100;
-    static final Object MONITOR_CASHIERS = new Object();
+//    static final Object MONITOR_CASHIERS = new Object();
 
     // block for checking / controlling customers quantity
     private static final int PLAN = 100;

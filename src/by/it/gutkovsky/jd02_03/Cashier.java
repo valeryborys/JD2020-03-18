@@ -25,17 +25,17 @@ class Cashier implements Runnable {
         System.out.println(this + " opened");
         while (!Manager.planComplete()) {
             while (!Manager.allCustomersCameOut()) { // this condition is necessary that cashiers don't close while customers in shop
-            if (Manager.closeCashier()){
-                synchronized (this){
-                    QueueCashier.addStaff(this);
-                    System.out.println(this + " closing for the rest");
-                    try {
-                        this.wait();
-                    } catch (InterruptedException e) {
-                        throw new  RuntimeException(e);
+                if (Manager.closeCashier()) {
+                    synchronized (this) {
+                        QueueCashier.addStaff(this);
+                        System.out.println(this + " closing for the rest");
+                        try {
+                            this.wait();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
-            }
 //            while (!Manager.allCustomersCameOut()) { // this condition is necessary that cashiers don't close while customers in shop
                 Buyer buyer = QueueBuyers.extract();
                 if (buyer != null) {
@@ -54,7 +54,11 @@ class Cashier implements Runnable {
 
                 } else {
                     Helper.sleep(1000); // УБРАТЬ!!!! кассир засыпал: wait  с таймаутом, notify может прислать покупатель перед тем как уснуть - либо реализация на concerrent
-
+//                    try {
+//                        this.wait(1);
+//                    } catch (InterruptedException e) {
+//                        throw new RuntimeException(e);
+//                    }
                 }
             }
         }

@@ -96,6 +96,14 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void goToQueue() {
+
+//        Cashier cashier = QueueCashier.getStaff();
+//        if (cashier != null) {
+//            synchronized (cashier) {
+//                cashier.notify();
+//            }
+//        }
+
         synchronized (this) {
             QueueBuyers.add(this);
             waitSatet = true;
