@@ -13,13 +13,14 @@ class Cashier implements Runnable {
 
     @Override
     public void run() {
+        int count = 0;
 //        System.out.println(this + " is open");
         while (!Manager.planComplete()) {
             if (Manager.needToClose()) {
                 synchronized (this) {
                     QueueCashiers.addCashierToQueue(this);
                     try {
-                        System.out.println(this + " is closed");
+                        if (count++ > 0) System.out.println(this + " is closed");
                         wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
