@@ -11,10 +11,6 @@ class Basket {
 
     }
 
-//    public Basket(Map<String, Double> basketList) {
-//        this.basketList = basketList;
-//    }
-
     public void setBasketList(Map<String, Double> basketList) {
         this.basketList = basketList;
     }

@@ -59,7 +59,8 @@ class Cashier implements Runnable {
                         System.out.flush();
                     }
 
-                } else {
+                }
+                else {
                     Helper.sleep(1000); // кассир засыпал: wait  с таймаутом, notify может прислать покупатель перед тем как уснуть - либо реализация на concerrent
 
 /*
@@ -75,6 +76,7 @@ class Cashier implements Runnable {
 //                    } catch (InterruptedException e) {
 //                        throw new RuntimeException(e);
 //                    }
+
                 }
             }
         }
