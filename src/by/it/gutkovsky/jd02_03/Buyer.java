@@ -18,7 +18,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         return basket;
     }
 
-    private static Semaphore semaphore = new Semaphore(20);
+    private static final Semaphore semaphore = new Semaphore(20);
+    private static final Semaphore basketSemaphore = new Semaphore(50);
 
     private final int goodsQuantityInTheBasket = Helper.getRandom(1, 4); // goods quantity in buyers shopping list
     private final boolean pensioner;
@@ -43,19 +44,29 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void run() {
         enterToMarket();
-        takeBacket();
         try {
-            semaphore.acquire();
-            chooseGoods(); // in this method buyer choose goods and put them into the basket
+            System.out.println(this + " waiting for a basket");
+            basketSemaphore.acquire(); //  semaphore for baskets: only for 50 acquire it is allowed to perform the program,
+            // the rest will wait till basket will free
+            takeBacket();
+            try {
+                semaphore.acquire(); // semaphore for buyers in shop: only 20 buyers can be in shop simultaneously
+                chooseGoods(); // in this method buyer choose goods and put them into the basket
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } finally {
+                semaphore.release();
+            }
+
+            goToQueue();
+            goOut();
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        finally {
-            semaphore.release();
+            e.printStackTrace();
+        } finally {
+            basketSemaphore.release();
         }
 
-        goToQueue();
-        goOut();
+
     }
 
     private void sleepMethod(int start, int stop, boolean pensioner) {
@@ -137,6 +148,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void goOut() {
+        System.out.println(this + "left the basket");
         System.out.println(this + "left the shop");
         Manager.customerComeOut();
         Manager.closeTheShop();
