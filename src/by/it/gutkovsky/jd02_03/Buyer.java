@@ -126,6 +126,13 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 //                cashier.notify();
 //            }
 //        }
+/*
+            try {
+                Cashier.EXCHANGER.exchange(null);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+*/
 
         synchronized (this) {
             QueueBuyers.add(this);
