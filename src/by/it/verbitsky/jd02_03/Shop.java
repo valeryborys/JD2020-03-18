@@ -21,6 +21,7 @@ class Shop extends Thread {
     private ExecutorService shopManagerPool;
     private AtomicReference<Semaphore> basketsSemaphore;
     private AtomicReference<Semaphore> chooseGoodsSemaphore;
+    private AtomicReference<Semaphore> queueSemaphore;
 
 
 
@@ -28,6 +29,7 @@ class Shop extends Thread {
         super("shop");
         basketsSemaphore = new AtomicReference<>(new Semaphore(this.basketCount, true));
         chooseGoodsSemaphore = new AtomicReference<>(new Semaphore(this.chooseGoodsCount, true));
+        queueSemaphore = new AtomicReference<>(new Semaphore(this.queueCapacity, true));
     }
 
     public Shop(int plan, int limit, int queueCapacity, int basketCount, int chooseGoodsCount) {
@@ -38,6 +40,7 @@ class Shop extends Thread {
         this.chooseGoodsCount = chooseGoodsCount;
         basketsSemaphore = new AtomicReference<>(new Semaphore(basketCount, true));
         chooseGoodsSemaphore = new AtomicReference<>(new Semaphore(this.chooseGoodsCount, true));
+        queueSemaphore = new AtomicReference<>(new Semaphore(this.queueCapacity, true));
     }
 
     //private List<Buyer> threads = new ArrayList<>();
@@ -148,8 +151,13 @@ class Shop extends Thread {
     public Semaphore getBasketsSemaphore() {
         return basketsSemaphore.get();
     }
+
     public Semaphore getChooseGoodsSemaphore() {
         return chooseGoodsSemaphore.get();
+    }
+
+    public Semaphore getQueueSemaphore() {
+        return queueSemaphore.get();
     }
 
     public void setBuyersPlan(int plan) {

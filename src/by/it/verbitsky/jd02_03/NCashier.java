@@ -36,6 +36,9 @@ class NCashier implements Runnable, CashierStrings {
             //while (buyer != null) {
             //System.out.println(this+"\t\tПокупатель не пустой - надо обслужить");
             if (buyer != null) {
+                // возвращаем тикет на очередь
+                shop.getQueueSemaphore().release();
+                //обслуживаем покупателя
                 service(buyer);
             }
 

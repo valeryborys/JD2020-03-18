@@ -9,6 +9,11 @@ class QueueManager {
         this.shop = shop;
     }
 
+    protected boolean takeQueue (Buyer buyer) {
+        return shopQueue.add(buyer);
+    }
+
+
     protected boolean lineUp(Buyer buyer) {
         if (shopQueue.getShopQueueSize() <= shop.getQueueCapacity()) {
             return shopQueue.add(buyer);

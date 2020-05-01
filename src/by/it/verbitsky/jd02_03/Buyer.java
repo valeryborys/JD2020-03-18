@@ -49,6 +49,25 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
     }
 
     private void goToQueue() {
+        //получаем тикет на очередь (всего в очереди не может быть более чем queue.capacity человек (30 по умолчанию))
+        //тикет врзвращаем назад когда касса сделает экстракт юзера из очереди
+        try {
+            shop.getQueueSemaphore().acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        //тикет поулчен - становимся в очередь
+        shop.getQueueManager().takeQueue(this);
+
+        //переводим покупателя в режим фиктивного ожидания
+        this.waitState = true;
+        ShopPrinter.printMessage(this + " add to queue");
+        //стали в очередь - ожидаем окончания обслуживания
+        while (waitState) {
+            Helper.sleep(100);
+        }
+
+        /*
         //пробуем занять очередь
         while (!shop.getQueueManager().lineUp(this)) {
             Helper.sleep(100);
@@ -60,7 +79,9 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
         while (waitState) {
             Helper.sleep(100);
         }
-        shop.getBasketsSemaphore().release(); //отпустили корзинку в общий пул
+        */
+
+        shop.getBasketsSemaphore().release(); //вернули тикет на  корзинку
     }
 
     @Override
@@ -87,7 +108,7 @@ class Buyer extends Thread implements IBuyer, IUseBasket {
             putGoodsToBasket();
         }
 
-        shop.getChooseGoodsSemaphore().release();
+        shop.getChooseGoodsSemaphore().release(); //вернули тикет на подбор товаров
         ShopPrinter.printMessage(this + "finish to choose goods");
     }
 
