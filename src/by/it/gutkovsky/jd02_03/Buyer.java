@@ -2,6 +2,7 @@ package by.it.gutkovsky.jd02_03;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
@@ -16,6 +17,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public Basket getBasket() {
         return basket;
     }
+
+    private static Semaphore semaphore = new Semaphore(20);
 
     private final int goodsQuantityInTheBasket = Helper.getRandom(1, 4); // goods quantity in buyers shopping list
     private final boolean pensioner;
@@ -41,7 +44,16 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void run() {
         enterToMarket();
         takeBacket();
-        chooseGoods(); // in this method buyer choose goods and put them into the basket
+        try {
+            semaphore.acquire();
+            chooseGoods(); // in this method buyer choose goods and put them into the basket
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            semaphore.release();
+        }
+
         goToQueue();
         goOut();
     }
