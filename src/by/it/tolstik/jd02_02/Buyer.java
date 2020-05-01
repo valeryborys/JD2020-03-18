@@ -49,8 +49,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
                 throw new RuntimeException("Interrupted" + Thread.currentThread(), e);
             }
         }
-
-
     }
 
     @Override
@@ -86,7 +84,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
                     + " за " + Goods.getGoodsPrice().get(value) + " рублей.");
             sum += Goods.getGoodsPrice().get(value);
         }
-        System.out.println(this + "набрал товаров на " + sum + " рублей.");
         return sum;
     }
 

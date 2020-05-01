@@ -10,7 +10,10 @@ class Cashier implements Runnable{
     }
     @Override
     public void run() {
+
+
         System.out.println(this + "открылся");
+
         while (!Manager.planComplete()) {
             Buyer extractBuyer = QueueBuyers.extract();
             if (extractBuyer != null) {
