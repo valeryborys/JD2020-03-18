@@ -10,6 +10,7 @@ class Manager {
     private volatile static int IN_COUNT = 0;
     private volatile static int OUT_COUNT = 0;
     private volatile static int QUEUE_CAPACITY = 0;
+    private volatile static int TOTAL_SUM = 0;
 
     static boolean shopOpen() {
         return IN_COUNT < PLAN;
@@ -41,6 +42,17 @@ class Manager {
         synchronized (MONITOR) {
             return --QUEUE_CAPACITY;
         }
+    }
+
+    static int addToTotalSum(int sum) {
+        synchronized (MONITOR) {
+            return TOTAL_SUM += sum;
+        }
+    }
+
+    static int getTotalSum() {
+        System.out.println("Сумма выручки магазина: " + TOTAL_SUM + " рублей.");
+        return TOTAL_SUM;
     }
 
 

@@ -34,7 +34,7 @@ class Shop {
                 e.printStackTrace();
             }
         }
-
+        Manager.getTotalSum();
         System.out.println("Магазин закрылся. Кол-во посетителей: " + number);
     }
 }
