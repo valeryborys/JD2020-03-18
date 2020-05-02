@@ -1,8 +1,6 @@
 package by.it.gutkovsky.calc;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
 
 class Printer {
@@ -52,7 +50,7 @@ class Printer {
         } else System.out.println("There is no var");
     }
 
-    static void saveToMemory() throws CalcException {
+    void saveToMemory() throws CalcException {
         String memory = getMemoryFile();
         Map<String, Var> printMap = Var.getVars();
         try (PrintWriter writeToMemory = new PrintWriter(memory)) {
@@ -66,6 +64,31 @@ class Printer {
         } catch (FileNotFoundException e) {
             throw new CalcException("Error: FileNotFoundException: " + e);
         }
+    }
+
+    void loadFromMemory(Parser parser){
+        String memory = getMemoryFile();
+        try (BufferedReader reader = new BufferedReader(new FileReader(memory))) {
+            while (reader.ready()){
+                String line = reader.readLine();
+                Var var = parser.calc(line);
+            }
+        } catch (IOException | CalcException e) {
+            throw  new RuntimeException(e);
+        }
+
+    }
+    static void printFromMemory(){
+        String memory = getMemoryFile();
+        try (BufferedReader reader = new BufferedReader(new FileReader(memory))) {
+            while (reader.ready()){
+                String line = reader.readLine();
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            throw  new RuntimeException(e);
+        }
+
     }
 
     private static String getMemoryFile() {

@@ -7,6 +7,7 @@ class ConsoleRunner {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
+        printer.loadFromMemory(parser);
         for (; ; ) {
             String expression = sc.nextLine();
 
@@ -23,8 +24,8 @@ class ConsoleRunner {
 
                 try {
                     Var var = parser.calc(expression);
+                    printer.saveToMemory();
                     printer.print(var);
-                    Printer.saveToMemory();
                 } catch (CalcException e) {
                     System.out.println(e.getMessage());
                 }
