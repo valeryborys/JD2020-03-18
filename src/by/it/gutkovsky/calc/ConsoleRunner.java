@@ -24,6 +24,7 @@ class ConsoleRunner {
                 try {
                     Var var = parser.calc(expression);
                     printer.print(var);
+                    Printer.saveToMemory();
                 } catch (CalcException e) {
                     System.out.println(e.getMessage());
                 }
