@@ -3,24 +3,25 @@ package by.it.tolstik.jd02_02;
 class Cashier implements Runnable {
 
     private final String name;
+    private boolean needOpened = true;
+    private static int cashiersOpened = 0;
 
     Cashier(int number) {
         name = "\tCashier # " + number + ": ";
-
     }
 
     @Override
     public void run() {
 
-        goToQueue();
         System.out.println(this + "открылся");
-
-        while (!Manager.planComplete()) {
+        cashiersOpened++;
+        while (!Manager.planComplete() && needOpened) {
             Buyer extractBuyer = QueueBuyers.extract();
             if (extractBuyer != null) {
+
                 System.out.println(this + "начинает обслуживать " + extractBuyer);
                 int random = Helper.getRandom(2000, 5000);
-                Helper.sleep(random, 1000);
+                Helper.sleep(random);
                 System.out.println("\tCумма чека " + extractBuyer + ": " + extractBuyer.putGoodsToBacket() + " рублей.");
                 System.out.println(this + "закончил обслуживать " + extractBuyer);
                 Manager.addToTotalSum(extractBuyer.putGoodsToBacket());
@@ -28,23 +29,17 @@ class Cashier implements Runnable {
                     extractBuyer.notify();
                     System.out.flush();
                 }
-            } else {
-                Helper.sleep(100); //добавить wait();
+            } //else что б кассир засыпал
+            synchronized (QueueBuyers.MONITOR) {
+                if (cashiersOpened > QueueBuyers.getCashNeed()) needOpened = false;
             }
         }
-
         System.out.println(this + "закрылся");
+        cashiersOpened--;
     }
 
-    public void goToQueue() {
-        synchronized (this) {
-            QueueCashiers.add(this);
-            try {
-                wait(); //ждем notify();
-            } catch (InterruptedException e) {
-                throw new RuntimeException("Interrupted" + Thread.currentThread(), e);
-            }
-        }
+    public static int getCashiersOpened() {
+        return cashiersOpened;
     }
 
     @Override

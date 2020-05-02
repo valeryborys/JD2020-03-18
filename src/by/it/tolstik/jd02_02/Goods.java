@@ -7,6 +7,7 @@ class Goods {
     static ArrayList<String> getGoodsName() {
         return new ArrayList<>(goodsList().keySet());
     }
+
     static ArrayList<Integer> getGoodsPrice() {
         return new ArrayList<>(goodsList().values());
     }
@@ -36,7 +37,6 @@ class Goods {
         goods.put("вилки", 150);
         return goods;
     }
-
 
 
 }

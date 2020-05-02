@@ -54,8 +54,4 @@ class Manager {
         System.out.println("Сумма выручки магазина: " + TOTAL_SUM + " рублей.");
         return TOTAL_SUM;
     }
-
-    static int getCapacityPeopleAtShop() {
-        return IN_COUNT-OUT_COUNT;
-    }
 }
