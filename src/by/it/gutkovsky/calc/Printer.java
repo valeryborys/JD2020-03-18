@@ -11,7 +11,7 @@ class Printer {
     }
 
     // jd01_11 - taskB part2
-    static void printVar() {
+    void printVar() {
 
         Map<String, Var> printMap = Var.getVars();
         if (printMap.size() != 0) {
@@ -71,13 +71,14 @@ class Printer {
         try (BufferedReader reader = new BufferedReader(new FileReader(memory))) {
             while (reader.ready()){
                 String line = reader.readLine();
-                Var var = parser.calc(line);
+                parser.calc(line);
             }
         } catch (IOException | CalcException e) {
             throw  new RuntimeException(e);
         }
 
     }
+    /*
     static void printFromMemory(){
         String memory = getMemoryFile();
         try (BufferedReader reader = new BufferedReader(new FileReader(memory))) {
@@ -90,6 +91,7 @@ class Printer {
         }
 
     }
+    */
 
     private static String getMemoryFile() {
         String fileMemory = "vars.txt";

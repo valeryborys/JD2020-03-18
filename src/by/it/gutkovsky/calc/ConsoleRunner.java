@@ -14,8 +14,8 @@ class ConsoleRunner {
             if (expression.equals("end")) {
                 break;
             }
-            else if (expression.equals("printvar")) { // jd01_11 - taskB part2
-                Printer.printVar();
+            else if (expression.equals("printvar")) { // jd01_11 - taskB part2 // also print var from memory
+                printer.printVar();
             }
             else if (expression.equals("sortvar")){ // jd01_11 - taskC part2
                 Printer.sortVar();
