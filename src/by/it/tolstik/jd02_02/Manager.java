@@ -9,6 +9,7 @@ class Manager {
     private static final int PLAN = 100;
     private volatile static int IN_COUNT = 0;
     private volatile static int OUT_COUNT = 0;
+    private volatile static int QUEUE_CAPACITY = 0;
 
     static boolean shopOpen() {
         return IN_COUNT < PLAN;
@@ -27,6 +28,18 @@ class Manager {
     static void buyerQuiteShop() {
         synchronized (MONITOR) {
             OUT_COUNT++;
+        }
+    }
+
+    static int buyerStayAtQueue() {
+        synchronized (MONITOR) {
+            return ++QUEUE_CAPACITY;
+        }
+    }
+
+    static int buyerLeaveFromQueue() {
+        synchronized (MONITOR) {
+            return --QUEUE_CAPACITY;
         }
     }
 

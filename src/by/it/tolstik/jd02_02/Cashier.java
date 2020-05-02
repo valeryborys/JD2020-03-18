@@ -19,7 +19,7 @@ class Cashier implements Runnable{
             if (extractBuyer != null) {
                 System.out.println(this + "начинает обслуживать " + extractBuyer);
                 int random = Helper.getRandom(2000, 5000);
-                Helper.sleep(random,100);
+                Helper.sleep(random,1000);
                 System.out.println("\tCумма чека " + extractBuyer + ": " + extractBuyer.putGoodsToBacket() + " рублей.");
                 System.out.println(this + "закончил обслуживать " + extractBuyer);
                 synchronized (extractBuyer) {
