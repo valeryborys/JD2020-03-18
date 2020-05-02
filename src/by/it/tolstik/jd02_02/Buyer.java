@@ -31,7 +31,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         int timeout;
         if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Manager.K_FOR_OLDER_PEOPLE);//коэф пенсионера
         else timeout = Helper.getRandom(500, 2000);
-        Helper.sleep(timeout,100);
+        Helper.sleep(timeout, 100);
         putGoodsToBacket(); //положил товары в корзину
         if (pensioner) System.out.println(this + "завершил выбирать товары, он пенсионер");
         else System.out.println(this + "завершил выбирать товары"); //завершил выбирать товары
@@ -43,10 +43,10 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             QueueBuyers.add(this);
             try {
                 System.out.println(this + "стал в очередь");
-                System.out.println("\t\t\t\tТекущая очередь " +Manager.buyerStayAtQueue());
+                System.out.println("\t\t\t\tТекущая очередь " + Manager.buyerStayAtQueue());
                 wait(); //ждем notify();
                 System.out.println(this + "покинул очередь");
-                System.out.println("\t\t\t\t\t\t\t\t\t\tТекущая очередь " +Manager.buyerLeaveFromQueue());
+                System.out.println("\t\t\t\t\t\t\t\t\t\tТекущая очередь " + Manager.buyerLeaveFromQueue());
             } catch (InterruptedException e) {
                 throw new RuntimeException("Interrupted" + Thread.currentThread(), e);
             }

@@ -55,5 +55,7 @@ class Manager {
         return TOTAL_SUM;
     }
 
-
+    static int getCapacityPeopleAtShop() {
+        return IN_COUNT-OUT_COUNT;
+    }
 }

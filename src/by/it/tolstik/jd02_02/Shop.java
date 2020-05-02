@@ -31,7 +31,7 @@ class Shop {
             try {
                 buyer.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException("Interrupted" + Thread.currentThread(), e);
             }
         }
         Manager.getTotalSum();
