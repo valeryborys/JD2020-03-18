@@ -4,7 +4,7 @@ import java.util.Random;
 
 class Helper {
     //для тестирования - уменьшает все задержки в N раз
-    private static final int K_SPEED = 1;
+    private static final int K_SPEED = 100;
 
 
     //Чем больше коэффициент - тем больше ускоряются действия покупателей,

@@ -21,6 +21,8 @@ class ShopPrinter {
             .concat(HEADER_COLUMN_TAB)
             .concat("Cashier5")
             .concat(HEADER_COLUMN_TAB)
+            .concat("Current queue size")
+            .concat(HEADER_COLUMN_TAB)
             .concat("Total shop cash");
 
     //сделал отдельный монитор вместо синхронизированных методов
@@ -55,17 +57,20 @@ class ShopPrinter {
             }
             shop.getShopManager().setTotalCash(checkSum);
 
-            System.out.printf("%s%s%3.2f%S  \t\t%5.2f\n",
+            System.out.printf("%s%s%3.2f%S  \t\t%d %s\t\t%5.2f\n",
                     checkTab,
                     CHECK_FOOTER,
                     checkSum,
                     totalTab,
+                    shop.getQueueManager().getQueueSize(),
+                    DELAULT_COLUMN_TAB,
                     shop.getShopManager().getTotalCash());
-
+/*
             System.out.println("Queue size: " +
                     shop.getQueueManager().getQueueSize() +
                     " Working cashiers count: " +
-                    (shop.getCashierLimit() - shop.getShopManager().getFreeCashiersCount()));
+                    (shop.getCashierLimit() - shop.getShopManager().getFreeCashiersCount())+
+                    );*/
         }
     }
 }
