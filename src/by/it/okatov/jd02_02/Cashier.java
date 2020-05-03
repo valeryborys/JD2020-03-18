@@ -28,8 +28,16 @@ class Cashier implements Runnable {
     @Override
     public void run() {
         System.out.println(this + " opened");
-        if (cNum != 1) {
-            this.deactivate();
+        if (!isActive) {
+            try {
+                synchronized (this) {
+                    System.out.println(this + " завершил работу из-за недостатка посетителей!");
+                    wait();
+                }
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         while (!Manager.planComplete()) {

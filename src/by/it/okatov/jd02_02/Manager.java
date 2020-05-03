@@ -41,15 +41,18 @@ public class Manager {
 
         /*if (inCount - outCount <= 5) {
         } else*/
-        if (inCount - outCount <= 10) {
-            cashierList.get(1).setActive();
-        } else if (inCount - outCount <= 15) {
-            cashierList.get(2).setActive();
-        } else if (inCount - outCount <= 20) {
-            cashierList.get(3).setActive();
-        } else {
-            cashierList.get(4).setActive();
+        if (inCount - outCount >= 5) {
+            if (inCount - outCount <= 10) {
+                cashierList.get(1).setActive();
+            } else if (inCount - outCount <= 15) {
+                cashierList.get(2).setActive();
+            } else if (inCount - outCount <= 20) {
+                cashierList.get(3).setActive();
+            } else {
+                cashierList.get(4).setActive();
+            }
         }
+
 
     }
 
