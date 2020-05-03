@@ -45,7 +45,8 @@ class Manager {
 //        synchronized (MONITOR_CASHIERS) {
             if (QueueBuyers.queueSize() != 0 && QueueCashier.waitingStaff() != 0) {
                 int openCashiers = (QueueBuyers.queueSize() - 1) / 5 + 1; // number of cashiers which should be opened
-                for (int i = 0; i < openCashiers; i++) {
+                int workCashiers = 5 - QueueCashier.waitingStaff(); // number of cashiers who are working now
+                for (int i = 0; i < (openCashiers - workCashiers); i++) {
                     Cashier openCashier = QueueCashier.getStaff();
                     if (openCashier != null) {
                         System.out.println(openCashier + " opens after the rest");
