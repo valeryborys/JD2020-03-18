@@ -11,22 +11,18 @@ class ConsoleRunner {
         printer.loadFromMemory(parser);
         for (; ; ) {
             String expression = sc.nextLine();
-//            logger.logger(expression);
+            logger.logger(expression);
 
             if (expression.equals("end")) {
                 break;
-            }
-            else if (expression.equals("printvar")) { // jd01_11 - taskB part2 // also print var from memory
+            } else if (expression.equals("printvar")) { // jd01_11 - taskB part2 // also print var from memory
                 printer.printVar();
-            }
-            else if (expression.equals("sortvar")){ // jd01_11 - taskC part2
+            } else if (expression.equals("sortvar")) { // jd01_11 - taskC part2
                 Printer.sortVar();
-            }
-            else {
+            } else {
 
                 try {
                     Var var = parser.calc(expression);
-                    logger.logger(expression);
                     printer.saveToMemory();
                     printer.print(var);
                     logger.logger(var.toString());
