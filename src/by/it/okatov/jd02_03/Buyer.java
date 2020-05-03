@@ -1,8 +1,11 @@
 package by.it.okatov.jd02_03;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 class Buyer extends Thread implements IBuyer {
-    //Семафор для раздачи корзинок
+    //private static int permits = 20;
 
 
     private boolean isElder;
@@ -27,6 +30,17 @@ class Buyer extends Thread implements IBuyer {
 
     private static final float ELDER_COEF = 1.5f;
 
+    private final Map<String, Integer> goods = new HashMap<>();
+
+    public Map<String, Integer> getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Map.Entry<String, Integer> entry) {
+        this.goods.put(entry.getKey(), entry.getValue());
+    }
+
+
     Buyer(int number) {
         super("Buyer №" + number);
         setNumber(number);
@@ -48,8 +62,24 @@ class Buyer extends Thread implements IBuyer {
         cart = new Cart(getNumber() % 50, this);
         enterToMarket();
         getCart();
-        chooseGoods();
-        putGoodsToCart();
+
+        //----------------SEMAFORE----------------
+        try {
+
+            Utils.GOODS_SEMAFORE.acquire();
+            System.out.println(this + " получил разрешение на выбор товаров!");
+            chooseGoods();
+            putGoodsToCart();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
+            Utils.GOODS_SEMAFORE.release();
+            System.out.println(this + " закончил выбор товаров и отдал разрешение!");
+
+        }
+
+        //----------------SEMAFORE----------------
+
         goToQueue();
         returnCart();
         goOut();
@@ -63,23 +93,49 @@ class Buyer extends Thread implements IBuyer {
 
     @Override
     public void getCart() {
-        //Utils.waitForSeconds(1);
+        int timeout = Utils.getRandom(0, 2);
+        System.out.println(this + " takes cart");
+        if (isElder()) {
+            Utils.waitForSeconds(timeout * ELDER_COEF);
+        } else {
+            Utils.waitForSeconds(timeout);
+        }
         new Thread(CartsQueue.getCart(cart)).start();
     }
 
 
     @Override
     public void chooseGoods() {
+        int timeout = Utils.getRandom(1, 2);
+        if (isElder()) {
+            timeout *= ELDER_COEF;
+        }
         Utils.waitForSeconds(1);
         System.out.println(this + " started to choose goods");
-        int timeout = Utils.getRandom(1, 2);
+
         Utils.waitForSeconds(timeout);
         System.out.println(this + " finished to choose goods");
     }
 
     @Override
     public void putGoodsToCart() {
-
+        System.out.println(this + " puts goods to cart: ");
+        //Map<String, Integer> tmp = new HashMap<>();
+        int index = 0;
+        String key;
+        int val;
+        for (Map.Entry<String, Integer> entry : Utils.getMapOfGoods().entrySet()) {
+            if (Utils.getRandom(0, 4) == index) {
+                continue;
+            } else if (index == 4) {
+                break;
+            }
+            key = entry.getKey();
+            val = entry.getValue();
+            System.out.println(String.format("%s решил взять %s за %d р.", this, key, val));
+            setGoods(entry);
+            index++;
+        }
     }
 
     @Override
@@ -98,7 +154,13 @@ class Buyer extends Thread implements IBuyer {
 
     @Override
     public void returnCart() {
+        int timeout = Utils.getRandom(0, 2);
         System.out.println(this + " возвращает корзинку");
+        if (isElder()) {
+            timeout *= ELDER_COEF;
+        }
+
+        Utils.waitForSeconds(timeout);
         CartsQueue.returnCart();
         /*synchronized (cart)
         {

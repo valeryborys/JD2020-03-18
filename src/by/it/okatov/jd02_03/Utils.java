@@ -10,9 +10,10 @@ public class Utils {
 
     //Семафор для раздачи корзинок
     static final Semaphore CARTS_SEMAPHORE = new Semaphore(50, true);
-    static final Semaphore CASHIERS_SEMAPHORE = new Semaphore(5, true);
+    static final Semaphore GOODS_SEMAFORE = new Semaphore(20, true);
     static final AtomicInteger GLOBAL_COUNTER = new AtomicInteger(0);
     private static String bottomLine;
+    static int common = 0;
 
     private static final Random generator = new Random();
     private static final Map<String, Integer> hMapOfGoods = new HashMap<>();

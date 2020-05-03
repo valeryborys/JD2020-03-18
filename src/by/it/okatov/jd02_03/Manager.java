@@ -1,5 +1,6 @@
 package by.it.okatov.jd02_03;
 
+
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -45,7 +46,20 @@ class Manager {
                 cashiers.get(4).setActive();
             }
         }
+    }
 
+
+    public static int getBuyersRange(int pseudoTime) {
+        int count = Utils.GLOBAL_COUNTER.get();
+        Utils.forPrinting.put(pseudoTime, count);
+        pseudoTime %= 50;
+        if (pseudoTime <= 25 && count < pseudoTime + 5) {
+            return Utils.getRandom(0, pseudoTime + 5 - count);
+        } else if (pseudoTime > 25 && count <= 50 - pseudoTime) {
+            return Utils.getRandom(0, 50 - pseudoTime - count);
+        } else {
+            return 0;
+        }
     }
 }
 
