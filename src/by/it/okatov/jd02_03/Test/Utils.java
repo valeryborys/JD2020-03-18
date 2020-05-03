@@ -1,17 +1,11 @@
-package by.it.okatov.jd02_03;
+package by.it.okatov.jd02_03.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Utils {
 
-    //Семафор для раздачи корзинок
-    static final Semaphore CARTS_SEMAPHORE = new Semaphore(50, true);
-    static final Semaphore CASHIERS_SEMAPHORE = new Semaphore(5, true);
-    static final AtomicInteger GLOBAL_COUNTER = new AtomicInteger(0);
     private static String bottomLine;
 
     private static final Random generator = new Random();

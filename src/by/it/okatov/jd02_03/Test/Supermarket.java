@@ -1,4 +1,4 @@
-package by.it.okatov.jd02_02;
+package by.it.okatov.jd02_03.Test;
 
 import by.it.okatov.jd01_15.TaskB;
 
@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Supermarket {
     static int number = 0;
+
     public static void main(String[] args) {
 
         System.out.println("Grand opening!");

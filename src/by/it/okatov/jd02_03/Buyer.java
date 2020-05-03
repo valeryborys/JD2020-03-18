@@ -1,8 +1,8 @@
 package by.it.okatov.jd02_03;
 
 
-
 class Buyer extends Thread implements IBuyer {
+    //Семафор для раздачи корзинок
 
 
     private boolean isElder;
@@ -37,29 +37,49 @@ class Buyer extends Thread implements IBuyer {
         super("Buyer (Pensioneer) №" + number);
         setElder(elderMark);
         setNumber(number);
-        Manager.buyerLeavesSupermarket();
+        Manager.buyerAddToSupermarket();
     }
+
+    private Cart cart;
+
 
     @Override
     public void run() {
+        cart = new Cart(getNumber() % 50, this);
         enterToMarket();
+        getCart();
         chooseGoods();
+        putGoodsToCart();
         goToQueue();
+        returnCart();
         goOut();
     }
 
     @Override
     public void enterToMarket() {
         Utils.GLOBAL_COUNTER.getAndIncrement();
-        System.out.println(this + "enter to shop");
+        System.out.println(this + " enters the supermarket");
     }
 
     @Override
+    public void getCart() {
+        //Utils.waitForSeconds(1);
+        new Thread(CartsQueue.getCart(cart)).start();
+    }
+
+
+    @Override
     public void chooseGoods() {
-        System.out.println(this + "started to choose goods");
+        Utils.waitForSeconds(1);
+        System.out.println(this + " started to choose goods");
         int timeout = Utils.getRandom(1, 2);
         Utils.waitForSeconds(timeout);
-        System.out.println(this + "finished to choose goods");
+        System.out.println(this + " finished to choose goods");
+    }
+
+    @Override
+    public void putGoodsToCart() {
+
     }
 
     @Override
@@ -77,9 +97,20 @@ class Buyer extends Thread implements IBuyer {
     }
 
     @Override
+    public void returnCart() {
+        System.out.println(this + " возвращает корзинку");
+        CartsQueue.returnCart();
+        /*synchronized (cart)
+        {
+            cart.notify();
+        }*/
+        Utils.CARTS_SEMAPHORE.release();
+    }
+
+    @Override
     public void goOut() {
         Utils.GLOBAL_COUNTER.getAndDecrement();
-        System.out.println(this + "leave the shop");
+        System.out.println(this + " leaves the supermarket");
         Manager.buyerLeavesSupermarket();
     }
 
