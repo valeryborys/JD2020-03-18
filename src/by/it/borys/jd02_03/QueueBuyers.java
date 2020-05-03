@@ -30,7 +30,7 @@ public class QueueBuyers {
        else if (queue.size()<=20 ) cashiersNeeded.set(4);
        else cashiersNeeded.set(5);
 
-     // System.out.println(queue.size()+" "+cashiersNeeded.get());//посмотреть количество людей в очереди и требуемых кассиров
+    //  System.out.println(getQueueSize()+" "+cashiersNeeded.get());//посмотреть количество людей в очереди и требуемых кассиров
     }
 
     public static int getCashNeed(){

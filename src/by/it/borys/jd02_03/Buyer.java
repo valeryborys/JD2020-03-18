@@ -26,9 +26,9 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void run() {
         enterToMarket();
+        takeBacket();
         try {
             semaphore.acquire();
-            takeBacket();
             chooseGoods();
             putGoodsToBasket();
             goToQueue();
