@@ -50,7 +50,7 @@ class Ship extends Thread {
         Help.sleep(500);
         Port extract = Runner.extract();
         synchronized (extract) {
-            notify();
+            extract.notify();
         }
     }
 }

@@ -77,7 +77,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         int timeout;
         if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Manager.K_FOR_OLDER_PEOPLE);//коэф пенсионера
         else timeout = Helper.getRandom(500, 2000);
-        Helper.sleep(timeout);
+        Helper.sleep(timeout,100);
         //загрузка в тележку рандомных продуктов из Goods
         int count = Helper.getRandom(1, 4);
         int sum = 0; //инициализация суммы чека

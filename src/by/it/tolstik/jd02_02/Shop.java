@@ -26,7 +26,7 @@ class Shop {
                 buyer.start();
                 threads.add(buyer);
             }
-            Helper.sleep(1000);
+            Helper.sleep(1000,100);
         }
         for (Thread buyer : threads) {
             try {

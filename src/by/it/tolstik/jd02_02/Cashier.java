@@ -16,20 +16,35 @@ class Cashier implements Runnable {
         System.out.println(this + "открылся");
         cashiersOpened++;
         while (!Manager.planComplete() && needOpened) {
-            Buyer extractBuyer = QueueBuyers.extract();
-            if (extractBuyer != null) {
-
-                System.out.println(this + "начинает обслуживать " + extractBuyer);
-                int random = Helper.getRandom(2000, 5000);
-                Helper.sleep(random);
-                System.out.println("\tCумма чека " + extractBuyer + ": " + extractBuyer.putGoodsToBacket() + " рублей.");
-                System.out.println(this + "закончил обслуживать " + extractBuyer);
-                Manager.addToTotalSum(extractBuyer.putGoodsToBacket());
-                synchronized (extractBuyer) {
-                    extractBuyer.notify();
-                    System.out.flush();
+            if (QueueBuyers.dequeForPensioner.size() != 0) {
+                Buyer extractPens = QueueBuyers.extractPens();
+                if (extractPens != null) {
+                    System.out.println(this + "начинает обслуживать " + extractPens + ". Он напомню пенсионер.");
+                    int random = Helper.getRandom(2000, 5000);
+                    Helper.sleep(random, 100);
+                    System.out.println("\tCумма чека " + extractPens + ": " + extractPens.putGoodsToBacket() + " рублей.");
+                    System.out.println(this + "закончил обслуживать " + extractPens);
+                    Manager.addToTotalSum(extractPens.putGoodsToBacket());
+                    synchronized (extractPens) {
+                        extractPens.notify();
+                        System.out.flush();
+                    }
                 }
-            } //else что б кассир засыпал
+            } else {
+                Buyer extractBuyer = QueueBuyers.extract();
+                if (extractBuyer != null) {
+                    System.out.println(this + "начинает обслуживать " + extractBuyer);
+                    int random = Helper.getRandom(2000, 5000);
+                    Helper.sleep(random, 100);
+                    System.out.println("\tCумма чека " + extractBuyer + ": " + extractBuyer.putGoodsToBacket() + " рублей.");
+                    System.out.println(this + "закончил обслуживать " + extractBuyer);
+                    Manager.addToTotalSum(extractBuyer.putGoodsToBacket());
+                    synchronized (extractBuyer) {
+                        extractBuyer.notify();
+                        System.out.flush();
+                    }
+                }
+            }
             synchronized (QueueBuyers.MONITOR) {
                 if (cashiersOpened > QueueBuyers.getCashNeed()) needOpened = false;
             }
