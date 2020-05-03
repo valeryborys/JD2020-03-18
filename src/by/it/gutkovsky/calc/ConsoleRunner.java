@@ -24,8 +24,16 @@ class ConsoleRunner {
                     printer.sortVar();
                     break;
                 case "printmemory":
-                    System.out.println("Saved vars:");
+                    System.out.println("\033[33mSaved vars: \033[30m");
+//                    System.out.println("\tSaved vars:");
                     printer.printFromMemory();
+                    break;
+                case "clearmemory":
+                    try {
+                        printer.cleanMemory();
+                    } catch (CalcException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 default:
 

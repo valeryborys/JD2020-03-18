@@ -1,50 +1,50 @@
-{2,3,4}+{5,6,7}
-{7.0, 9.0, 11.0}
-{5,6,7}-{2,3,4}
-{3.0, 3.0, 3.0}
+printmemory
+clearmemory
 end
-{{1,2},{8,3}}-{{2,3,3},{2,3,3}}
-ERROR: Incompatible size
-{{1,2},{8,3}}*{{1,2},{8,3}}
-{{17.0, 8.0}, {32.0, 25.0}}
+W={{1, 2, 3}, {4, 5, 6}}
+{{1.0, 2.0, 3.0}, {4.0, 5.0, 6.0}}
+A=2
+2.0
+W*2
+{{2.0, 4.0, 6.0}, {8.0, 10.0, 12.0}}
 end
-{2,3,4}*2
-{4.0, 6.0, 8.0}
+printvar
+printmemory
+sortvar
+clearmemory
 end
-{2,3}+{1,2,3}
-ERROR: Incompatible size
+printmemory
+A=25
+25.0
+C=26
+26.0
+sortvar
+printmemory
 end
-{2,3}-{1,2,3}
-ERROR: Incompatible size
-end
-2/{1,2,3}
-ERROR: Operation 2.0 / {1.0, 2.0, 3.0} is impossible
-end
-3.8+26.2
-30.0
-end
-3.8/0
-ERROR: Division by zero is impossible
-end
-5*incorrect_string
-ERROR: Unknown var: incorrect_string
-end
-h
-6.0
 k
 ERROR: Unknown var: k
+sortvar
+printmemory
+printvar
+A=7
+7.0
 end
-l
-ERROR: Unknown var: l
-l
-ERROR: Unknown var: l
-l
-ERROR: Unknown var: l
-g
-ERROR: Unknown var: g
+printvar
+sortvar
+printmemory
+printvar
 end
-y
-8.0
-l=5
-5.0
+printvar
+printmemory
+printvar
+end
+printvar
+printmemory
+printvar
+end
+printvar
+printmemory
+sortvar
+clearmemory
+printmemory
 end
