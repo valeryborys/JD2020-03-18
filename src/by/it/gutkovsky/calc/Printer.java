@@ -51,7 +51,7 @@ class Printer {
     }
 
     void saveToMemory() throws CalcException {
-        String memory = getMemoryFile();
+        String memory = getFile("vars.txt");
         Map<String, Var> printMap = Var.getVars();
         try (PrintWriter writeToMemory = new PrintWriter(memory)) {
             if (printMap.size() != 0) {
@@ -60,14 +60,14 @@ class Printer {
                     Var value = pair.getValue();
                     writeToMemory.printf("%s=%s\n", key, value);
                 }
-            } else System.out.println("There is no var in memory");
+            } else System.out.println("There is no vars in memory");
         } catch (FileNotFoundException e) {
             throw new CalcException("Error: FileNotFoundException: " + e);
         }
     }
 
     void loadFromMemory(Parser parser){
-        String memory = getMemoryFile();
+        String memory = getFile("vars.txt");
         try (BufferedReader reader = new BufferedReader(new FileReader(memory))) {
             while (reader.ready()){
                 String line = reader.readLine();
@@ -93,12 +93,11 @@ class Printer {
     }
     */
 
-    private static String getMemoryFile() {
-        String fileMemory = "vars.txt";
+    static String getFile(String fileName) {
         String root = System.getProperty("user.dir") + File.separator + "src" + File.separator; // D:\gutkovsky\JD2020-03-18\src\
         String path = root + ConsoleRunner.class.getName().replace(".", File.separator);
         path = path.replace(ConsoleRunner.class.getSimpleName(), "");
-        return path + fileMemory;
+        return path + fileName;
     }
 
 }
