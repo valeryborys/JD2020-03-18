@@ -38,7 +38,7 @@ class Printer {
     }
 
     // jd01_11 - taskC part2
-    public static void sortVar() {
+     void sortVar() {
         Map<String, Var> varMap = Var.getVars();
         if (varMap.size() != 0) {
             TreeMap<String, Var> sortedMap = new TreeMap<>(varMap);
@@ -78,9 +78,9 @@ class Printer {
         }
 
     }
-    /*
-    static void printFromMemory(){
-        String memory = getMemoryFile();
+
+    void printFromMemory(){
+        String memory = getFile("vars.txt");
         try (BufferedReader reader = new BufferedReader(new FileReader(memory))) {
             while (reader.ready()){
                 String line = reader.readLine();
@@ -91,7 +91,7 @@ class Printer {
         }
 
     }
-    */
+
 
     static String getFile(String fileName) {
         String root = System.getProperty("user.dir") + File.separator + "src" + File.separator; // D:\gutkovsky\JD2020-03-18\src\
