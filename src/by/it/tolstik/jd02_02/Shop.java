@@ -8,6 +8,7 @@ class Shop {
 
 
         System.out.println("Магазин открылся");
+        int time = 0;
         int number = 0;
 
         List<Thread> threads = new ArrayList<>();
@@ -20,13 +21,15 @@ class Shop {
                     thread.start();
                 }
             }
-            int count = Helper.getRandom(0, 2);
-            for (int i = 0; Manager.shopOpen() && i <= count; i++) {
-                Buyer buyer = new Buyer(++number);
-                buyer.start();
-                threads.add(buyer);
-            }
-            Helper.sleep(1000,100);
+
+            Buyer buyer = new Buyer(++number);
+            buyer.start();
+            threads.add(buyer);
+            time++;
+            if (time <= 10) Helper.sleep(3000, 100);
+            else if (time <= 50) Helper.sleep(1000, 100);
+            else if (time <= 60) Helper.sleep(3000, 100);
+            else Helper.sleep(1000, 100);
         }
         for (Thread buyer : threads) {
             try {
