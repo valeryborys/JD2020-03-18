@@ -40,7 +40,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goToQueue() {
         synchronized (this) {
-            QueueBuyers.add(this);
+            if (pensioner) QueueBuyers.addPens(this);
+            else QueueBuyers.add(this);
             try {
                 System.out.println(this + "стал в очередь");
                 System.out.println("\t\t\t\tТекущая очередь " + Manager.buyerStayAtQueue());
