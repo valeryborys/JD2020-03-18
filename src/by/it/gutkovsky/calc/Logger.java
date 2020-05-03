@@ -25,7 +25,7 @@ class Logger {
         }
 
         logList.add(line);
-        while (count > 50){
+        while (count > 49){
             logList.poll();
             count--;
         }
