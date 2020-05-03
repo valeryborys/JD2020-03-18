@@ -1,35 +1,50 @@
 package by.it.borys.jd02_02;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Cashier implements Runnable {
-    private final static Object MONITOR2 = new Object();
+    public final static Object MONITOR2 = new Object();
+    private final int number;
     private boolean needOpened = true;
-    private static int cashiersOpened =0;
+    private static volatile int cashiersOpened =0;
     private String name;
+    private static volatile int totalShop=0;
     Cashier(int number) {
-        name = "\tCashier №"+number+": ";
+        name = "Cashier №"+number+": ";
+        this.number = number;
     }
 
     @Override
     public void run() {
 
         System.out.println(this + " opened");
-        cashiersOpened++;
+        synchronized (MONITOR2){
+        cashiersOpened++;}
         while (!Manager.planComplete() && needOpened) {
             Buyer buyer = QueueBuyers.extract();
             if (buyer != null) {
                 int total = 0;
                 synchronized (MONITOR2) {
-                    System.out.println(this + " start to service " + buyer);
+                    printTabs(number);
+                    System.out.println("start to service " + buyer);
                     HashMap<String, Integer> goods = buyer.basket.takeFromBasket();
                     for (Map.Entry<String, Integer> good : goods.entrySet()) {
-                        System.out.println(this + " checked $ " + good.getValue() + " for " + good.getKey());
+                        printTabs(number);
+                        System.out.println( "checked $ " + good.getValue() + " for " + good.getKey());
                         total += good.getValue();
                     }
-                    System.out.println(this + " finished to service " + buyer);
-                    System.out.println("\tTotal payment for " + buyer + " = " + total + "$");
+                    totalShop+=total;
+                    printTabs(number);
+                    System.out.println("Total payment for " + buyer + " = " + total + "$");
+                    printTabs(number);
+                    System.out.println("finished to service " + buyer);
+                    printTabs(6);
+                    System.out.println(QueueBuyers.getQueueSize());
+                    printTabs(6);
+                    System.out.print("\t\t\t\t\t");
+                    System.out.println(totalShop);
                     int timeout = Helper.getRandom(2000, 5000);
                     Helper.sleep(timeout);
                 }
@@ -42,7 +57,8 @@ public class Cashier implements Runnable {
            if(cashiersOpened>QueueBuyers.getCashNeed()) needOpened=false;}
         }
         System.out.println(this + " closed");
-        cashiersOpened--;
+        synchronized (MONITOR2){
+            cashiersOpened--;}
         }
 
     public static int getCashiersOpened(){
@@ -52,5 +68,11 @@ public class Cashier implements Runnable {
     @Override
     public String toString() {
         return name;
+    }
+    private static synchronized void printTabs(int number){
+        for (int i = 0; i <(number-1)*9 ; i++) {
+            System.out.print("\t");
+
+        }
     }
 }

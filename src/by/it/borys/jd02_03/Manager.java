@@ -1,4 +1,4 @@
-package by.it.borys.jd02_02;
+package by.it.borys.jd02_03;
 
 import by.it.borys.jd01_14.TaskA;
 
@@ -7,32 +7,31 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Manager {
     static final int K_SPEED = 100;
 
-    final static Object MONITOR = new Object();
     private static final int PLAN = 100;
-    private volatile static  int inCount = 0;
-    private volatile static int outCount = 0;
+    private static final AtomicInteger inCount = new AtomicInteger(0);
+    private static final AtomicInteger outCount = new AtomicInteger(0);
 
     static boolean shopOpen(){
-        return inCount<PLAN;
+        return inCount.get()<PLAN;
     }
     static boolean planComplete(){
-        return outCount == PLAN;
+        return outCount.get() == PLAN;
     }
 
     static void buyerAddToShop(){
-        synchronized (MONITOR){
-            inCount++;
-        }
+            inCount.getAndIncrement();
+
     }
     static void buyerLeaveTheShop(){
-        synchronized (MONITOR){
-            outCount++;
-        }
+            outCount.getAndDecrement();
     }
+
+
 public static int count =0;
 
 static int buyersReg(int second){

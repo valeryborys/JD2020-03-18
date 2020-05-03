@@ -1,13 +1,20 @@
-package by.it.borys.jd02_02;
+package by.it.borys.jd02_03;
 
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 public class Buyer extends Thread implements IBuyer, IUseBasket {
 
     private boolean pensioneer = false;
     Basket basket= new Basket();
+    private boolean waitState;
+    private static Semaphore semaphore = new Semaphore(20);
+
+    public void setWaitState(boolean waitState) {
+        this.waitState = waitState;
+    }
 
     public Buyer(int number) {
         super("Buyer № " + number + " ");
@@ -19,10 +26,18 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
     @Override
     public void run() {
         enterToMarket();
-        takeBacket();
-        chooseGoods();
-        putGoodsToBasket();
-        goToQueue();
+        try {
+            semaphore.acquire();
+            takeBacket();
+            chooseGoods();
+            putGoodsToBasket();
+            goToQueue();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        finally {
+            semaphore.release();
+        }
         goOut();
     }
 
@@ -66,12 +81,15 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
     public void goToQueue() {
             synchronized (this) {
                 QueueBuyers.add(this);
-                try {
-                    System.out.println(this + " added to queue");
-                    wait();
-                    System.out.println(this + " leaved the queue");
-                } catch (InterruptedException e) {
-                    throw new RuntimeException("Ошибка", e);
+                waitState = true;
+                while (waitState) {
+                    try {
+                        System.out.println(this + " added to queue");
+                        wait();
+                        System.out.println(this + " leaved the queue");
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException("Ошибка", e);
+                    }
                 }
             }
     }

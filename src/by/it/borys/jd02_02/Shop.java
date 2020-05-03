@@ -11,6 +11,8 @@ public class Shop {
        // starttime = System.nanoTime();
         Good.createGoods();
         System.out.println("Shop opened");
+        System.out.println("Cashier 1:  \t\t\t\t\t\tCashier 2:  \t\t\t\t\t\tCashier 3:  \t\t\t\t\t\tCashier 4:  \t\t\t\t\t\tCashier 5:  \t\t\t\t\t\tQueue Length: \tTotal:");
+
         int number = 0;
         List<Thread> threads = new ArrayList<>();
 //        for (int i = 1; i <=5 ; i++) {

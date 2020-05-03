@@ -6,7 +6,7 @@ import java.util.Deque;
 public class QueueBuyers {
     public final static Object MONITOR = new Object();
     private static Deque<Buyer> queue = new ArrayDeque<>();
-    private static int cashiersNeeded = 0;
+    private volatile static int cashiersNeeded = 0;
     static synchronized void add(Buyer buyer){
         queue.addLast(buyer);
         setCashiers();
@@ -17,7 +17,7 @@ public class QueueBuyers {
         return buyer;
     }
 
-    private static void setCashiers(){
+    private synchronized static void setCashiers(){
        if (queue.size()== 0) cashiersNeeded = 0;
        else if (queue.size()<=5 ) cashiersNeeded = 1;
        else if ( queue.size()<=10 ) cashiersNeeded = 2;
@@ -27,7 +27,10 @@ public class QueueBuyers {
         //System.out.println(queue.size()+" "+cashiersNeeded);//посмотреть количество людей в очереди и требуемых кассиров
     }
 
-    public static int getCashNeed(){
+    public synchronized static int getCashNeed(){
         return cashiersNeeded;
+    }
+    public synchronized static int getQueueSize(){
+        return queue.size();
     }
 }
