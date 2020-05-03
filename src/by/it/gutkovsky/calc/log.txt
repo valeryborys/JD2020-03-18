@@ -1,0 +1,21 @@
+z=5
+5.0
+end
+printvar
+end
+sortvar
+end
+n=9
+9.0
+9*9
+81.0
+V={1,5}
+{1.0, 5.0}
+V*2
+{2.0, 10.0}
+end
+b
+5.0
+m
+ERROR: Unknown var: m
+end

@@ -8,6 +8,7 @@ public class Manager {
     private static final int PLAN = 100;
     private volatile static int inCount = 0;
     private volatile static int outCount = 0;
+    private volatile static int onlineCount = 0;
     private volatile static int cash = 0;
 
     static boolean marketIsOpen() {
@@ -21,12 +22,20 @@ public class Manager {
     static void buyerIn() {
         synchronized (MONITOR) {
             inCount++;
+            onlineCount++;
         }
     }
 
     static void BuyerOut() {
         synchronized (MONITOR) {
             outCount++;
+            onlineCount--;
+        }
+    }
+
+    static int getOnlineBuyers() {
+        synchronized (MONITOR) {
+            return onlineCount;
         }
     }
 
@@ -53,7 +62,6 @@ public class Manager {
                     }
                 }
             }
-            Helper.sleep(1000);
         }
     }
 
