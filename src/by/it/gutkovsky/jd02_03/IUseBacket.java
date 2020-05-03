@@ -1,4 +1,4 @@
-package by.it.gutkovsky.jd02_02;
+package by.it.gutkovsky.jd02_03;
 
 
 public interface IUseBacket {

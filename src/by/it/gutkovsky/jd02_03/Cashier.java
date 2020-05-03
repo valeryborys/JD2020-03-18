@@ -1,19 +1,24 @@
-package by.it.gutkovsky.jd02_02;
+package by.it.gutkovsky.jd02_03;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.Exchanger;
+import java.util.concurrent.atomic.AtomicReference;
 
 class Cashier implements Runnable {
+
+//    static final Exchanger<Buyer> EXCHANGER = new Exchanger<Buyer>();
+
     private final String name;
     private final int number;
     static final Object MONITOR2 = new Object();
 
-    private static volatile double totalSum = 0;
+//    private static volatile double totalSum = 0;
+    private static final AtomicReference<Double> totalSum = new AtomicReference<>((double) 0);
 
     public static double getTotalSum() {
-        return totalSum;
+        return totalSum.get();
     }
-
 
     Cashier(int number) {
         name = "\tCashier № " + number + ": ";
@@ -25,21 +30,17 @@ class Cashier implements Runnable {
         System.out.println(this + " opened");
         while (!Manager.planComplete()) {
             while (!Manager.allCustomersCameOut()) { // this condition is necessary that cashiers don't close while customers in shop
-            if (Manager.closeCashier()){
-                synchronized (this){
-                    QueueCashier.addStaff(this);
-                    System.out.println(this + " closing for the rest");
-                    try {
-                        this.wait();
-                    } catch (InterruptedException e) {
-                        throw new  RuntimeException(e);
+                if (Manager.closeCashier()) {
+                    synchronized (this) {
+                        QueueCashier.addStaff(this);
+                        System.out.println(this + " closing for the rest");
+                        try {
+                            this.wait();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
-            }
-
-
-
-
 //            while (!Manager.allCustomersCameOut()) { // this condition is necessary that cashiers don't close while customers in shop
                 Buyer buyer = QueueBuyers.extract();
                 if (buyer != null) {
@@ -47,16 +48,35 @@ class Cashier implements Runnable {
                     synchronized (System.out) {
                         billAmount = getBillAmount(buyer);
                     }
-                    synchronized (MONITOR2) {
-                        totalSum = totalSum + billAmount;
-                    }
+//                    synchronized (MONITOR2) {
+//                        totalSum = totalSum + billAmount;
+//                    }
+                    totalSum.getAndSet(totalSum.get()+billAmount);
+
                     synchronized (buyer) {
+                        buyer.setWaitSatet(false);
                         buyer.notify();
                         System.out.flush();
                     }
 
-                } else {
-                    Helper.sleep(1000);
+                }
+                else {
+                    Helper.sleep(1000); // кассир засыпал: wait  с таймаутом, notify может прислать покупатель перед тем как уснуть - либо реализация на concerrent
+
+/*
+                    try {
+                        Buyer exchange = EXCHANGER.exchange(null);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
+*/
+//                    try {
+//                        this.wait(1);
+//                    } catch (InterruptedException e) {
+//                        throw new RuntimeException(e);
+//                    }
+
                 }
             }
         }
@@ -84,7 +104,7 @@ class Cashier implements Runnable {
             System.out.println(printBillFormat() + product + "-" + price + "BYN");
         }
         System.out.println(printBillFormat() + "Sum: " + billAmount + "BYN");
-        System.out.printf("%-110s%-3d%-19s%6.2f\n", " ", QueueBuyers.queueSize(), " ", (totalSum + billAmount));
+        System.out.printf("%-110s%-3d%-19s%6.2f\n", " ", QueueBuyers.queueSize(), " ", (totalSum.get() + billAmount));
 //        System.out.println("\t" + this + " says: Total price: " + billAmount + "BYN");
         System.out.println(this + " finished to service a buyer");
 //        System.out.println("\t\tCurrent revenue in shop:" + totalSum + "BYN");

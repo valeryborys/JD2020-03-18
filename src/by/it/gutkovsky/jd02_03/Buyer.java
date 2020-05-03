@@ -1,15 +1,25 @@
-package by.it.gutkovsky.jd02_02;
+package by.it.gutkovsky.jd02_03;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
+
+    private boolean waitSatet = false;
+
+    public void setWaitSatet(boolean waitSatet) {
+        this.waitSatet = waitSatet;
+    }
 
     private Basket basket;
 
     public Basket getBasket() {
         return basket;
     }
+
+    private static final Semaphore semaphore = new Semaphore(20);
+    private static final Semaphore basketSemaphore = new Semaphore(50);
 
     private final int goodsQuantityInTheBasket = Helper.getRandom(1, 4); // goods quantity in buyers shopping list
     private final boolean pensioner;
@@ -34,10 +44,29 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void run() {
         enterToMarket();
-        takeBacket();
-        chooseGoods(); // in this method buyer choose goods and put them into the basket
-        goToQueue();
-        goOut();
+        try {
+            System.out.println(this + " waiting for a basket");
+            basketSemaphore.acquire(); //  semaphore for baskets: only for 50 acquire it is allowed to perform the program,
+            // the rest will wait till basket will free
+            takeBacket();
+            try {
+                semaphore.acquire(); // semaphore for buyers in shop: only 20 buyers can be in shop simultaneously
+                chooseGoods(); // in this method buyer choose goods and put them into the basket
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } finally {
+                semaphore.release();
+            }
+
+            goToQueue();
+            goOut();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            basketSemaphore.release();
+        }
+
+
     }
 
     private void sleepMethod(int start, int stop, boolean pensioner) {
@@ -90,24 +119,43 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void goToQueue() {
+
+//        Cashier cashier = QueueCashier.getStaff();
+//        if (cashier != null) {
+//            synchronized (cashier) {
+//                cashier.notify();
+//            }
+//        }
+/*
+            try {
+                Cashier.EXCHANGER.exchange(null);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+*/
+
         synchronized (this) {
             QueueBuyers.add(this);
-            try {
-                if (this.isPensioner()) {
-                    System.out.println(this + " added to queue for Pensioners");
-                } else {
-                    System.out.println(this + " added to queue");
+            waitSatet = true;
+            while (waitSatet) {
+                try {
+                    if (this.isPensioner()) {
+                        System.out.println(this + " added to queue for Pensioners");
+                    } else {
+                        System.out.println(this + " added to queue");
+                    }
+                    this.wait();
+                    System.out.println(this + " left the queue");
+                } catch (InterruptedException e) {
+                    throw new RuntimeException("InterruptedException" + Thread.currentThread(), e);
                 }
-                wait();
-                System.out.println(this + " left the queue");
-            } catch (InterruptedException e) {
-                throw new RuntimeException("InterruptedException" + Thread.currentThread(), e);
             }
         }
     }
 
     @Override
     public void goOut() {
+        System.out.println(this + "left the basket");
         System.out.println(this + "left the shop");
         Manager.customerComeOut();
         Manager.closeTheShop();

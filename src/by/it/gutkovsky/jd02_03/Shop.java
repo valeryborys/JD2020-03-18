@@ -1,7 +1,10 @@
-package by.it.gutkovsky.jd02_02;
+package by.it.gutkovsky.jd02_03;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 class Shop {
     public static void main(String[] args) {
@@ -11,27 +14,16 @@ class Shop {
 //        Map<Integer, Integer> mapForChecking = new HashMap<>(); // temporary map for checking/testing the program
 
         int number = 0;
+
+        ExecutorService threadPool = Executors.newFixedThreadPool(5);
+
         List<Thread> threads = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
             Cashier cashier = new Cashier(i);
-            Thread thread = new Thread(cashier);
-            threads.add(thread);
-            thread.start();
+            threadPool.execute(cashier);
         }
 
-         //it was before start task C
-//        while (Manager.shopOpen()) {
-//            for (int time = 0; time < 120; time++) {
-//                int count = Helper.getRandom(0, 2);
-//                for (int i = 0; Manager.shopOpen() && i < count; i++) {
-//                    number++;
-//                    threads.add(createCustomer(number, threads));
-//                }
-//            mapForChecking.put(time, Manager.checkingQuantityInShop()); // temporary method method that helping to test
-//                Helper.sleep(1000);
-//            }
-//        }
-
+        threadPool.shutdown();
 
         // число покупателей изменялось - менее 10 в начале каждой минуты и от 30 до 40 на 30 секунде каждой минуты.
         int timeFactor;
@@ -81,14 +73,12 @@ class Shop {
             }
         }
 
-        Helper.sleep(2000);
+        try {
+            while (!threadPool.awaitTermination(1, TimeUnit.SECONDS)){
 
-        for (Thread t : threads) {
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         System.out.println("Total revenue per working day: " + Cashier.getTotalSum() + "BYN");
