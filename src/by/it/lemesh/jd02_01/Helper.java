@@ -82,4 +82,19 @@ public class Helper {
         }
         return result;
     }
+
+    public static int getCount2(int time) {
+        int result = 0;
+        if (time == 1) result = 20;
+        else if (time < 30) {
+            if (Buyer.buyersOnline - time < 10) result = (time + 10 - Buyer.buyersOnline) * 2;
+        } else if (time < 60) {
+            if (Buyer.buyersOnline <= 70 - time) result = (70 - time - Buyer.buyersOnline) * 2;
+        } else if (time < 90) {
+            if (Buyer.buyersOnline - time + 60 < 10) result = (time - 60 + 10 - Buyer.buyersOnline) * 2;
+        } else {
+            if (Buyer.buyersOnline <= 130 - time) result = (130 - time - Buyer.buyersOnline) * 2;
+        }
+        return result;
+    }
 }

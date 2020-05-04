@@ -7,7 +7,12 @@ abstract class Var implements Operation {
     private static Map<String, Var> vars = new HashMap<>();
     // jd01_11 - taskA part2
 
-    public static Map<String, Var> getVars() {
+    static Var saveVar (String name, Var var){
+        vars.put(name, var);
+        return var;
+    }
+
+    static Map<String, Var> getVars() {
         return vars;
     }
 
@@ -48,10 +53,5 @@ abstract class Var implements Operation {
     @Override
     public String toString() {
         return "Abstract Var{}";
-    }
-
-    static Var saveVar (String name, Var var){
-        vars.put(name, var);
-        return var;
     }
 }
