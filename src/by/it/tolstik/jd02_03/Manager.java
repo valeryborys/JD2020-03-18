@@ -24,15 +24,13 @@ class Manager {
     }
 
     static void buyerQuiteShop() {
-            OUT_COUNT.getAndIncrement();
+        OUT_COUNT.getAndIncrement();
     }
 
-
-
     static int addToTotalSum(int sum) {
-            int temp = TOTAL_SUM.get();
-            temp += sum;
-            return TOTAL_SUM.getAndSet(temp);
+        int temp = TOTAL_SUM.get();
+        temp += sum;
+        return TOTAL_SUM.getAndSet(temp);
     }
 
     static int getTotalSum() {

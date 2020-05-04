@@ -44,10 +44,10 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             QueueBuyers.add(this);
             try {
                 System.out.println(this + "стал в очередь");
-                System.out.println("\t\t\t\tТекущая очередь " + QueueBuyers.deque.size());
+                System.out.println("\t\t\t\tТекущая очередь " + QueueBuyers.queueSize());
                 wait(); //ждем notify();
                 System.out.println(this + "покинул очередь");
-                System.out.println("\t\t\t\t\t\t\t\t\t\tТекущая очередь " + QueueBuyers.deque.size());
+                System.out.println("\t\t\t\t\t\t\t\t\t\tТекущая очередь " + QueueBuyers.queueSize());
             } catch (InterruptedException e) {
                 throw new RuntimeException("Interrupted" + Thread.currentThread(), e);
             }

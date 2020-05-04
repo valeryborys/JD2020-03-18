@@ -9,7 +9,7 @@ class QueueBuyers {
 
     private static int cashiersNeeded = 0;
 
-    static final BlockingDeque<Buyer> deque = new LinkedBlockingDeque<>(30);
+    private static final BlockingDeque<Buyer> deque = new LinkedBlockingDeque<>(30);
 
     static void add(Buyer buyer) {
         try {
@@ -29,7 +29,9 @@ class QueueBuyers {
         return deque.pollFirst();
     }
 
-
+    static int queueSize() {
+        return deque.size();
+    }
 
     public static int getCashNeed() {
         return cashiersNeeded;

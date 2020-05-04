@@ -1,10 +1,12 @@
 package by.it.tolstik.jd02_03;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 class Cashier implements Runnable {
 
     private final String name;
     private boolean needOpened = true;
-    private static int cashiersOpened = 0;
+    private static final AtomicInteger cashiersOpened = new AtomicInteger(0);
 
     Cashier(int number) {
         name = "\tCashier # " + number + ": ";
@@ -14,7 +16,7 @@ class Cashier implements Runnable {
     public void run() {
 
         System.out.println(this + "открылся");
-        cashiersOpened++;
+        cashiersOpened.getAndIncrement();
         while (!Manager.planComplete() && needOpened) {
 
             Buyer extractBuyer = QueueBuyers.extract();
@@ -34,16 +36,14 @@ class Cashier implements Runnable {
                 }
             }
         }
-        synchronized (QueueBuyers.MONITOR) {
-            if (cashiersOpened > QueueBuyers.getCashNeed()) needOpened = false;
-        }
+        if (cashiersOpened.get() > QueueBuyers.getCashNeed()) needOpened = false;
 
         System.out.println(this + "закрылся");
-        cashiersOpened--;
+        cashiersOpened.getAndDecrement();
     }
 
     public static int getCashiersOpened() {
-        return cashiersOpened;
+        return cashiersOpened.get();
     }
 
     @Override
