@@ -11,7 +11,7 @@ class Shop {
         int time = 0;
         int number = 0;
 
-        ExecutorService threadPool = Executors.newFixedThreadPool(5);
+        ExecutorService threadPool = Executors.newFixedThreadPool(8);
 
         while (Manager.shopOpen()) {
             if (Cashier.getCashiersOpened() < QueueBuyers.getCashNeed()) {

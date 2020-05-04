@@ -3,6 +3,11 @@ package by.it.tolstik.jd02_03;
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
     private boolean pensioner;
+    private boolean waitState = false;
+
+    public void setWaitState(boolean waitState) {
+        this.waitState = waitState;
+    }
 
     public Buyer(int number) {
         super("Buyer № " + number + " ");
@@ -42,14 +47,20 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void goToQueue() {
         synchronized (this) {
             QueueBuyers.add(this);
-            try {
-                System.out.println(this + "стал в очередь");
-                System.out.println("\t\t\t\tТекущая очередь " + QueueBuyers.queueSize());
-                wait(); //ждем notify();
-                System.out.println(this + "покинул очередь");
-                System.out.println("\t\t\t\t\t\t\t\t\t\tТекущая очередь " + QueueBuyers.queueSize());
-            } catch (InterruptedException e) {
-                throw new RuntimeException("Interrupted" + Thread.currentThread(), e);
+            waitState = true;
+            while (waitState) {
+                try {
+                    System.out.println(this + "стал в очередь");
+                    Manager.addQueueValue();
+                    System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t" + Manager.getQueueValue());
+                    this.wait(); //ждем notify();
+                    System.out.println(this + "покинул очередь");
+                    Manager.buyerQuiteShop(); //вышел покупатель (счетчик ++)
+                    Manager.leaveQueueValue();
+                    System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t" + Manager.getQueueValue());
+                } catch (InterruptedException e) {
+                    throw new RuntimeException("Interrupted" + Thread.currentThread(), e);
+                }
             }
         }
     }
@@ -57,7 +68,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goOut() {
         System.out.println(this + "вышел из магазина");
-        Manager.buyerQuiteShop(); //вышел покупатель (счетчик ++)
     }
 
     @Override

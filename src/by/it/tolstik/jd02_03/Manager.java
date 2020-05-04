@@ -8,6 +8,7 @@ class Manager {
 
     private static final int PLAN = 100;
     private static final AtomicInteger IN_COUNT = new AtomicInteger(0);
+    private static final AtomicInteger QUEUE_CAPACITY = new AtomicInteger(0);
     private static final AtomicInteger OUT_COUNT = new AtomicInteger(0);
     private static final AtomicInteger TOTAL_SUM = new AtomicInteger(0);
 
@@ -27,14 +28,26 @@ class Manager {
         OUT_COUNT.getAndIncrement();
     }
 
-    static int addToTotalSum(int sum) {
+    static void addToTotalSum(int sum) {
         int temp = TOTAL_SUM.get();
         temp += sum;
-        return TOTAL_SUM.getAndSet(temp);
+        TOTAL_SUM.getAndSet(temp);
     }
 
-    static int getTotalSum() {
+    static void addQueueValue() {
+        QUEUE_CAPACITY.incrementAndGet();
+    }
+
+    static void leaveQueueValue() {
+        QUEUE_CAPACITY.decrementAndGet();
+    }
+
+    static int getQueueValue() {
+        return QUEUE_CAPACITY.get();
+    }
+
+    static void getTotalSum() {
         System.out.println("Сумма выручки магазина: " + TOTAL_SUM.get() + " рублей.");
-        return TOTAL_SUM.get();
+        TOTAL_SUM.get();
     }
 }

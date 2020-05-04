@@ -31,6 +31,7 @@ class Cashier implements Runnable {
                 System.out.println(this + "закончил обслуживать " + extractBuyer);
                 Manager.addToTotalSum(extractBuyer.putGoodsToBacket());
                 synchronized (extractBuyer) {
+                    extractBuyer.setWaitState(false);
                     extractBuyer.notify();
                     System.out.flush();
                 }
