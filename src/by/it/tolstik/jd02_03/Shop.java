@@ -8,6 +8,9 @@ class Shop {
     public static void main(String[] args) {
 
         System.out.println("Магазин открылся");
+
+        Backet.initializationBacket();
+
         int time = 0;
         int number = 0;
 
@@ -31,17 +34,15 @@ class Shop {
 
         threadPool.shutdown();
 
-            try {
-                while (!threadPool.awaitTermination(1, TimeUnit.SECONDS)) {
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        try {
+            while (!threadPool.awaitTermination(1, TimeUnit.SECONDS)) {
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Manager.getTotalSum();
         System.out.println("Магазин закрылся. Кол-во посетителей: " + number);
     }
-
-
 }
 
 

@@ -25,7 +25,9 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         try {
             System.out.println(this + "ждет корзину.");
             backetSemaphore.acquire();
+            Backet extract = Backet.extract();
             takeBacket();
+            System.out.println(extract);
             enterToMarket(); //вошел в магазин
             try {
                 semaphore.acquire();
@@ -37,6 +39,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             }
             goToQueue();
             goOut(); //вышел из магазина
+            Backet.add(extract);
+            System.out.println(extract);
         } catch (InterruptedException e) {
             throw new RuntimeException();
         } finally {
@@ -55,7 +59,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void chooseGoods() {
-        takeBacket(); //взял корзину
         System.out.println(this + "начал выбирать товары"); //начал выбирать товары
         int timeout;
         if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Manager.K_FOR_OLDER_PEOPLE);//коэф пенсионера
@@ -85,7 +88,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void goOut() {
-        System.out.println(this + "вышел из магазина");
+        System.out.print(this + "вышел из магазина и вернул на место ");
         Manager.buyerQuiteShop(); //вышел покупатель (счетчик ++)
 
     }
@@ -99,7 +102,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void takeBacket() {
-        System.out.println(this + "взял корзину");
+        System.out.print(this + "взял корзину ");
     }
 
     @Override
