@@ -1,33 +1,34 @@
 package by.it.tolstik.jd02_03;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
 
 class QueueBuyers {
 
-    public final static Object MONITOR = new Object();
+    static final Object MONITOR = new Object();
+
     private static int cashiersNeeded = 0;
 
-    static final Deque<Buyer> dequeUsualBuyers = new ArrayDeque<>();
-    static final Deque<Buyer> dequeForPensioner = new ArrayDeque<>();
+    static final BlockingDeque<Buyer> deque = new LinkedBlockingDeque<>(30);
 
-    static synchronized void add(Buyer buyer) {
-        dequeUsualBuyers.addLast(buyer);
+    static void add(Buyer buyer) {
+        try {
+            deque.putLast(buyer);
+        } catch (InterruptedException e) {
+            throw new RuntimeException();
+        }
         setCashiers();
     }
 
-    static synchronized void addPens(Buyer buyer) {
-        dequeForPensioner.addLast(buyer);
-        setCashiers();
+    static Buyer extract() {
+        for (Buyer buyer : deque) {
+            if (buyer.isPensioner()) {
+                return deque.remove();
+            }
+        }
+        return deque.pollFirst();
     }
 
-    static synchronized Buyer extract() {
-        return dequeUsualBuyers.pollFirst();
-    }
-
-    static synchronized Buyer extractPens() {
-        return dequeForPensioner.pollFirst();
-    }
 
 
     public static int getCashNeed() {
@@ -35,11 +36,11 @@ class QueueBuyers {
     }
 
     private static void setCashiers() {
-        if ((dequeUsualBuyers.size() + dequeForPensioner.size()) == 0) cashiersNeeded = 0;
-        else if ((dequeUsualBuyers.size() + dequeForPensioner.size()) <= 5) cashiersNeeded = 1;
-        else if ((dequeUsualBuyers.size() + dequeForPensioner.size()) <= 10) cashiersNeeded = 2;
-        else if ((dequeUsualBuyers.size() + dequeForPensioner.size()) <= 15) cashiersNeeded = 3;
-        else if ((dequeUsualBuyers.size() + dequeForPensioner.size()) <= 20) cashiersNeeded = 4;
+        if (deque.size() == 0) cashiersNeeded = 0;
+        else if (deque.size() <= 5) cashiersNeeded = 1;
+        else if (deque.size() <= 10) cashiersNeeded = 2;
+        else if (deque.size() <= 15) cashiersNeeded = 3;
+        else if (deque.size() <= 20) cashiersNeeded = 4;
         else cashiersNeeded = 5;
     }
 }

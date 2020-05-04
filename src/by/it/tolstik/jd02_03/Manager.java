@@ -32,17 +32,7 @@ class Manager {
         }
     }
 
-    static int buyerStayAtQueue() {
-        synchronized (MONITOR) {
-            return ++QUEUE_CAPACITY;
-        }
-    }
 
-    static int buyerLeaveFromQueue() {
-        synchronized (MONITOR) {
-            return --QUEUE_CAPACITY;
-        }
-    }
 
     static int addToTotalSum(int sum) {
         synchronized (MONITOR) {
