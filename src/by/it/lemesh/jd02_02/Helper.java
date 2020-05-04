@@ -6,10 +6,6 @@ public class Helper {
     private static Random gen = new Random();
     static Map<String, Integer> map = new HashMap<>();
     static List<String> keysList = new ArrayList<>();
-    private static int base1 = 8;
-    private static int base2 = 12;
-    private static int base3 = 8;
-    private static int base4 = 12;
 
     private Helper() {
     }
@@ -44,34 +40,19 @@ public class Helper {
 
     public static int getCount(int time) {
         int result = 0;
-        if (time < 2)
-            result = 5;
+        if (time == 1) result = 20;
         else if (time < 30) {
-            if (Buyer.buyersOnline - time < 10) {
-                result = base1 - Buyer.buyersOnline + time;
-                base1++;
-            } else
-                result = 10;
+            int buyersOnline = Manager.getOnlineBuyers();
+            if (buyersOnline - time < 10) result = (time + 10 - buyersOnline) * 2;
         } else if (time < 60) {
-            if (time < 35) {
-                result = base2--;
-            } else if (Buyer.buyersOnline < (70 - time)) {
-                result = 7;
-            } else
-                result = 1;
+            int buyersOnline = Manager.getOnlineBuyers();
+            if (buyersOnline <= 70 - time) result = (70 - time - buyersOnline) * 2;
         } else if (time < 90) {
-            if (Buyer.buyersOnline - time + 60 < 14) {
-                result = base3 - Buyer.buyersOnline + time - 60;
-                if (time < 75) base3++;
-            } else
-                result = 10;
+            int buyersOnline = Manager.getOnlineBuyers();
+            if (buyersOnline - time + 60 < 10) result = (time - 60 + 10 - buyersOnline) * 2;
         } else {
-            if (time < 95) {
-                result = base4--;
-            } else if (Buyer.buyersOnline < (130 - time)) {
-                result = 7;
-            } else
-                result = 1;
+            int buyersOnline = Manager.getOnlineBuyers();
+            if (buyersOnline <= 130 - time) result = (130 - time - buyersOnline) * 2;
         }
         return result;
     }
