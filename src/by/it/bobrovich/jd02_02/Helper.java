@@ -1,10 +1,8 @@
-package by.it.bobrovich.jd02_01;
+package by.it.bobrovich.jd02_02;
 
 import java.util.Random;
 
 public class Helper {
-    public static volatile int count;
-
 
     private static Random generator = new Random();
 
@@ -16,7 +14,7 @@ public class Helper {
     }
     public static void sleep(int timeout){
         try{
-            Thread.sleep(timeout/Manager.K_SPEED);
+            Thread.sleep(timeout/ Manager.K_SPEED);
         } catch (InterruptedException e){
             throw new RuntimeException("Interrupted" + Thread.currentThread(), e);
         }

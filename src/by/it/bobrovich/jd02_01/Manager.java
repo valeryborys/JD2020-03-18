@@ -17,5 +17,5 @@ public class Manager {
         }
 
 
-    static final int K_SPEED = 1000;
+    static final int K_SPEED = 100;
 }

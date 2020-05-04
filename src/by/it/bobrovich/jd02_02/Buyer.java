@@ -1,4 +1,4 @@
-package by.it.bobrovich.jd02_01;
+package by.it.bobrovich.jd02_02;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +10,11 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
     public Buyer(int number, boolean isPensioneer) {
         super("Buyer №" + number + " " + isPensioneer + " ");
         this.isPensioneer = isPensioneer;
+        Manager.addBuyer();
     }
 
     @Override
     public void run() {
-        Helper.count++;
         enterToMarket();
         breakTime(this.isPensioneer);
         Backet backet = takeBacket();
@@ -22,8 +22,8 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
         chooseGoods();
         breakTime(this.isPensioneer);
         putGoodsToBacket(backet);
+        goToQueue();
         goOut();
-        Helper.count--;
     }
 
     @Override
@@ -57,8 +57,23 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
     }
 
     @Override
+    public void goToQueue() {
+        synchronized (this){
+            QueueBuyers.add(this);
+            try {
+                System.out.println(this + " added to queue");
+                wait();
+                System.out.println(this + " leave the queue");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
     public void goOut() {
         System.out.println(this + "leave the shop");
+        Manager.leaveBuyer();
     }
 
     public void breakTime(boolean isPensioneer) {
