@@ -9,6 +9,6 @@ public class ParserTest {
     public void checkScalarsPlainExpression() throws CalcException {
         //A=2+5.3 = 7.3
         double expected = 7.3;
-        //Parser 
+        //Parser
     }
 }
