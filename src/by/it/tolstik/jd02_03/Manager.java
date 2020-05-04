@@ -1,47 +1,42 @@
 package by.it.tolstik.jd02_03;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 class Manager {
 
     static final double K_FOR_OLDER_PEOPLE = 1.5;
 
-    static final Object MONITOR = new Object();
-
     private static final int PLAN = 100;
-    private volatile static int IN_COUNT = 0;
-    private volatile static int OUT_COUNT = 0;
-    private volatile static int QUEUE_CAPACITY = 0;
-    private volatile static int TOTAL_SUM = 0;
+    private static final AtomicInteger IN_COUNT = new AtomicInteger(0);
+    private static final AtomicInteger OUT_COUNT = new AtomicInteger(0);
+    private static final AtomicInteger TOTAL_SUM = new AtomicInteger(0);
 
     static boolean shopOpen() {
-        return IN_COUNT < PLAN;
+        return IN_COUNT.get() < PLAN;
     }
 
     static boolean planComplete() {
-        return OUT_COUNT == PLAN;
+        return OUT_COUNT.get() == PLAN;
     }
 
     static void buyerEnterToShop() {
-        synchronized (MONITOR) {
-            IN_COUNT++;
-        }
+        IN_COUNT.getAndIncrement();
     }
 
     static void buyerQuiteShop() {
-        synchronized (MONITOR) {
-            OUT_COUNT++;
-        }
+            OUT_COUNT.getAndIncrement();
     }
 
 
 
     static int addToTotalSum(int sum) {
-        synchronized (MONITOR) {
-            return TOTAL_SUM += sum;
-        }
+            int temp = TOTAL_SUM.get();
+            temp += sum;
+            return TOTAL_SUM.getAndSet(temp);
     }
 
     static int getTotalSum() {
-        System.out.println("Сумма выручки магазина: " + TOTAL_SUM + " рублей.");
-        return TOTAL_SUM;
+        System.out.println("Сумма выручки магазина: " + TOTAL_SUM.get() + " рублей.");
+        return TOTAL_SUM.get();
     }
 }
