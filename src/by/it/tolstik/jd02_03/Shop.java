@@ -1,13 +1,11 @@
 package by.it.tolstik.jd02_03;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 class Shop {
     public static void main(String[] args) {
-
 
         System.out.println("Магазин открылся");
         int time = 0;
@@ -16,12 +14,9 @@ class Shop {
         ExecutorService threadPool = Executors.newFixedThreadPool(5);
 
         while (Manager.shopOpen()) {
-            synchronized (QueueBuyers.MONITOR) {
-                if (Cashier.getCashiersOpened() < QueueBuyers.getCashNeed()) {
-                    Cashier cashier = new Cashier(Cashier.getCashiersOpened() + 1);
-                    threadPool.execute(cashier);
-//TODO 2:09:49
-                }
+            if (Cashier.getCashiersOpened() < QueueBuyers.getCashNeed()) {
+                Cashier cashier = new Cashier(Cashier.getCashiersOpened() + 1);
+                threadPool.execute(cashier);
             }
 
             Buyer buyer = new Buyer(++number);
@@ -33,6 +28,14 @@ class Shop {
             else Helper.sleep(1000, 100);
         }
 
+        threadPool.shutdown();
+
+            try {
+                while (!threadPool.awaitTermination(1, TimeUnit.SECONDS)) {
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         Manager.getTotalSum();
         System.out.println("Магазин закрылся. Кол-во посетителей: " + number);
     }
