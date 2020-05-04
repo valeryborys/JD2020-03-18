@@ -11,7 +11,7 @@ class Shop {
         int time = 0;
         int number = 0;
 
-        ExecutorService threadPool = Executors.newFixedThreadPool(8);
+        ExecutorService threadPool = Executors.newFixedThreadPool(5);
 
         while (Manager.shopOpen()) {
             if (Cashier.getCashiersOpened() < QueueBuyers.getCashNeed()) {
@@ -26,6 +26,7 @@ class Shop {
             else if (time <= 50) Helper.sleep(1000, 100);
             else if (time <= 60) Helper.sleep(3000, 100);
             else Helper.sleep(1000, 100);
+
         }
 
         threadPool.shutdown();

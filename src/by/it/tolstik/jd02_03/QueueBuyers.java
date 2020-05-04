@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 class QueueBuyers {
 
-    private static AtomicInteger cashiersNeeded = new AtomicInteger(0);
+    private static final AtomicInteger cashiersNeeded = new AtomicInteger(0);
 
     private static final BlockingDeque<Buyer> deque = new LinkedBlockingDeque<>(30);
 
@@ -26,6 +26,10 @@ class QueueBuyers {
             }
         }
         return deque.pollFirst();
+    }
+
+    static int getQueueValue() {
+        return deque.size();
     }
 
     public static int getCashNeed() {

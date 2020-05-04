@@ -1,9 +1,14 @@
 package by.it.tolstik.jd02_03;
 
+import java.util.concurrent.Semaphore;
+
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
     private boolean pensioner;
     private boolean waitState = false;
+
+    private static final Semaphore semaphore = new Semaphore(20);
+    private static final Semaphore backetSemaphore = new Semaphore(50);
 
     public void setWaitState(boolean waitState) {
         this.waitState = waitState;
@@ -16,10 +21,28 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void run() {
-        enterToMarket(); //вошел в магазин
-        chooseGoods(); //взял корзину, начал выбирать товары, положил товары в корзину, завершил выбирать товары
-        goToQueue();
-        goOut(); //вышел из магазина
+
+        try {
+            System.out.println(this + "ждет корзину.");
+            backetSemaphore.acquire();
+            takeBacket();
+            enterToMarket(); //вошел в магазин
+            try {
+                semaphore.acquire();
+                chooseGoods(); //взял корзину, начал выбирать товары, положил товары в корзину, завершил выбирать товары
+            } catch (InterruptedException e) {
+                throw new RuntimeException();
+            } finally {
+                semaphore.release();
+            }
+            goToQueue();
+            goOut(); //вышел из магазина
+        } catch (InterruptedException e) {
+            throw new RuntimeException();
+        } finally {
+            backetSemaphore.release();
+        }
+
 
     }
 
@@ -51,13 +74,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
             while (waitState) {
                 try {
                     System.out.println(this + "стал в очередь");
-                    Manager.addQueueValue();
-                    System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t" + Manager.getQueueValue());
                     this.wait(); //ждем notify();
                     System.out.println(this + "покинул очередь");
-                    Manager.buyerQuiteShop(); //вышел покупатель (счетчик ++)
-                    Manager.leaveQueueValue();
-                    System.out.println("\t\t\t\t\t\t\t\t\t\t\t\t" + Manager.getQueueValue());
                 } catch (InterruptedException e) {
                     throw new RuntimeException("Interrupted" + Thread.currentThread(), e);
                 }
@@ -68,6 +86,8 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goOut() {
         System.out.println(this + "вышел из магазина");
+        Manager.buyerQuiteShop(); //вышел покупатель (счетчик ++)
+
     }
 
     @Override
@@ -87,7 +107,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         int timeout;
         if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Manager.K_FOR_OLDER_PEOPLE);//коэф пенсионера
         else timeout = Helper.getRandom(500, 2000);
-        Helper.sleep(timeout,10);
+        Helper.sleep(timeout, 10);
         //загрузка в тележку рандомных продуктов из Goods
         int count = Helper.getRandom(1, 4);
         int sum = 0; //инициализация суммы чека

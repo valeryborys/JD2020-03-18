@@ -8,7 +8,6 @@ class Manager {
 
     private static final int PLAN = 100;
     private static final AtomicInteger IN_COUNT = new AtomicInteger(0);
-    private static final AtomicInteger QUEUE_CAPACITY = new AtomicInteger(0);
     private static final AtomicInteger OUT_COUNT = new AtomicInteger(0);
     private static final AtomicInteger TOTAL_SUM = new AtomicInteger(0);
 
@@ -32,18 +31,6 @@ class Manager {
         int temp = TOTAL_SUM.get();
         temp += sum;
         TOTAL_SUM.getAndSet(temp);
-    }
-
-    static void addQueueValue() {
-        QUEUE_CAPACITY.incrementAndGet();
-    }
-
-    static void leaveQueueValue() {
-        QUEUE_CAPACITY.decrementAndGet();
-    }
-
-    static int getQueueValue() {
-        return QUEUE_CAPACITY.get();
     }
 
     static void getTotalSum() {
