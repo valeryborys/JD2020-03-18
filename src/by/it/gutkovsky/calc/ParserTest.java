@@ -44,5 +44,37 @@ public class ParserTest {
         double actual = Double.parseDouble(varB1.toString());
         assertEquals(expected,actual,1e-8);
     }
+    @Test
+    public void checkCalcWithVectorsAdd() throws Exception {
+        double [] expected = {2,4,6};
+        Parser parser = new Parser();
+        Var varV1 = parser.calc("V={1,2,3}+{1,2,3}");
+        double[] actual = ((Vector) varV1).getValue();
+        assertArrayEquals(expected,actual,1e-8);
+    }
+    @Test
+    public void checkCalcWithVectorsSub() throws Exception {
+        double [] expected = {2,4,6};
+        Parser parser = new Parser();
+        Var varV2 = parser.calc("V={3,6,9}-{1,2,3}");
+        double[] actual = ((Vector) varV2).getValue();
+        assertArrayEquals(expected,actual,1e-8);
+    }
+    @Test
+    public void checkCalcWithVectorsMul() throws Exception {
+        double expected = 42.0;
+        Parser parser = new Parser();
+        Var varV3 = parser.calc("V={3,6,9}*{1,2,3}");
+        double actual = Double.parseDouble(varV3.toString());
+        assertEquals(expected,actual,1e-8);
+    }
+    @Test
+    public void checkCalcWithVectorsDiv() throws Exception {
+        double[] expected = {1.5,3.0,4.5};
+        Parser parser = new Parser();
+        Var varV4 = parser.calc("V = {3,6,9}/2");
+        double[] actual = ((Vector) varV4).getValue();
+        assertArrayEquals(expected,actual,1e-8);
+    }
 
 }
