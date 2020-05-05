@@ -22,7 +22,7 @@ class Cashier implements Runnable {
                 synchronized (buyer){
                     buyer.notify();
                 }
-                //Helper.sleep(1000);
+                Helper.sleep(2000);
             } else{
                 addToQueue();
             }

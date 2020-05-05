@@ -52,6 +52,8 @@ public class Manager {
         }
     }
 
+    //попробывать проверку на колличество полкупателей в очереде,
+    //если один ---> слип на 5 сек либо здесь, либо в потоке
     static void closeCashiers() {
         if (QueueCashier.getCashiers() > 0) {
             Cashier cashier = QueueCashier.extact();
