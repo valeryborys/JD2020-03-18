@@ -41,10 +41,9 @@ class Parser {
         expression = expression.replace("(", "").replace(")", "");
         List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
         List<String> operations = new ArrayList<>();
-
-        Matcher matcher1 = Pattern.compile(Patterns.OPERATION).matcher(expression);
-        while (matcher1.find()) {
-            operations.add(matcher1.group());
+        Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
+        while (matcher.find()) {
+            operations.add(matcher.group());
         }
         while (operations.size() > 0) {
             int index = getIndexCurrentOperation(operations);
@@ -61,12 +60,15 @@ class Parser {
         Pattern pattern = Pattern.compile(Patterns.OPERATION_IN_BRACERS);
         Matcher matcher = pattern.matcher(expression);
 
-        while (matcher.find()) {
-            expression = expression.replace(matcher.group(), calculateSimpleExpression(matcher.group()));
-            matcher.reset();
-            matcher = pattern.matcher(expression);
+        if (!expression.matches(Patterns.OPERATION_IN_BRACERS)) {
+            return expression;
+        } else {
+            matcher.find();
+            String buf = calculateSimpleExpression(matcher.group());
+            expression = expression.replace(matcher.group(), buf);
+            expression = getSimpleExpression(expression);
+            expression = getSimpleExpression(expression);
         }
-        expression = calculateSimpleExpression(expression);
         return expression;
     }
 
