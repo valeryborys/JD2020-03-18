@@ -9,11 +9,11 @@ import static org.junit.Assert.*;
 public class ParserTestScalar {
     @Test
     public void createAndPrintScalar() throws CalcExeption {
-        double expected = 85.55;
+        String expected = "85.55";
         Parser parser = new Parser();
         Var calc = parser.calc("A=85.55");
-        double v = Double.parseDouble(calc.toString());
-        assertEquals(expected,v,1e-8);
+        String v = calc.toString();
+        assertEquals(expected, v);
 
     }
 
@@ -85,7 +85,7 @@ public class ParserTestScalar {
     public void checkCalcScalarAddMatrix() throws CalcExeption {
         double[][] expected = {{11.0,12.0,13.0},{17.0,18.0,19.0},{14.5,15.1,16}};
         Parser parser = new Parser();
-        Var calc = parser.calc("Z={10+{1, 2,3}, {7 ,8.0 ,9},{4.5,5.1, 6.0}}");
+        Var calc = parser.calc("Z=10+{{1, 2,3}, {7 ,8.0 ,9},{4.5,5.1, 6.0}}");
         double[][] v = ((Matrix) calc).getValue();
         assertTrue(Arrays.deepEquals(expected, v));
     }
@@ -93,7 +93,7 @@ public class ParserTestScalar {
     public void checkCalcScalarSubMatrix() throws CalcExeption {
         double[][] expected = {{9,8,7},{3,2,1},{5.5,5,4}};
         Parser parser = new Parser();
-        Var calc = parser.calc("Z={10-{1, 2,3}, {7 ,8.0 ,9},{4.5,5, 6.0}}");
+        Var calc = parser.calc("Z=10-{{1, 2,3}, {7 ,8.0 ,9},{4.5,5, 6.0}}");
         double[][] v = ((Matrix) calc).getValue();
         assertTrue(Arrays.deepEquals(expected, v));
     }
@@ -101,7 +101,7 @@ public class ParserTestScalar {
     public void checkCalcScalarMulMatrix() throws CalcExeption {
         double[][] expected = {{10.0,20.0,30.0},{70.0,80.0,90.0},{45,50,60}};
         Parser parser = new Parser();
-        Var calc = parser.calc("Z={10*{1, 2,3}, {7 ,8.0 ,9},{4.5,5, 6.0}}");
+        Var calc = parser.calc("Z=10*{{1, 2,3}, {7 ,8.0 ,9},{4.5,5, 6.0}}");
         double[][] v = ((Matrix) calc).getValue();
         assertTrue(Arrays.deepEquals(expected, v));
     }

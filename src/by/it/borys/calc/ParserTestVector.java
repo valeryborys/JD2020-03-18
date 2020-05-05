@@ -9,11 +9,11 @@ public class ParserTestVector {
 
     @Test
     public void createAndPrintVector() throws CalcExeption {
-        double[] expected = {78.8, 8.0, 9.85};
+        String expected = "{78.8, 8.0, 9.85}";
         Parser parser = new Parser();
         Var calc = parser.calc("{78.8  ,  8, 9.85}");
-        double[] v = ((Vector)calc).getValue();
-        assertArrayEquals(expected,v,1e-8);
+        String v = calc.toString();
+        assertEquals(expected,v);
     }
     @Test
     public void checkCalcAddVectors() throws CalcExeption {

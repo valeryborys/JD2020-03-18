@@ -4,17 +4,16 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ParserTestMatrix {
     @Test
     public void createAndPrintMatrix() throws CalcExeption {
-        double[][] expected = {{1, 2, 3}, {7, 8, 9}, {4.3, 5.1, 6}};
+        String expected = "{{1.0, 2.0, 3.0}, {7.0, 8.0, 9.0}, {4.3, 5.1, 6.0}}";
         Parser parser = new Parser();
         Var calc = parser.calc("Z={{1, 2,3}, {7 ,8.0 ,9},{4.3,5.1, 6.0}}");
-        double[][] v = ((Matrix) calc).getValue();
-        assertTrue(Arrays.deepEquals(expected, v));
+        String v = calc.toString();
+        assertEquals(expected, v);
     }
     @Test
     public void checkCalcAddMatrix() throws CalcExeption {
