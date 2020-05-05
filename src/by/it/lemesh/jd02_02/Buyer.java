@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Buyer extends Thread implements IBuyer, IUseBasket {
-    public static int buyersOnline;
     boolean pensioner;
     Map<String, Integer> goods = new HashMap<>();
 
@@ -59,13 +58,15 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
     public void toQueue() {
         synchronized (this) {
             QueueBuyers.add(this);
+            System.out.println(this + " added to queue");
+            Manager.cashierControl();
             try {
-                System.out.println(this + " added to queue");
                 wait();
 //                System.out.println(this + " left the queue");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
         }
     }
 

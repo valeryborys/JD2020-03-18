@@ -1,10 +1,23 @@
 package by.it.gutkovsky.jd02_02;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
-    private int goodsQuantityInTheBasket = 4; // goods quantity in buyers shopping list
-    private boolean pensioner;
+    private Basket basket;
+
+    public Basket getBasket() {
+        return basket;
+    }
+
+    private final int goodsQuantityInTheBasket = Helper.getRandom(1, 4); // goods quantity in buyers shopping list
+    private final boolean pensioner;
     private static final double PENSIONER_FACTOR = 1.5;
+
+    public boolean isPensioner() {
+        return pensioner;
+    }
 
     public Buyer(int number) {
         super("Buyer № " + number + " ");
@@ -40,32 +53,37 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void enterToMarket() {
         System.out.println(this + "enter to shop");
-
     }
 
     @Override
     public void takeBacket() {
         sleepMethod(500, 2000, pensioner);
+        if (basket == null) {
+            basket = new Basket();
+        }
         System.out.println(this + "take a basket");
     }
 
     @Override
     public void chooseGoods() {
         System.out.println(this + "started to choose goods");
+        Map<String, Double> shoppingList = new HashMap<>();
+
         for (int i = 0; i < goodsQuantityInTheBasket; i++) {
             sleepMethod(500, 2000, pensioner);
 
             //choose goods from goods shelf
             String goodsName = "Product" + Helper.getRandom(1, GoodsShelf.LIST_OF_GOODS_ON_SHELF.size()); // key for Map goodsOnShelf - chosenGoods
-            int price = GoodsShelf.LIST_OF_GOODS_ON_SHELF.get(goodsName); // value for Map chosenGoods
-
+            double price = GoodsShelf.LIST_OF_GOODS_ON_SHELF.get(goodsName); // value for Map chosenGoods
+            shoppingList.put(goodsName, price); // add chosen goods into private shopping list
             putGoodsToBacket(goodsName, price); // call the method which puts goods into the basket
         }
         System.out.println(this + "finished to choose goods");
+        basket.setBasketList(shoppingList);
     }
 
     @Override
-    public void putGoodsToBacket(String goodsName, int price) {
+    public void putGoodsToBacket(String goodsName, double price) {
         sleepMethod(500, 2000, pensioner);
         System.out.println(this + "put " + goodsName + " to the basket, price for it is " + price + " BYN");
     }
@@ -75,7 +93,11 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         synchronized (this) {
             QueueBuyers.add(this);
             try {
-                System.out.println(this + " added to queue");
+                if (this.isPensioner()) {
+                    System.out.println(this + " added to queue for Pensioners");
+                } else {
+                    System.out.println(this + " added to queue");
+                }
                 wait();
                 System.out.println(this + " left the queue");
             } catch (InterruptedException e) {
@@ -88,6 +110,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     public void goOut() {
         System.out.println(this + "left the shop");
         Manager.customerComeOut();
+        Manager.closeTheShop();
     }
 
     @Override
