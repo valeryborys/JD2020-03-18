@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-public class ParserTest {
+public class Test_Parser {
 
     // check Scalars
 
@@ -89,24 +89,24 @@ public class ParserTest {
     public void checkCalcWithVectorsSubScalar() throws Exception {
         double[] expected = {1.0,4.0,7.0};
         Parser parser = new Parser();
-        Var varV4 = parser.calc("V = {3,6,9}-2");
-        double[] actual = ((Vector) varV4).getValue();
+        Var varV5 = parser.calc("V = {3,6,9}-2");
+        double[] actual = ((Vector) varV5).getValue();
         assertArrayEquals(expected,actual,1e-8);
     }
     @Test
     public void checkCalcWithVectorsMulScalar() throws Exception {
         double[] expected = {6.0,12.0,18.0};
         Parser parser = new Parser();
-        Var varV4 = parser.calc("V = {3,6,9}*2");
-        double[] actual = ((Vector) varV4).getValue();
+        Var varV6 = parser.calc("V = {3,6,9}*2");
+        double[] actual = ((Vector) varV6).getValue();
         assertArrayEquals(expected,actual,1e-8);
     }
     @Test
     public void checkCalcWithVectorsDiv() throws Exception {
         double[] expected = {1.5,3.0,4.5};
         Parser parser = new Parser();
-        Var varV4 = parser.calc("V = {3,6,9}/2");
-        double[] actual = ((Vector) varV4).getValue();
+        Var varV7 = parser.calc("V = {3,6,9}/2");
+        double[] actual = ((Vector) varV7).getValue();
         assertArrayEquals(expected,actual,1e-8);
     }
 
@@ -118,24 +118,24 @@ public class ParserTest {
         //Object matrix = c.newInstance(new Object[]{new double[][]{{1, 2}, {3, 4}}});
         double[][] expected = {{2.0, 4.0, 6.0}, {8.0, 10.0, 12.0}, {14.0, 16.0, 18.0}};
         Parser parser = new Parser();
-        Var varV4 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} + {{1,2,3},{4,5,6},{7,8,9}}");
-        double[][] actual = ((Matrix) varV4).getValue();
+        Var varM1 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} + {{1,2,3},{4,5,6},{7,8,9}}");
+        double[][] actual = ((Matrix) varM1).getValue();
         assertTrue(Arrays.deepEquals(expected,actual));
     }
     @Test
     public void checkCalcWithMatrixSubMatrix() throws Exception {
         double[][] expected = {{0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}};
         Parser parser = new Parser();
-        Var varV4 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} - {{1,2,3},{4,5,6},{7,8,9}}");
-        double[][] actual = ((Matrix) varV4).getValue();
+        Var varM2 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} - {{1,2,3},{4,5,6},{7,8,9}}");
+        double[][] actual = ((Matrix) varM2).getValue();
         assertTrue(Arrays.deepEquals(expected,actual));
     }
     @Test
     public void checkCalcWithMatrixMulMatrix() throws Exception {
         double[][] expected = {{30.0, 36.0, 42.0}, {66.0, 81.0, 96.0}, {102.0, 126.0, 150.0}};
         Parser parser = new Parser();
-        Var varV4 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} * {{1,2,3},{4,5,6},{7,8,9}}");
-        double[][] actual = ((Matrix) varV4).getValue();
+        Var varM3 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} * {{1,2,3},{4,5,6},{7,8,9}}");
+        double[][] actual = ((Matrix) varM3).getValue();
         assertTrue(Arrays.deepEquals(expected,actual));
     }
     //2 Matrix with Vector
@@ -143,8 +143,8 @@ public class ParserTest {
     public void checkCalcWithMatrixMulVector() throws Exception {
         double[] expected = {14.0, 32.0, 50.0};
         Parser parser = new Parser();
-        Var varV4 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} * {1, 2, 3}");
-        double[] actual = ((Vector) varV4).getValue();
+        Var varM4 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} * {1, 2, 3}");
+        double[] actual = ((Vector) varM4).getValue();
         assertArrayEquals(expected,actual,1e-8);
     }
     // Matrix with Scalar
@@ -153,32 +153,32 @@ public class ParserTest {
     public void checkCalcWithMatrixAddScalar() throws Exception {
         double[][] expected = {{0.0, 1.0, 2.0}, {3.0, 4.0, 5.0}, {6.0, 7.0, 8.0}};
         Parser parser = new Parser();
-        Var varV4 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} +-1");
-        double[][] actual = ((Matrix) varV4).getValue();
+        Var varM5 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} +-1");
+        double[][] actual = ((Matrix) varM5).getValue();
         assertTrue(Arrays.deepEquals(expected,actual));
     }
     @Test
     public void checkCalcWithMatrixSubScalar() throws Exception {
         double[][] expected = {{2.0, 3.0, 4.0}, {5.0, 6.0, 7.0}, {8.0, 9.0, 10.0}};
         Parser parser = new Parser();
-        Var varV4 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} - -1");
-        double[][] actual = ((Matrix) varV4).getValue();
+        Var varM6 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} - -1");
+        double[][] actual = ((Matrix) varM6).getValue();
         assertTrue(Arrays.deepEquals(expected,actual));
     }
     @Test
     public void checkCalcWithMatrixMulScalar() throws Exception {
         double[][] expected = {{-1.0, -2.0, -3.0}, {-4.0, -5.0, -6.0}, {-7.0, -8.0, -9.0}};
         Parser parser = new Parser();
-        Var varV4 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} * -1");
-        double[][] actual = ((Matrix) varV4).getValue();
+        Var varM7 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} * -1");
+        double[][] actual = ((Matrix) varM7).getValue();
         assertTrue(Arrays.deepEquals(expected,actual));
     }
     @Test
     public void checkCalcWithMatrixDivScalar() throws Exception {
         double[][] expected = {{-1.0, -2.0, -3.0}, {-4.0, -5.0, -6.0}, {-7.0, -8.0, -9.0}};
         Parser parser = new Parser();
-        Var varV4 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} / -1");
-        double[][] actual = ((Matrix) varV4).getValue();
+        Var varM8 = parser.calc("W = {{1,2,3},{4,5,6},{7,8,9}} / -1");
+        double[][] actual = ((Matrix) varM8).getValue();
         assertTrue(Arrays.deepEquals(expected,actual));
     }
 
