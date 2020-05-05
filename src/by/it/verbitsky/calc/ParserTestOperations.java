@@ -5,8 +5,8 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class ParserTestScalarOperations {
-    CalcLogger logger = new CalcLogger(CalcMemoryManager.getFullPath(ParserTestScalarOperations.class, CalcFiles.LOG_FILENAME));
+public class ParserTestOperations {
+    CalcLogger logger = new CalcLogger(CalcMemoryManager.getFullPath(ParserTestOperations.class, CalcFiles.LOG_FILENAME));
 
     @Test
     public void checkCalcSum() throws Exception {
@@ -56,13 +56,13 @@ public class ParserTestScalarOperations {
     public void checkCalcDivByZero() {
         System.out.println("Test scalar div by zero");
         Parser parser = new Parser();
-        String textError = "ERROR: Operation 'div' impossible  with arguments: 20.0 and 0.0\n";
+        Class<CalcException> errorClass = CalcException.class;
         try {
             parser.calc("20/0", logger);
             fail("Exception not thrown");
         } catch (CalcException e) {
-            System.out.println("Passed: error was thrown: division by 0");
-            assertEquals(textError, e.getMessage());
+            System.out.println("Passed. Class of error was thrown: " + e.getClass());
+            assertEquals(e.getClass(), errorClass);
         }
     }
 }
