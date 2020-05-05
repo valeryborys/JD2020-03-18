@@ -9,7 +9,7 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
     Backet backet;
 
     public Buyer(int number, boolean isPensioneer) {
-        super("Buyer №" + number + " " + isPensioneer + " ");
+        super("Buyer №" + number + " ");
         this.isPensioneer = isPensioneer;
         Manager.addBuyer();
     }
@@ -93,6 +93,9 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public String toString() {
-        return getName();
+        if (isPensioneer)
+            return getName() + "pensioneer ";
+        else
+            return getName();
     }
 }

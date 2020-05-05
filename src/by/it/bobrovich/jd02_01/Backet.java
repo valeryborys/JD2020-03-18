@@ -4,17 +4,17 @@ package by.it.bobrovich.jd02_01;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Backet {
+class Backet {
     private List<String> listGoods = new ArrayList<>();
 
-    public Backet() {
+    Backet() {
     }
 
-    public void addGoods(String goods) {
+    void addGoods(String goods) {
         listGoods.add(goods);
     }
 
-    public List<String> getListGoods() {
+    List<String> getListGoods() {
         return listGoods;
     }
 }

@@ -3,18 +3,18 @@ package by.it.bobrovich.jd02_01;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Buyer extends Thread implements IBuyer, IUseBacket {
+class Buyer extends Thread implements IBuyer, IUseBacket {
 
     private boolean isPensioneer;
 
-    public Buyer(int number, boolean isPensioneer) {
-        super("Buyer №" + number + " " + isPensioneer + " ");
+    Buyer(int number, boolean isPensioneer) {
+        super("Buyer №" + number + " ");
         this.isPensioneer = isPensioneer;
     }
 
     @Override
     public void run() {
-        synchronized (this){
+        synchronized (this) {
             Helper.count++;
         }
         enterToMarket();
@@ -25,7 +25,7 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
         breakTime(this.isPensioneer);
         putGoodsToBacket(backet);
         goOut();
-        synchronized (this){
+        synchronized (this) {
             Helper.count--;
         }
     }
@@ -76,6 +76,9 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public String toString() {
-        return getName();
+        if (isPensioneer)
+            return getName() + "pensioneer ";
+        else
+            return getName();
     }
 }

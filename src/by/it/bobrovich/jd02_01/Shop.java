@@ -3,7 +3,7 @@ package by.it.bobrovich.jd02_01;
 
 import java.util.*;
 
-public class Shop {
+class Shop {
     static int[] valueResult = new int[120];
     static int[] timeResult = new int[120];
 
@@ -44,8 +44,8 @@ public class Shop {
 
     private static int getCount(int time) {
         int count1 = Helper.count;
-        int max = getMax(time, count1);
-        int min = getMin(time, count1);
+        int max = getMax(time);
+        int min = getMin(time);
         int result = 1;
         time = getTime(time);
         if (time < 30) {
@@ -70,13 +70,13 @@ public class Shop {
         return time;
     }
 
-    private static int getMax(int time, int count) {
+    private static int getMax(int time) {
         time = getTime(time);
         return 40 + (30 - time);
 
     }
 
-    private static int getMin(int time, int count) {
+    private static int getMin(int time) {
         time = getTime(time);
         return time + 10;
     }
