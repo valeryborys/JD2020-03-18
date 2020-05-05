@@ -1,20 +1,52 @@
-package by.it.tolstik.jd02_02;
+package by.it.tolstik.jd02_03;
+
+import java.util.concurrent.Semaphore;
 
 class Buyer extends Thread implements IBuyer, IUseBacket {
 
     private boolean pensioner;
+    private boolean waitState = false;
 
-    public Buyer(int number) {
+    private static final Semaphore semaphore = new Semaphore(20);
+    private static final Semaphore backetSemaphore = new Semaphore(50);
+
+    void setWaitState(boolean waitState) {
+        this.waitState = waitState;
+    }
+
+    Buyer(int number) {
         super("Buyer № " + number + " ");
         Manager.buyerEnterToShop(); //зашел покупатель (счетчик ++)
     }
 
     @Override
     public void run() {
-        enterToMarket(); //вошел в магазин
-        chooseGoods(); //взял корзину, начал выбирать товары, положил товары в корзину, завершил выбирать товары
-        goToQueue();
-        goOut(); //вышел из магазина
+
+        try {
+            System.out.println(this + "ждет корзину.");
+            backetSemaphore.acquire();
+            Backet extract = Backet.extract();
+            takeBacket();
+            System.out.println(extract);
+            enterToMarket(); //вошел в магазин
+            try {
+                semaphore.acquire();
+                chooseGoods(); //взял корзину, начал выбирать товары, положил товары в корзину, завершил выбирать товары
+            } catch (InterruptedException e) {
+                throw new RuntimeException();
+            } finally {
+                semaphore.release();
+            }
+            goToQueue();
+            goOut(); //вышел из магазина
+            Backet.add(extract);
+            System.out.println(extract);
+        } catch (InterruptedException e) {
+            throw new RuntimeException();
+        } finally {
+            backetSemaphore.release();
+        }
+
 
     }
 
@@ -27,7 +59,6 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void chooseGoods() {
-        takeBacket(); //взял корзину
         System.out.println(this + "начал выбирать товары"); //начал выбирать товары
         int timeout;
         if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Manager.K_FOR_OLDER_PEOPLE);//коэф пенсионера
@@ -41,24 +72,25 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     @Override
     public void goToQueue() {
         synchronized (this) {
-            if (pensioner) QueueBuyers.addPens(this);
-            else QueueBuyers.add(this);
-            try {
-                System.out.println(this + "стал в очередь");
-                System.out.println("\t\t\t\tТекущая очередь " + Manager.buyerStayAtQueue());
-                wait(); //ждем notify();
-                System.out.println(this + "покинул очередь");
-                System.out.println("\t\t\t\t\t\t\t\t\t\tТекущая очередь " + Manager.buyerLeaveFromQueue());
-            } catch (InterruptedException e) {
-                throw new RuntimeException("Interrupted" + Thread.currentThread(), e);
+            QueueBuyers.add(this);
+            waitState = true;
+            while (waitState) {
+                try {
+                    System.out.println(this + "стал в очередь");
+                    this.wait(); //ждем notify();
+                    System.out.println(this + "покинул очередь");
+                } catch (InterruptedException e) {
+                    throw new RuntimeException("Interrupted" + Thread.currentThread(), e);
+                }
             }
         }
     }
 
     @Override
     public void goOut() {
-        System.out.println(this + "вышел из магазина");
+        System.out.print(this + "вышел из магазина и вернул на место ");
         Manager.buyerQuiteShop(); //вышел покупатель (счетчик ++)
+
     }
 
     @Override
@@ -70,7 +102,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void takeBacket() {
-        System.out.println(this + "взял корзину");
+        System.out.print(this + "взял корзину ");
     }
 
     @Override
@@ -78,7 +110,7 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
         int timeout;
         if (pensioner) timeout = (int) (Helper.getRandom(500, 2000) * Manager.K_FOR_OLDER_PEOPLE);//коэф пенсионера
         else timeout = Helper.getRandom(500, 2000);
-        Helper.sleep(timeout,10);
+        Helper.sleep(timeout, 10);
         //загрузка в тележку рандомных продуктов из Goods
         int count = Helper.getRandom(1, 4);
         int sum = 0; //инициализация суммы чека
