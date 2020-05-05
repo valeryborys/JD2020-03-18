@@ -23,7 +23,6 @@ public class ParserTest {
         double actual = Double.parseDouble(varB.toString());
         assertEquals(expected,actual,1e-8);
     }
-
     @Test
     public void checkCalcNextB1WithScalars() throws Exception {
         double expected = 25;
@@ -33,7 +32,6 @@ public class ParserTest {
         double actual = Double.parseDouble(varB1.toString());
         assertEquals(expected,actual,1e-8);
     }
-
     @Test
     public void checkCalcNextB2WithScalars() throws Exception {
         //B2=A/2-1 (выведет на экран 2.65)
@@ -46,17 +44,17 @@ public class ParserTest {
     }
     @Test
     public void checkCalcWithVectorsAdd() throws Exception {
-        double [] expected = {2,4,6};
+        double [] expected = {4,6,8};
         Parser parser = new Parser();
-        Var varV1 = parser.calc("V={1,2,3}+{1,2,3}");
+        Var varV1 = parser.calc("V={1,2,3}+{1,2,3}+2");
         double[] actual = ((Vector) varV1).getValue();
         assertArrayEquals(expected,actual,1e-8);
     }
     @Test
     public void checkCalcWithVectorsSub() throws Exception {
-        double [] expected = {2,4,6};
+        double [] expected = {1,3,5};
         Parser parser = new Parser();
-        Var varV2 = parser.calc("V={3,6,9}-{1,2,3}");
+        Var varV2 = parser.calc("V={3,6,9}-{1,2,3}-1");
         double[] actual = ((Vector) varV2).getValue();
         assertArrayEquals(expected,actual,1e-8);
     }
@@ -76,5 +74,8 @@ public class ParserTest {
         double[] actual = ((Vector) varV4).getValue();
         assertArrayEquals(expected,actual,1e-8);
     }
+
+
+
 
 }
