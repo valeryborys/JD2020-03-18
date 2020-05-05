@@ -33,6 +33,12 @@ public class Manager {
         }
     }
 
+    static int getInCount(){
+        synchronized (MONITOR){
+            return inCount;
+        }
+    }
+
     static void openCashier() {
         if (QueueCashier.getCashiers() > 0) {
             int count = QueueBuyers.getQueue() / 5;

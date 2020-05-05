@@ -2,8 +2,6 @@ package by.it.bobrovich.jd02_02;
 
 
 import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Shop {
@@ -20,9 +18,13 @@ public class Shop {
         while (Manager.showOpened()) {
             int count = Helper.getRandom(0, 2);
             for (int i = 0; Manager.showOpened() && i < count; i++) {
+                if(Manager.getInCount()%3 == 0){
+                    isPensioneer = true;
+                }
                 Buyer buyer = new Buyer(++number, isPensioneer);
                 buyer.start();
                 threads.add(buyer);
+                isPensioneer = false;
             }
             Manager.openCashier();
             Helper.sleep(1000);
@@ -37,6 +39,4 @@ public class Shop {
         }
         System.out.println("Shop closed");
     }
-
-
 }

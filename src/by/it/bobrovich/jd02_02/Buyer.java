@@ -6,6 +6,7 @@ import java.util.List;
 public class Buyer extends Thread implements IBuyer, IUseBacket {
 
     private boolean isPensioneer;
+    Backet backet;
 
     public Buyer(int number, boolean isPensioneer) {
         super("Buyer №" + number + " " + isPensioneer + " ");
@@ -17,7 +18,7 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
     public void run() {
         enterToMarket();
         breakTime(this.isPensioneer);
-        Backet backet = takeBacket();
+        backet = takeBacket();
         breakTime(this.isPensioneer);
         chooseGoods();
         breakTime(this.isPensioneer);
@@ -58,8 +59,12 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void goToQueue() {
-        synchronized (this){
-            QueueBuyers.add(this);
+        synchronized (this) {
+            if (this.isPensioneer) {
+                QueuePensioneer.addPensioneer(this);
+            }else{
+                QueueBuyers.add(this);
+            }
             try {
                 System.out.println(this + " added to queue");
                 wait();
@@ -69,6 +74,7 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
             }
         }
     }
+
 
     @Override
     public void goOut() {
