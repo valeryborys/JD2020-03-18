@@ -7,6 +7,5 @@ interface Patterns {
     String MATRIX = "\\{" + VECTOR + "(," + VECTOR + ")*}";
 
     // паттерн на скобки
-
     String BRACKETS = "[(]([^()]+)[)]";
 }

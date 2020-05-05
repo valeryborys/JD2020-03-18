@@ -24,15 +24,19 @@ class Parser {
             throw new CalcException("Expression was not entered");
         }
 
-            List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
-            List<String> operations = new ArrayList<>();
-            Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
-            while (matcher.find()) {
-                operations.add(matcher.group());
-            }
+        expression = openBrackets(expression);
 
-            // operands  A -2 3 -4 -2
-            // operations = +  *  /
+        List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
+        List<String> operations = new ArrayList<>();
+        Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
+        while (matcher.find()) {
+            operations.add(matcher.group());
+        }
+
+        // operands  A -2 3 -4 -2
+        // operations = +  *  /
+
+        try {
 
             while (operations.size() > 0) {
                 int index = getIndexCurrentOperation(operations);
@@ -42,8 +46,20 @@ class Parser {
                 Var result = oneOperation(left, operation, right);
                 operands.add(index, result.toString());
             }
+        } catch (IndexOutOfBoundsException e) {
+            throw new CalcException("Missed operand after operation: " + e);
+        }
+        return Var.createVar(operands.get(0));
+    }
 
-            return Var.createVar(operands.get(0));
+    private String openBrackets(String expression) throws CalcException {
+        String expresionInBrackets = expression;
+        Matcher matcher = Pattern.compile(Patterns.BRACKETS).matcher(expression);
+        while (matcher.find()) {
+            Var tempResult = calc(matcher.group().replace("(", "").replace(")", ""));
+            expresionInBrackets = openBrackets(expression.replace(matcher.group(), tempResult.toString()));
+        }
+        return expresionInBrackets;
     }
 
     private Var oneOperation(String strLeft, String operation, String strRight) throws CalcException {
