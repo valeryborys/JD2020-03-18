@@ -4,16 +4,16 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ParserTestScalar {
-    CalcLogger logger = new CalcLogger(CalcMemoryManager.getFullPath(ParserTestScalar.class, CalcFiles.LOG_FILENAME));
+public class ParserTestTaskA {
+    CalcLogger logger = new CalcLogger(CalcMemoryManager.getFullPath(ParserTestTaskA.class, CalcFiles.LOG_FILENAME));
     static Var varA;
     static Var varB;
     static Var varB1;
     static Var varB2;
 
     @Test
-    public void checkCalcWithScalarA() throws Exception {
-        System.out.println("Test scalar A");
+    public void checkCalcA1() throws Exception {
+        System.out.println("Test A1");
         double expected = 7.3;
         Parser parser = new Parser();
         varA = parser.calc("A=2+5.3", logger);
@@ -23,8 +23,8 @@ public class ParserTestScalar {
     }
 
     @Test
-    public void checkCalcWithScalarB() throws Exception {
-        System.out.println("Test scalar B");
+    public void checkCalcA2() throws Exception {
+        System.out.println("Test A2");
         double expected = 25.55;
         Parser parser = new Parser();
         varA = parser.calc("A=2+5.3", logger);
@@ -36,8 +36,8 @@ public class ParserTestScalar {
     }
 
     @Test
-    public void checkCalcWithScalarC() throws Exception {
-        System.out.println("Test scalar C");
+    public void checkCalcA3() throws Exception {
+        System.out.println("Test A3");
         double expected = 25;
         Parser parser = new Parser();
         varA = parser.calc("A=2+5.3", logger);
@@ -50,8 +50,8 @@ public class ParserTestScalar {
     }
 
     @Test
-    public void checkCalcWithScalarD() throws Exception {
-        System.out.println("Test scalar C");
+    public void checkCalcA4() throws Exception {
+        System.out.println("Test A4");
         double expected = 2.65;
         Parser parser = new Parser();
         varA = parser.calc("A=2+5.3", logger);
@@ -63,13 +63,4 @@ public class ParserTestScalar {
         System.out.println("actual = " + actual + " expected = " + expected);
         assertEquals(expected, actual, 1e-8);
     }
-
-
 }
-
-/*
- *  A=2+5.3 (выведет на экран 7.3)
- *  B=A*3.5 (выведет на экран 25.55)
- * • B1=B+0.11*-5 (выведет на экран 25)
- * • B2=A/2-1 (выведет на экран 2.65)
- */

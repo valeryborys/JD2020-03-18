@@ -38,7 +38,6 @@ class Parser {
     }
 
     private String calculateSimpleExpression(String expression) throws CalcException {
-        System.out.println("calc simple expr");
         expression = expression.replace("(", "").replace(")", "");
         List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
         List<String> operations = new ArrayList<>();
