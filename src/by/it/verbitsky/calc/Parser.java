@@ -57,7 +57,6 @@ class Parser {
     }
 
     private String getSimpleExpression(String expression) throws CalcException {
-        System.out.println("get simple expr: " + expression);
         Pattern pattern = Pattern.compile(Patterns.OPERATION_IN_BRACERS);
         Matcher matcher = pattern.matcher(expression);
 
@@ -66,11 +65,7 @@ class Parser {
         } else {
             matcher.find();
             String buf = calculateSimpleExpression(matcher.group());
-            System.out.println("getsimple: expr before = " + expression);
-            System.out.println("getsimple: group = " + matcher.group());
-            System.out.println("getsimple: buf = " + buf);
             expression = expression.replace(matcher.group(), buf);
-            System.out.println("getsimple: expr after replace = " + expression);
             expression = getSimpleExpression(expression);
         }
         return expression;
