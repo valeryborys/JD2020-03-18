@@ -7,7 +7,7 @@ abstract class Var implements Operation {
     private static Map<String, Var> vars = new HashMap<>();
     // jd01_11 - taskA part2
 
-    static Var saveVar (String name, Var var){
+    static Var saveVar(String name, Var var) {
         vars.put(name, var);
         return var;
     }
@@ -24,30 +24,33 @@ abstract class Var implements Operation {
             return new Vector(strVar);
         else if (strVar.matches(Patterns.MATRIX))
             return new Matrix(strVar);
-        else if (vars.containsKey(strVar))
-            return vars.get(strVar);
-        throw  new CalcException("Unknown var: " + strVar);
+        else if (vars.containsKey(strVar)) {
+            if (vars.get(strVar) != null) {
+                return vars.get(strVar);
+            }
+        }
+        throw new CalcException("Unknown var: " + strVar);
     }
 
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new  CalcException("Operation " + this + " + " + other + " is impossible");
+        throw new CalcException("Operation " + this + " + " + other + " is impossible");
     }
 
     @Override
-    public Var sub(Var other) throws CalcException{
-        throw new  CalcException("Operation " + this + " - " + other + " is impossible");
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException("Operation " + this + " - " + other + " is impossible");
     }
 
     @Override
-    public Var mul(Var other) throws CalcException{
-        throw new  CalcException("Operation " + this + " * " + other + " is impossible");
+    public Var mul(Var other) throws CalcException {
+        throw new CalcException("Operation " + this + " * " + other + " is impossible");
     }
 
     @Override
-    public Var div(Var other) throws CalcException{
-        throw new  CalcException("Operation " + this + " / " + other + " is impossible");
+    public Var div(Var other) throws CalcException {
+        throw new CalcException("Operation " + this + " / " + other + " is impossible");
     }
 
     @Override

@@ -1,51 +1,83 @@
 package by.it.gutkovsky.calc;
 
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
 
-    Var calc(String expresion) throws CalcException {
-        //2+2;
-        expresion = expresion.replace(" ", "");
-        if (expresion.length() == 0) {
+    private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
+        {
+            this.put("=", 0);
+            this.put("+", 1);
+            this.put("-", 1);
+            this.put("*", 2);
+            this.put("/", 2);
+        }
+
+    };
+
+    Var calc(String expression) throws CalcException {
+        //A=-2+3*-4/-2  A=4
+        expression = expression.replace(" ", "");
+        if (expression.length() == 0) {
             throw new CalcException("Expression was not entered");
         }
 
-        String[] parts = expresion.split(Patterns.OPERATION, 2);
-        if (parts.length == 1) {
-            return Var.createVar(expresion);
-        }
-        Var right = Var.createVar(parts[1]);
-        if (expresion.contains("=")) {
-            return Var.saveVar(parts[0], right);
+        List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
+        List<String> operations = new ArrayList<>();
+        Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
+        while (matcher.find()) {
+            operations.add(matcher.group());
         }
 
-        Var left = Var.createVar(parts[0]);
-//        if (parts.length == 1) {
-//            return left;
-//        }
+        // operands  A -2 3 -4 -2
+        // operations = +  *  /
 
-//        if (left == null || right == null) {
-////            return null; // в этом месте нужно будет генерироавть ошибку
-//            throw new CalcException("expression was not entered");
-//        }
+        while (operations.size() > 0) {
+            int index = getIndexCurrentOperation(operations);
+            String operation = operations.remove(index);
+            String left = operands.remove(index);
+            String right = operands.remove(index);
+            Var result = oneOperation(left, operation, right);
+            operands.add(index, result.toString());
+        }
+        return Var.createVar(operands.get(0));
+    }
 
-        Matcher matcherOp = Pattern.compile(Patterns.OPERATION).matcher(expresion);
-        if (matcherOp.find()) {
-            String operation = matcherOp.group();
-            switch (operation) {
-                case "+":
-                    return left.add(right);
-                case "-":
-                    return left.sub(right);
-                case "*":
-                    return left.mul(right);
-                case "/":
-                    return left.div(right);
+    private Var oneOperation(String strLeft, String operation, String strRight) throws CalcException {
+        Var right = Var.createVar(strRight);
+        if (operation.equals("=")) {
+            Var.saveVar(strLeft, right);
+            return right;
+        }
+
+        Var left = Var.createVar(strLeft);
+        switch (operation) {
+            case "+":
+                return left.add(right);
+            case "-":
+                return left.sub(right);
+            case "*":
+                return left.mul(right);
+            case "/":
+                return left.div(right);
+        }
+
+        throw new CalcException("Unknown operation");
+
+    }
+
+    private int getIndexCurrentOperation(List<String> operations) {
+        int index = -1;
+        int pr = -1;
+        for (int i = 0; i < operations.size(); i++) {
+            String op = operations.get(i);
+            if (priority.get(op) > pr) {
+                pr = priority.get(op);
+                index = i;
             }
         }
-        return null;
-//        throw new CalcException("Unknown operation");
+        return index;
     }
 }
