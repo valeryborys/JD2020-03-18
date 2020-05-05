@@ -4,8 +4,8 @@ package by.it.bobrovich.jd02_01;
 import java.util.*;
 
 public class Shop {
-    static int[] value = new int[60];
-    static int[] time = new int[60];
+    static int[] valueResult = new int[120];
+    static int[] timeResult = new int[120];
 
 
     public static void main(String[] args) {
@@ -16,23 +16,13 @@ public class Shop {
         List<Buyer> buyers = new ArrayList<>();
         System.out.println("Shop opened");
 
-        for (int i = 0; i < 60; i++) {
+        for (int time = 0; time < 120; time++) {
             int count1 = Helper.count;
-            if (i % 4 == 0)
+            if (time % 4 == 0)
                 isPensioner = true;
-            time[i] = i;
-            value[i] = count1;
-
-            int max = getMax(i, count1);
-            int min = getMin(i, count1);
-
-            if (i < 30) {
-                if (count1 < min)
-                    count = Helper.getRandom(min - count1, min - count1 + 1);
-            } else {
-                if (count1 < max)
-                    count = Helper.getRandom(max - count1, max - count1 + 1);
-            }
+            timeResult[time] = time;
+            valueResult[time] = count1;
+            count = getCount(time);
             for (int j = 0; j < count; j++) {
                 Buyer buyer = new Buyer(++number, isPensioner);
                 buyer.start();
@@ -52,19 +42,48 @@ public class Shop {
         showCount();
     }
 
+    private static int getCount(int time) {
+        int count1 = Helper.count;
+        int max = getMax(time, count1);
+        int min = getMin(time, count1);
+        int result = 1;
+        time = getTime(time);
+        if (time < 30) {
+            if (count1 < min)
+                result = Helper.getRandom(min - count1, min - count1 + 1);
+            else{
+                return result;
+            }
+        } else {
+            if (count1 < max)
+                result = Helper.getRandom(max - count1, max - count1 + 1);
+            else{
+                return result;
+            }
+        }
+        return result;
+    }
+
+    private static int getTime(int time){
+        if(time>60)
+            return time - 60;
+        return time;
+    }
+
     private static int getMax(int time, int count) {
-        //int maxCount = 40 + (30 - time);
+        time = getTime(time);
         return 40 + (30 - time);
 
     }
 
     private static int getMin(int time, int count) {
+        time = getTime(time);
         return time + 10;
     }
 
     private static void showCount() {
-        for (int i = 0; i < time.length; i++) {
-            System.out.print("sec = " + time[i] + " v = ||" + value[i] + "||\t");
+        for (int i = 0; i < timeResult.length; i++) {
+            System.out.print("sec = " + timeResult[i] + " v = ||" + valueResult[i] + "||\t");
             if (i % 5 == 0)
                 System.out.println();
         }

@@ -14,7 +14,9 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
 
     @Override
     public void run() {
-        Helper.count++;
+        synchronized (this){
+            Helper.count++;
+        }
         enterToMarket();
         breakTime(this.isPensioneer);
         Backet backet = takeBacket();
@@ -23,7 +25,9 @@ public class Buyer extends Thread implements IBuyer, IUseBacket {
         breakTime(this.isPensioneer);
         putGoodsToBacket(backet);
         goOut();
-        Helper.count--;
+        synchronized (this){
+            Helper.count--;
+        }
     }
 
     @Override
