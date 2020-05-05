@@ -24,25 +24,26 @@ class Parser {
             throw new CalcException("Expression was not entered");
         }
 
-        List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
-        List<String> operations = new ArrayList<>();
-        Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
-        while (matcher.find()) {
-            operations.add(matcher.group());
-        }
+            List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
+            List<String> operations = new ArrayList<>();
+            Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
+            while (matcher.find()) {
+                operations.add(matcher.group());
+            }
 
-        // operands  A -2 3 -4 -2
-        // operations = +  *  /
+            // operands  A -2 3 -4 -2
+            // operations = +  *  /
 
-        while (operations.size() > 0) {
-            int index = getIndexCurrentOperation(operations);
-            String operation = operations.remove(index);
-            String left = operands.remove(index);
-            String right = operands.remove(index);
-            Var result = oneOperation(left, operation, right);
-            operands.add(index, result.toString());
-        }
-        return Var.createVar(operands.get(0));
+            while (operations.size() > 0) {
+                int index = getIndexCurrentOperation(operations);
+                String operation = operations.remove(index);
+                String left = operands.remove(index);
+                String right = operands.remove(index);
+                Var result = oneOperation(left, operation, right);
+                operands.add(index, result.toString());
+            }
+
+            return Var.createVar(operands.get(0));
     }
 
     private Var oneOperation(String strLeft, String operation, String strRight) throws CalcException {
