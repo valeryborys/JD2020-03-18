@@ -7,7 +7,6 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class ParserTestCreateVars {
-    CalcLogger logger = new CalcLogger(CalcMemoryManager.getFullPath(ParserTestCreateVars.class, CalcFiles.LOG_FILENAME));
     static Var varA;
     static Var varB;
 
