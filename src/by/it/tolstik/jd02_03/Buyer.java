@@ -10,11 +10,11 @@ class Buyer extends Thread implements IBuyer, IUseBacket {
     private static final Semaphore semaphore = new Semaphore(20);
     private static final Semaphore backetSemaphore = new Semaphore(50);
 
-    public void setWaitState(boolean waitState) {
+    void setWaitState(boolean waitState) {
         this.waitState = waitState;
     }
 
-    public Buyer(int number) {
+    Buyer(int number) {
         super("Buyer № " + number + " ");
         Manager.buyerEnterToShop(); //зашел покупатель (счетчик ++)
     }

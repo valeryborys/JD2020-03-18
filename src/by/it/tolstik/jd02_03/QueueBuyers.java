@@ -32,7 +32,7 @@ class QueueBuyers {
         return deque.size();
     }
 
-    public static int getCashNeed() {
+    static int getCashNeed() {
         return cashiersNeeded.get();
     }
 

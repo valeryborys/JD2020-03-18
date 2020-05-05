@@ -3,7 +3,7 @@ package by.it.tolstik.jd02_03;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class Backet {
+class Backet {
 
     private final String name;
 

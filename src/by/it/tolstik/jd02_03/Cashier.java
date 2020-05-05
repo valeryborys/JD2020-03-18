@@ -45,7 +45,7 @@ class Cashier implements Runnable {
         cashiersOpened.getAndDecrement();
     }
 
-    public static int getCashiersOpened() {
+    static int getCashiersOpened() {
         return cashiersOpened.get();
     }
 
