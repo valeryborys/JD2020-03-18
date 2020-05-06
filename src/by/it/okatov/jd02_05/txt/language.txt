@@ -1,4 +1,7 @@
 message.hello = Hello!
 message.question = How are you?
+message.inputQuestion = Which locale do you want to use? (by,en,ru)
+message.inputLocale = Input:
+message.errorNotLocale = The character sequence you entered was not recognized!
 user.name = Roman
 user.surname = Okatov
