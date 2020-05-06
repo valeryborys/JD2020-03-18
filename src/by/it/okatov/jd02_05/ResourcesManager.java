@@ -7,7 +7,7 @@ public enum ResourcesManager {
     INSTANCE;
 
     private static final String BASE_NAME = "by.it.okatov.jd02_05.Resources.language";
-    private Locale locale = Locale.getDefault();
+    private final Locale locale;
     private ResourceBundle bundle;
 
     ResourcesManager() {
