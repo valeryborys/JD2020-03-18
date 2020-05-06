@@ -11,8 +11,7 @@ public class Runner {
     public static void main(String[] args) {
         ResourcesManager manager = ResourcesManager.INSTANCE;
         Locale locale = Locale.getDefault();
-        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
-        Date date = null;
+
 
         //getLocaleFromArgs
         locale = getLocaleFromArgs(args, manager, locale);
