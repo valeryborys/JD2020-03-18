@@ -1,3 +1,4 @@
+date=dd-MM-yyyy
 message.hello=Прывiтанне!
 message.question=Як справы?
 user.firstName=Валерый
