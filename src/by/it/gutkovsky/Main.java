@@ -1,14 +1,26 @@
 package by.it.gutkovsky;
 
 
+import java.util.Locale;
 
 public class Main {
 
     public static void main(String[] args) {
 
         int a = 4/5;
-        System.out.println(a);
-        System.out.println("\033[32m sadfs"); // цветная печать: 30 - черный.
+        String s = null;
+        String d = s+s;
+        String f = "";
+        System.out.println(f);
+//        System.out.println(s+s);
+//        System.out.println(s);
+//        System.out.println(d);
+
+//        Locale locale = Locale.getDefault();
+//        System.out.println(locale);
+
+//        System.out.println(a);
+//        System.out.println("\033[32m sadfs"); // цветная печать: 30 - черный.
         // 31 - красный. 32 - зеленый. 33 - желтый. 34 - синий. 35 - пурпурный. 36 - голубой. 37 - белый.
 
         /* jd01_10 BeanTester:
