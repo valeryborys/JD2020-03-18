@@ -7,6 +7,15 @@ import java.util.Map;
 abstract class Var implements Operation {
 
     private static final Map<String, Var> hMap = new HashMap<>();
+    private String strName;
+
+    public String getStrName() {
+        return this.strName;
+    }
+
+    public void setStrName(String strName) {
+        this.strName = strName;
+    }
 
     static Var createVar(String strVar) throws CalcException {
         if (strVar.matches(Patterns.SCALAR))
@@ -27,6 +36,7 @@ abstract class Var implements Operation {
 
     //Метод, сохраняющий переменные и их значения в карте
     public static void saveVars(String varName, Var var) {
+        var.setStrName(varName);
         hMap.put(varName, var);
     }
 

@@ -1,0 +1,4 @@
+message.hello = Привет!
+message.question = Чё-как?
+user.name = Роман
+user.surname = Окатов
