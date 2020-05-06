@@ -4,33 +4,27 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class Parser {
-
-    private static final Map<String, Integer> priority =
-            new HashMap<String, Integer>() {
-                {
-                    this.put("=", 0);
-                    this.put("+", 1);
-                    this.put("-", 1);
-                    this.put("*", 2);
-                    this.put("/", 2);
-                }
-            };
+public class Parser {
+    private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
+        {
+            this.put("=", 0);
+            this.put("+", 1);
+            this.put("-", 1);
+            this.put("*", 2);
+            this.put("/", 2);
+        }
+    };
 
     Var calc(String expression) throws CalcException {
-        //A=-2+3*-4/-2 A=4
+        if (expression.length() < 3) throw new CalcException("wrong expression");
         expression = expression.replace(" ", "");
-        if (expression.length() == 0) {
-            throw new CalcException("no expression");
-        }
+        expression = calcInScopes(expression);
         List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
         List<String> operations = new ArrayList<>();
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
         while (matcher.find()) {
             operations.add(matcher.group());
         }
-        //operands  A -2  3 -4 -2
-        //operations =  +  *  /
         while (operations.size() > 0) {
             int index = getIndexCurrentOperation(operations);
             String operation = operations.remove(index);
@@ -52,14 +46,16 @@ class Parser {
         switch (operation) {
             case "+":
                 return left.add(right);
+
             case "-":
                 return left.sub(right);
             case "*":
                 return left.mul(right);
             case "/":
                 return left.div(right);
+            default:
+                throw new CalcException("Wrong operation");
         }
-        throw new CalcException("oneOperation faild");
     }
 
     private int getIndexCurrentOperation(List<String> operations) {
@@ -73,5 +69,15 @@ class Parser {
             }
         }
         return index;
+    }
+
+    private String calcInScopes(String expression) throws CalcException {
+        String expressionSave = expression;
+        Matcher matcher = Pattern.compile(Patterns.SCOPES).matcher(expression);
+        while (matcher.find()) {
+            String inScope = calc(matcher.group().replace("(", "").replace(")", "")).toString();
+            expressionSave = calcInScopes(expression.replace(matcher.group(), inScope));
+        }
+        return expressionSave;
     }
 }
