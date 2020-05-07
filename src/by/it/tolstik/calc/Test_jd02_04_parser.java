@@ -4,7 +4,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import static org.junit.Assert.*;
 
-public class ParserTest {
+public class Test_jd02_04_parser {
 
     @Test(timeout = 5000)
     public void a1_createAndPrintScalar() throws CalcException {
