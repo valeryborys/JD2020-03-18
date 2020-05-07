@@ -1,4 +1,6 @@
 message.hello=Привет!
-message.question=Как дела?
+message.language=Выберите язык - en,ru,be
+message.error=Неверный язык
 user.firstName=Сергей
 user.lastName=Замостьянин
+user.date=dd.MMMM.yyyy

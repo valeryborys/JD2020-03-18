@@ -1,4 +1,6 @@
 message.hello=Hello!
-message.question=How are you?
+message.language=Choose language - en,ru,be
+message.error=Wrong language
 user.firstName=Sergey
 user.lastName=Zamostyanin
+user.date=dd.MM.yyyy

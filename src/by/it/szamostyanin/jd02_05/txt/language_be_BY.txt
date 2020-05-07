@@ -1,4 +1,6 @@
 message.hello=Добры дзень!
-message.question=Як справы?
+message.language=Выберыце мову - en,ru,be
+message.error=Няправільная мова
 user.firstName=Сяргей
-user.lastName=Замосцянін
+user.lastName=Замасцьянін
+user.date=dd.MM.yyyy
