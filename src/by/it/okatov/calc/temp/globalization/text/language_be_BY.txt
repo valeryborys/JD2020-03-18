@@ -1,17 +1,27 @@
 message.hello = Прывiтанне!
 message.question = Як справы?
-message.inputQuestion = Якую лакаль вы зьбіраецеся выкарыстоўваць? (by,en,ru)
+message.inputQuestion = Якую лакаль вы зьбіраецеся выкарыстоўваць? (be,en,ru)
 message.inputLocale = Увод:
+message.commandsToInput = Гэтая праграма дазваляе ўвесці пэўны спіс каманд:
+message.variables = <ІмяЗьменнай = ЗначэньнеЗьменнай> - дазваляе ўвесці зьменныя наступных тыпаў:\n
+message.scalar = \t1.Скаляр - <A = 1> або <A = 1.0> або <A = 1.5>
+message.vector = \t2.Вектар - <A = {1,2,3}> або <A = {1.0, 2.1, 3.2}>
+message.matrix = \t3.Матрыца - <A = {{1, 2, 3},{1.1, 2.2, 3.3}}>
+message.anonVars = Таксама ёсць магчымасць увесті значэньня без імя\nВы можаце здзяйсняць наступныя аперацыі:
+message.operations = \t1.<A+B або 1+A або 2+3>\n2.<A-B або 1-A або 2-3>\n3.<A*B або 1*A або 2*3>\n4.<A/B або 1/A або 2/3>
+message.language = Каб зьмяніць мову ўвядзіце: \n<set locale> для ангельскай або \n<установить локаль> для рускай або \n<ўсталяваць лакаль> для беларускай моў
+message.languageCommands = Спіс каманд: \n\t1.en - Ангельская лакаль \n\t2.be - Беларуская лакаль \n\t3.ru - Руская лакаль
+message.goodluck = Удачнага вясельля!
 error.notLocale = Ўведзеная вамі паслядоўнасць знакаў не распазнана!
 user.name = Раман
 user.surname = Акатаў
+user.author = Аўтар:
 error.unknown = Памылка: невядомая памылка
 error.error = Памылка:
-error.scalar = скаляр
-error.vector = вектар
-error.matrix = матрыца
-error.and = і
-error.incompSizes = маюць несумяшчальныя памеры\n
+error.scalar = Скаляр
+error.vector = Вектар
+error.matrix = Матрыца
+error.incompSizes = %s: %s і %s: %s маюць несумяшчальныя памеры\n
 error.emptyAddiction = Немагчыма выканаць складанне з пустой матрыцай!\n
 error.emptySubtraction = Немагчыма выканаць адніманне з пустой матрыцай!\n
 error.emptyMultiplication = Немагчыма выканаць памнажэнне з пустой матрыцай!\n
@@ -20,9 +30,8 @@ error.divisionByZero = Памылка! Дзяленне на нуль.
 error.performOperationFailed = Аперацыя правалілася!
 error.noOperation = Аперацыя не павінна быць выканана!
 error.exclamationError = Памылка!
-error.addition = Складанне немагчыма ў сучасных умовах
-error.subtraction = Адніманне немагчыма ў сучасных умовах
-error.multiplication = Памнажэнне немагчыма ў сучасных умовах
-error.division = Дзяленьне немагчыма ў сучасных умовах
-error.operation = Аперацыя:
-error.operation1 = немагчыма\n
+error.addiction = Аперацыя Складанне: %s + %s - немагчыма ў сучасных умовах\n
+error.subtraction = Аперацыя Адніманне: %s * %s - немагчыма ў сучасных умовах\n
+error.multiplication = Аперацыя Памнажэнне: %s - %s - немагчыма ў сучасных умовах\n
+error.division = Аперацыя Дзяленьне: %s / %s - немагчыма ў сучасных умовах\n
+error.variableName = Няправільнае імя зменнай:

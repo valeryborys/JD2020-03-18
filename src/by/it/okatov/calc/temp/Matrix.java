@@ -1,6 +1,8 @@
 package by.it.okatov.calc.temp;
 
 
+import by.it.okatov.calc.temp.globalization.IError;
+
 import java.util.Arrays;
 
 public class Matrix extends Var {
@@ -41,6 +43,7 @@ public class Matrix extends Var {
 
     }
 
+    @SuppressWarnings("unused")
     Matrix(Matrix matrix) {
         this.value = Arrays.copyOf(matrix.value, matrix.value.length);
     }
@@ -49,7 +52,7 @@ public class Matrix extends Var {
     public Var add(Var other) throws CalcException {
         if (this.value.length == 0) {
             throw new CalcException(
-                    "It's impossible to perform addition on empty matrix!\n"
+                    manager.getString(IError.msgErrorEmptyMatrixAddiction)
             );
         }
 
@@ -70,7 +73,7 @@ public class Matrix extends Var {
             if (matrixValue.length != otherValue.length || matrixValue[0].length != otherValue[0].length) {
                 throw new CalcException(
                         String.format(
-                                "Matrix %s and Matrix %s have incompatible sizes%n",
+                                manager.getString(IError.msgErrorIncompatibleSizes),
                                 new Matrix(matrixValue),
                                 new Matrix(otherValue)
                         )
@@ -93,7 +96,7 @@ public class Matrix extends Var {
     public Var sub(Var other) throws CalcException {
         if (this.value.length == 0) {
             throw new CalcException(
-                    "It's impossible to perform subtraction on empty matrix!\n"
+                    manager.getString(IError.msgErrorEmptyMatrixSubtraction)
             );
         }
 
@@ -114,7 +117,7 @@ public class Matrix extends Var {
             if (matrixValue.length != otherValue.length || matrixValue[0].length != otherValue[0].length) {
                 throw new CalcException(
                         String.format(
-                                "Matrix %s and Matrix %s have incompatible sizes%n",
+                                manager.getString(IError.msgErrorIncompatibleSizes),
                                 new Matrix(matrixValue),
                                 new Matrix(otherValue)
                         )
@@ -137,7 +140,7 @@ public class Matrix extends Var {
     public Var mul(Var other) throws CalcException {
         if (this.value.length == 0) {
             throw new CalcException(
-                    "It's impossible to perform multiplication on empty matrix!\n"
+                    manager.getString(IError.msgErrorEmptyMatrixMultiplication)
             );
         }
         if (other instanceof Scalar) {
@@ -158,7 +161,7 @@ public class Matrix extends Var {
             if (matrixValue[0].length != otherValue.length) {
                 throw new CalcException(
                         String.format(
-                                "Matrix %s and Matrix %s have incompatible sizes%n",
+                                manager.getString(IError.msgErrorIncompatibleSizes),
                                 new Matrix(matrixValue),
                                 new Matrix(otherValue)
                         ));
@@ -181,8 +184,10 @@ public class Matrix extends Var {
             if (matrixValue[0].length != otherValue.length) {
                 throw new CalcException(
                         String.format(
-                                "Vector %s and Matrix %s have incompatible sizes%n",
+                                manager.getString(IError.msgErrorIncompatibleSizes),
+                                manager.getString(IError.msgErrorVector),
                                 new Vector(otherValue),
+                                manager.getString(IError.msgErrorMatrix),
                                 new Matrix(matrixValue)
                         ));
             }

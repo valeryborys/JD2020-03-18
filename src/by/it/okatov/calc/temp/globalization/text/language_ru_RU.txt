@@ -1,17 +1,27 @@
 message.hello = Привет!
 message.question = Чё-как?
-message.inputQuestion = Какую локаль вы хотите использовать? (by,en,ru)
+message.inputQuestion = Какую локаль вы хотите использовать? (be,en,ru)
 message.inputLocale = Ввод:
+message.commandsToInput = Данная программа позволяет вам ввести некоторый определенный список команд:
+message.variables = <ИмяПеременной = Значение> - позволяет вводить переменные следующих типов:\n
+message.scalar = \t1.Скаляр - <A = 1> или <A = 1.0> или <A = 1.5>
+message.vector = \t2.Вектор - <A = {1,2,3}> или <A = {1.0, 2.1, 3.2}>
+message.matrix = \t3.Матрица - <A = {{1, 2, 3},{1.1, 2.2, 3.3}}>
+message.anonVars = Вы также можете вводить значения без имени.\nВы можете совершать следующие опереции:
+message.operations = \t1.<A+B или 1+A или 2+3>\n2.<A-B или 1-A или 2-3>\n3.<A*B или 1*A или 2*3>\n4.<A/B или 1/A или 2/3>
+message.language = Для смены языка введите: \n<set locale> для английского или \n<установить локаль> для русского или \n<ўсталяваць лакаль> для беларуского языков
+message.languageCommands = Список команд: \n\t1.en - Английская локаль \n\t2.be - Беларуская локаль \n\t3.ru - Русская локаль
+message.goodluck = Удачно повеселиться! глхф!
 error.notLocale = Введенная вами последовательность символов не распознана!
 user.name = Роман
 user.surname = Окатов
+user.author = Автор:
 error.unknown = ОШИБКА: неизвестная ошибка
 error.error = ОШИБКА:
-error.scalar = скаляр
-error.vector = вектор
-error.matrix = матрица
-error.and = и
-error.incompSizes = имеют несовместимые размеры\n
+error.scalar = Скаляр
+error.vector = Вектор
+error.matrix = Матрица
+error.incompSizes = %s: %s и %s: %s имеют несовместимые размеры\n
 error.emptyAddiction = Невозможно выполнить операцию сложения с пустой матрицей!\n
 error.emptySubtraction = Невозможно выполнить операцию вычитания с пустой матрицей!\n
 error.emptyMultiplication = Невозможно выполнить операцию умножения с пустой матрицей!\n
@@ -20,9 +30,8 @@ error.divisionByZero = ОШИБКА! Деление на ноль.
 error.performOperationFailed = Операция провалена!
 error.noOperation = Нет операции!
 error.exclamationError = Ошибка!
-error.addition = В данных обстоятельствах сложение невозможно.
-error.subtraction = В данных обстоятельствах вычитание невозможно.
-error.multiplication = В данных обстоятельствах умножение невозможно.
-error.division = В данных обстоятельствах деление невозможно.
-error.operation = Операция:
-error.operation1 = невозможна\n
+error.addition = В данных обстоятельствах сложение %s и %s невозможно.
+error.subtraction = В данных обстоятельствах вычитание %s и %s невозможно.
+error.multiplication = В данных обстоятельствах умножение %s и %s невозможно.
+error.division = В данных обстоятельствах деление %s и %s невозможно.
+error.variableName = Неверное имя переменной:

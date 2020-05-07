@@ -1,10 +1,14 @@
 package by.it.okatov.calc.temp;
 
 
+import by.it.okatov.calc.temp.globalization.IError;
+import by.it.okatov.calc.temp.globalization.ResourceManager;
+
 import java.util.HashMap;
 import java.util.Map;
 
 abstract class Var implements Operation {
+    static ResourceManager manager = ResourceManager.INSTANCE;
 
     private static final Map<String, Var> hMap = new HashMap<>();
     private String strName;
@@ -29,7 +33,7 @@ abstract class Var implements Operation {
             if (var != null) {
                 return var;
             } else {
-                throw new CalcException("incorrect name of variable: " + strVar);
+                throw new CalcException(manager.getString(IError.msgErrorVariableName) + strVar);
             }
         }
     }
@@ -47,32 +51,32 @@ abstract class Var implements Operation {
     @Override
     public Var add(Var other) throws CalcException {
         throw new CalcException(
-                String.format("ERROR! ") +
-                        String.format("Operation %s + %s is impossible\n", this, other)
+                manager.getString(IError.msgErrorExlamation) +
+                        String.format(manager.getString(IError.msgErrorOperationAddiction), this, other)
         );
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
         throw new CalcException(
-                String.format("ERROR! ") +
-                        String.format("Operation %s - %s is impossible\n", this, other)
+                "ERROR! " +
+                        String.format(manager.getString(IError.msgErrorOperationSubtraction), this, other)
         );
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
         throw new CalcException(
-                String.format("ERROR! ") +
-                        String.format("Operation %s * %s is impossible\n", this, other)
+                "ERROR! " +
+                        String.format(manager.getString(IError.msgErrorOperationMultiplication), this, other)
         );
     }
 
     @Override
     public Var div(Var other) throws CalcException {
         throw new CalcException(
-                String.format("ERROR! ") +
-                        String.format("Operation %s / %s is impossible\n", this, other)
+                "ERROR! " +
+                        String.format(manager.getString(IError.msgErrorOperationDivision), this, other)
         );
     }
 
