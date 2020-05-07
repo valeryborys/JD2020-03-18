@@ -7,6 +7,5 @@ incorrname=Incorrect name var:
 addop=Addition operation
 subop=Subtraction operation
 mulop=Multiplication operation
-divop=Division operation
-impossible= is impossible
+divop=Division operation %s and %S is impossible
 localechange=Locale changed: en_US
