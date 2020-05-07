@@ -28,7 +28,7 @@ class CalcLogger {
     }
 
     private int getLinescount(String fName) {
-        System.out.println("getLinescount " + fName);
+        //System.out.println("getLinescount " + fName);
         int linesCount = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(fName))) {
             while (reader.ready()) {

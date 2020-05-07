@@ -1,0 +1,17 @@
+system.error.unknownVar=Невядомае імя зменнай: \"%s\"
+system.error.wrongOperationADD=Аперацыя 'складання' немагчымая з аргументамі: %s і %s
+system.error.wrongOperationSUB=Аперацыя 'аднімання' немагчымая з аргументамі: %s і %s
+system.error.wrongOperationMUL=Аперацыя 'памнажэння' немагчымая з аргументамі: %s і %s
+system.error.wrongOperationDIV=Аперацыя 'дзялення' немагчымая з аргументамі: %s і %s
+system.error.wrongOperationMEMORYADD=Немагчыма дабавіць у памяць зменную
+system.error.emptyOperation=пустое выражэнне
+system.error.failedOperation=Немагмымая аперацыя
+system.error.memoryFileReadError=Немагчыма прачытаць файл памяці
+system.error.unknownError=ПАМЫЛКА: Невядомая памылка
+system.error.emptyError=ПАМЫЛКА:
+system.message.printHintCommandMemoryADD=Напішыце <імя_зменнай> = <значэнне> для таго, каб дабавіць зменную у памяць
+system.message.printHintCommandMemoryGET=Напішыце <імя_зменнай> для таго, каб узяць яе з памяці
+system.message.printHintCommandHeader=Даступныя каманды:
+system.message.printHintCommandPRINTVAR=\nprintvar - выводзіць усю памяць
+system.message.printHintCommandSORTVAR=\nsortvar - паказвае адсартаваны спісак зменных у памяці
+system.message.printHintCommandCLEAR=\nclear - ачыщае памяць
