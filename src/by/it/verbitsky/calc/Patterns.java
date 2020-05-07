@@ -13,5 +13,10 @@ interface Patterns {
     String COMMAND_SORTVAR = "sortvar";
     String COMMAND_CLEAR_MEMORY = "clear";
 
+    String COMMAND_CHANGE_LOCALE_EN = "en";
+    String COMMAND_CHANGE_LOCALE_RU = "ru";
+    String COMMAND_CHANGE_LOCALE_BY = "be";
+
+
     String EMPTY_BUFFER = "Buffer is empty";
 }

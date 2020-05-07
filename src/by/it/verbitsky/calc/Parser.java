@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
+    private static ResourceManager rm = ConsoleRunner.getRm();
     private static CalcLogger fLogger;
     private static final Map<String, Integer> priority =
             new HashMap<String, Integer>() {
@@ -24,7 +25,7 @@ class Parser {
         //проверка на пустое выражение
         if (expression.length() == 0) {
             fLogger.writeLog("empty expression");
-            throw new CalcException("empty expression");
+            throw new CalcException(rm.getMessage(CalcMessages.SYSTEM_ERROR_EMPTY_OP));
         }
         //проверка на одиночные команды (printvar, sotvar, clearmemory)
         if (checkSingleCommand(expression)) {
@@ -90,7 +91,7 @@ class Parser {
                 return left.div(right);
         }
         fLogger.writeLog("OneOperation failed");
-        throw new CalcException("OneOperation failed");
+        throw new CalcException(rm.getMessage(CalcMessages.SYSTEM_ERROR_FAIL_OP));
     }
 
     private int getIndexCurrentOperation(List<String> operations) {
@@ -121,6 +122,21 @@ class Parser {
                 }
                 case Patterns.COMMAND_CLEAR_MEMORY: {
                     Var.clearMemory();
+                    return true;
+                }
+                case Patterns.COMMAND_CHANGE_LOCALE_EN: {
+                    rm.setLocaleForBundle(new Locale(expression, "US"));
+                    ConsoleRunner.printIntro();
+                    return true;
+                }
+                case Patterns.COMMAND_CHANGE_LOCALE_RU: {
+                    rm.setLocaleForBundle(new Locale(expression, "RU"));
+                    ConsoleRunner.printIntro();
+                    return true;
+                }
+                case Patterns.COMMAND_CHANGE_LOCALE_BY: {
+                    rm.setLocaleForBundle(new Locale(expression, "BY"));
+                    ConsoleRunner.printIntro();
                     return true;
                 }
             }

@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 abstract class Var implements Operation {
+    private static ResourceManager rm = ConsoleRunner.getRm();
 
     private static Map<String, Var> calcMemory = new HashMap<>();
 
@@ -31,7 +32,7 @@ abstract class Var implements Operation {
             if (var != null) {
                 return var;
             } else {
-                throw new CalcException(String.format("unknown name var: \"%s\"", strVar));
+                throw new CalcException(String.format(rm.getMessage(CalcMessages.SYSTEM_ERROR_UNKNOWN_VAR), strVar));
             }
         }
     }
@@ -43,25 +44,25 @@ abstract class Var implements Operation {
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException(String.format("Operation 'add' impossible  with arguments: %s and %s\n",
+        throw new CalcException(String.format(rm.getMessage(CalcMessages.SYSTEM_ERROR_WRONG_OP_ADD),
                 this, other));
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException(String.format("Operation 'sub' impossible  with arguments: %s and %s\n",
+        throw new CalcException(String.format(rm.getMessage(CalcMessages.SYSTEM_ERROR_WRONG_OP_SUB),
                 this, other.toString()));
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException(String.format("Operation 'mul' impossible  with arguments: %s and %s\n",
+        throw new CalcException(String.format(rm.getMessage(CalcMessages.SYSTEM_ERROR_WRONG_OP_MUL),
                 this, other));
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException(String.format("Operation 'div' impossible  with arguments: %s and %s\n",
+        throw new CalcException(String.format(rm.getMessage(CalcMessages.SYSTEM_ERROR_WRONG_OP_DIV),
                 this, other));
     }
 
