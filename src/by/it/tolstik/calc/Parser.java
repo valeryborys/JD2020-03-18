@@ -18,7 +18,7 @@ class Parser {
         }
     };
 
-    Var calc(String expression) throws CalcException {
+    public Var calc(String expression) throws CalcException {
         expression = expression.replace(" ", "");
         if (expression.length() == 0) {
             throw new CalcException("Expression was not entered");
