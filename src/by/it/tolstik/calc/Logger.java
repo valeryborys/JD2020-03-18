@@ -9,7 +9,7 @@ class Logger {
 
     void logger(String line) {
 
-        String logFile = Printer.getFile("log.txt");
+        String logFile = Util.getFile("log.txt");
         File log = new File(logFile);
         int count = 0;
         if(log.exists()){

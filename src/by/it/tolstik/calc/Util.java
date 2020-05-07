@@ -3,7 +3,7 @@ package by.it.tolstik.calc;
 import java.io.*;
 import java.util.*;
 
-class Printer {
+class Util {
     void print(Var var) throws CalcException {
         if (var != null) {
             System.out.println(var);

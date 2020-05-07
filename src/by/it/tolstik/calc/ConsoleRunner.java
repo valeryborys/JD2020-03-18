@@ -4,42 +4,42 @@ import java.util.Scanner;
 
 class ConsoleRunner {
     public static void main(String[] args) {
+        boolean flag = false;
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
-        Printer printer = new Printer();
+        Util util = new Util();
         Logger logger = new Logger();
-        printer.loadFromMemory(parser);
-        label:
-        for (; ; ) {
+        util.loadFromMemory(parser);
+
+        while (!flag) {
             String expression = sc.nextLine();
             logger.logger(expression);
-
             switch (expression) {
                 case "end":
-                    break label;
-                case "printvar":
-                    printer.printVar();
+                    flag = true;
                     break;
-                case "sortvar":
-                    printer.sortVar();
+                case "print":
+                    util.printVar();
                     break;
-                case "printmemory":
-                    System.out.println("\033[33mSaved vars: \033[30m");
-                    printer.printFromMemory();
+                case "sort":
+                    util.sortVar();
                     break;
-                case "clearmemory":
+                case "memory":
+                    System.out.println("Saved vars:");
+                    util.printFromMemory();
+                    break;
+                case "clear":
                     try {
-                        printer.cleanMemory();
+                        util.cleanMemory();
                     } catch (CalcException e) {
                         e.printStackTrace();
                     }
                     break;
                 default:
-
                     try {
                         Var var = parser.calc(expression);
-                        printer.saveToMemory();
-                        printer.print(var);
+                        util.saveToMemory();
+                        util.print(var);
                         logger.logger(var.toString());
                     } catch (CalcException e) {
                         System.out.println(e.getMessage());

@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 class Parser {
 
     private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
+        private static final long serialVersionUID = -184387148821079886L;
+
         {
             this.put("=", 0);
             this.put("+", 1);
