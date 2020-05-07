@@ -29,32 +29,42 @@ abstract class Var implements Operation {
                 return vars.get(strVar);
             }
         }
-        throw new CalcException("Unknown var: " + strVar);
+//        throw new CalcException("Unknown var: " + strVar);
+        throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.unknownVar) + " " + strVar);
     }
 
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException("Operation " + this + " + " + other + " is impossible");
+//        throw new CalcException("Operation " + this + " + " + other + " is impossible");
+        throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.operationMessage) + " " + this + " + " + other +
+                " " + ConsoleRunner.res.get(CalcExceptionMessage.isImpossible));
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException("Operation " + this + " - " + other + " is impossible");
+//        throw new CalcException("Operation " + this + " - " + other + " is impossible");
+        throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.operationMessage) + " " + this + " - " + other +
+                " " + ConsoleRunner.res.get(CalcExceptionMessage.isImpossible));
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException("Operation " + this + " * " + other + " is impossible");
+//        throw new CalcException("Operation " + this + " * " + other + " is impossible");
+        throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.operationMessage) + " " + this + " * " + other +
+                " " + ConsoleRunner.res.get(CalcExceptionMessage.isImpossible));
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException("Operation " + this + " / " + other + " is impossible");
+//        throw new CalcException("Operation " + this + " / " + other + " is impossible");
+        throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.operationMessage) + " " + this + " / " + other +
+                " " + ConsoleRunner.res.get(CalcExceptionMessage.isImpossible));
     }
 
     @Override
     public String toString() {
-        return "Abstract Var{}";
+//        return "Abstract Var{}";
+        return ConsoleRunner.res.get(PrinterMessage.message);
     }
 }

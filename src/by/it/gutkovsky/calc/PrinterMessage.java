@@ -1,6 +1,6 @@
 package by.it.gutkovsky.calc;
 
-class PrinterMessage {
+interface PrinterMessage {
 
     String noVar = "Printer.noVar";
     String memoryVar = "Printer.memoryVar";

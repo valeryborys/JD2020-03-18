@@ -20,7 +20,8 @@ class Printer {
                 Var value = pair.getValue();
                 System.out.printf("%s=%s\n", key, value);
             }
-        } else System.out.println("There is no var");
+//        } else System.out.println("There is no var");
+        } else System.out.println(ConsoleRunner.res.get(PrinterMessage.noVar));
 
         // варианты вывода (все рабочие)
 //        Map<String, Var> map1 = Var.getVars();
@@ -47,7 +48,8 @@ class Printer {
                 Var value = pair.getValue();
                 System.out.printf("%s=%s\n", key, value);
             }
-        } else System.out.println("There is no var");
+//        } else System.out.println("There is no var");
+        } else System.out.println(ConsoleRunner.res.get(PrinterMessage.noVar));
     }
 
     void saveToMemory() throws CalcException {
@@ -60,9 +62,11 @@ class Printer {
                     Var value = pair.getValue();
                     writeToMemory.printf("%s=%s\n", key, value);
                 }
-            } else System.out.println("There is no vars in memory");
+//            } else System.out.println("There is no vars in memory");
+            } else System.out.println(ConsoleRunner.res.get(PrinterMessage.memoryVar));
         } catch (FileNotFoundException e) {
-            throw new CalcException("Error: FileNotFoundException: " + e);
+//            throw new CalcException("Error: FileNotFoundException: " + e);
+            throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.fileException) + " " + e);
         }
     }
 
@@ -103,9 +107,11 @@ class Printer {
                     Var value = pair.getValue();
                     writeToMemory.printf("%s=%s\n", key, value);
                 }
-            } else System.out.println("There is no vars in memory");
+//            } else System.out.println("There is no vars in memory");
+            } else System.out.println(ConsoleRunner.res.get(PrinterMessage.memoryVar));
         } catch (FileNotFoundException e) {
-            throw new CalcException("Error: FileNotFoundException: " + e);
+//            throw new CalcException("Error: FileNotFoundException: " + e);
+            throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.fileException) + " " + e);
         }
     }
 

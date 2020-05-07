@@ -21,7 +21,8 @@ class Parser {
         //A=-2+3*-4/-2  A=4
         expression = expression.replace(" ", "");
         if (expression.length() == 0) {
-            throw new CalcException("Expression was not entered");
+//            throw new CalcException("Expression was not entered");
+            throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.expressionForm));
         }
 
         expression = openBrackets(expression);
@@ -47,7 +48,8 @@ class Parser {
                 operands.add(index, result.toString());
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new CalcException("Missed operand after operation: " + e);
+//            throw new CalcException("Missed operand after operation: " + e);
+            throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.missedOperand) + " " + e);
         }
         return Var.createVar(operands.get(0));
     }
@@ -81,7 +83,8 @@ class Parser {
                 return left.div(right);
         }
 
-        throw new CalcException("Unknown operation");
+//        throw new CalcException("Unknown operation");
+        throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.operation));
 
     }
 

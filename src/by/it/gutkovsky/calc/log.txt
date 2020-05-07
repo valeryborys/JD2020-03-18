@@ -1,50 +1,50 @@
-{{2.0, 4.0}, {16.0, 6.0}}
+ОШИБКА: Деление на ноль невозможно
 end
-3.8+26.2
-30.0
-87.4-23.1
-64.30000000000001
-1.04*5.9
-6.136000000000001
-12.7*5
-63.5
-6+12
-18.0
-7*3.1
-21.7
-4/8
-0.5
-9-0.9
-8.1
+{{1,2},{8,3}}-{{2,3,3},{2,3,3}}
+ОШИБКА: Несовместимый размер
+{{1,2},{8,3}}*{{1,2},{8,3}}
+{{17.0, 8.0}, {32.0, 25.0}}
 end
 {2,3,4}*2
 {4.0, 6.0, 8.0}
-{3,6,9}/3
-{1.0, 2.0, 3.0}
-{2,3,4}-5
-{-3.0, -2.0, -1.0}
-4+{2,3,4}
-{6.0, 7.0, 8.0}
-{2,3,4}+{5,6,7}
-{7.0, 9.0, 11.0}
-{5,6,7}-{2,3,4}
-{3.0, 3.0, 3.0}
 end
-2/
-2/
-ERROR: IndexOutOfBoundsExceptionjava.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-3/
-ERROR: IndexOutOfBoundsExceptionjava.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+{2,3}+{1,2,3}
+ОШИБКА: Несовместимый размер
 end
-2/
-ERROR: Missed operand after operation: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-{2,3}*)*(10/)
-ERROR: Missed operand after operation: java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-{2,3}*)*(-10/2)
-ERROR: Unknown var: )
-{2,3}*(-10/2)
-{-10.0, -15.0}
+3.8+26.2
+30.0
 end
-g
-ERROR: Unknown var: g
+3.8/0
+ОШИБКА: Деление на ноль невозможно
+end
+{{1,2},{8,3}}-{{2,3,3},{2,3,3}}
+ERROR: Incompatible size
+{{1,2},{8,3}}*{{1,2},{8,3}}
+{{17.0, 8.0}, {32.0, 25.0}}
+end
+{{1,2},{8,3}}-{{2,3,3},{2,3,3}}
+ERROR: Incompatible size
+{{1,2},{8,3}}*{{1,2},{8,3}}
+{{17.0, 8.0}, {32.0, 25.0}}
+end
+{2,3,4}*2
+{4.0, 6.0, 8.0}
+end
+{2,3}+{1,2,3}
+ERROR: Incompatible size
+end
+{2,3}-{1,2,3}
+ERROR: Incompatible size
+end
+2/{1,2,3}
+ERROR: Operation 2.0 / {1.0, 2.0, 3.0} is impossible
+end
+3.8+26.2
+30.0
+end
+3.8/0
+ERROR: Division by zero is impossible
+end
+5*incorrect_string
+ERROR: Unknown var: incorrect_string
 end

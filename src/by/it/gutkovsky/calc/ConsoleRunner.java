@@ -1,8 +1,17 @@
 package by.it.gutkovsky.calc;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 class ConsoleRunner {
+
+    static ResMan res;
+
+    static {
+        res = ResMan.INSTANCE;
+    }
+
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
@@ -10,11 +19,8 @@ class ConsoleRunner {
         Logger logger = new Logger();
         printer.loadFromMemory(parser);
 
-        ResMan res = ResMan.INSTANCE;
-//        if(args.length==2){
-//            Locale locale = new Locale(args[0], args[1]);
-//            res.setLocale(locale);
-//        }
+//        System.out.println("Please, choose locale (en)/ Калі ласка, абярыце мову (be) / Пожалуйста, выберите язык (ru)");
+        Locale locale;
 
         label:
         for (; ; ) {
@@ -24,6 +30,18 @@ class ConsoleRunner {
             switch (expression) {
                 case "end":
                     break label;
+                case "en":
+                    locale = new Locale("en", "US");
+                    res.setLocale(locale);
+                    break;
+                case "be":
+                    locale = new Locale("be", "BY");
+                    res.setLocale(locale);
+                    break;
+                case "ru":
+                    locale = new Locale("ru", "RU");
+                    res.setLocale(locale);
+                    break;
                 case "printvar":  // jd01_11 - taskB part2 // also print var from memory
                     printer.printVar();
                     break;
