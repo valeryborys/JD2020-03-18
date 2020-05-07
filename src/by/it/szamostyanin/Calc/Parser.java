@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 public class Parser {
     //создаем таблицу приоритетов
+    private static ResMan res = ConsoleRunner.getRes(); //Rm.Instance;
     private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
         {
             this.put("=", 0);
@@ -20,8 +21,25 @@ public class Parser {
         //A=-1+2*3/-2   A=-4
         expression = expression.replace(" ", "");  //убираем пробелы
         if (expression.length() == 0) {
-            throw new CalcException("ne expression");
+            throw new CalcException("not expression");
         }
+
+        switch (expression) {
+            case "en": {
+                res.setLocale(new Locale(expression, "US"));
+                return null;
+            }
+            case "ru": {
+                res.setLocale(new Locale(expression, "RU"));
+                return null;
+
+            }
+            case "be": {
+                res.setLocale(new Locale(expression, "BY"));
+                return null;
+            }
+        }
+
         List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));   //создаем лист из массива строк, полученного в результате сплита по регулярке
         List<String> operations = new ArrayList<>();
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
