@@ -73,7 +73,7 @@ public class Runner {
         manager.setLocale(locale);
 
         if (localeExists) {
-            df = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM, locale);
+            df = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT, locale);
             date = new Date();
             System.out.println(df.format(date));
             System.out.println(manager.getString(Message.hello));

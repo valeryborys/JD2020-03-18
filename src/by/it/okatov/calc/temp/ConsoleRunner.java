@@ -1,10 +1,21 @@
 package by.it.okatov.calc.temp;
 
 
+import by.it.okatov.calc.temp.logsystem.LogSystem;
+import by.it.okatov.jd01_15.TaskB;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public class ConsoleRunner {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        PrintStream out = new PrintStream(new FileOutputStream(TaskB.getFileName(LogSystem.class, "DebugLog.log")));
+        PrintStream logger = new LogSystem(System.out, out);
+        System.setOut(logger);
+        System.setErr(new LogSystem(System.err, out));
+
         Scanner sc = new Scanner(System.in);
         Parser parse = new Parser();
         Printer print = new Printer();

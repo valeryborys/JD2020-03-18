@@ -37,7 +37,8 @@ public class Vector extends Var {
     //region [addition]
     @Override
     public Var add(Var other) throws CalcException {
-        return super.add(other);
+        //return super.add(other);
+        return other.add(this);
     }
 
     @Override
@@ -91,7 +92,7 @@ public class Vector extends Var {
     //region [multiplication]
     @Override
     public Var mul(Var other) throws CalcException {
-        return super.mul(other);
+        return other.mul(this);
     }
 
     @Override

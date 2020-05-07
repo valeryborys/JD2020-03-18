@@ -30,10 +30,6 @@ class Parser {
             throw new CalcException("no operation");
         }
 
-        /*if (!CheckBrackets.checkBrackets(expression)) {
-            throw new CalcException("Error! Brackets haven't been closed!");
-        }*/
-
         Pattern pattern = Pattern.compile("[(]([^()]+)[)]");
         Matcher matcher = pattern.matcher(expression);
         while (matcher.find()) {

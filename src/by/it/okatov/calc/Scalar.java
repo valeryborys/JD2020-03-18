@@ -42,7 +42,7 @@ public class Scalar extends Var {
 
     @Override
     public Var mul(Var other) throws CalcException {
-        return super.mul(other);
+        return other.mul(this);
     }
 
     @Override
@@ -63,8 +63,9 @@ public class Scalar extends Var {
 
     @Override
     public Var sub(Var other) throws CalcException {
-        return super.sub(other);
+        return other.sub(this);
     }
+
 
     @Override
     public Var sub(Matrix matrix) throws CalcException {
@@ -84,7 +85,7 @@ public class Scalar extends Var {
 
     @Override
     public Var div(Var other) throws CalcException {
-        return super.div(other);
+        return this.div((Scalar) other);
     }
 
     @Override
@@ -97,6 +98,7 @@ public class Scalar extends Var {
         double otherValue = scalar.value;
         if (otherValue != 0) {
             double result = value / otherValue;
+            //double result = otherValue / value;
             return new Scalar(result);
         } else
             throw new CalcException("ERROR! Division by zero");

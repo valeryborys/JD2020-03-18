@@ -1,10 +1,12 @@
 package by.it.okatov.calc;
 
 
+
 import java.util.Scanner;
 
 public class ConsoleRunner {
     public static void main(String[] args) {
+        //system.readConsole();
         Scanner sc = new Scanner(System.in);
         Parser parse = new Parser();
         Printer print = new Printer();
