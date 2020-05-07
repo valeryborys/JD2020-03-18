@@ -1,14 +1,12 @@
 package by.it.tolstik.calc;
 
 import java.util.Arrays;
-
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Vector extends Var {
 
-    private double[] value;
+    private final double[] value;
 
     public double[] getValue() {
         return value;
@@ -51,8 +49,8 @@ class Vector extends Var {
         StringBuilder sb = new StringBuilder();
         sb.append('{');
         String delimeter = "";
-        for (int i = 0; i < value.length; i++) {
-            sb.append(delimeter).append(value[i]);
+        for (double v : value) {
+            sb.append(delimeter).append(v);
             delimeter = ", ";
 
         }

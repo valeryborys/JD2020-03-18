@@ -4,11 +4,10 @@ import java.util.*;
 
 abstract class Var implements Operation {
 
-    private static Map<String, Var> vars = new HashMap<>();
+    private static final Map<String, Var> vars = new HashMap<>();
 
-    static Var saveVar(String name, Var var) {
+    static void saveVar(String name, Var var) {
         vars.put(name, var);
-        return var;
     }
 
     static Map<String, Var> getVars() {

@@ -1,16 +1,12 @@
 package by.it.tolstik.calc;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Test;
-
 import java.util.Arrays;
-
 import static org.junit.Assert.*;
 
 public class ParserTest {
 
-    @Test
+    @Test(timeout = 5000)
     public void a1_createAndPrintScalar() throws CalcException {
         String expected = "322.0";
         Parser parser = new Parser();
@@ -93,7 +89,7 @@ public class ParserTest {
     }
 
     // Для векторов
-    @Test
+    @Test(timeout = 5000)
     public void checkCalcScalarAndScalarInBrackets() throws Exception {
         double expected = 40.15;
         Parser parser = new Parser();
@@ -104,7 +100,7 @@ public class ParserTest {
         assertEquals(expected, actual, 1e-8);
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void checkCalcNextScalarAndScalarInBrackets() throws Exception {
         double expected = 10.0;
         Parser parser = new Parser();
@@ -114,7 +110,7 @@ public class ParserTest {
         assertEquals(expected, actual, 1e-8);
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void checkCalcVectorAndScalarInBrackets() throws Exception {
         double[] expected = {10.0, 15.0};
         Parser parser = new Parser();
@@ -143,7 +139,7 @@ public class ParserTest {
         assertTrue(Arrays.deepEquals(expected, actual));
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a2_checkCalcScalarAddVector() throws Exception {
         double[] expected = {9, 10, 11};
         Parser parser = new Parser();
@@ -152,7 +148,7 @@ public class ParserTest {
         assertArrayEquals(expected, actual, 1e-8);
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a2_checkCalcScalarSubVector() throws Exception {
         double[] expected = {-7.0, -6.0, -5.0};
         Parser parser = new Parser();
@@ -161,7 +157,7 @@ public class ParserTest {
         assertArrayEquals(expected, actual, 1e-8);
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a2_checkCalcScalarMulVector() throws Exception {
         double[] expected = {8, 16, 24};
         Parser parser = new Parser();
@@ -170,7 +166,7 @@ public class ParserTest {
         assertArrayEquals(expected, actual, 1e-8);
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a3_checkCalcScalarAddMatrix() throws Exception {
         double[][] expected = {{11.0, 12.0, 13.0}, {17.0, 18.0, 19.0}, {14.5, 15.1, 16}};
         Parser parser = new Parser();
@@ -179,7 +175,7 @@ public class ParserTest {
         assertTrue(Arrays.deepEquals(expected, v));
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a3_checkCalcScalarSubMatrix() throws Exception {
         double[][] expected = {{-9.0, -8.0, -7.0}, {-3.0, -2.0, -1.0}, {-5.5, -5.0, -4.0}};
         Parser parser = new Parser();
@@ -188,7 +184,7 @@ public class ParserTest {
         assertTrue(Arrays.deepEquals(expected, v));
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a3_checkCalcScalarMulMatrix() throws Exception {
         double[][] expected = {{10.0, 20.0, 30.0}, {70.0, 80.0, 90.0}, {45, 50, 60}};
         Parser parser = new Parser();
@@ -197,7 +193,7 @@ public class ParserTest {
         assertTrue(Arrays.deepEquals(expected, v));
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a2_createAndPrintVector() throws CalcException {
         String expected = "{1.0, 2.0, 3.0}";
         Parser parser = new Parser();
@@ -206,7 +202,7 @@ public class ParserTest {
         assertEquals(expected, v);
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a2_checkCalcAddVectors() throws CalcException {
         double[] expected = {2, 4, 6};
         Parser parser = new Parser();
@@ -215,7 +211,7 @@ public class ParserTest {
         assertArrayEquals(expected, actual, 1e-8);
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a2_checkCalcSubVectors() throws CalcException {
         double[] expected = {2, 4, 7};
         Parser parser = new Parser();
@@ -224,7 +220,7 @@ public class ParserTest {
         assertArrayEquals(expected, actual, 1e-8);
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a2_checkCalcMulVectors() throws CalcException {
         double expected = 34;
         Parser parser = new Parser();
@@ -233,7 +229,7 @@ public class ParserTest {
         assertEquals(expected, actual, 1e-8);
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a2_checkCalcVectorAddScalar() throws CalcException {
         double[] expected = {51, 52, 53};
         Parser parser = new Parser();
@@ -242,7 +238,7 @@ public class ParserTest {
         assertArrayEquals(expected, actual, 1e-8);
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a2_checkCalcVectorSubScalar() throws CalcException {
         double[] expected = {-11, -10, -9};
         Parser parser = new Parser();
@@ -251,7 +247,7 @@ public class ParserTest {
         assertArrayEquals(expected, actual, 1e-8);
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a2_checkCalcVectorMulScalar() throws CalcException {
         double[] expected = {2, 4, 6};
         Parser parser = new Parser();
@@ -260,7 +256,7 @@ public class ParserTest {
         assertArrayEquals(expected, actual, 1e-8);
     }
 
-    @Test
+    @Test(timeout = 5000)
     public void a2_checkCalcVectorDivScalar() throws CalcException {
         double[] expected = {4.5, 4.0, 3.5};
         Parser parser = new Parser();
@@ -268,7 +264,7 @@ public class ParserTest {
         double[] actual = ((Vector) calc).getValue();
         assertArrayEquals(expected, actual, 1e-8);
     }
-    @Test
+    @Test(timeout = 5000)
     public void a3_createAndPrintMatrix() throws CalcException {
         String expected = "{{1.0, 3.0}, {1.0, 3.0}, {1.0, 3.0}}";
         Parser parser = new Parser();
@@ -276,7 +272,7 @@ public class ParserTest {
         String v = calc.toString();
         assertEquals(expected, v);
     }
-    @Test
+    @Test(timeout = 5000)
     public void a3_checkCalcAddMatrix() throws CalcException {
         double[][] expected = {{2.0, 6.0}, {2.0, 6.0}, {2.0, 6.0}};
         Parser parser = new Parser();
@@ -284,7 +280,7 @@ public class ParserTest {
         double[][] v = ((Matrix) calc).getValue();
         assertTrue(Arrays.deepEquals(expected, v));
     }
-    @Test
+    @Test(timeout = 5000)
     public void a3_checkCalcSubMatrix() throws CalcException {
         double[][] expected = {{2.0, 0.0}, {2.0, 0.0}, {2.0, 0.0}};
         Parser parser = new Parser();
@@ -292,7 +288,7 @@ public class ParserTest {
         double[][] v = ((Matrix) calc).getValue();
         assertTrue(Arrays.deepEquals(expected, v));
     }
-    @Test
+    @Test(timeout = 5000)
     public void a3_checkCalcMulMatrix() throws CalcException {
         double[][] expected = {{7.0, 21.0, -4.0}, {6.0, 18.0, 7.0}, {9.0, 27.0, -26.0}};
         Parser parser = new Parser();
@@ -300,7 +296,7 @@ public class ParserTest {
         double[][] v = ((Matrix) calc).getValue();
         assertTrue(Arrays.deepEquals(expected, v));
     }
-    @Test
+    @Test(timeout = 5000)
     public void a3_checkCalcMatrixAddScalar() throws CalcException {
         double[][] expected = {{4.0,5.0,6.0},{10.0,11.0,12.0},{7.5,8.1,9}};
         Parser parser = new Parser();
@@ -308,7 +304,7 @@ public class ParserTest {
         double[][] v = ((Matrix) calc).getValue();
         assertTrue(Arrays.deepEquals(expected, v));
     }
-    @Test
+    @Test(timeout = 5000)
     public void a3_checkCalcMatrixSubScalar() throws CalcException {
         double[][] expected = {{-2,-1,0},{4.0,5.0,6.0},{1.5,2,3}};
         Parser parser = new Parser();
@@ -316,7 +312,7 @@ public class ParserTest {
         double[][] v = ((Matrix) calc).getValue();
         assertTrue(Arrays.deepEquals(expected, v));
     }
-    @Test
+    @Test(timeout = 5000)
     public void a3_checkCalcMatrixMulScalar() throws CalcException {
         double[][] expected = {{3.0,6.0,9.0},{21.0,24.0,27.0},{13.5,15,18}};
         Parser parser = new Parser();
@@ -324,7 +320,7 @@ public class ParserTest {
         double[][] v = ((Matrix) calc).getValue();
         assertTrue(Arrays.deepEquals(expected, v));
     }
-    @Test
+    @Test(timeout = 5000)
     public void a3_checkCalcMatrixDivScalar() throws CalcException {
         double[][] expected = {{0.5,1.0,1.5},{3.5,4,4.5},{2.25,2.5,3}};
         Parser parser = new Parser();
@@ -332,7 +328,7 @@ public class ParserTest {
         double[][] v = ((Matrix) calc).getValue();
         assertTrue(Arrays.deepEquals(expected, v));
     }
-    @Test
+    @Test(timeout = 5000)
     public void a3_checkCalcMatrixMulVector() throws CalcException {
         double[] expected = {50,45};
         Parser parser = new Parser();
