@@ -19,6 +19,11 @@ public enum ResMan {
         bundle = ResourceBundle.getBundle(
                 BASE_NAME, locale
         );
+        this.locale = locale;
+    }
+
+    public Locale getLocale() {
+        return locale;
     }
 
     String get(String key){
