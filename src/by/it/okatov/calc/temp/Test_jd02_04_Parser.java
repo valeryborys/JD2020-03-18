@@ -1,4 +1,4 @@
-package by.it.okatov.calc;
+package by.it.okatov.calc.temp;
 
 
 import org.junit.Test;
@@ -8,55 +8,6 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class Test_jd02_04_Parser {
-
-    @Test(timeout = 1500)
-    public void Test0_1_createScalar() throws CalcException {
-        double scalar = 3.0;
-        Var A = new Scalar(scalar);
-        String expected = A.toString();
-        String actual = Double.toString(scalar);
-        assertEquals(expected, actual);
-        String message = String.format(
-                "%s%nТест пройден успешно. Значения:%n  Ожидаемое: %s%n  Полученное:%s%n%n",
-                "Test0_1_createScalar()",
-                expected,
-                actual
-        );
-        System.out.println(message);
-    }
-
-    @Test(timeout = 1500)
-    public void Test0_2_createVector() throws CalcException {
-        double[] vector = new double[]{1, 2, 3};
-        Var A = new Vector(vector);
-        String expected = A.toString();
-        String actual = "{1.0, 2.0, 3.0}";
-        assertEquals(expected, actual);
-        String message = String.format(
-                "%s%nТест пройден успешно. Значения:%n  Ожидаемое: %s%n  Полученное:%s%n%n",
-                "Test0_2_createVector()",
-                expected,
-                actual
-        );
-        System.out.println(message);
-    }
-
-    @Test(timeout = 1500)
-    public void Test0_3_createMatrix() throws CalcException {
-        double[][] matrix = new double[][]{{1, 2.2, 3.0}, {3, 0.0, 1.2}};
-        Var A = new Matrix(matrix);
-        String expected = A.toString();
-        String actual = "{{1.0, 2.2, 3.0}, {3.0, 0.0, 1.2}}";
-        assertEquals(expected, actual);
-        String message = String.format(
-                "%s%nТест пройден успешно. Значения:%n  Ожидаемое: %s%n  Полученное:%s%n%n",
-                "Test0_1_createScalar()",
-                expected,
-                actual
-        );
-        System.out.println(message);
-    }
-
 
     //Да, тут в названии метода прямое нарушение code-style, но метод
     //checkScalarsPlainExpression - ОБЯЗАТЕЛЬНО должен выполниться раньше,
@@ -142,6 +93,7 @@ public class Test_jd02_04_Parser {
         Parser parser = new Parser();
         Var vect = parser.calc("VA = {1,2,3} + {1,2,3}");
         double[] actual = ((Vector) vect).getValue();
+        assertArrayEquals(expected, actual, 1e-8);
         Vector vExpected = new Vector(expected);
         Vector vActual = new Vector(actual);
         String message = String.format(
@@ -443,20 +395,27 @@ public class Test_jd02_04_Parser {
 
     @Test(timeout = 1500, expected = CalcException.class)
     public void Test3_8_checkMatrixDivision() throws CalcException {
+        Var A;
+        Var B;
+        Var calc;
         Parser parser = new Parser();
 
-        parser.calc("A = {{1,2,3},{3,2,1},{2,3,1}}");
+        calc = parser.calc("A = {{1,2,3},{3,2,1},{2,3,1}}");
+        A = new Matrix(((Matrix) calc).getValue());
 
         //-------------------------------Matrix/Scalar-------------------------------
-        parser.calc("B = 5");
-        parser.calc("A/B");
+        calc = parser.calc("B = 5");
+        B = new Scalar(((Scalar) calc).getValue());
+        calc = parser.calc("A/B");
 
         //-------------------------------Matrix/Vector-------------------------------
-        parser.calc("C = {5,2,3}");
-        parser.calc("A/B");
+        calc = parser.calc("C = {5,2,3}");
+        B = new Scalar(((Scalar) calc).getValue());
+        calc = parser.calc("A/B");
         //-------------------------------Matrix/Matrix-------------------------------
-        parser.calc("D = {{1,2,3},{4,5,6},{7,8,9}}");
-        parser.calc("A/B");
+        calc = parser.calc("D = {{1,2,3},{4,5,6},{7,8,9}}");
+        B = new Scalar(((Scalar) calc).getValue());
+        calc = parser.calc("A/B");
     }
 
     @Test(timeout = 1500)

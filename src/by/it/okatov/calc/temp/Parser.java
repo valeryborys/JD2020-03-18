@@ -1,5 +1,4 @@
-package by.it.okatov.calc;
-
+package by.it.okatov.calc.temp;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -13,6 +12,8 @@ class Parser {
             new HashMap<String, Integer>() {
                 {
                     this.put("=", 0);
+                    /*this.put("(", 0);
+                    this.put(")", 0);*/
                     this.put("+", 1);
                     this.put("-", 1);
                     this.put("*", 2);
@@ -29,6 +30,9 @@ class Parser {
             throw new CalcException("no operation");
         }
 
+        /*if (!CheckBrackets.checkBrackets(expression)) {
+            throw new CalcException("Error! Brackets haven't been closed!");
+        }*/
 
         Pattern pattern = Pattern.compile("[(]([^()]+)[)]");
         Matcher matcher = pattern.matcher(expression);

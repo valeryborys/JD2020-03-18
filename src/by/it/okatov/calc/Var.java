@@ -1,10 +1,12 @@
 package by.it.okatov.calc;
 
 
+import by.it.okatov.calc.temp.Patterns;
+
 import java.util.HashMap;
 import java.util.Map;
 
-abstract class Var implements Operation {
+abstract class Var implements IOperation {
 
     private static final Map<String, Var> hMap = new HashMap<>();
     private String strName;
@@ -44,35 +46,132 @@ abstract class Var implements Operation {
         return hMap;
     }
 
+
     @Override
     public Var add(Var other) throws CalcException {
         throw new CalcException(
-                String.format("ERROR! ") +
+                "ERROR! " +
                         String.format("Operation %s + %s is impossible\n", this, other)
         );
     }
 
     @Override
-    public Var sub(Var other) throws CalcException {
+    public Var add(Matrix matrix) throws CalcException {
         throw new CalcException(
-                String.format("ERROR! ") +
-                        String.format("Operation %s - %s is impossible\n", this, other)
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, matrix)
+        );
+    }
+
+    @Override
+    public Var add(Scalar scalar) throws CalcException {
+        throw new CalcException(
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, scalar)
+        );
+    }
+
+    @Override
+    public Var add(Vector vector) throws CalcException {
+        throw new CalcException(
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, vector)
         );
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
         throw new CalcException(
-                String.format("ERROR! ") +
-                        String.format("Operation %s * %s is impossible\n", this, other)
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, other)
+        );
+    }
+
+    @Override
+    public Var mul(Matrix matrix) throws CalcException {
+        throw new CalcException(
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, matrix)
+        );
+    }
+
+    @Override
+    public Var mul(Scalar scalar) throws CalcException {
+        throw new CalcException(
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, scalar)
+        );
+    }
+
+    @Override
+    public Var mul(Vector vector) throws CalcException {
+        throw new CalcException(
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, vector)
+        );
+    }
+
+    @Override
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException(
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, other)
+        );
+    }
+
+    @Override
+    public Var sub(Matrix matrix) throws CalcException {
+        throw new CalcException(
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, matrix)
+        );
+    }
+
+    @Override
+    public Var sub(Scalar scalar) throws CalcException {
+        throw new CalcException(
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, scalar)
+        );
+    }
+
+    @Override
+    public Var sub(Vector vector) throws CalcException {
+        throw new CalcException(
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, vector)
         );
     }
 
     @Override
     public Var div(Var other) throws CalcException {
         throw new CalcException(
-                String.format("ERROR! ") +
-                        String.format("Operation %s / %s is impossible\n", this, other)
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, other)
+        );
+    }
+
+    @Override
+    public Var div(Matrix matrix) throws CalcException {
+        throw new CalcException(
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, matrix)
+        );
+    }
+
+    @Override
+    public Var div(Scalar scalar) throws CalcException {
+        throw new CalcException(
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, scalar)
+        );
+    }
+
+    @Override
+    public Var div(Vector vector) throws CalcException {
+        throw new CalcException(
+                "ERROR! " +
+                        String.format("Operation %s + %s is impossible\n", this, vector)
         );
     }
 

@@ -1,4 +1,4 @@
-package by.it.okatov.calc;
+package by.it.okatov.calc.temp;
 
 import java.util.Stack;
 
