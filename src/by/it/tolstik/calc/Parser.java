@@ -4,7 +4,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Parser {
+class Parser {
+
     private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
         {
             this.put("=", 0);
@@ -16,24 +17,42 @@ public class Parser {
     };
 
     Var calc(String expression) throws CalcException {
-        if (expression.length() < 3) throw new CalcException("wrong expression");
         expression = expression.replace(" ", "");
-        expression = calcInScopes(expression);
+        if (expression.length() == 0) {
+            throw new CalcException("Expression was not entered");
+        }
+
+        expression = openBrackets(expression);
+
         List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
         List<String> operations = new ArrayList<>();
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
         while (matcher.find()) {
             operations.add(matcher.group());
         }
-        while (operations.size() > 0) {
-            int index = getIndexCurrentOperation(operations);
-            String operation = operations.remove(index);
-            String left = operands.remove(index);
-            String right = operands.remove(index);
-            Var result = oneOperation(left, operation, right);
-            operands.add(index, result.toString());
+        try {
+            while (operations.size() > 0) {
+                int index = getIndexCurrentOperation(operations);
+                String operation = operations.remove(index);
+                String left = operands.remove(index);
+                String right = operands.remove(index);
+                Var result = oneOperation(left, operation, right);
+                operands.add(index, result.toString());
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new CalcException("Missed operand after operation: " + e);
         }
         return Var.createVar(operands.get(0));
+    }
+
+    private String openBrackets(String expression) throws CalcException {
+        String expresionInBrackets = expression;
+        Matcher matcher = Pattern.compile(Patterns.BRACKETS).matcher(expression);
+        while (matcher.find()) {
+            Var tempResult = calc(matcher.group().replace("(", "").replace(")", ""));
+            expresionInBrackets = openBrackets(expression.replace(matcher.group(), tempResult.toString()));
+        }
+        return expresionInBrackets;
     }
 
     private Var oneOperation(String strLeft, String operation, String strRight) throws CalcException {
@@ -42,20 +61,21 @@ public class Parser {
             Var.saveVar(strLeft, right);
             return right;
         }
+
         Var left = Var.createVar(strLeft);
         switch (operation) {
             case "+":
                 return left.add(right);
-
             case "-":
                 return left.sub(right);
             case "*":
                 return left.mul(right);
             case "/":
                 return left.div(right);
-            default:
-                throw new CalcException("Wrong operation");
         }
+
+        throw new CalcException("Unknown operation");
+
     }
 
     private int getIndexCurrentOperation(List<String> operations) {
@@ -69,15 +89,5 @@ public class Parser {
             }
         }
         return index;
-    }
-
-    private String calcInScopes(String expression) throws CalcException {
-        String expressionSave = expression;
-        Matcher matcher = Pattern.compile(Patterns.SCOPES).matcher(expression);
-        while (matcher.find()) {
-            String inScope = calc(matcher.group().replace("(", "").replace(")", "")).toString();
-            expressionSave = calcInScopes(expression.replace(matcher.group(), inScope));
-        }
-        return expressionSave;
     }
 }

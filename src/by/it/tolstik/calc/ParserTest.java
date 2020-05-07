@@ -93,31 +93,35 @@ public class ParserTest {
     }
 
     // Для векторов
-    @Test(timeout = 5000)
-    public void a2_checkCalcWithVector1() throws Exception {
+    @Test
+    public void checkCalcScalarAndScalarInBrackets() throws Exception {
         double expected = 40.15;
         Parser parser = new Parser();
-        Var varA = parser.calc("C=B+(A*2)");
-        double actual = Double.parseDouble(varA.toString());
+        parser.calc("A = 7.3");
+        parser.calc("B = 25.55");
+        Var varC = parser.calc("C=B+(A*2)");
+        double actual = Double.parseDouble(varC.toString());
         assertEquals(expected, actual, 1e-8);
     }
 
-    @Test(timeout = 5000)
-    public void a2_checkCalcWithVector2() throws Exception {
-        double expected = 10;
+    @Test
+    public void checkCalcNextScalarAndScalarInBrackets() throws Exception {
+        double expected = 10.0;
         Parser parser = new Parser();
-        Var varA = parser.calc("D=((C-0.15)-20)/(7-5)");
-        double actual = Double.parseDouble(varA.toString());
+        parser.calc("C = 40.15");
+        Var varD = parser.calc("D=((C-0.15)-20)/(7-5)");
+        double actual = Double.parseDouble(varD.toString());
         assertEquals(expected, actual, 1e-8);
     }
 
-    @Test(timeout = 5000)
-    public void a2_checkCalcWithVector3() throws Exception {
-        double expected = 10.15;
+    @Test
+    public void checkCalcVectorAndScalarInBrackets() throws Exception {
+        double[] expected = {10.0, 15.0};
         Parser parser = new Parser();
-        Var varA = parser.calc("E={2,3}*(D/2)");
-        double actual = Double.parseDouble(varA.toString());
-        assertEquals(expected, actual, 1e-8);
+        parser.calc("D=10");
+        Var varE = parser.calc("E={2,3}*(D/2)");
+        double[] actual = ((Vector) varE).getValue();
+        assertArrayEquals(expected, actual, 1e-8);
     }
 
     @Test(timeout = 5000)
