@@ -12,7 +12,7 @@ enum ResMan {
 
     ResMan() {
         this.locale = Locale.getDefault();
-//        this.locale = Locale.US; раскоментировать дляпрохождения теста  Test_jd01_13_for_calc
+//        this.locale = Locale.US; // раскоментировать дляпрохождения теста  Test_jd01_13_for_calc
         setLocale(locale);
     }
 

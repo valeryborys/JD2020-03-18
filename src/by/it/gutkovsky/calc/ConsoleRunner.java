@@ -19,7 +19,7 @@ class ConsoleRunner {
         Logger logger = new Logger();
         printer.loadFromMemory(parser);
 
-//        System.out.println("Please, choose locale (en)/ Калі ласка, абярыце мову (be) / Пожалуйста, выберите язык (ru)");
+        System.out.println("Please, choose locale (en)/ Калі ласка, абярыце мову (be) / Пожалуйста, выберите язык (ru)");
         Locale locale;
 
         label:
