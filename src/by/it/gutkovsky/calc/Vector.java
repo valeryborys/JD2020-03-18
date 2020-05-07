@@ -49,7 +49,8 @@ class Vector extends Var {
                     vectorValue[i] = vectorValue[i] + ((Vector) other).value[i];
                 }
                 return new Vector(vectorValue);
-            } else throw new CalcException("Incompatible size");
+//            } else throw new CalcException("Incompatible size");
+            } else throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.incompatible));
         }
         return super.add(other);
     }
@@ -69,7 +70,8 @@ class Vector extends Var {
                     resultVectorSub[i] = resultVectorSub[i] - ((Vector) other).value[i];
                 }
                 return new Vector(resultVectorSub);
-            } else throw new CalcException("Incompatible size");
+//            } else throw new CalcException("Incompatible size");
+            } else throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.incompatible));
         }
         return super.sub(other);
     }
@@ -90,7 +92,8 @@ class Vector extends Var {
                     resultMult = resultMult + resultVectorMult[i] * ((Vector) other).value[i];
                 }
                 return new Scalar(resultMult);
-            } else throw new CalcException("Incompatible size");
+//            } else throw new CalcException("Incompatible size");
+            } else throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.incompatible));
         }
         return super.mul(other);
     }
@@ -105,7 +108,8 @@ class Vector extends Var {
                 }
                 return new Vector(divResult);
             }
-            throw new CalcException("Division by zero is impossible");
+//            throw new CalcException("Division by zero is impossible");
+            throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.zeroDivision));
         }
         return super.div(other);
     }
