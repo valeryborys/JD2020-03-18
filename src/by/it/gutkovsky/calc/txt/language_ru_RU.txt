@@ -12,3 +12,4 @@ CalcException.fileException = Ошибка: Файл не найден:
 Printer.noVar =  Переменные отсутствуют
 Printer.memoryVar = В памяти нет сохраненных переменных
 Var.message = Абстрактная переменная{}
+Printer.printMemory = Сохраненные переменные

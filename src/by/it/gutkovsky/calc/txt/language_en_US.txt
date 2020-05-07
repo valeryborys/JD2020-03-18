@@ -12,3 +12,4 @@ CalcException.fileException = Error: FileNotFoundException:
 Printer.noVar =  There is no var
 Printer.memoryVar = There is no vars in memory
 Var.message = Abstract Var{}
+Printer.printMemory = Saved vars

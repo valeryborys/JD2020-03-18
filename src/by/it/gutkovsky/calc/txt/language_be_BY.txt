@@ -12,3 +12,4 @@ CalcException.fileException = Памылка: Файл не знойдзен:
 Printer.noVar =  Пераменныя адсутнічаюць
 Printer.memoryVar = У памяці няма захаваных пераменных
 Var.message = Абстрактная пераменная{}
+Printer.printMemory = Захаваныя пераменныя

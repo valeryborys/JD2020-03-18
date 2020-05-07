@@ -1,15 +1,3 @@
-ПАМЫЛКА: Невядомая пераменная: f
-2/0
-ПАМЫЛКА: Дзяленне на нуль немагчыма
-{1,2}/{1,2,3}
-ПАМЫЛКА: Аперацыя {1.0, 2.0} / {1.0, 2.0, 3.0} немагчыма
-printvar
-end
-{{1,2},{8,3}}-{{2,3,3},{2,3,3}}
-ОШИБКА: Несовместимый размер
-{{1,2},{8,3}}*{{1,2},{8,3}}
-{{17.0, 8.0}, {32.0, 25.0}}
-end
 {2,3,4}*2
 {4.0, 6.0, 8.0}
 end
@@ -47,4 +35,16 @@ ERROR: Division by zero is impossible
 end
 5*incorrect_string
 ERROR: Unknown var: incorrect_string
+end
+printmemory
+end
+printmemory
+en
+printmemory
+be
+printmemory
+end
+printmemory
+f
+ОШИБКА: Неизвестная переменная: f
 end

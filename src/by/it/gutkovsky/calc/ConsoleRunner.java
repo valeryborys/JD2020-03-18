@@ -49,7 +49,8 @@ class ConsoleRunner {
                     printer.sortVar();
                     break;
                 case "printmemory":
-                    System.out.println("\033[33mSaved vars: \033[30m");
+                    System.out.println("\033[33m" + res.get(PrinterMessage.printMemory) + ": \033[30m");
+//                    System.out.println("\033[33mSaved vars: \033[30m");
 //                    System.out.println("\tSaved vars:");
                     printer.printFromMemory();
                     break;

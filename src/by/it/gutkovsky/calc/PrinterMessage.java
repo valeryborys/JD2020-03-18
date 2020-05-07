@@ -5,5 +5,6 @@ interface PrinterMessage {
     String noVar = "Printer.noVar";
     String memoryVar = "Printer.memoryVar";
     String message = "Var.message";
+    String printMemory = "Printer.printMemory";
 
 }
