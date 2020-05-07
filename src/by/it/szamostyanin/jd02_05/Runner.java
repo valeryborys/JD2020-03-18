@@ -34,7 +34,6 @@ public class Runner {
                 default: {
                     System.out.println(res.getString(Message.ERROR));
                 }
-
             }
         }
     }
