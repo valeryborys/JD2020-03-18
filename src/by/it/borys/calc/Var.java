@@ -1,11 +1,13 @@
 package by.it.borys.calc;
 
 
+import by.it.borys.jd02_05.Message;
+import sun.awt.AWTAccessor;
+
 import java.io.*;
 import java.util.*;
 
 abstract class Var implements Operation {
-
     private static Map<String, Var> map = new HashMap<>();
     private static Map<String, Var> sortmap = new TreeMap<>();
 
@@ -44,7 +46,7 @@ abstract class Var implements Operation {
         else {
                 Var var = map.get(operand);
                 if (var != null) return var;
-             else throw new CalcExeption("inсorrect name var: " + operand);
+             else throw new CalcExeption(ResMan.res.get(Messages.incorrname) + operand);
         }
     }
     static void printToFile(Map<String,Var> map,String fileName){
@@ -65,22 +67,22 @@ abstract class Var implements Operation {
 
     @Override
     public Var add(Var other) throws CalcExeption {
-        throw new CalcExeption(String.format("Операция сложения " + this + "+" + other + " невозможна"));
+        throw new CalcExeption(String.format(ResMan.res.get(Messages.addop) + this + "+" + other + ResMan.res.get(Messages.impossible)));
            }
 
     @Override
     public Var sub(Var other) throws CalcExeption {
-        throw new CalcExeption(String.format("Операция вычитания " + this + "-" + other + " невозможна"));
+        throw new CalcExeption(String.format(ResMan.res.get(Messages.subop) + this + "-" + other + ResMan.res.get(Messages.impossible)));
            }
 
     @Override
     public Var mul(Var other) throws CalcExeption {
-        throw new CalcExeption(String.format("Операция умножения " + this + "*" + other + " невозможна"));
+        throw new CalcExeption(String.format(ResMan.res.get(Messages.mulop) + this + "*" + other + ResMan.res.get(Messages.impossible)));
 
     }
 
     @Override
     public Var div(Var other) throws CalcExeption {
-        throw new CalcExeption(String.format("Операция деления " + this + "/" + other + " невозможна"));
+        throw new CalcExeption(String.format(ResMan.res.get(Messages.divop) + this + "/" + other + ResMan.res.get(Messages.impossible)));
           }
 }

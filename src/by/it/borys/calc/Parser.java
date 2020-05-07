@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
+       private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
         {
             this.put("=", 0);
             this.put("+", 1);
@@ -14,9 +14,8 @@ public class Parser {
             this.put("/", 2);
         }
     };
-
     Var calc(String expression) throws CalcExeption {
-        if (expression.length() < 3) throw new CalcExeption("wrong expression");
+        if (expression.length() < 3) throw new CalcExeption(ResMan.res.get(Messages.wrongexp));
         expression = expression.replace(" ", "");
         expression = calcInScopes(expression);
         List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
@@ -55,7 +54,7 @@ public class Parser {
             case "/":
                 return left.div(right);
             default:
-                throw new CalcExeption("Wrong operation");
+                throw new CalcExeption(ResMan.res.get(Messages.wrongop));
         }
     }
 

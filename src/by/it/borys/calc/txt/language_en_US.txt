@@ -1,0 +1,12 @@
+err=ERROR:
+unknownerr=ERROR: unknown error
+savedvalues=Saved variables values:
+wrongexp=Wrong expression
+wrongop=Wrong operation
+incorrname=Incorrect name var:
+addop=Addition operation
+subop=Subtraction operation
+mulop=Multiplication operation
+divop=Division operation
+impossible= is impossible
+localechange=Locale changed: en_US
