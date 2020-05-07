@@ -1,4 +1,4 @@
-package by.it.okatov.calc.temp.logsystem;
+package by.it.okatov.calc.logsystem;
 
 public interface ILogSystem {
     void readConsole();

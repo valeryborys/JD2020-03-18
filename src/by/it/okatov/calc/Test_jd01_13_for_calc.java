@@ -1,4 +1,4 @@
-package by.it.okatov.calc.temp;
+package by.it.okatov.calc;
 
 
 import org.junit.Test;

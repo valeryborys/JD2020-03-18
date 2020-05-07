@@ -1,4 +1,4 @@
-package by.it.okatov.calc.temp;
+package by.it.okatov.calc;
 
 public interface Operation {
     Var add(Var other) throws CalcException;

@@ -18,7 +18,4 @@ public class Printer {
         }
     }
 
-    void print(String name, Var var) {
-
-    }
 }

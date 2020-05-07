@@ -1,5 +1,7 @@
 package by.it.okatov.calc;
 
+import by.it.okatov.calc.globalization.IError;
+import by.it.okatov.calc.globalization.ResourceManager;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -9,10 +11,14 @@ import java.util.stream.Stream;
 
 class Parser {
 
+    static ResourceManager manager = ResourceManager.INSTANCE;
+
     private static final Map<String, Integer> operationPriority =
             new HashMap<String, Integer>() {
                 {
                     this.put("=", 0);
+                    /*this.put("(", 0);
+                    this.put(")", 0);*/
                     this.put("+", 1);
                     this.put("-", 1);
                     this.put("*", 2);
@@ -26,9 +32,8 @@ class Parser {
         //A=-2+3*-4/-2 A=4
         expression = expression.replace(" ", "");
         if (expression.length() == 0) {
-            throw new CalcException("no operation");
+            throw new CalcException(manager.getString(IError.msgErrorNoOperation));
         }
-
 
         Pattern pattern = Pattern.compile("[(]([^()]+)[)]");
         Matcher matcher = pattern.matcher(expression);
@@ -83,7 +88,7 @@ class Parser {
             case "/":
                 return l.div(r);
         }
-        throw new CalcException("Operation failed!");
+        throw new CalcException(manager.getString(IError.msgErrorOperationFailed));
     }
 
     private int getCurrentOperationIndex(List<String> operationsList) {

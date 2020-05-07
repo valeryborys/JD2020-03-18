@@ -1,4 +1,4 @@
-package by.it.okatov.calc.temp.globalization;
+package by.it.okatov.calc.globalization;
 
 public interface IMessage {
     String msgHello = "message.hello";

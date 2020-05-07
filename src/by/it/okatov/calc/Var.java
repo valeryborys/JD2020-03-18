@@ -1,12 +1,14 @@
 package by.it.okatov.calc;
 
 
-import by.it.okatov.calc.temp.Patterns;
+import by.it.okatov.calc.globalization.IError;
+import by.it.okatov.calc.globalization.ResourceManager;
 
 import java.util.HashMap;
 import java.util.Map;
 
-abstract class Var implements IOperation {
+abstract class Var implements Operation {
+    static ResourceManager manager = ResourceManager.INSTANCE;
 
     private static final Map<String, Var> hMap = new HashMap<>();
     private String strName;
@@ -31,7 +33,7 @@ abstract class Var implements IOperation {
             if (var != null) {
                 return var;
             } else {
-                throw new CalcException("incorrect name of variable: " + strVar);
+                throw new CalcException(manager.getString(IError.msgErrorVariableName) + strVar);
             }
         }
     }
@@ -46,68 +48,11 @@ abstract class Var implements IOperation {
         return hMap;
     }
 
-
     @Override
     public Var add(Var other) throws CalcException {
         throw new CalcException(
-                "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, other)
-        );
-    }
-
-    @Override
-    public Var add(Matrix matrix) throws CalcException {
-        throw new CalcException(
-                "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, matrix)
-        );
-    }
-
-    @Override
-    public Var add(Scalar scalar) throws CalcException {
-        throw new CalcException(
-                "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, scalar)
-        );
-    }
-
-    @Override
-    public Var add(Vector vector) throws CalcException {
-        throw new CalcException(
-                "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, vector)
-        );
-    }
-
-    @Override
-    public Var mul(Var other) throws CalcException {
-        throw new CalcException(
-                "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, other)
-        );
-    }
-
-    @Override
-    public Var mul(Matrix matrix) throws CalcException {
-        throw new CalcException(
-                "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, matrix)
-        );
-    }
-
-    @Override
-    public Var mul(Scalar scalar) throws CalcException {
-        throw new CalcException(
-                "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, scalar)
-        );
-    }
-
-    @Override
-    public Var mul(Vector vector) throws CalcException {
-        throw new CalcException(
-                "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, vector)
+                manager.getString(IError.msgErrorExlamation) +
+                        String.format(manager.getString(IError.msgErrorOperationAddiction), this, other)
         );
     }
 
@@ -115,31 +60,15 @@ abstract class Var implements IOperation {
     public Var sub(Var other) throws CalcException {
         throw new CalcException(
                 "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, other)
+                        String.format(manager.getString(IError.msgErrorOperationSubtraction), this, other)
         );
     }
 
     @Override
-    public Var sub(Matrix matrix) throws CalcException {
+    public Var mul(Var other) throws CalcException {
         throw new CalcException(
                 "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, matrix)
-        );
-    }
-
-    @Override
-    public Var sub(Scalar scalar) throws CalcException {
-        throw new CalcException(
-                "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, scalar)
-        );
-    }
-
-    @Override
-    public Var sub(Vector vector) throws CalcException {
-        throw new CalcException(
-                "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, vector)
+                        String.format(manager.getString(IError.msgErrorOperationMultiplication), this, other)
         );
     }
 
@@ -147,31 +76,7 @@ abstract class Var implements IOperation {
     public Var div(Var other) throws CalcException {
         throw new CalcException(
                 "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, other)
-        );
-    }
-
-    @Override
-    public Var div(Matrix matrix) throws CalcException {
-        throw new CalcException(
-                "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, matrix)
-        );
-    }
-
-    @Override
-    public Var div(Scalar scalar) throws CalcException {
-        throw new CalcException(
-                "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, scalar)
-        );
-    }
-
-    @Override
-    public Var div(Vector vector) throws CalcException {
-        throw new CalcException(
-                "ERROR! " +
-                        String.format("Operation %s + %s is impossible\n", this, vector)
+                        String.format(manager.getString(IError.msgErrorOperationDivision), this, other)
         );
     }
 

@@ -1,4 +1,4 @@
-package by.it.okatov.calc.temp.globalization;
+package by.it.okatov.calc.globalization;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
