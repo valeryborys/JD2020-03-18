@@ -9,6 +9,13 @@ class ConsoleRunner {
         Printer printer = new Printer();
         Logger logger = new Logger();
         printer.loadFromMemory(parser);
+
+        ResMan res = ResMan.INSTANCE;
+//        if(args.length==2){
+//            Locale locale = new Locale(args[0], args[1]);
+//            res.setLocale(locale);
+//        }
+
         label:
         for (; ; ) {
             String expression = sc.nextLine();
