@@ -2,6 +2,7 @@ package by.it.gutkovsky;
 
 
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class Main {
 
@@ -11,7 +12,7 @@ public class Main {
         String s = null;
         String d = s+s;
         String f = "";
-        System.out.println(f);
+//        System.out.println(f);
 //        System.out.println(s+s);
 //        System.out.println(s);
 //        System.out.println(d);
@@ -37,7 +38,21 @@ public class Main {
                 [37m - белый.
                  */
 
+        TimeZone tz = TimeZone.getTimeZone("Europe/Moscow");
 
+        System.out.println(tz.getRawOffset());
+        System.out.println(tz.getOffset(System.currentTimeMillis()));
+        System.out.println(tz.useDaylightTime());
+
+        System.out.println(tz.getDisplayName(false, TimeZone.LONG, Locale.ENGLISH));
+        System.out.println(tz.getDisplayName(false, TimeZone.SHORT, Locale.ENGLISH));
+        System.out.println(tz.getDisplayName(true, TimeZone.LONG, Locale.ENGLISH));
+        System.out.println(tz.getDisplayName(true, TimeZone.SHORT, Locale.ENGLISH));
+
+        System.out.println(tz.getDisplayName(false, TimeZone.LONG, Locale.FRENCH));
+        System.out.println(tz.getDisplayName(false, TimeZone.SHORT, Locale.FRENCH));
+        System.out.println(tz.getDisplayName(true, TimeZone.LONG, Locale.FRENCH));
+        System.out.println(tz.getDisplayName(true, TimeZone.SHORT, Locale.FRENCH));
 
 
     }
