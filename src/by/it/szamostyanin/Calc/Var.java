@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 abstract class Var implements Operation {
+        private static ResMan res= ResMan.INSTANCE;
+
     private static final Map<String, Var> map = new HashMap<>();
 
     static Var createVar(String operand) throws CalcException {
@@ -19,29 +21,29 @@ abstract class Var implements Operation {
             if (var != null)
                 return var;
             else
-                throw new CalcException("incorrect name var: " + operand);
+                throw new CalcException(res.getString(ErrorMessages.INCORRECT_NAME) + operand);
         }
     }
 
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException(String.format("Операция %s + %s невозможна!\n",this,other));
+        throw new CalcException(String.format("Операция %s + %s невозможна!\n", this, other));
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException(String.format("Операция %s - %s невозможна!\n",this,other));
+        throw new CalcException(String.format("Операция %s - %s невозможна!\n", this, other));
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException(String.format("Операция %s * %s невозможна!\n",this,other));
+        throw new CalcException(String.format("Операция %s * %s невозможна!\n", this, other));
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException(String.format("Операция %s / %s невозможна!\n",this,other));
+        throw new CalcException(String.format("Операция %s / %s невозможна!\n", this, other));
     }
 
     public static void save(String name, Var var) {

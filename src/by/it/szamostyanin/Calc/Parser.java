@@ -32,7 +32,6 @@ public class Parser {
             case "ru": {
                 res.setLocale(new Locale(expression, "RU"));
                 return null;
-
             }
             case "be": {
                 res.setLocale(new Locale(expression, "BY"));
