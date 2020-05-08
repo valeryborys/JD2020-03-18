@@ -60,7 +60,9 @@ public class ParserTestVector {
     public void checkCalcVectorMulScalar() throws CalcExeption {
         double[] expected = {2,4,6};
         Parser parser = new Parser();
-        Var calc = parser.calc("V={1,2,3}*2");
+        parser.calc("D=8");
+        parser.calc("E=4");
+        Var calc = parser.calc("V={1,2,3}*(D/E)");
         double[] actual = ((Vector)calc).getValue();
         assertArrayEquals(expected,actual,1e-8);
     }
@@ -69,6 +71,15 @@ public class ParserTestVector {
         double[] expected = {0.5,1,1.5};
         Parser parser = new Parser();
         Var calc = parser.calc("V={1,2,3}/2");
+        double[] actual = ((Vector)calc).getValue();
+        assertArrayEquals(expected,actual,1e-8);
+    }
+    @Test
+    public void checkCalcVectorWithBrackets() throws CalcExeption {
+        double[] expected = {10,15};
+        Parser parser = new Parser();
+        parser.calc("D=10");
+        Var calc = parser.calc("E={2,3}*(D/2)");
         double[] actual = ((Vector)calc).getValue();
         assertArrayEquals(expected,actual,1e-8);
     }
