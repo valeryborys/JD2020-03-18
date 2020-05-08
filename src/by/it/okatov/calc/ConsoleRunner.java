@@ -3,11 +3,7 @@ package by.it.okatov.calc;
 
 import by.it.okatov.calc.globalization.*;
 import by.it.okatov.calc.logsystem.LogSystem;
-import by.it.okatov.jd01_15.TaskB;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -146,23 +142,10 @@ public class ConsoleRunner {
         }
     }
 
-    private static void enableLoggerSystem(@SuppressWarnings("SameParameterValue") boolean isEnabled) {
+    @SuppressWarnings({"unused", "SameParameterValue"})
+    private static void enableLoggerSystem(boolean isEnabled) {
         if (isEnabled) {
-            try (
-                    PrintStream out = new PrintStream(
-                            new FileOutputStream(
-                                    TaskB.getFileName(
-                                            LogSystem.class, "DebugLog.log"
-                                    )
-                            )
-                    )
-            ) {
-                PrintStream logger = new LogSystem(System.out, out);
-                System.setOut(logger);
-                System.setErr(new LogSystem(System.err, out));
-            } catch (FileNotFoundException ex) {
-                throw new RuntimeException(ex);
-            }
+            LogSystem logSystem = LogSystem.getInstance();
         }
     }
 }
