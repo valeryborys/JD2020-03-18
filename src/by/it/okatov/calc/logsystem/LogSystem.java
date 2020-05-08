@@ -1,38 +1,17 @@
 package by.it.okatov.calc.logsystem;
 
-import java.io.PrintStream;
+import java.io.File;
 
-public class LogSystem extends PrintStream implements ILogSystem {
-
-    PrintStream out;
-
-    public LogSystem(PrintStream consoleOut, PrintStream loggerOut) {
-        super(consoleOut);
-        this.out = loggerOut;
-    }
-
-    @Deprecated
-    @Override
-    public void readConsole() {
-    }
-
-    @Override
-    public void writeLog(byte[] buffer, int offset, int length) {
-
-    }
+public class LogSystem {
 
 
-    public void write(byte[] buffer, int offset, int length) {
-        try {
-            super.write(buffer, offset, length);
-            out.write(buffer, offset, length);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void flush() {
-        super.flush();
-        out.flush();
+    public static String getFileName(Class<?> aClass, String fileName) {
+        return System.getProperty("user.dir") +
+                       File.separator +
+                       "src" +
+                       File.separator +
+                       aClass.getName().replace(".", File.separator).
+                                                                            replace(aClass.getSimpleName(), "")
+                       + fileName;
     }
 }
