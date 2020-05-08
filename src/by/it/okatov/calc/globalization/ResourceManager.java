@@ -19,7 +19,6 @@ public enum ResourceManager {
     }
 
     public String getString(String key) {
-        String s = bundle.getString(key);
         return bundle.getString(key);
     }
 }
