@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.GregorianCalendar;
 
 class Logger {
 
@@ -29,14 +30,14 @@ class Logger {
 
     public void log(String text) {
         String fn = getFileName(Logger.class, this.fileName);
+        GregorianCalendar calendar = new GregorianCalendar();
+
         try (PrintWriter printWriter = new PrintWriter(
                 new FileWriter(fn, true))) {
-            printWriter.println(text);
+            printWriter.println(text + " " + calendar.getTime());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 
     private static String getFileName(Class<?> aClass, String simpleName) {
