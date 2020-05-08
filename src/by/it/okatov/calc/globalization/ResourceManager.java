@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 public enum ResourceManager {
     INSTANCE;
 
-    private static final String BASE_NAME = "by.it.okatov.calc.temp.globalization.resources.language";
+    private static final String BASE_NAME = "by.it.okatov.calc.globalization.resources.language";
     private ResourceBundle bundle;
 
     ResourceManager() {
@@ -19,6 +19,7 @@ public enum ResourceManager {
     }
 
     public String getString(String key) {
+        String s = bundle.getString(key);
         return bundle.getString(key);
     }
 }

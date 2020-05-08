@@ -1,12 +1,14 @@
 package by.it.okatov.calc;
 
 import by.it.okatov.calc.globalization.IError;
+import by.it.okatov.calc.globalization.ResourceManager;
 
 import java.util.Arrays;
 
 
 @SuppressWarnings("ALL")
 class Vector extends Var {
+    ResourceManager manager = ResourceManager.INSTANCE;
     private double[] value;
 
     public double[] getValue() {

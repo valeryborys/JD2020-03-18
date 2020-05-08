@@ -65,10 +65,11 @@ public class ConsoleRunner {
     }
 
     private static void printText(ResourceManager manager, Locale locale) {
+        manager.setLocale(locale);
         if (localeExists) {
             DateFormat df = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM, locale);
             Date date = new Date();
-
+            String s = manager.getString(IMessage.variables);
             System.out.println("\u001B[33m");
             System.out.println(df.format(date));
             System.out.println(manager.getString(IMessage.msgHello));
@@ -76,7 +77,7 @@ public class ConsoleRunner {
             System.out.print(manager.getString(IUser.name) + " ");
             System.out.println(manager.getString(IUser.surname));
             System.out.println(manager.getString(IMessage.msgCommandsToInput));
-            System.out.println(manager.getString(IMessage.variables));
+            System.out.println(/*manager.getString(IMessage.variables)*/s);
             System.out.println(manager.getString(IMessage.msgScalar));
             System.out.println(manager.getString(IMessage.msgVector));
             System.out.println(manager.getString(IMessage.msgMatrix));
@@ -133,7 +134,7 @@ public class ConsoleRunner {
                 case "установить локаль":
                 case "ўсталяваць лакаль":
                     inputLocaleCommands(manager, locale, sc);
-                    break;
+                    continue;
             }
 
             try {
