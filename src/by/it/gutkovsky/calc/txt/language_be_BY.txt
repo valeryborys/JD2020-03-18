@@ -1,0 +1,15 @@
+CalcException.fullMessage = ПАМЫЛКА: невядомая памылка
+CalcException.shortMessage = ПАМЫЛКА:
+CalcException.incompatible = Несумяшчальны памер
+CalcException.zeroDivision = Дзяленне на нуль немагчыма
+CalcException.expressionForm = Выражэнне не было ўведзена
+CalcException.missedOperand = Адсутнічае аперанд пасля аперацыі:
+CalcException.operation = Невядомая аперацыя
+CalcException.unknownVar = Невядомая пераменная:
+CalcException.operationMessage = Аперацыя
+CalcException.isImpossible =  немагчыма
+CalcException.fileException = Памылка: Файл не знойдзен:
+Printer.noVar =  Пераменныя адсутнічаюць
+Printer.memoryVar = У памяці няма захаваных пераменных
+Var.message = Абстрактная пераменная{}
+Printer.printMemory = Захаваныя пераменныя

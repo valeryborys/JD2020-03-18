@@ -1,0 +1,17 @@
+system.error.unknownVar=Неизвестное имя переменной: \"%s\"
+system.error.wrongOperationADD=Операция сложения невозможна с аргументами: %s и %s
+system.error.wrongOperationSUB=Операция вычитания невозможна с аргументами: %s и %s
+system.error.wrongOperationMUL=Операция умножения невозможна с аргументами: %s и %s
+system.error.wrongOperationDIV=Операция деления невозможна с аргументами: %s и %s
+system.error.wrongOperationMEMORYADD=Ошибка добавления в память
+system.error.emptyOperation=пустое выражение
+system.error.failedOperation=Операция невозможна
+system.error.memoryFileReadError=Ошибка чтения файла памяти
+system.error.unknownError=ОШИБКА: неизвестная ошибка
+system.error.emptyError=ОШИБКА:
+system.message.printHintCommandMemoryADD=Напишите <имя_переменной> = <значение> чтобы добавить переменную в память
+system.message.printHintCommandMemoryGET=Напишите <имя_переменной> чтобы извлечь переменную из памяти
+system.message.printHintCommandHeader=Доступные команды:
+system.message.printHintCommandPRINTVAR=\nprintvar - выводит всю память
+system.message.printHintCommandSORTVAR=\nsortvar - выводит отсортированный список памяти
+system.message.printHintCommandCLEAR=\nclear - очищает память

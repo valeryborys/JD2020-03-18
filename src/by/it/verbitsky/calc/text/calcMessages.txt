@@ -1,0 +1,17 @@
+system.error.unknownVar=unknown name var: \"%s\"
+system.error.wrongOperationADD=Operation 'add' impossible  with arguments: %s and %s
+system.error.wrongOperationSUB=Operation 'sub' impossible  with arguments: %s and %s
+system.error.wrongOperationMUL=Operation 'mul' impossible  with arguments: %s and %s
+system.error.wrongOperationDIV=Operation 'div' impossible  with arguments: %s and %s
+system.error.wrongOperationMEMORYADD=Error adding variable to calc memory
+system.error.emptyOperation=empty expression
+system.error.failedOperation=Operation failed
+system.error.memoryFileReadError=Error reading calc memory file
+system.error.unknownError=ERROR: unknown error
+system.error.emptyError=ERROR:
+system.message.printHintCommandMemoryADD=Use <var name> = <value> to put value in calc memory
+system.message.printHintCommandMemoryGET=Use <var_name> to get value from calc memory
+system.message.printHintCommandHeader=Available commands:
+system.message.printHintCommandPRINTVAR=\nprintvar - show calc memory
+system.message.printHintCommandSORTVAR=\nsortvar - show sorted list of calc memory
+system.message.printHintCommandCLEAR=\nclear - clear calc memory

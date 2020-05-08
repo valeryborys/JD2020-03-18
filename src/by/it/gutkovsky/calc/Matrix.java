@@ -7,6 +7,9 @@ class Matrix extends Var {
 
     private double[][] value;
 
+    public double[][] getValue() {
+        return value;
+    }
 
     Matrix(double[][] value) {
         this.value = value;
@@ -123,7 +126,8 @@ class Matrix extends Var {
                     }
                 }
                 return new Matrix(matrixResultSum);
-            } else throw new CalcException("Incompatible size");
+//            } else throw new CalcException("Incompatible size");
+            } else throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.incompatible));
         }
         return super.add(other);
     }
@@ -156,7 +160,8 @@ class Matrix extends Var {
                     }
                 }
                 return new Matrix(matrixResultSub);
-            } else throw new CalcException("Incompatible size");
+//            } else throw new CalcException("Incompatible size");
+            } else throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.incompatible));
         }
         return super.sub(other);
     }
@@ -184,7 +189,8 @@ class Matrix extends Var {
                     }
                 }
                 return new Vector(multipliedMatrix);
-            } else throw new CalcException("Incompatible size");
+//            } else throw new CalcException("Incompatible size");
+            } else throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.incompatible));
         }
 
         if (other instanceof Matrix) {
@@ -198,7 +204,8 @@ class Matrix extends Var {
                     }
                 }
                 return new Matrix(multipliedMatrix);
-            } else throw new CalcException("Incompatible size");
+//            } else throw new CalcException("Incompatible size");
+            } else throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.incompatible));
         }
         return super.mul(other);
     }
@@ -216,7 +223,8 @@ class Matrix extends Var {
                 }
                 return new Matrix(resultDivMatrix);
             }
-            throw new CalcException("Division by zero is impossible");
+//            throw new CalcException("Division by zero is impossible");
+            throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.zeroDivision));
         }
 
         return super.div(other);

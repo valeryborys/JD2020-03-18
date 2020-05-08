@@ -27,7 +27,7 @@ public class Printer {
         }
     }
 
-    void printLog(String line) {
+    static void printLog(String line) {
         long countLines = 0;
         String path = System.getProperty("user.dir") + File.separator + "src" + File.separator;
         path += Printer.class.getName().replace(Printer.class.getSimpleName(), "").replace(".", File.separator);

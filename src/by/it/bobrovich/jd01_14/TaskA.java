@@ -16,13 +16,11 @@ public class TaskA {
         try {
             dos = new DataOutputStream(
                     new BufferedOutputStream(
-                            new FileOutputStream(dir(TaskA.class)))
+                            new FileOutputStream(dir(TaskA.class) + "dataTaskA.bin"))
             );
             for (int i = 0; i < 20; i++) {
-                dos.write((int) (Math.random() * 20));
+                dos.writeInt((int) (Math.random() * 25));
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -34,5 +32,26 @@ public class TaskA {
                 }
             }
         }
+
+        try (DataInputStream dis = new DataInputStream(
+                new BufferedInputStream(
+                        new FileInputStream(dir(TaskA.class) + "dataTaskA.bin")));
+             PrintWriter pw = new PrintWriter(new FileWriter(dir(TaskA.class)+"resultTaskA.txt"))
+        ) {
+            double sum = 0;
+            double count = 0;
+            while (dis.available() > 0) {
+                int i = dis.readInt();
+                System.out.print(i + " ");
+                pw.print(i + " ");
+                sum += i;
+                count++;
+            }
+            System.out.println("\navg=" + sum / count);
+            pw.print("\navg=" + sum / count);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

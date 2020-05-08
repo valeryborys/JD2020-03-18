@@ -7,11 +7,15 @@ import java.util.regex.Pattern;
 class Vector extends Var {
 
     private double[] value;
+    public double[] getValue() {
+        return value;
+    }
 
     Vector(double[] value) {
 
         this.value = value;
     }
+
 
     Vector(Vector vector) {
         this.value = vector.value;
@@ -38,9 +42,7 @@ class Vector extends Var {
 
     }
 
-    public double[] getValue() {
-        return value;
-    }
+
 
     @Override
     public String toString() {

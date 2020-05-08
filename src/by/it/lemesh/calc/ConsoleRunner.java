@@ -16,13 +16,13 @@ public class ConsoleRunner {
                 printer.printSortVars();
             } else {
                 try {
-                    printer.printLog(line);
+                    Printer.printLog(line);
                     Var result = parser.calc(line);
                     printer.print(result);
-                    printer.printLog(result.toString());
+//                    printer.printLog(result.toString());
                 } catch (CalcException e) {
                     System.out.println(e.getMessage());
-                    printer.printLog(e.getMessage());
+                    Printer.printLog(e.getMessage());
                 }
             }
         }
