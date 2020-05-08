@@ -1,37 +1,40 @@
 package by.it.novikov.jd01_04;
 
-import java.util.Scanner;
-
 public class TaskC {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String str = scanner.nextLine();
-        buildOneDimArray(str);
 
     }
-    static void buildOneDimArray(String line)
-    {
-        double[] array = InOut.getArray(line);
-        double start;
-        double stop;
-        start = array[0];
-        stop = array[array.length-1];
-        InOut.printArray(array, "V", 5);
-        Helper.sort(array);
-        InOut.printArray(array, "V", 4);
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == start) {
-                System.out.println("Index of first element="+i);
-                break;
-            }
-        }
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == stop) {
-                System.out.println("Index of last element="+i);
-                break;
-            }
+
+    static void mergeSort(double[] array) {
+        mergeSort(array, 0, array.length - 1);
+    }
+
+    private static void mergeSort(double[] array, int left, int right) {
+        int mid = (left + right) / 2;
+        double[] leftArray = new double[mid - left];
+        double[] rightArray = new double[right - mid];
+        for (int i = left; i < mid; i++) leftArray[i - left] = array[i];
+        for (int i = mid; i <= right; i++) leftArray[i - mid] = array[i];
+        mergeSort(leftArray);
+        mergeSort(rightArray);
+        double[] result = merge(leftArray, rightArray);
+        for (int i = left; i < right; i++) {
+            array[i] = result[i - left];
+
         }
 
+    }
+
+    private static double[] merge(double[] leftArray, double[] rightArray) {
+        double[] res = new double[leftArray.length + rightArray.length];
+        int indexLesft = 0;
+        int indexRight = 0;
+        int i = 0;
+        if (leftArray[indexLesft] < rightArray[indexRight])
+            res[i++] = leftArray[indexLesft++];
+        else
+            res[i++] = rightArray[indexRight++];
+        return res;
 
 
     }
