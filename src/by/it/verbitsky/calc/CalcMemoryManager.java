@@ -35,7 +35,6 @@ abstract class CalcMemoryManager {
                     parser.calc(reader.readLine(), logger);
                 }
             } catch (CalcException e) {
-                logger.writeLog("Error reading calc memory file");
                 throw new CalcException(rm.getMessage(CalcMessages.SYSTEM_ERROR_READ_MEMORY_FILE));
             } catch (IOException e) {
                 logger.writeLog(e.getMessage());

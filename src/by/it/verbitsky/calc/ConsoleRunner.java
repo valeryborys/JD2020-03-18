@@ -5,10 +5,12 @@ import java.util.Scanner;
 
 class ConsoleRunner implements CalcFiles {
     private static ResourceManager rm;
-
+    private static SingleLogger singleLogger;
     static {
         rm = ResourceManager.INSTANCE;
+        singleLogger = SingleLogger.INSTANCE;
     }
+
 
     public static void main(String[] args) {
         checkArgs(args);
@@ -16,6 +18,7 @@ class ConsoleRunner implements CalcFiles {
         Parser parser = new Parser();
         Printer printer = new Printer();
         CalcLogger logger = new CalcLogger(CalcMemoryManager.getFullPath(ConsoleRunner.class, CalcFiles.LOG_FILENAME));
+
 
         //Читаем файл памяти и добавляем содержимое в память калькулятора
         readCalcMemory(logger);
@@ -34,12 +37,25 @@ class ConsoleRunner implements CalcFiles {
 
             try {
                 Var res = parser.calc(expression, logger);
-                logger.writeLog(expression + " = " + res);
+
+                writeExpressionToLog(logger, expression, res);
+
                 printer.Print(res);
             } catch (CalcException e) {
                 logger.writeLog(e.getMessage());
+                singleLogger.writeLog(e.getMessage());
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    private static void writeExpressionToLog(CalcLogger logger, String expression, Var res) {
+        if (res != null) {
+            logger.writeLog(expression + " = " + res);
+            singleLogger.writeLog(expression.concat(" = ").concat(res.toString()));
+        } else {
+            logger.writeLog(expression);
+            singleLogger.writeLog(expression);
         }
     }
 
@@ -77,6 +93,7 @@ class ConsoleRunner implements CalcFiles {
             try {
                 rm.setLocaleForBundle(new Locale(args[0], args[1]));
             } catch (Exception e) {
+                singleLogger.writeLog(e.getMessage());
                 System.out.println(e.getMessage());
             }
         }
