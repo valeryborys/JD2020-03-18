@@ -8,7 +8,12 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class ConsoleRunner {
+
     public static void main(String[] args) {
+        ReportDirector rp = new ReportDirector();
+        ReportBuilder rb =Math.random() > 0.5 ? new ReportFullBuilder(): new ReportShortBuilder();
+        rp.setBuilder(rb);
+        rp.reportHeading();
         readMapFromTxt(Var.dir(ConsoleRunner.class) + "vars.txt");
         Scanner sc = new Scanner(System.in);
         String line;
@@ -17,6 +22,7 @@ public class ConsoleRunner {
         Printer printer = new Printer();
         while (!(line = sc.nextLine()).equalsIgnoreCase("end")) {
             log(line);
+            rp.reportBody(line);
             switch (line) {
                 case "printvar":
                     Var.printvar(Var.getMap());
@@ -28,28 +34,37 @@ public class ConsoleRunner {
                     locale = new Locale("en", "US");
                     ResMan.res.setLocale(locale);
                     System.out.println(ResMan.res.get(Messages.localechange));
+                    log(ResMan.res.get(Messages.localechange));
+                    rp.reportBody(ResMan.res.get(Messages.localechange));
                     break;
                 case "ru":
                     locale = new Locale("ru", "RU");
                     ResMan.res.setLocale(locale);
                     System.out.println(ResMan.res.get(Messages.localechange));
+                    log(ResMan.res.get(Messages.localechange));
+                    rp.reportBody(ResMan.res.get(Messages.localechange));
                     break;
                 case "be":
                     locale = new Locale("be", "BY");
                     ResMan.res.setLocale(locale);
                     System.out.println(ResMan.res.get(Messages.localechange));
+                    log(ResMan.res.get(Messages.localechange));
+                    rp.reportBody(ResMan.res.get(Messages.localechange));
                     break;
                 default:
                     try {
                         Var result = parser.calc(line);
                         printer.print(result);
                         log(result.toString());
+                        rp.reportBody(result.toString());
                     } catch (CalcExeption e) {
                         System.out.println(e.getMessage());
                         log(e.getMessage());
+                        rp.reportBody(e.getMessage());
                     }
             }
         }
+        rp.reportClosing();
     }
 
     //считывает сохраненные в файл переменные
