@@ -5,9 +5,28 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 class Logger {
+
+    private static volatile Logger logger;
+
+    private Logger() {
+    }
+
+    static Logger getInstance() {
+        Logger localLogger = Logger.logger;
+        if (localLogger == null) {
+            synchronized (Logger.class) {
+                localLogger = Logger.logger;
+                if (localLogger == null) {
+                    logger = localLogger = new Logger();
+                }
+            }
+        }
+        return localLogger;
+    }
+
     private static final Queue<String> logList = new ArrayDeque<>();
 
-    void logger(String line) {
+    void log(String line) {
 
         String logFile = Printer.getFile("log.txt");
         File log = new File(logFile);
@@ -37,8 +56,6 @@ class Logger {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-
     }
 
 

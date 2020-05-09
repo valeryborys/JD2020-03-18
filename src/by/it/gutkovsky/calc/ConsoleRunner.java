@@ -16,7 +16,8 @@ class ConsoleRunner {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
-        Logger logger = new Logger();
+//        Logger logger = new Logger();
+        Logger logger = Logger.getInstance();
         printer.loadFromMemory(parser);
 
         System.out.println("Please, choose locale (en)/ Калі ласка, абярыце мову (be) / Пожалуйста, выберите язык (ru)");
@@ -25,7 +26,7 @@ class ConsoleRunner {
         label:
         for (; ; ) {
             String expression = sc.nextLine();
-            logger.logger(expression);
+            logger.log(expression);
 
             switch (expression) {
                 case "end":
@@ -67,10 +68,10 @@ class ConsoleRunner {
                         Var var = parser.calc(expression);
                         printer.saveToMemory();
                         printer.print(var);
-                        logger.logger(var.toString());
+                        logger.log(var.toString());
                     } catch (CalcException e) {
                         System.out.println(e.getMessage());
-                        logger.logger(e.getMessage());
+                        logger.log(e.getMessage());
                     }
                     break;
             }

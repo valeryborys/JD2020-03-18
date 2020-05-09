@@ -1,14 +1,16 @@
 package by.it.gutkovsky;
 
 
+import org.jfree.data.json.JSONUtils;
+
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class Main {
+public class Main  {
 
     public static void main(String[] args) {
 
-        System.out.println(args.length);
+//        System.out.println(args.length);
 
 //        int a = 4 / 5;
 //        String s = null;
@@ -74,6 +76,21 @@ public class Main {
 //        System.out.println(tz.getDisplayName(true, TimeZone.LONG, Locale.FRENCH));
 //        System.out.println(tz.getDisplayName(true, TimeZone.SHORT, Locale.FRENCH));
 
+//        int myInt = 0;
+//        float myFloat = 0;
+//        float result = myInt / myInt;
+
+//        int a = 5;
+//        test(++a);
+//    }
+//
+//        static void test ( int a){
+//            a += EASY + a++;
+//            System.out.println(a);
+//        }
+//    }
+//    interface I {
+//        public final static int EASY = 5;
 
     }
 }
