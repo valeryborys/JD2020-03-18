@@ -3,8 +3,8 @@ package by.it.gutkovsky;
 
 import org.jfree.data.json.JSONUtils;
 
-import java.util.Locale;
-import java.util.TimeZone;
+import java.text.DateFormat;
+import java.util.*;
 
 public class Main  {
 
@@ -91,6 +91,26 @@ public class Main  {
 //    }
 //    interface I {
 //        public final static int EASY = 5;
+
+        DateFormat df = DateFormat.getDateInstance(DateFormat.FULL, Locale.US);
+//        GregorianCalendar calendar = new GregorianCalendar();
+////        Calendar calendar = Calendar.getInstance();
+//        Date time = calendar.getTime();
+//        System.out.println(time);
+//        System.out.println(df.format(time));
+//        int a =0;
+//
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+        GregorianCalendar calendar2 = new GregorianCalendar();
+
+        System.out.println(df.format(calendar2.getTime()));
+        System.out.println(calendar2.getTime());
+
 
     }
 }

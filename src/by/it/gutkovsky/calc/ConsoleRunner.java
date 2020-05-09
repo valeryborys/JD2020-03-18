@@ -11,13 +11,15 @@ class ConsoleRunner {
         res = ResMan.INSTANCE;
     }
 
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
         Logger logger = Logger.getInstance();
+        LoggerOfExceptions logException = LoggerOfExceptions.getInstance();
         printer.loadFromMemory(parser);
+
+        ReportManager reportManager = new ReportManager();
 
         System.out.println("Please, choose locale (en)/ Калі ласка, абярыце мову (be) / Пожалуйста, выберите язык (ru)");
         Locale locale;
@@ -50,16 +52,30 @@ class ConsoleRunner {
                     break;
                 case "printmemory":
                     System.out.println("\033[33m" + res.get(PrinterMessage.printMemory) + ": \033[30m");
-//                    System.out.println("\033[33mSaved vars: \033[30m");
-//                    System.out.println("\tSaved vars:");
                     printer.printFromMemory();
                     break;
                 case "clearmemory":
                     try {
                         printer.cleanMemory();
                     } catch (CalcException e) {
-                        e.printStackTrace();
+                        System.out.println(e.getMessage());
+                        logger.log(e.getMessage());
+                        logException.log(e.getMessage());
                     }
+                    break;
+                case "full report":
+                    ReportBuilder fullReport = new FullReport();
+                    reportManager.setReportBuilder(fullReport);
+                    reportManager.constructReport();
+                    Report report1 = reportManager.getReport();
+                    System.out.println(report1);
+                    break;
+                case "short report":
+                    ReportBuilder shortReport = new ShortReport();
+                    reportManager.setReportBuilder(shortReport);
+                    reportManager.constructReport();
+                    Report report2 = reportManager.getReport();
+                    System.out.println(report2);
                     break;
                 default:
 
@@ -71,6 +87,7 @@ class ConsoleRunner {
                     } catch (CalcException e) {
                         System.out.println(e.getMessage());
                         logger.log(e.getMessage());
+                        logException.log(e.getMessage());
                     }
                     break;
             }
