@@ -4,17 +4,20 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class ConsoleRunner {
+    static Logger logger = Logger.getInstance();
     static ResMan res = ResMan.INSTANCE;
     public static void main(String[] args) {
         Var.loadMap();
         Scanner sc = new Scanner(System.in);
         String line;
         while (!(line = sc.nextLine()).equals("end")) {
+            logger.log(line);
             processLine(line);
         }
     }
 
     private static void processLine(String line) {
+
         Printer printer = new Printer();
         Parser parser = new Parser();
         switch (line) {
@@ -40,12 +43,12 @@ public class ConsoleRunner {
             }
             default: {
                 try {
-                    Printer.printLog(line);
+ //                   logger.log(line);
                     Var result = parser.calc(line);
                     printer.print(result);
                 } catch (CalcException e) {
                     System.out.println(e.getMessage());
-                    Printer.printLog(e.getMessage());
+                    logger.log(e.getMessage());
                 }
             }
         }
