@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 
 class Parser {
 
+    ResMan inst = ResMan.INSTANCE;
+
     private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
         private static final long serialVersionUID = -184387148821079886L;
 
@@ -21,7 +23,7 @@ class Parser {
     public Var calc(String expression) throws CalcException {
         expression = expression.replace(" ", "");
         if (expression.length() == 0) {
-            throw new CalcException("Expression was not entered");
+            throw new CalcException(inst.get(ErrorMessage.absent));
         }
 
         expression = openBrackets(expression);
@@ -42,7 +44,7 @@ class Parser {
                 operands.add(index, result.toString());
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new CalcException("Missed operand after operation: " + e);
+            throw new CalcException(inst.get(ErrorMessage.miss) + e);
         }
         return Var.createVar(operands.get(0));
     }
@@ -76,7 +78,7 @@ class Parser {
                 return left.div(right);
         }
 
-        throw new CalcException("Unknown operation");
+        throw new CalcException(inst.get(ErrorMessage.unknownOperation));
 
     }
 

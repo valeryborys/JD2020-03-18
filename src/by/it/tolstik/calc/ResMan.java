@@ -9,6 +9,11 @@ enum ResMan {
     Locale locale;
     private ResourceBundle bundle;
 
+    ResMan() {
+        locale = Locale.US;
+        setLocale(locale);
+    }
+
     void setLocale(Locale locale) {
         bundle = ResourceBundle.getBundle(BASE_NAME, locale);
     }

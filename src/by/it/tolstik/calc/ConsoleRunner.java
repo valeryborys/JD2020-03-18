@@ -1,5 +1,6 @@
 package by.it.tolstik.calc;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 class ConsoleRunner {
@@ -9,6 +10,7 @@ class ConsoleRunner {
         Parser parser = new Parser();
         Util util = new Util();
         Logger logger = new Logger();
+        ResMan inst = ResMan.INSTANCE;
         util.loadFromMemory(parser);
 
         System.out.println("======================================");
@@ -16,19 +18,36 @@ class ConsoleRunner {
         System.out.println("ru - RUSSIAN");
         System.out.println("be - BELARUSIAN");
         System.out.println("en - ENGLISH");
+        System.out.println("======================================");
+        System.out.println("help - available commands");
+        System.out.println("======================================");
         System.out.println("Waiting for your choice...");
         System.out.println("======================================");
-        System.out.println("Доступные команды:");
-        System.out.println("print - выведет в консоль все используемые переменные;");
-        System.out.println("sort - отсортирует и выведет в консоль все переменные;");
-        System.out.println("memory - сохранит переменные в памяти;");
-        System.out.println("clear - удалит переменные из памяти;");
-        System.out.println("end - завершение программы;");
 
         while (!flag) {
             String expression = sc.nextLine();
             logger.logger(expression);
             switch (expression) {
+                case "ru":
+                    inst.locale = new Locale("ru", "RU");
+                    inst.setLocale(inst.locale);
+                    break;
+                case "be":
+                    inst.locale = new Locale("be", "BY");
+                    inst.setLocale(inst.locale);
+                    break;
+                case "en":
+                    inst.locale = new Locale("en", "US");
+                    inst.setLocale(inst.locale);
+                    break;
+                case "help":
+                    System.out.println(inst.get(Message.help_start));
+                    System.out.println(inst.get(Message.help_print));
+                    System.out.println(inst.get(Message.help_sort));
+                    System.out.println(inst.get(Message.help_memory));
+                    System.out.println(inst.get(Message.help_clear));
+                    System.out.println(inst.get(Message.help_end));
+                    break;
                 case "end":
                     flag = true;
                     break;
@@ -39,7 +58,7 @@ class ConsoleRunner {
                     util.sortVar();
                     break;
                 case "memory":
-                    System.out.println("Saved vars:");
+                    System.out.println(inst.get(Message.savedVar));
                     util.printFromMemory();
                     break;
                 case "clear":

@@ -4,11 +4,12 @@ import java.io.*;
 import java.util.*;
 
 class Util {
+    ResMan inst = ResMan.INSTANCE;
     void print(Var var) throws CalcException {
         if (var != null) {
             System.out.println(var);
         }
-        else throw new CalcException("It can't be empty!");
+        else throw new CalcException(inst.get(ErrorMessage.cantEmpty));
     }
 
     void printVar() {
@@ -19,7 +20,7 @@ class Util {
                 Var value = pair.getValue();
                 System.out.printf("%s=%s\n", key, value);
             }
-        } else System.out.println("There is no var");
+        } else System.out.println(inst.get(ErrorMessage.noVar));
     }
 
     void sortVar() {
@@ -31,7 +32,7 @@ class Util {
                 Var value = pair.getValue();
                 System.out.printf("%s=%s\n", key, value);
             }
-        } else System.out.println("There is no var");
+        } else System.out.println(inst.get(ErrorMessage.noVar));
     }
 
     void saveToMemory() throws CalcException {
@@ -44,9 +45,9 @@ class Util {
                     Var value = pair.getValue();
                     writeToMemory.printf("%s=%s\n", key, value);
                 }
-            } else System.out.println("There is no vars in memory");
+            } else System.out.println(inst.get(ErrorMessage.noVarInMemory));
         } catch (FileNotFoundException e) {
-            throw new CalcException("Error: FileNotFoundException: " + e);
+            throw new CalcException(inst.get(ErrorMessage.fileNotFound) + e);
         }
     }
 
@@ -87,9 +88,9 @@ class Util {
                     Var value = pair.getValue();
                     writeToMemory.printf("%s=%s\n", key, value);
                 }
-            } else System.out.println("There is no vars in memory");
+            } else System.out.println(inst.get(ErrorMessage.noVarInMemory));
         } catch (FileNotFoundException e) {
-            throw new CalcException("Error: FileNotFoundException: " + e);
+            throw new CalcException(inst.get(ErrorMessage.fileNotFound) + e);
         }
     }
 
