@@ -1,16 +1,15 @@
 package by.it.gutkovsky.calc;
 
 import java.io.*;
-import java.util.ArrayDeque;
-import java.util.Queue;
+import java.util.*;
 
 class Logger {
 
     private static volatile Logger logger;
+    private static final Queue<String> logList = new ArrayDeque<>();
 
     private Logger() {
     }
-
     static Logger getInstance() {
         Logger localLogger = Logger.logger;
         if (localLogger == null) {
@@ -24,17 +23,15 @@ class Logger {
         return localLogger;
     }
 
-    private static final Queue<String> logList = new ArrayDeque<>();
-
     void log(String line) {
 
         String logFile = Printer.getFile("log.txt");
         File log = new File(logFile);
         int count = 0;
-        if(log.exists()){
+        if (log.exists()) {
 
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(log)))) {
-                while (reader.ready()){
+                while (reader.ready()) {
                     logList.add(reader.readLine());
                     count++;
                 }
@@ -43,13 +40,16 @@ class Logger {
             }
         }
 
-        logList.add(line);
-        while (count > 49){
+        GregorianCalendar calendar = new GregorianCalendar();
+        String event = line + " : " + calendar.getTime();
+
+        logList.add(event);
+        while (count > 49) {
             logList.poll();
             count--;
         }
 
-        try (PrintWriter writerLog = new PrintWriter(logFile)){
+        try (PrintWriter writerLog = new PrintWriter(logFile)) {
             while (!logList.isEmpty()) {
                 writerLog.println(logList.poll());
             }

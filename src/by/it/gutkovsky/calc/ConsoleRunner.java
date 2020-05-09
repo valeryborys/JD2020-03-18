@@ -16,7 +16,6 @@ class ConsoleRunner {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
-//        Logger logger = new Logger();
         Logger logger = Logger.getInstance();
         printer.loadFromMemory(parser);
 
