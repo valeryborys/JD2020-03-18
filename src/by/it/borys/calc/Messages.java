@@ -13,4 +13,5 @@ public interface Messages {
     String divop = "divop";
     String impossible = "impossible";
     String localechange="localechange";
+    String inpOutEx="inpOutEx";
 }

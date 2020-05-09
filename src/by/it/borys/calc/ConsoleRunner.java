@@ -15,7 +15,8 @@ public class ConsoleRunner {
         Locale locale;
         Parser parser = new Parser();
         Printer printer = new Printer();
-        while (!(line = sc.nextLine()).equals("end")) {
+        while (!(line = sc.nextLine()).equalsIgnoreCase("end")) {
+            log(line);
             switch (line) {
                 case "printvar":
                     Var.printvar(Var.getMap());
@@ -41,7 +42,6 @@ public class ConsoleRunner {
                 default:
                     try {
                         Var result = parser.calc(line);
-                        log(line);
                         printer.print(result);
                         log(result.toString());
                     } catch (CalcExeption e) {
