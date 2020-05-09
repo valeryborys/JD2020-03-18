@@ -32,6 +32,7 @@ class ConsoleRunner implements CalcFiles {
                         ConsoleRunner.class,
                         CalcFiles.MEMORY_FILENAME)
                 );
+                singleLogger.writeLog("Job finished");
                 break;
             }
 
