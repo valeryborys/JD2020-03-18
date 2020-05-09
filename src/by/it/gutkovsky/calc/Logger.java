@@ -10,6 +10,7 @@ class Logger {
 
     private Logger() {
     }
+
     static Logger getInstance() {
         Logger localLogger = Logger.logger;
         if (localLogger == null) {

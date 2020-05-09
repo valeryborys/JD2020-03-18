@@ -38,7 +38,6 @@ class Parser {
         // operations = +  *  /
 
         try {
-
             while (operations.size() > 0) {
                 int index = getIndexCurrentOperation(operations);
                 String operation = operations.remove(index);

@@ -2,7 +2,7 @@ package by.it.gutkovsky.calc;
 
 import java.util.*;
 
-abstract class Var implements Operation {
+abstract class Var implements Operation{
 
     private static Map<String, Var> vars = new HashMap<>();
     // jd01_11 - taskA part2
@@ -19,11 +19,14 @@ abstract class Var implements Operation {
     static Var createVar(String strVar) throws CalcException {
         strVar = strVar.trim().replaceAll("\\s", "");
         if (strVar.matches(Patterns.SCALAR))
-            return new Scalar(strVar);
+//            return new Scalar(strVar);
+            return new CreatorScalar().varFactory(strVar);
         else if (strVar.matches(Patterns.VECTOR))
-            return new Vector(strVar);
+//            return new Vector(strVar);
+            return new CreatorVector().varFactory(strVar);
         else if (strVar.matches(Patterns.MATRIX))
-            return new Matrix(strVar);
+//            return new Matrix(strVar);
+            return new CreatorMatrix().varFactory(strVar);
         else if (vars.containsKey(strVar)) {
             if (vars.get(strVar) != null) {
                 return vars.get(strVar);
@@ -32,7 +35,6 @@ abstract class Var implements Operation {
 //        throw new CalcException("Unknown var: " + strVar);
         throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.unknownVar) + " " + strVar);
     }
-
 
     @Override
     public Var add(Var other) throws CalcException {
