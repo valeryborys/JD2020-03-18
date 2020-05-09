@@ -86,10 +86,9 @@ class ConsoleRunner {
     }
 
     static void buildReport(ReportManager reportManager, ReportBuilder reportBuilder) {
-        ReportBuilder reportType = reportBuilder;
-        reportManager.setReportBuilder(reportType);
+        reportManager.setReportBuilder(reportBuilder);
         reportManager.constructReport();
-        Report report1 = reportManager.getReport();
-        System.out.println(report1);
+        Report report = reportManager.getReport();
+        System.out.println(report);
     }
 }
