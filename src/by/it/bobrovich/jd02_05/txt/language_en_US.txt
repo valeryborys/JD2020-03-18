@@ -1,0 +1,4 @@
+message.hello=Hello!
+message.question=How are you?
+user.firstName=Kostya
+user.secondName=Bobrovich

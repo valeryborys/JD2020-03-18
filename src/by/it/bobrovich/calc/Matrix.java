@@ -160,4 +160,8 @@ public class Matrix extends Var {
         }
         return matrix.toString();
     }
+
+    public double[][] getValue() {
+        return value;
+    }
 }
