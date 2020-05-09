@@ -1,25 +1,48 @@
 package by.it.lemesh.calc;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class ConsoleRunner {
+    static ResMan res = ResMan.INSTANCE;
     public static void main(String[] args) {
         Var.loadMap();
         Scanner sc = new Scanner(System.in);
         String line;
-        Parser parser = new Parser();
-        Printer printer = new Printer();
         while (!(line = sc.nextLine()).equals("end")) {
-            if (line.equals("printvar")) {
+            processLine(line);
+        }
+    }
+
+    private static void processLine(String line) {
+        Printer printer = new Printer();
+        Parser parser = new Parser();
+        switch (line) {
+            case "printvar": {
                 printer.printVars();
-            } else if (line.equals("sortvar")) {
+                break;
+            }
+            case "sortvar": {
                 printer.printSortVars();
-            } else {
+                break;
+            }
+            case "ru": {
+                res.setLocale(new Locale(line, "RU"));
+                break;
+            }
+            case "be": {
+                res.setLocale(new Locale(line, "BY"));
+                break;
+            }
+            case "en": {
+                res.setLocale(new Locale(line, "US"));
+                break;
+            }
+            default: {
                 try {
                     Printer.printLog(line);
                     Var result = parser.calc(line);
                     printer.print(result);
-//                    printer.printLog(result.toString());
                 } catch (CalcException e) {
                     System.out.println(e.getMessage());
                     Printer.printLog(e.getMessage());

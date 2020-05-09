@@ -7,6 +7,7 @@ import java.util.Set;
 
 public abstract class Var implements Operation {
     private static Map<String, Var> vars = new HashMap<>();
+    static ResMan res = ResMan.INSTANCE;
 
     public static Var saveVar(String name, Var var) {
         vars.put(name, var);
@@ -55,26 +56,26 @@ public abstract class Var implements Operation {
             return new Matrix(line);
         if (vars.containsKey(line))
             return vars.get(line);
-        else throw new CalcException("Невозможно создать " + line);
+        else throw new CalcException(res.get(Messages.ERROR_CREATE) +" "+ line);
     }
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException("Операция сложения невозмжна.");
+        throw new CalcException(res.get(Messages.ERROR_ADD));
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException("Операция вычитания невозмжна.");
+        throw new CalcException(res.get(Messages.ERROR_SUB));
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException("Операция умножения невозмжна.");
+        throw new CalcException(res.get(Messages.ERROR_MUL));
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException("Операция деления невозмжна.");
+        throw new CalcException(res.get(Messages.ERROR_DIV));
     }
 }

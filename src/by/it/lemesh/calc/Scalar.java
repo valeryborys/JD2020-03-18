@@ -1,6 +1,7 @@
 package by.it.lemesh.calc;
 
 class Scalar extends Var {
+    static ResMan res = ResMan.INSTANCE;
     private double value;
 
     public double getValue() {
@@ -41,7 +42,7 @@ class Scalar extends Var {
     public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             if (((Scalar) other).value == 0)
-                throw new CalcException("Деление на ноль невозможоно!");
+                throw new CalcException(res.get(Messages.ERROR_NULL));
             double div = this.value / ((Scalar) other).value;
             return new Scalar(div);
         } else {

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 class Matrix extends Var {
+    static ResMan res = ResMan.INSTANCE;
     private double[][] value;
 
     public double[][] getValue() {
@@ -52,7 +53,7 @@ class Matrix extends Var {
             return new Matrix(sub);
         } else if (other instanceof Matrix) {
             if ((this.value.length != ((Matrix) other).value.length) || (this.value[0].length != ((Matrix) other).value[0].length))
-                throw new CalcException("Матрицы разного размера. Вычитание невозможно!");
+                throw new CalcException(res.get(Messages.ERROR_SUB));
             double[][] sub = value.clone();
             for (int i = 0; i < sub.length; i++) {
                 sub[i] = value[i].clone();

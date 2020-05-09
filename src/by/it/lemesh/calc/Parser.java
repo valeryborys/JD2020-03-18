@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-
+    static ResMan res = ResMan.INSTANCE;
     private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
         {
             this.put("=", 0);
@@ -69,7 +69,7 @@ public class Parser {
             case "/":
                 return left.div(right);
         }
-        throw new CalcException("oneOperation failed");
+        throw new CalcException(res.get(Messages.ERROR_OPERATION));
     }
 
     private int getIndexCurrentOperation(List<String> operations) {
