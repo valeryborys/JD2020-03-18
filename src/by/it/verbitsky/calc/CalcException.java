@@ -4,19 +4,20 @@ package by.it.verbitsky.calc;
 //Для примера и общего понятия наследуемся от checked Exc
 
 class CalcException extends Exception {
+    private static ResourceManager rm = ConsoleRunner.getRm();
     public CalcException() {
-        this("ERROR: unknown error");
+        this(rm.getMessage(CalcMessages.SYSTEM_ERROR_UNKNOWN_ERROR));
     }
 
     public CalcException(String message) {
-        super("ERROR: " + message);
+        super(rm.getMessage(CalcMessages.SYSTEM_ERROR_EMPTY_ERROR) + message);
     }
 
     public CalcException(String message, Throwable cause) {
-        super("ERROR: " + message, cause);
+        super(rm.getMessage(CalcMessages.SYSTEM_ERROR_EMPTY_ERROR) + message, cause);
     }
 
     public CalcException(Throwable cause) {
-        this("ERROR: unknown error", cause);
+        this(rm.getMessage(CalcMessages.SYSTEM_ERROR_UNKNOWN_ERROR), cause);
     }
 }

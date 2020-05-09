@@ -23,7 +23,7 @@ public class Th2_02_volatile_bad {
         //Считаем сколько было потоков
         int thCount=Thread.activeCount();
 
-        for (int i = 0; i < 4444; i++) {
+        for (int i = 0; i < 6666; i++) {
             new Cashier().start();
         }
         //пока потоков больше чем было в начале просто ждем

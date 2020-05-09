@@ -1,56 +1,58 @@
 package by.it.tolstik.calc;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 abstract class Var implements Operation {
 
-    private static Map<String,Var> vars= new HashMap<>();
-    static Var saveVar(String name, Var var) {
-        vars.put(name,var);
-        return var;
+    private static final Map<String, Var> vars = new HashMap<>();
+
+    static void saveVar(String name, Var var) {
+        vars.put(name, var);
     }
 
-    static Var createVar(String operand) throws CalcException{
-        operand = operand.trim().replaceAll("\\s","");
-        if (operand.matches(Patterns.SCALAR))
-            return new Scalar(operand);
-        else if (operand.matches(Patterns.VECTOR))
-            return new Vector(operand);
-        else if (operand.matches(Patterns.MATRIX))
-            return new Matrix(operand);
-        else {
-            if (vars.get(operand)!=null) {
-                return vars.get(operand);
-            }
-            else {
-                throw new CalcException("Operand don't exist: " + operand);
+    static Map<String, Var> getVars() {
+        return vars;
+    }
+
+    static Var createVar(String strVar) throws CalcException {
+        strVar = strVar.trim().replaceAll("\\s", "");
+        if (strVar.matches(Patterns.SCALAR))
+            return new Scalar(strVar);
+        else if (strVar.matches(Patterns.VECTOR))
+            return new Vector(strVar);
+        else if (strVar.matches(Patterns.MATRIX))
+            return new Matrix(strVar);
+        else if (vars.containsKey(strVar)) {
+            if (vars.get(strVar) != null) {
+                return vars.get(strVar);
             }
         }
-
-    }
-    @Override
-    public Var add(Var other) throws CalcException{
-        throw new CalcException("Операция сложения " + this + " + " + other + " не возможна.");
+        throw new CalcException("Unknown var: " + strVar);
     }
 
+
     @Override
-    public Var sub(Var other) throws CalcException{
-        throw new CalcException("Операция вычитания " + this + " - " + other + " не возможна.");
+    public Var add(Var other) throws CalcException {
+        throw new CalcException("Operation " + this + " + " + other + " is impossible");
+    }
+
+    @Override
+    public Var sub(Var other) throws CalcException {
+        throw new CalcException("Operation " + this + " - " + other + " is impossible");
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException("Операция умножения " + this + " * " + other + " не возможна.");
+        throw new CalcException("Operation " + this + " * " + other + " is impossible");
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException("Операция деления " + this + " / " + other + " не возможна.");
+        throw new CalcException("Operation " + this + " / " + other + " is impossible");
     }
 
     @Override
     public String toString() {
-        return "You must override toString in child class!";
+        return "Abstract Var{}";
     }
 }

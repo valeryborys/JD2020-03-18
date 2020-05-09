@@ -53,7 +53,8 @@ class Scalar extends Var {
     @Override
     public Var div(Var other) throws CalcException{
         if (other instanceof Scalar){
-            if (((Scalar) other).value ==0 ) throw new CalcException("Division by zero is impossible");
+//            if (((Scalar) other).value ==0 ) throw new CalcException("Division by zero is impossible");
+            if (((Scalar) other).value ==0 ) throw new CalcException(ConsoleRunner.res.get(CalcExceptionMessage.zeroDivision));
             double otherValue = ((Scalar) other).value;
             if (otherValue !=0 ) {
                 double resultDiv = this.value / otherValue;

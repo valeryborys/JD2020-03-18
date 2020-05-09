@@ -1,105 +1,146 @@
 package by.it.verbitsky.calc;
 
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
-    Var calc(String expression) throws CalcException {
+    private static ResourceManager rm = ConsoleRunner.getRm();
+    private static CalcLogger fLogger;
+    private static final Map<String, Integer> priority =
+            new HashMap<String, Integer>() {
+                {
+                    this.put("=", 0);
+                    this.put("+", 1);
+                    this.put("-", 1);
+                    this.put("*", 2);
+                    this.put("/", 2);
+                }
+            };
+
+    public Var calc(String expression, CalcLogger logger) throws CalcException {
+        fLogger = logger;
         expression = expression.replace(" ", "");
+
+        //проверка на пустое выражение
+        if (expression.length() == 0) {
+            fLogger.writeLog("empty expression");
+            throw new CalcException(rm.getMessage(CalcMessages.SYSTEM_ERROR_EMPTY_OP));
+        }
+        //проверка на одиночные команды (printvar, sotvar, clearmemory)
+        if (checkSingleCommand(expression)) {
+            return null;
+        }
+
+        expression = getSimpleExpression(expression);
+        String resVar = calculateSimpleExpression(expression);
+
+        return Var.createVar(resVar);
+    }
+
+    private String calculateSimpleExpression(String expression) throws CalcException {
+        expression = expression.replace("(", "").replace(")", "");
+        List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
+        List<String> operations = new ArrayList<>();
+        Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
+        while (matcher.find()) {
+            operations.add(matcher.group());
+        }
+        while (operations.size() > 0) {
+            int index = getIndexCurrentOperation(operations);
+            String operation = operations.remove(index);
+            String left = operands.remove(index);
+            String right = operands.remove(index);
+            Var result = oneOperation(left, operation, right);
+            operands.add(index, result.toString());
+        }
+        return operands.get(0);
+    }
+
+    private String getSimpleExpression(String expression) throws CalcException {
+        Pattern pattern = Pattern.compile(Patterns.OPERATION_IN_BRACERS);
+        Matcher matcher = pattern.matcher(expression);
+
+        if (!expression.contains("(")) {
+            return expression;
+        } else {
+            matcher.find();
+            String buf = calculateSimpleExpression(matcher.group());
+            expression = expression.replace(matcher.group(), buf);
+            expression = getSimpleExpression(expression);
+        }
+        return expression;
+    }
+
+    private Var oneOperation(String strLeft, String operation, String strRight) throws CalcException {
+        Var right = Var.createVar(strRight.trim());
+
+        if (operation.equals("=")) {
+            Var.memoryAdd(strLeft, right);
+            return right;
+        }
+        Var left = Var.createVar(strLeft);
+        switch (operation) {
+            case "+":
+                return left.add(right);
+            case "-":
+                return left.sub(right);
+            case "*":
+                return left.mul(right);
+            case "/":
+                return left.div(right);
+        }
+        fLogger.writeLog("OneOperation failed");
+        throw new CalcException(rm.getMessage(CalcMessages.SYSTEM_ERROR_FAIL_OP));
+    }
+
+    private int getIndexCurrentOperation(List<String> operations) {
+        int index = -1;
+        int cur = -1;
+        for (int i = 0; i < operations.size(); i++) {
+            String operation = operations.get(i);
+            if (priority.get(operation) > cur) {
+                cur = priority.get(operation);
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    private boolean checkSingleCommand(String expression) {
         String[] parts = expression.split(Patterns.OPERATION, 2);
         //Если был введн 1 операнд
         if (parts.length == 1) {
             switch (parts[0]) {
                 case Patterns.COMMAND_PRINTVAR: {
                     Var.printvar();
-                    return null;
+                    return true;
                 }
                 case Patterns.COMMAND_SORTVAR: {
                     Var.sortvar();
-                    return null;
+                    return true;
                 }
                 case Patterns.COMMAND_CLEAR_MEMORY: {
                     Var.clearMemory();
-                    return null;
+                    return true;
                 }
-                default:
-                    return Var.createVar(parts[0].trim());
+                case Patterns.COMMAND_CHANGE_LOCALE_EN: {
+                    rm.setLocaleForBundle(new Locale(expression, "US"));
+                    ConsoleRunner.printIntro();
+                    return true;
+                }
+                case Patterns.COMMAND_CHANGE_LOCALE_RU: {
+                    rm.setLocaleForBundle(new Locale(expression, "RU"));
+                    ConsoleRunner.printIntro();
+                    return true;
+                }
+                case Patterns.COMMAND_CHANGE_LOCALE_BY: {
+                    rm.setLocaleForBundle(new Locale(expression, "BY"));
+                    ConsoleRunner.printIntro();
+                    return true;
+                }
             }
         }
-
-        Var right = Var.createVar(parts[1].trim());
-
-        if (expression.contains("=")) {
-            Var.memoryAdd(parts[0].trim(), right);
-            return right;
-        }
-        Var left = Var.createVar(parts[0].trim());
-        Matcher matcher = Pattern
-                .compile(Patterns.OPERATION)
-                .matcher(expression);
-
-        if (matcher.find()) {
-            String operation = matcher.group();
-            switch (operation) {
-                case "+":
-                    return left.add(right);
-                case "-":
-                    return left.sub(right);
-                case "*":
-                    return left.mul(right);
-                case "/":
-                    return left.div(right);
-            }
-        }
-
-        throw new CalcException("Unknown operation");
+        return false;
     }
-
 }
-
-//мой старый вариант
-    /*
-    Var calc(String expression, CalcMemory buffer) {
-
-
-        String[] parts = expression.split(Patterns.OPERATION, 2);
-
-        Pattern pattern = Pattern.compile(Patterns.OPERATION);
-        Matcher matcher = pattern.matcher(expression);
-        if (parts.length > 1) {
-            if (matcher.find()) {
-                String operation = matcher.group();
-                switch (operation) {
-                    case "+":
-                        return Var.createVar(parts[0]).add(Var.createVar(parts[1]));
-                    case "-":
-                        return Var.createVar(parts[0]).sub(Var.createVar(parts[1]));
-                    case "*":
-                        return Var.createVar(parts[0]).mul(Var.createVar(parts[1]));
-                    case "/":
-                        return Var.createVar(parts[0]).div(Var.createVar(parts[1]));
-                    case "=": {
-                        buffer.memoryAdd(parts[0], Var.createVar(parts[1]));
-                        return null;
-                    }
-                }
-            }
-        } else {
-            if (parts.length == 1) {
-                switch (parts[0]) {
-                    case Patterns.COMMAND_PRINTVAR: {
-                        buffer.printvar();
-                        return null;
-                    }
-
-                    case Patterns.COMMAND_SORTVAR: {
-                        buffer.sortvar();
-                        return null;
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-}*/

@@ -28,7 +28,7 @@ class Vector extends Var {
         return array;
     }
 
-    public double[] getVector() {
+    double[] getVector() {
         return vector;
     }
 

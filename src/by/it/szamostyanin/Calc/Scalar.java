@@ -21,40 +21,41 @@ class Scalar extends Var {
     }
 
     @Override
-    public Var add(Var other) {
-        if(other instanceof Scalar){
-            double sum=this.value+((Scalar) other).value;
+    public Var add(Var other) throws CalcException {
+        if (other instanceof Scalar) {
+            double sum = this.value + ((Scalar) other).value;
             return new Scalar(sum);
-        }
-        else
+        } else
             return other.add(this);
     }
 
     @Override
-    public Var sub(Var other) {
-        if(other instanceof Scalar){
-            double sub=this.value-((Scalar) other).value;
+    public Var sub(Var other) throws CalcException {
+        if (other instanceof Scalar) {
+            double sub = this.value - ((Scalar) other).value;
             return new Scalar(sub);
-        }
-        else
+        } else
             return new Scalar(-1).mul(other).add(this);
     }
 
     @Override
-    public Var mul(Var other) {
-        if(other instanceof Scalar){
-            double mul=this.value*((Scalar) other).value;
+    public Var mul(Var other) throws CalcException {
+        if (other instanceof Scalar) {
+            double mul = this.value * ((Scalar) other).value;
             return new Scalar(mul);
-        }
-        else
-            return other.add(this);
+        } else
+            return other.mul(this);
     }
 
     @Override
-    public Var div(Var other) {
-        if(other instanceof Scalar){
-            double div=this.value/((Scalar) other).value;
-            return new Scalar(div);
+    public Var div(Var other) throws CalcException {
+        if (other instanceof Scalar) {
+            double checkValue = ((Scalar) other).value;
+            if (checkValue != 0) {
+                double div = this.value / checkValue;
+                return new Scalar(div);
+            } else
+                throw new CalcException("Divide by zero");
         }
         return super.div(other);
     }

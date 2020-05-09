@@ -1,0 +1,50 @@
+{2,3}-{1,2,3}
+ERROR: Incompatible size
+end
+2/{1,2,3}
+ERROR: Operation 2.0 / {1.0, 2.0, 3.0} is impossible
+end
+3.8+26.2
+30.0
+end
+3.8/0
+ERROR: Division by zero is impossible
+end
+5*incorrect_string
+ERROR: Unknown var: incorrect_string
+end
+printmemory
+end
+printmemory
+en
+printmemory
+be
+printmemory
+end
+printmemory
+f
+ОШИБКА: Неизвестная переменная: f
+end
+en
+{{1,2},{8,3}}-{{2,3,3},{2,3,3}}
+ОШИБКА: Несовместимый размер
+{{1,2},{8,3}}*{{1,2},{8,3}}
+{{17.0, 8.0}, {32.0, 25.0}}
+end
+{2,3,4}*2
+{4.0, 6.0, 8.0}
+end
+{2,3}+{1,2,3}
+ОШИБКА: Несовместимый размер
+end
+3.8+26.2
+30.0
+end
+3.8/0
+ОШИБКА: Деление на ноль невозможно
+end
+A=2
+2.0
+A/0
+ERROR: Division by zero is impossible
+end

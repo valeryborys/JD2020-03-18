@@ -8,6 +8,11 @@ import java.util.regex.Pattern;
 class Matrix extends Var {
     private double[][] value;
 
+    public double[][] getValue() {
+        return value;
+    }
+
+
     Matrix(double[][] value) {
         this.value = value;
     }
@@ -105,7 +110,7 @@ class Matrix extends Var {
             }
             return new Matrix(res);
         } else if (other instanceof Vector) {
-            double[] res = new double[((Vector) other).getValue().length];
+            double[] res = new double[this.value.length];
             for (int i = 0; i < this.value.length; i++) {
                 if (this.value[i].length == ((Vector) other).getValue().length) {
                     for (int j = 0; j < this.value[i].length; j++) {
@@ -129,6 +134,19 @@ class Matrix extends Var {
             return new Matrix(res);
         }
         else return super.mul(other);
+    }
+    @Override
+    public Var div(Var other) throws CalcExeption {
+        if (other instanceof Scalar) {
+            double[][] res = Arrays.copyOf(this.value, this.value.length);
+            for (int i = 0; i < res.length; i++) {
+                for (int j = 0; j < res[i].length; j++) {
+                    res[i][j] = res[i][j] / ((Scalar) other).getValue();
+                }
+            }
+            return new Matrix(res);
+        }
+        return super.div(other);
     }
 
     @Override

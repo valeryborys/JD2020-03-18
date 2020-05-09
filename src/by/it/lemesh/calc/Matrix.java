@@ -6,6 +6,10 @@ import java.util.regex.Pattern;
 class Matrix extends Var {
     private double[][] value;
 
+    public double[][] getValue() {
+        return value;
+    }
+
     @Override
     public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {
