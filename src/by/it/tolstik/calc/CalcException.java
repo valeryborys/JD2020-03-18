@@ -1,6 +1,8 @@
 package by.it.tolstik.calc;
 
 class CalcException extends Exception{
+    private static final long serialVersionUID = 5597360738534180403L;
+
     public CalcException() {
     }
 
