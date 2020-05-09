@@ -18,7 +18,6 @@ class ConsoleRunner {
         Logger logger = Logger.getInstance();
         LoggerOfExceptions logException = LoggerOfExceptions.getInstance();
         printer.loadFromMemory(parser);
-
         ReportManager reportManager = new ReportManager();
 
         System.out.println("Please, choose locale (en)/ Калі ласка, абярыце мову (be) / Пожалуйста, выберите язык (ru)");
@@ -64,18 +63,10 @@ class ConsoleRunner {
                     }
                     break;
                 case "full report":
-                    ReportBuilder fullReport = new FullReport();
-                    reportManager.setReportBuilder(fullReport);
-                    reportManager.constructReport();
-                    Report report1 = reportManager.getReport();
-                    System.out.println(report1);
+                    buildReport(reportManager, new FullReport());
                     break;
                 case "short report":
-                    ReportBuilder shortReport = new ShortReport();
-                    reportManager.setReportBuilder(shortReport);
-                    reportManager.constructReport();
-                    Report report2 = reportManager.getReport();
-                    System.out.println(report2);
+                    buildReport(reportManager, new ShortReport());
                     break;
                 default:
 
@@ -92,5 +83,13 @@ class ConsoleRunner {
                     break;
             }
         }
+    }
+
+    static void buildReport(ReportManager reportManager, ReportBuilder reportBuilder) {
+        ReportBuilder reportType = reportBuilder;
+        reportManager.setReportBuilder(reportType);
+        reportManager.constructReport();
+        Report report1 = reportManager.getReport();
+        System.out.println(report1);
     }
 }
