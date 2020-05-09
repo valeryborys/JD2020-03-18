@@ -11,6 +11,20 @@ class ConsoleRunner {
         Logger logger = new Logger();
         util.loadFromMemory(parser);
 
+        System.out.println("======================================");
+        System.out.println("Choose languages and enter to console:");
+        System.out.println("ru - RUSSIAN");
+        System.out.println("be - BELARUSIAN");
+        System.out.println("en - ENGLISH");
+        System.out.println("Waiting for your choice...");
+        System.out.println("======================================");
+        System.out.println("Доступные команды:");
+        System.out.println("print - выведет в консоль все используемые переменные;");
+        System.out.println("sort - отсортирует и выведет в консоль все переменные;");
+        System.out.println("memory - сохранит переменные в памяти;");
+        System.out.println("clear - удалит переменные из памяти;");
+        System.out.println("end - завершение программы;");
+
         while (!flag) {
             String expression = sc.nextLine();
             logger.logger(expression);

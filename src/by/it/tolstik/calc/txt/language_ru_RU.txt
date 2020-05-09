@@ -1,0 +1,2 @@
+message.help_start=Доступные команды:
+message.help_print=print - выведет в консоль все используемые переменные;
