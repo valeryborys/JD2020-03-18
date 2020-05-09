@@ -2,3 +2,4 @@ message.hello=Прывітанне!
 message.question=Як справы?
 user.firstName=Костя
 user.secondName=Бабровіч
+date.format=dd.MM.YYYY
