@@ -50,7 +50,7 @@ public class Matrix extends Var {
                 }
                 return new Matrix(newMatrix);
             } else {
-                throw new CalcException("Раззные размеры");
+                throw new CalcException(ResMan.getString(Message.matrixMessage));
             }
         } else if (other instanceof Scalar) {
             for (int i = 0; i < this.value.length; i++) {
@@ -75,7 +75,7 @@ public class Matrix extends Var {
                 }
                 return new Matrix(newMatrix);
             } else {
-                throw new CalcException("Раззные размеры");
+                throw new CalcException(ResMan.getString(Message.matrixMessage));
             }
         } else if (other instanceof Scalar) {
             for (int i = 0; i < this.value.length; i++) {
@@ -102,7 +102,7 @@ public class Matrix extends Var {
                 }
                 return new Matrix(newMatrix);
             } else {
-                throw new CalcException("Раззные размеры");
+                throw new CalcException(ResMan.getString(Message.matrixMessage));
             }
         } else if (other instanceof Vector) {
             if (this.value.length == ((Vector) other).getValue().length) {
@@ -114,7 +114,7 @@ public class Matrix extends Var {
                 }
                 return new Vector(newVector);
             } else {
-                throw new CalcException("Раззные размеры");
+                throw new CalcException(ResMan.getString(Message.matrixMessage));
             }
         } else {
             double[][] newMatrix = new double[this.value.length][this.value[0].length];

@@ -1,0 +1,8 @@
+message.error=Памылка!
+message.oneOperation=Памылка метаду аперацыі!
+message.zero=Дзяленне на нуль!
+message.vector=Розны памер вектараў!
+message.matrix=Розны памер матрыц!
+message.varOperation=Аперацыя немагчымая!
+message.varCreate=Стварэнне немагчыма!
+message.calc=Выраз адсутнічае!

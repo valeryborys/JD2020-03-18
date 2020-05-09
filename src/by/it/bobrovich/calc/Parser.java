@@ -21,7 +21,7 @@ public class Parser {
 
     Var calc(String expression) throws CalcException {
         if (expression.length() == 0) {
-            throw new CalcException("no expressions");
+            throw new CalcException(ResMan.getString(Message.calcMessage));
         }
         if (checkBracket(expression)) {
             expression = parseExpression(expression);
@@ -61,10 +61,8 @@ public class Parser {
             }
         }
         end = getBracketIndex(sb);
-        //System.out.println(start + " " + end);
         String substring = sb.substring(start + 1, end);
         sb.delete(start, end + 1);
-        //System.out.println(substring + " " + sb);
         return parseExpression(sb.insert(start, parseExpression(substring)).toString());
     }
 
@@ -112,7 +110,7 @@ public class Parser {
                 return left.div(right);
 
         }
-        throw new CalcException("one operation failed");
+        throw new CalcException(ResMan.getString(Message.opeOperation));
     }
 
     private int getIndexCurrentOperation(List<String> operations) {

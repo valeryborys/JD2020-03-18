@@ -46,7 +46,7 @@ public class Scalar extends Var {
                 double result = this.value / ((Scalar) other).value;
                 return new Scalar(result);
             } else {
-                throw new CalcException("Div by zero");
+                throw new CalcException(ResMan.getString(Message.zeroMessage));
             }
         } else return super.div(other);
     }

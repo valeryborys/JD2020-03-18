@@ -20,28 +20,28 @@ public abstract class Var implements Operation {
             if(var != null)
                 return var;
             else
-                throw new CalcException("Impossible to create " + value);
+                throw new CalcException(ResMan.getString(Message.varCreate) + " " + value);
         }
     }
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException("Impossible operation");
+        throw new CalcException(ResMan.getString(Message.varOperation));
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException("Impossible operation");
+        throw new CalcException(ResMan.getString(Message.varOperation));
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException("Impossible operation");
+        throw new CalcException(ResMan.getString(Message.varOperation));
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException("Impossible operation");
+        throw new CalcException(ResMan.getString(Message.varOperation));
     }
 
     public static void save(String name, Var var) {
