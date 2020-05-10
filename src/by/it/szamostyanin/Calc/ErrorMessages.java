@@ -1,6 +1,7 @@
 package by.it.szamostyanin.Calc;
 
 public interface ErrorMessages {
+    String MESSAGE_LANGUAGE = "message.language";
     String INCORRECT_NAME = "error.incorrectName";
     String ERROR_ZERO = "error.zero";
     String ERROR_EXPRESSION = "error.expression";

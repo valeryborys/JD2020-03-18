@@ -18,6 +18,10 @@ class Scalar extends Var {
         this.value = Double.parseDouble(strScalar);
     }
 
+    public double getValue() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return Double.toString(value);
