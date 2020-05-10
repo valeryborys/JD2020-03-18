@@ -1,10 +1,14 @@
 package by.it.okatov.calc;
 
+import by.it.okatov.calc.globalization.IError;
+import by.it.okatov.calc.globalization.ResourceManager;
+
 import java.util.Arrays;
 
 
 @SuppressWarnings("ALL")
 class Vector extends Var {
+    ResourceManager manager = ResourceManager.INSTANCE;
     private double[] value;
 
     public double[] getValue() {
@@ -50,8 +54,10 @@ class Vector extends Var {
             if (otherValue.length != vectorValue.length) {
                 throw new CalcException(
                         String.format(
-                                "Vector %s and Matrix %s have incompatible sizes%n",
+                                manager.getString(IError.msgErrorIncompatibleSizes),
+                                manager.getString(IError.msgErrorVector),
                                 new Vector(otherValue),
+                                manager.getString(IError.msgErrorVector),
                                 new Vector(vectorValue)
                         ));
             }
@@ -62,7 +68,6 @@ class Vector extends Var {
         } else {
             return super.add(other);
         }
-        //return super.add(other);
     }
 
 
@@ -82,8 +87,10 @@ class Vector extends Var {
             if (otherValue.length != vectorValue.length) {
                 throw new CalcException(
                         String.format(
-                                "Vector %s and Matrix %s have incompatible sizes%n",
+                                manager.getString(IError.msgErrorIncompatibleSizes),
+                                manager.getString(IError.msgErrorVector),
                                 new Vector(otherValue),
+                                manager.getString(IError.msgErrorVector),
                                 new Vector(vectorValue)
                         ));
             }
@@ -113,8 +120,10 @@ class Vector extends Var {
             if (otherValue.length != vectorValue.length) {
                 throw new CalcException(
                         String.format(
-                                "Vector %s and Matrix %s have incompatible sizes%n",
+                                manager.getString(IError.msgErrorIncompatibleSizes),
+                                manager.getString(IError.msgErrorVector),
                                 new Vector(otherValue),
+                                manager.getString(IError.msgErrorVector),
                                 new Vector(vectorValue)
                         ));
             }
@@ -134,10 +143,7 @@ class Vector extends Var {
         if (other instanceof Scalar) {
             double otherValue = ((Scalar) other).getValue();
             if (otherValue == 0) {
-                throw new CalcException(String.format(
-                        "ERROR! Division by zero: Scalar equals to %s",
-                        otherValue
-                ));
+                throw new CalcException(manager.getString(IError.msgErrorDivisionByZero));
             }
             double[] vectorValue = Arrays.copyOf(getValue(), getValue().length);
             for (int i = 0; i < vectorValue.length; i++) {

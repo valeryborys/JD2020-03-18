@@ -1,6 +1,9 @@
 package by.it.okatov.calc;
 
 
+import by.it.okatov.calc.globalization.IError;
+import by.it.okatov.calc.globalization.ResourceManager;
+
 class Scalar extends Var {
 
     private final double value;
@@ -60,7 +63,7 @@ class Scalar extends Var {
                 double result = value / otherValue;
                 return new Scalar(result);
             } else
-                throw new CalcException("ERROR! Division by zero");
+                throw new CalcException(manager.getString(IError.msgErrorDivisionByZero));
         }
         return super.div(other);
     }
@@ -69,4 +72,6 @@ class Scalar extends Var {
     public String toString() {
         return Double.toString(value);
     }
+
+    static ResourceManager manager = ResourceManager.INSTANCE;
 }

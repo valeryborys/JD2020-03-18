@@ -1,0 +1,7 @@
+message.hello = Прывiтанне!
+message.question = Як справы?
+message.inputQuestion = Якую лакаль вы зьбіраецеся выкарыстоўваць? (by,en,ru)
+message.inputLocale = Увод:
+message.errorNotLocale = Ўведзеная вамі паслядоўнасць знакаў не распазнана!
+user.name = Раман
+user.surname = Акатаў

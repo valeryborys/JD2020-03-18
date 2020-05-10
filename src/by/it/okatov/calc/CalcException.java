@@ -1,19 +1,32 @@
 package by.it.okatov.calc;
 
+import by.it.okatov.calc.globalization.IError;
+import by.it.okatov.calc.globalization.ResourceManager;
+
+import static by.it.okatov.calc.ConsoleRunner.baos;
+import static by.it.okatov.calc.ConsoleRunner.logSystem;
+
+
 public class CalcException extends Exception {
+    static ResourceManager manager = ResourceManager.INSTANCE;
+
     public CalcException() {
-        this("ERROR: unknown error");
+        this(manager.getString(IError.msgErrorUnknown));
+        logSystem.createLog(baos.toString());
     }
 
     public CalcException(String message) {
-        super("ERROR: " + message);
+        super(manager.getString(IError.msgErrorError) + message);
+        logSystem.createLog(baos.toString());
     }
 
     public CalcException(String message, Throwable cause) {
-        super("ERROR: " + message);
+        super(manager.getString(IError.msgErrorError) + message + cause);
+        logSystem.createLog(baos.toString());
     }
 
     public CalcException(Throwable cause) {
-        this("ERROR: unknown error " + cause);
+        this(manager.getString(IError.msgErrorUnknown) + cause);
+        logSystem.createLog(baos.toString());
     }
 }
