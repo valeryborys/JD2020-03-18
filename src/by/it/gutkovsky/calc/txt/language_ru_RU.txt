@@ -1,0 +1,15 @@
+CalcException.fullMessage = ОШИБКА: неизвестная ошибка
+CalcException.shortMessage = ОШИБКА:
+CalcException.incompatible = Несовместимый размер
+CalcException.zeroDivision = Деление на ноль невозможно
+CalcException.expressionForm = Выражение не было введено
+CalcException.missedOperand = Отсутствует операнд после операции:
+CalcException.operation = Неизвестная операция
+CalcException.unknownVar = Неизвестная переменная:
+CalcException.operationMessage = Операция
+CalcException.isImpossible =  невозможна
+CalcException.fileException = Ошибка: Файл не найден:
+Printer.noVar =  Переменные отсутствуют
+Printer.memoryVar = В памяти нет сохраненных переменных
+Var.message = Абстрактная переменная{}
+Printer.printMemory = Сохраненные переменные

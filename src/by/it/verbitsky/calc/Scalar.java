@@ -43,7 +43,8 @@ class Scalar extends Var {
         if (other instanceof Scalar) {
             return new Scalar(this.getValue() - ((Scalar) other).getValue());
         } else {
-            return other.sub(new Scalar(-1).mul(other).add(this));
+            Var otherMinus = other.mul(new Scalar(-1));
+            return otherMinus.add(this);
         }
     }
 

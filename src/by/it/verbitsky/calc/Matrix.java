@@ -167,6 +167,7 @@ class Matrix extends Var {
                         matrix[i][j] /= scalar;
                     }
                 }
+                return new Matrix(matrix);
             }
         }
         return super.div(other);
