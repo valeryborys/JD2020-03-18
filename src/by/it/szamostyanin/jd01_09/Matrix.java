@@ -5,6 +5,10 @@ import java.util.Arrays;
 class Matrix extends Var {
     private double[][] value;
 
+    public double[][] getMatrix() {
+        return value;
+    }
+
     Matrix(double[][] value) {
         this.value = Arrays.copyOf(value, value.length);
 
@@ -15,28 +19,33 @@ class Matrix extends Var {
     }
 
     Matrix(String strMatrix) {
-        String[] strings = strMatrix.split("},");
-        double[][] mass = new double[strings.length][];
-        for (int i = 0; i < strings.length; i++) {
-            mass[i] = getArrayFromString(strings[i]);
-        }
-        this.value = mass;
+        double[][] array = getArrayFromString(strMatrix.substring(1, strMatrix.length() - 1));
+        this.value = Arrays.copyOf(array, array.length);
     }
 
-    double[] getArrayFromString(String s) {
-        s = s.replaceAll("[{}\\s]", "");
-        String[] strings = s.split(",");
-        double[] res = new double[strings.length];
+    private double[][] getArrayFromString(String str) {
+        String[] strings = str.split("},");
+        double[][] array = new double[strings.length][];
         for (int i = 0; i < strings.length; i++) {
-            res[i] = Double.parseDouble(strings[i]);
+            array[i] = getVectorFromString(strings[i]);
         }
-        return res;
+        return array;
+    }
+
+    private double[] getVectorFromString(String strVector) {
+        strVector = strVector.replaceAll("[{}\\s]", "");
+        String[] strings = strVector.split(",");
+        double[] array = new double[strings.length];
+        for (int i = 0; i < strings.length; i++) {
+            array[i] = Double.parseDouble(strings[i]);
+        }
+        return array;
     }
 
     @Override
     public String toString() {
         if (this.value == null) {
-            System.out.println("Нулевой размер поля Value \n");
+            System.out.println("Error");
         } else {
             StringBuilder sb = new StringBuilder("{");
             for (int i = 0; i < value.length; i++) {
@@ -52,12 +61,145 @@ class Matrix extends Var {
                 if (i == value.length - 1) {
                     sb.append("}");
                 } else {
-                    sb.append(",");
+                    sb.append(", ");
                 }
 
             }
             return sb.toString();
         }
         return null;
+    }
+
+    @Override
+    public Var add(Var other){
+        if (other instanceof Scalar) {
+            double scalar = ((Scalar) other).getValue();
+            double[][] matrix = Arrays.copyOf(this.getMatrix(), this.getMatrix().length);
+            for (int i = 0; i < matrix.length; i++) {
+                for (int j = 0; j < matrix[i].length; j++) {
+                    matrix[i][j] += scalar;
+                }
+            }
+            return new Matrix(matrix);
+        } else {
+            if (other instanceof Matrix) {
+                if (this.getMatrix().length == ((Matrix) other).getMatrix().length) {
+                    if (this.getMatrix()[0].length == ((Matrix) other).getMatrix()[0].length) {
+                        double[][] matrixLeft = Arrays.copyOf(this.getMatrix(), this.getMatrix().length);
+                        double[][] matrixRight = Arrays.copyOf(((Matrix) other).getMatrix(), ((Matrix) other).getMatrix().length);
+                        double[][] matrixRes = new double[this.getMatrix().length][this.getMatrix()[0].length];
+                        for (int i = 0; i < matrixLeft.length; i++) {
+                            for (int j = 0; j < matrixLeft[i].length; j++) {
+                                matrixRes[i][j] = matrixLeft[i][j] + matrixRight[i][j];
+                            }
+                        }
+                        return new Matrix(matrixRes);
+                    }
+                }
+            }
+        }
+        return super.add(other);
+    }
+
+    @Override
+    public Var sub(Var other){
+        if (other instanceof Scalar) {
+            double scalar = ((Scalar) other).getValue();
+            double[][] matrix = Arrays.copyOf(this.getMatrix(), this.getMatrix().length);
+            for (int i = 0; i < matrix.length; i++) {
+                for (int j = 0; j < matrix[i].length; j++) {
+                    matrix[i][j] -= scalar;
+                }
+            }
+            return new Matrix(matrix);
+        } else {
+            if (other instanceof Matrix) {
+                if (this.getMatrix().length == ((Matrix) other).getMatrix().length) {
+                    if (this.getMatrix()[0].length == ((Matrix) other).getMatrix()[0].length) {
+                        double[][] matrixLeft = Arrays.copyOf(this.getMatrix(), this.getMatrix().length);
+                        double[][] matrixRight = Arrays.copyOf(((Matrix) other).getMatrix(), ((Matrix) other).getMatrix().length);
+                        double[][] matrixRes = new double[this.getMatrix().length][this.getMatrix()[0].length];
+                        for (int i = 0; i < matrixLeft.length; i++) {
+                            for (int j = 0; j < matrixLeft[i].length; j++) {
+                                matrixRes[i][j] = matrixLeft[i][j] - matrixRight[i][j];
+                            }
+                        }
+                        return new Matrix(matrixRes);
+                    }
+                }
+            }
+        }
+        return super.sub(other);
+    }
+
+    @Override
+    public Var mul(Var other){
+        if (other instanceof Scalar) {
+            double scalar = ((Scalar) other).getValue();
+            double[][] matrix = Arrays.copyOf(this.getMatrix(), this.getMatrix().length);
+            for (int i = 0; i < matrix.length; i++) {
+                for (int j = 0; j < matrix[i].length; j++) {
+                    matrix[i][j] *= scalar;
+                }
+            }
+            return new Matrix(matrix);
+        }
+        if (other instanceof Vector) {
+            if (other.getVector().length == this.getMatrix().length) {
+                double[] vector = Arrays.copyOf(other.getVector(), other.getVector().length);
+                double[][] matrix = Arrays.copyOf(this.getMatrix(), this.getMatrix().length);
+                double[] res = mul(matrix, vector);
+                return new Vector(res);
+            }
+        }
+        if (other instanceof Matrix) {
+            if (this.getMatrix().length == ((Matrix) other).getMatrix()[0].length) {
+                double[][] matrixLeft = Arrays.copyOf(this.getMatrix(), this.getMatrix().length);
+                double[][] matrixRight = Arrays.copyOf(((Matrix) other).getMatrix(), ((Matrix) other).getMatrix().length);
+                double[][] res = mul(matrixLeft, matrixRight);
+                return new Matrix(res);
+            }
+            return super.mul(other);
+        }
+        return super.mul(other);
+    }
+
+    @Override
+    public Var div(Var other){
+        if (other instanceof Scalar) {
+            double scalar = ((Scalar) other).getValue();
+            if (scalar != 0) {
+                double[][] matrix = Arrays.copyOf(this.getMatrix(), this.getMatrix().length);
+                for (int i = 0; i < matrix.length; i++) {
+                    for (int j = 0; j < matrix[i].length; j++) {
+                        matrix[i][j] /= scalar;
+                    }
+                }
+            }
+        }
+        return super.div(other);
+    }
+
+    static double[][] mul(double[][] matrixLeft, double[][] matrixRight) {
+        double[][] array = new double[matrixLeft.length][matrixRight[0].length];
+
+        for (int i = 0; i < matrixLeft.length; i++) {
+            for (int j = 0; j < matrixRight[0].length; j++) {
+                for (int k = 0; k < matrixRight.length; k++) {
+                    array[i][j] = array[i][j] + matrixLeft[i][k] * matrixRight[k][j];
+                }
+            }
+        }
+        return array;
+    }
+
+    static double[] mul(double[][] matrix, double[] vector) {
+        double[] array = new double[matrix.length];
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < vector.length; j++) {
+                array[i] = array[i] + matrix[i][j] * vector[j];
+            }
+        }
+        return array;
     }
 }
