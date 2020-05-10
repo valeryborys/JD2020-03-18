@@ -3,6 +3,8 @@ package by.it.szamostyanin.Calc;
 import java.util.Arrays;
 
 class Matrix extends Var {
+    private static ResMan res = ConsoleRunner.getRes();
+
     private double[][] value;
 
     Matrix(double[][] value) {
@@ -36,7 +38,7 @@ class Matrix extends Var {
     @Override
     public String toString() {
         if (this.value == null) {
-            System.out.println("Нулевой размер поля Value \n");
+            System.out.println(res.getString(ErrorMessages.NULL_VALUE)+"\n");
         } else {
             StringBuilder sb = new StringBuilder("{");
             for (int i = 0; i < value.length; i++) {

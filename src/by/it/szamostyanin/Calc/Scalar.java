@@ -1,7 +1,10 @@
 package by.it.szamostyanin.Calc;
 
 class Scalar extends Var {
+    private static ResMan res = ConsoleRunner.getRes();
+
     private double value;
+
 
     Scalar(double value) {
         this.value = value;
@@ -55,7 +58,7 @@ class Scalar extends Var {
                 double div = this.value / checkValue;
                 return new Scalar(div);
             } else
-                throw new CalcException("Divide by zero");
+                throw new CalcException(res.getString(ErrorMessages.ERROR_ZERO));
         }
         return super.div(other);
     }

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 abstract class Var implements Operation {
-        private static ResMan res= ResMan.INSTANCE;
+    private static ResMan res = ConsoleRunner.getRes();
 
     private static final Map<String, Var> map = new HashMap<>();
 
@@ -28,22 +28,22 @@ abstract class Var implements Operation {
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException(String.format("Операция %s + %s невозможна!\n", this, other));
+        throw new CalcException(String.format(res.getString(ErrorMessages.ERROR_IMPOSSIBLE), this, other));
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException(String.format("Операция %s - %s невозможна!\n", this, other));
+        throw new CalcException(String.format(res.getString(ErrorMessages.ERROR_IMPOSSIBLE), this, other));
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException(String.format("Операция %s * %s невозможна!\n", this, other));
+        throw new CalcException(String.format(res.getString(ErrorMessages.ERROR_IMPOSSIBLE), this, other));
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException(String.format("Операция %s / %s невозможна!\n", this, other));
+        throw new CalcException(String.format(res.getString(ErrorMessages.ERROR_IMPOSSIBLE), this, other));
     }
 
     public static void save(String name, Var var) {

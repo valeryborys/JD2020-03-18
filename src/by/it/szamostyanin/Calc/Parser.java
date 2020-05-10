@@ -5,8 +5,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    //создаем таблицу приоритетов
     private static ResMan res = ConsoleRunner.getRes(); //Rm.Instance;
+
+    //создаем таблицу приоритетов
     private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
         {
             this.put("=", 0);
@@ -21,7 +22,7 @@ public class Parser {
         //A=-1+2*3/-2   A=-4
         expression = expression.replace(" ", "");  //убираем пробелы
         if (expression.length() == 0) {
-            throw new CalcException("not expression");
+            throw new CalcException(res.getString(ErrorMessages.ERROR_EXPRESSION));
         }
 
         switch (expression) {
@@ -75,7 +76,7 @@ public class Parser {
             case "/":
                 return left.div(right);
         }
-        throw new CalcException("resOperation is wrong");
+        throw new CalcException(res.getString(ErrorMessages.WRONG_OPERATION));
     }
 
     private int getIndexOperation(List<String> operations) {
