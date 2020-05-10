@@ -1,7 +1,10 @@
 package by.it.tolstik.calc;
 
 class Scalar extends Var {
-    private double value;
+
+    ResMan inst = ResMan.INSTANCE;
+
+    private final double value;
 
     public double getValue(){
         return value;
@@ -53,7 +56,7 @@ class Scalar extends Var {
     public Var div(Var other) throws CalcException {
         if (other instanceof Scalar) {
             if (((Scalar) other).value == 0) {
-                throw new CalcException("Division by 0");
+                throw new CalcException(inst.get(ErrorMessage.divBy0));
             }
             double div = this.value / ((Scalar) other).value;
             return new Scalar(div);

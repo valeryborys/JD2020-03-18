@@ -2,10 +2,7 @@ package by.it.tolstik.calc;
 
 import java.util.Arrays;
 import java.util.regex.Pattern;
-
-import java.util.Arrays;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 class Matrix extends Var {
     private double[][] value;
@@ -156,11 +153,11 @@ class Matrix extends Var {
         StringBuilder sb = new StringBuilder();
         sb.append('{');
         String delimiter1 = "";
-        for (int i = 0; i < value.length; i++) {
+        for (double[] doubles : value) {
             sb.append(delimiter1).append("{");
             String delimiter2 = "";
-            for (int j = 0; j < value[i].length; j++) {
-                sb.append(delimiter2).append(value[i][j]);
+            for (double aDouble : doubles) {
+                sb.append(delimiter2).append(aDouble);
                 delimiter2 = ", ";
             }
             sb.append("}");

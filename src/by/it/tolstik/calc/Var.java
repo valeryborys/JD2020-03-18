@@ -4,6 +4,8 @@ import java.util.*;
 
 abstract class Var implements Operation {
 
+    ResMan inst = ResMan.INSTANCE;
+
     private static final Map<String, Var> vars = new HashMap<>();
 
     static void saveVar(String name, Var var) {
@@ -17,11 +19,11 @@ abstract class Var implements Operation {
     static Var createVar(String strVar) throws CalcException {
         strVar = strVar.trim().replaceAll("\\s", "");
         if (strVar.matches(Patterns.SCALAR))
-            return new Scalar(strVar);
+            return new CreatorScalar().varFactory(strVar);
         else if (strVar.matches(Patterns.VECTOR))
-            return new Vector(strVar);
+            return new CreatorVector().varFactory(strVar);
         else if (strVar.matches(Patterns.MATRIX))
-            return new Matrix(strVar);
+            return new CreatorMatrix().varFactory(strVar);
         else if (vars.containsKey(strVar)) {
             if (vars.get(strVar) != null) {
                 return vars.get(strVar);
@@ -33,22 +35,22 @@ abstract class Var implements Operation {
 
     @Override
     public Var add(Var other) throws CalcException {
-        throw new CalcException("Operation " + this + " + " + other + " is impossible");
+        throw new CalcException(inst.get(ErrorMessage.part1) + this + " + " + other + inst.get(ErrorMessage.part2));
     }
 
     @Override
     public Var sub(Var other) throws CalcException {
-        throw new CalcException("Operation " + this + " - " + other + " is impossible");
+        throw new CalcException(inst.get(ErrorMessage.part1) + this + " - " + other + inst.get(ErrorMessage.part2));
     }
 
     @Override
     public Var mul(Var other) throws CalcException {
-        throw new CalcException("Operation " + this + " * " + other + " is impossible");
+        throw new CalcException(inst.get(ErrorMessage.part1) + this + " * " + other + inst.get(ErrorMessage.part2));
     }
 
     @Override
     public Var div(Var other) throws CalcException {
-        throw new CalcException("Operation " + this + " / " + other + " is impossible");
+        throw new CalcException(inst.get(ErrorMessage.part1) + this + " / " + other + inst.get(ErrorMessage.part2));
     }
 
     @Override

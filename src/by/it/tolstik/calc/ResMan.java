@@ -1,11 +1,11 @@
-package by.it.tolstik.jd02_05;
+package by.it.tolstik.calc;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 enum ResMan {
     INSTANCE;
-    public static final String BASE_NAME = "by.it.tolstik.jd02_05.res.language";
+    public static final String BASE_NAME = "by.it.tolstik.calc.res.language";
     Locale locale;
     private ResourceBundle bundle;
 
