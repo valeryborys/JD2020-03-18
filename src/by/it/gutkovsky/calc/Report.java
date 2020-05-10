@@ -35,11 +35,11 @@ class Report {
         return "----------------------------------------------------------------------\n" +
                 headline + df.format(creationDate.getTime()) + "\n" +
                 "----------------------------------------------------------------------\n" +
-                "Start of report generation: " + startTime + "\n" +
+                ConsoleRunner.res.get(ReportMessage.startReport) + ": " + startTime + "\n" +
                 "----------------------------------------------------------------------\n" +
                 bodyReport + "\n" +
                 "----------------------------------------------------------------------\n" +
-                "End of report generation: " + stopTime + "\n" +
+                ConsoleRunner.res.get(ReportMessage.endReport) + ": " + stopTime + "\n" +
                 "----------------------------------------------------------------------\n";
     }
 }

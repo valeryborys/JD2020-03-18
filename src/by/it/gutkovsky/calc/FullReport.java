@@ -8,7 +8,8 @@ class FullReport extends ReportBuilder {
 
     @Override
     public void buildHeadline() {
-        report.setHeadline("FULL REPORT | DATE OF CREATION: ");
+        report.setHeadline(ConsoleRunner.res.get(ReportMessage.fullReport) + " | " +
+                ConsoleRunner.res.get(ReportMessage.dateCreation) + ": ");
     }
 
     @Override
@@ -38,7 +39,7 @@ class FullReport extends ReportBuilder {
                 e.printStackTrace();
             }
         } else {
-            stringBuilder.append("There are no any event in logger");
+            stringBuilder.append(ConsoleRunner.res.get(ReportMessage.emptyReport));
         }
         report.setBodyReport(stringBuilder.toString());
     }
