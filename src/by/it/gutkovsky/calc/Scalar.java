@@ -68,4 +68,6 @@ class Scalar extends Var {
     public String toString() {
         return Double.toString(value);
     }
+
+
 }

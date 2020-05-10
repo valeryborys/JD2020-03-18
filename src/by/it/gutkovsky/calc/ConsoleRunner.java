@@ -11,13 +11,14 @@ class ConsoleRunner {
         res = ResMan.INSTANCE;
     }
 
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
         Printer printer = new Printer();
-        Logger logger = new Logger();
+        Logger logger = Logger.getInstance();
+        LoggerOfExceptions logException = LoggerOfExceptions.getInstance();
         printer.loadFromMemory(parser);
+        ReportManager reportManager = new ReportManager();
 
         System.out.println("Please, choose locale (en)/ Калі ласка, абярыце мову (be) / Пожалуйста, выберите язык (ru)");
         Locale locale;
@@ -25,7 +26,7 @@ class ConsoleRunner {
         label:
         for (; ; ) {
             String expression = sc.nextLine();
-            logger.logger(expression);
+            logger.log(expression);
 
             switch (expression) {
                 case "end":
@@ -50,16 +51,22 @@ class ConsoleRunner {
                     break;
                 case "printmemory":
                     System.out.println("\033[33m" + res.get(PrinterMessage.printMemory) + ": \033[30m");
-//                    System.out.println("\033[33mSaved vars: \033[30m");
-//                    System.out.println("\tSaved vars:");
                     printer.printFromMemory();
                     break;
                 case "clearmemory":
                     try {
                         printer.cleanMemory();
                     } catch (CalcException e) {
-                        e.printStackTrace();
+                        System.out.println(e.getMessage());
+                        logger.log(e.getMessage());
+                        logException.log(e.getMessage());
                     }
+                    break;
+                case "full report":
+                    buildReport(reportManager, new FullReport());
+                    break;
+                case "short report":
+                    buildReport(reportManager, new ShortReport());
                     break;
                 default:
 
@@ -67,13 +74,21 @@ class ConsoleRunner {
                         Var var = parser.calc(expression);
                         printer.saveToMemory();
                         printer.print(var);
-                        logger.logger(var.toString());
+                        logger.log(var.toString());
                     } catch (CalcException e) {
                         System.out.println(e.getMessage());
-                        logger.logger(e.getMessage());
+                        logger.log(e.getMessage());
+                        logException.log(e.getMessage());
                     }
                     break;
             }
         }
+    }
+
+    static void buildReport(ReportManager reportManager, ReportBuilder reportBuilder) {
+        reportManager.setReportBuilder(reportBuilder);
+        reportManager.constructReport();
+        Report report = reportManager.getReport();
+        System.out.println(report);
     }
 }
