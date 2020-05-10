@@ -1,6 +1,7 @@
 package by.it.szamostyanin.jd01_08;
 
 abstract class Var implements Operation{
+
     @Override
     public Var add(Var other) {
         System.out.println("Операция сложения"+this+"+"+other+"невозможна");
@@ -23,5 +24,10 @@ abstract class Var implements Operation{
     public Var div(Var other) {
         System.out.println("Операция деления"+this+"+"+other+"невозможна");
         return null;
+    }
+
+    private double[] value;
+    public double[] getVector() {
+        return value;
     }
 }
