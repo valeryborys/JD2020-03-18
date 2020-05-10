@@ -7,7 +7,7 @@ abstract class Var implements Operation {
     private static Map<String, Var> map = new HashMap<>();
     private static Map<String, Var> sortmap = new TreeMap<>();
 
-    static Var saveVar(String name, Var var) {
+    static Var saveVar(String name, Var var) throws CalcExeption {
         map.put(name, var);
         sortmap.put(name,var);
         printToFile(Var.getSortmap(), dir(ConsoleRunner.class)+"vars.txt");
@@ -28,31 +28,31 @@ abstract class Var implements Operation {
         }
     }
 
-    static Var createVar(String operand) throws CalcExeption {
-        operand = operand.trim().replaceAll("\\s*", "");
-        if (operand.matches(Patterns.SCALAR)) {
-            return new Scalar(operand);
-        }
-        if (operand.matches(Patterns.VECTOR)) {
-            return new Vector(operand);
-        }
-        if (operand.matches(Patterns.MATRIX)) {
-            return new Matrix(operand);
-        }
-        else {
-                Var var = map.get(operand);
-                if (var != null) return var;
-             else throw new CalcExeption(ResMan.res.get(Messages.incorrname) + operand);
-        }
-    }
-    static void printToFile(Map<String,Var> map,String fileName){
+//    static Var createVar(String operand) throws CalcExeption {
+//        operand = operand.trim().replaceAll("\\s*", "");
+//        if (operand.matches(Patterns.SCALAR)) {
+//            return new Scalar(operand);
+//        }
+//        if (operand.matches(Patterns.VECTOR)) {
+//            return new Vector(operand);
+//        }
+//        if (operand.matches(Patterns.MATRIX)) {
+//            return new Matrix(operand);
+//        }
+//        else {
+//                Var var = map.get(operand);
+//                if (var != null) return var;
+//             else throw new CalcExeption(ResMan.res.get(Messages.incorrname) + operand);
+//        }
+//    }
+    static void printToFile(Map<String,Var> map,String fileName) throws CalcExeption {
         try (PrintWriter pw = new PrintWriter(new FileWriter(fileName))){
             Set<Map.Entry<String,Var>> set= map.entrySet();
             for (Map.Entry<String, Var> entry : set) {
  pw.println(entry.getKey()+"="+entry.getValue());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CalcExeption(ResMan.res.get("inpOutEx"));
         }
     }
     public static String dir(Class<?> cl){

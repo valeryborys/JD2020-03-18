@@ -79,4 +79,14 @@ public class ParserTestMatrix {
         double[] v = ((Vector) calc).getValue();
         assertArrayEquals(expected,v,1e-8);
     }
+    @Test
+    public void checkCalcMatrixWithBrackets() throws CalcExeption {
+        double[][] expected = {{3.0,6.0,9.0},{21.0,24.0,27.0},{13.5,15,18}};
+        Parser parser = new Parser();
+        parser.calc("W=27");
+        parser.calc("Q=24");
+        Var calc = parser.calc("Z={{1, 2,3}, {7 ,8.0 ,9},{4.5,5, 6.0}}*(W-Q)");
+        double[][] v = ((Matrix) calc).getValue();
+        assertTrue(Arrays.deepEquals(expected, v));
+    }
 }

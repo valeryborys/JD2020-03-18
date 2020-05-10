@@ -17,20 +17,29 @@ public class QueueBuyers {
         setCashiers();
     }
     static Buyer extract(){
-        Buyer buyer = queue.pollFirst();
+        Buyer buyer=null;
+            for (Buyer b : queue) {
+                if (b.isPensioner()) {
+                    buyer= b;
+                    queue.remove(b);
+                    break;
+                }
+            }
+            if (buyer == null){
+                buyer = queue.pollFirst();
+            }
         setCashiers();
         return buyer;
     }
 
     private static void setCashiers(){
        if (queue.size()== 0) cashiersNeeded.set(0);
-       else if (queue.size()<=5 ) cashiersNeeded.set(1);
-       else if ( queue.size()<=10 ) cashiersNeeded.set(2);
-       else if (queue.size()<=15 ) cashiersNeeded.set(3);
-       else if (queue.size()<=20 ) cashiersNeeded.set(4);
+       else if (queue.size()<=4 ) cashiersNeeded.set(1);
+       else if ( queue.size()<=9 ) cashiersNeeded.set(2);
+       else if (queue.size()<=14 ) cashiersNeeded.set(3);
+       else if (queue.size()<=19 ) cashiersNeeded.set(4);
        else cashiersNeeded.set(5);
-
-    //  System.out.println(getQueueSize()+" "+cashiersNeeded.get());//посмотреть количество людей в очереди и требуемых кассиров
+       //System.out.println(getQueueSize()+" "+cashiersNeeded.get());//посмотреть количество людей в очереди и требуемых кассиров
     }
 
     public static int getCashNeed(){
