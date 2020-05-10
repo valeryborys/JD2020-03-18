@@ -2,8 +2,11 @@ package by.it.okatov.calc;
 
 
 import by.it.okatov.calc.globalization.*;
+import by.it.okatov.calc.logsystem.LogStream;
 import by.it.okatov.calc.logsystem.LogSystem;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -12,8 +15,11 @@ import java.util.Scanner;
 public class ConsoleRunner {
     private static boolean localeExists = false;
     public static ResourceManager manager = ResourceManager.INSTANCE;
+    public static LogSystem logSystem;
+    public static ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
     public static void main(String[] args) {
+        baos.reset();
         //enableloggerSystem
         enableLoggerSystem(true);
 
@@ -25,17 +31,18 @@ public class ConsoleRunner {
 
         Scanner sc = new Scanner(System.in);
 
-
         inputLocaleCommands(manager, locale, sc);
 
 
         //programCycle
         programCycle(sc, manager, locale);
+
     }
 
     private static void inputLocaleCommands(ResourceManager manager, Locale locale, Scanner sc) {
         System.out.println(manager.getString(IMessage.msgInputQuestion));
         System.out.println(manager.getString(IMessage.msgInputLocale) + " ");
+
         String locInput = sc.nextLine();
         switch (locInput) {
 
@@ -54,10 +61,13 @@ public class ConsoleRunner {
                 String s = manager.getString(IError.msgErrorInputNotLocale);
                 System.out.println("\u001B[33m" + s);
                 System.out.println("\u001B[0m");
-                localeExists = false;
+                localeExists = true;
                 break;
         }
         printText(manager, locale);
+        logSystem.createLog(baos.toString());
+        baos.reset();
+        System.out.flush();
     }
 
     private static void printText(ResourceManager manager, Locale locale) {
@@ -138,14 +148,23 @@ public class ConsoleRunner {
             } catch (CalcException calcException) {
                 System.out.println(calcException.getMessage());
             }
-
+            logSystem.createLog(baos.toString());
+            baos.reset();
+            System.out.flush();
         }
     }
 
     @SuppressWarnings({"unused", "SameParameterValue"})
     private static void enableLoggerSystem(boolean isEnabled) {
         if (isEnabled) {
-            LogSystem logSystem = LogSystem.getInstance();
+            logSystem = LogSystem.getInstance();
+            PrintStream outputToString = new PrintStream(baos);
+            PrintStream consoleAndString = new LogStream(System.out, outputToString);
+
+            System.setOut(consoleAndString);
+            System.setErr(new LogStream(System.err, outputToString));
+
+            System.out.println("Logging enabled!");
         }
     }
 }

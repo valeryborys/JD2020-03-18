@@ -22,16 +22,21 @@ abstract class Var implements Operation {
     }
 
     static Var createVar(String strVar) throws CalcException {
-        if (strVar.matches(Patterns.SCALAR))
-            return new Scalar(strVar);
-        if (strVar.matches(Patterns.VECTOR))
-            return new Vector(strVar);
-        if (strVar.matches(Patterns.MATRIX))
-            return new Matrix(strVar);
-        else {
-            Var var = hMap.get(strVar);
-            if (var != null) {
-                return var;
+        VarFactory factory;
+        if (strVar.matches(Patterns.SCALAR)) {
+            factory = new CreatorScalar();
+            return factory.createVar(strVar);
+        }
+        if (strVar.matches(Patterns.VECTOR)) {
+            factory = new CreatorVector();
+            return factory.createVar(strVar);
+        }
+        if (strVar.matches(Patterns.MATRIX)) {
+            factory = new CreatorMatrix();
+            return factory.createVar(strVar);
+        } else {
+            if (hMap.containsKey(strVar)) {
+                return hMap.get(strVar);
             } else {
                 throw new CalcException(manager.getString(IError.msgErrorVariableName) + strVar);
             }
@@ -59,7 +64,7 @@ abstract class Var implements Operation {
     @Override
     public Var sub(Var other) throws CalcException {
         throw new CalcException(
-                "ERROR! " +
+                manager.getString(IError.msgErrorExlamation) +
                         String.format(manager.getString(IError.msgErrorOperationSubtraction), this, other)
         );
     }
@@ -67,7 +72,7 @@ abstract class Var implements Operation {
     @Override
     public Var mul(Var other) throws CalcException {
         throw new CalcException(
-                "ERROR! " +
+                manager.getString(IError.msgErrorExlamation) +
                         String.format(manager.getString(IError.msgErrorOperationMultiplication), this, other)
         );
     }
@@ -75,7 +80,7 @@ abstract class Var implements Operation {
     @Override
     public Var div(Var other) throws CalcException {
         throw new CalcException(
-                "ERROR! " +
+                manager.getString(IError.msgErrorExlamation) +
                         String.format(manager.getString(IError.msgErrorOperationDivision), this, other)
         );
     }

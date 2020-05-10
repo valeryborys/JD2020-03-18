@@ -11,13 +11,6 @@ public class LogStream extends PrintStream {
     }
 
 
-    private void write(String s) {
-        byte[] buffer = s.getBytes();
-        int offset = 0;
-        int length = s.length();
-
-        write(buffer, offset, length);
-    }
 
     @Override
     public void write(byte[] buf, int off, int len) {
