@@ -1,6 +1,8 @@
 package by.it.okatov.calc;
 
 
+import by.it.okatov.calc.Report.AbstractReport;
+import by.it.okatov.calc.Report.ReportBuilder;
 import by.it.okatov.calc.globalization.*;
 import by.it.okatov.calc.logsystem.LogStream;
 import by.it.okatov.calc.logsystem.LogSystem;
@@ -36,14 +38,18 @@ public class ConsoleRunner {
 
         //programCycle
         programCycle(sc, manager, locale);
-
+        AbstractReport report = new ReportBuilder();
+        report.fullVariant().addHeader().addStartTime().addStrings().addFinishTime().createReport();
     }
 
     private static void inputLocaleCommands(ResourceManager manager, Locale locale, Scanner sc) {
         System.out.println(manager.getString(IMessage.msgInputQuestion));
         System.out.println(manager.getString(IMessage.msgInputLocale) + " ");
+        logSystem.createLog(baos.toString());
+        baos.reset();
 
         String locInput = sc.nextLine();
+        logSystem.createLog(locInput, LogSystem.MODE.INPUT);
         switch (locInput) {
 
             case ICommand.be:
@@ -68,6 +74,8 @@ public class ConsoleRunner {
         logSystem.createLog(baos.toString());
         baos.reset();
         System.out.flush();
+
+
     }
 
     private static void printText(ResourceManager manager, Locale locale) {
@@ -122,6 +130,7 @@ public class ConsoleRunner {
 
         for (; ; ) {
             String expression = sc.nextLine();
+            logSystem.createLog(expression, LogSystem.MODE.INPUT);
             if (expression.equals("end")) {
                 return;
             }
