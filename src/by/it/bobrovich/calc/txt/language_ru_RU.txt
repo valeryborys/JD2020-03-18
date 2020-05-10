@@ -1,0 +1,8 @@
+message.error=Ошибка!
+message.oneOperation=Ошибка метода операции!
+message.zero=Деление на ноль!
+message.vector=Разный размер векторов!
+message.matrix=Разный размер матриц!
+message.varOperation=Операция невозможна!
+message.varCreate=Создание невозможно!
+message.calc=Выражение отсутствует!
