@@ -11,7 +11,7 @@ import java.util.Locale;
 enum SingleLogger {
     INSTANCE;
 
-    public static final String TIMESTAMP_PATTERN = "<dd-MM-yyyy HH:mm:ss> ";
+    private static final String TIMESTAMP_PATTERN = "<dd-MM-yyyy HH:mm:ss> ";
 
     public void writeLog(String text) {
         String fName = getFilename(SingleLogger.class, CalcFiles.SINGLETON_LOG_FILENAME);

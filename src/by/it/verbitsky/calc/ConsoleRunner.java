@@ -6,13 +6,16 @@ import java.util.Scanner;
 class ConsoleRunner implements CalcFiles {
     private static ResourceManager rm;
     private static SingleLogger singleLogger;
+    private static EventCollector eventCollector;
     static {
         rm = ResourceManager.INSTANCE;
         singleLogger = SingleLogger.INSTANCE;
+        eventCollector = new EventCollector();
     }
 
 
     public static void main(String[] args) {
+        eventCollector.addSystemStartEvent();
         checkArgs(args);
         Scanner scanner = new Scanner(System.in);
         Parser parser = new Parser();
@@ -37,17 +40,36 @@ class ConsoleRunner implements CalcFiles {
             }
 
             try {
+                eventCollector.addEvent(new CalcEvent(new CalcEventType().setCalcEventType("Calculate"), ""));
                 Var res = parser.calc(expression, logger);
-
                 writeExpressionToLog(logger, expression, res);
-
                 printer.Print(res);
+
             } catch (CalcException e) {
                 logger.writeLog(e.getMessage());
                 singleLogger.writeLog(e.getMessage());
+                eventCollector.getCurrentEvent().setEventType(new CalcEventType().setErrorEventType(e));
+                eventCollector.getCurrentEvent().clearEventBody();
+                eventCollector.appendCurrentEventBody(e.getMessage());
                 System.out.println(e.getMessage());
             }
         }
+
+        eventCollector.addSystemEndEvent();
+
+        ReportBuilder builder = new FullReportBuilder();
+        builder.setOptionFullReport(true);
+        builder.setOptionShowTimestamp(true);
+        builder.setEventCollector(eventCollector);
+        Report fullReport = builder.createReport();
+        fullReport.print();
+
+        builder.setOptionFullReport(false);
+        builder.setOptionShowTimestamp(false);
+        Report simpleReport = builder.createReport();
+        simpleReport.print();
+
+
     }
 
     private static void writeExpressionToLog(CalcLogger logger, String expression, Var res) {
@@ -98,5 +120,9 @@ class ConsoleRunner implements CalcFiles {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    public static EventCollector getEventCollector() {
+        return eventCollector;
     }
 }
