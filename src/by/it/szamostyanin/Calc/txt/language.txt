@@ -1,0 +1,8 @@
+error.incorrectName=incorrect name var:
+error.zero=Divide by zero
+error.expression=not expression
+error.wrongOperation=resOperation is wrong
+error.unknown=ERROR:unknown
+error.error=ERROR:
+error.impossible=Operation impossible!
+error.nullValue=Null size field Value
