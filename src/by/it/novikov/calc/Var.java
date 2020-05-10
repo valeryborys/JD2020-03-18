@@ -1,5 +1,6 @@
 package by.it.novikov.calc;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,17 +47,21 @@ return var;
         throw new CalcException("Операция " + this + " / " + other + " невозможна");
     }
 
-    static Var create(String strVar) throws CalcException{
+    static Var create(String strVar) throws CalcException {
         strVar = strVar.trim().replace(" ", "");
         if (strVar.matches(Patterns.SCALAR)) {
             return new Scalar(strVar);
         } else if (strVar.matches(Patterns.VECTOR)) {
             return new Vector(strVar);
+        } else if (strVar.matches(Patterns.MATRIX)) {
+            return new Matrix((strVar));
         } else if (vars.containsKey(strVar)) {
             return vars.get(strVar);
 
         }
-        throw new CalcException("Невозможно создать " +strVar);
+        throw new CalcException("Невозможно создать " + strVar);
     }
 }
+
+
 
