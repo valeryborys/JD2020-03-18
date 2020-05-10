@@ -157,9 +157,10 @@ public class ReportBuilder extends AbstractReport {
         Date date = new Date();
         String extension = ".txt";
         String fileName = "reports" + File.separator + df.format(date) + " report";
-        fileName = fileName.replace(" ", "_");
-        fileName = fileName.replace(".", "_");
-        fileName = fileName.replace(":", "_");
+        fileName = fileName
+                           .replace(" ", "_")
+                           .replace(".", "_")
+                           .replace(":", "_");
         fileName += extension;
         try (
                 PrintWriter writer = new PrintWriter(
