@@ -35,7 +35,7 @@ class Parser {
         expression = getSimpleExpression(expression);
         String resVar = calculateSimpleExpression(expression);
 
-        return Var.createVar(resVar);
+        return new VariableCreator().createVar(resVar);
     }
 
     private String calculateSimpleExpression(String expression) throws CalcException {
@@ -73,13 +73,13 @@ class Parser {
     }
 
     private Var oneOperation(String strLeft, String operation, String strRight) throws CalcException {
-        Var right = Var.createVar(strRight.trim());
+        Var right = new VariableCreator().createVar(strRight.trim());
 
         if (operation.equals("=")) {
             Var.memoryAdd(strLeft, right);
             return right;
         }
-        Var left = Var.createVar(strLeft);
+        Var left = new VariableCreator().createVar(strLeft);
         switch (operation) {
             case "+":
                 return left.add(right);
