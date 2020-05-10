@@ -1,5 +1,7 @@
 package by.it.szamostyanin.Calc;
 
+import by.it.szamostyanin.jd02_05.Message;
+
 import java.util.Scanner;
 
 public class ConsoleRunner {
@@ -13,7 +15,7 @@ public class ConsoleRunner {
     public static void main(String[] args) {
         res = ResMan.INSTANCE;
         Scanner scan = new Scanner(System.in);
-        //String line;
+        System.out.println(res.getString(Message.LANGUAGE));
 
         Parser parser = new Parser();
         Printer printer = new Printer();
@@ -30,10 +32,5 @@ public class ConsoleRunner {
                 System.out.println(e.getMessage());
             }
         }
-
-        /*while (!(line=scan.nextLine()).equals("end")){
-            Var result=parser.calc(line);
-            printer.printer(result);
-        }*/
     }
 }

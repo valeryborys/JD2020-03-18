@@ -1,5 +1,7 @@
 package by.it.szamostyanin.Calc;
 
+import by.it.szamostyanin.jd02_05.Message;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
