@@ -19,11 +19,11 @@ abstract class Var implements Operation {
     static Var createVar(String strVar) throws CalcException {
         strVar = strVar.trim().replaceAll("\\s", "");
         if (strVar.matches(Patterns.SCALAR))
-            return new Scalar(strVar);
+            return new CreatorScalar().varFactory(strVar);
         else if (strVar.matches(Patterns.VECTOR))
-            return new Vector(strVar);
+            return new CreatorVector().varFactory(strVar);
         else if (strVar.matches(Patterns.MATRIX))
-            return new Matrix(strVar);
+            return new CreatorMatrix().varFactory(strVar);
         else if (vars.containsKey(strVar)) {
             if (vars.get(strVar) != null) {
                 return vars.get(strVar);
