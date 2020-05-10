@@ -9,7 +9,8 @@ class ConsoleRunner {
         Scanner sc = new Scanner(System.in);
         Parser parser = new Parser();
         Util util = new Util();
-        Logger logger = new Logger();
+        Logger logger = Logger.getInstance();
+        LoggerOfExceptions logException = LoggerOfExceptions.getInstance();
         ResMan inst = ResMan.INSTANCE;
         util.loadFromMemory(parser);
 
@@ -26,7 +27,7 @@ class ConsoleRunner {
 
         while (!flag) {
             String expression = sc.nextLine();
-            logger.logger(expression);
+            logger.log(expression);
             switch (expression) {
                 case "ru":
                     inst.locale = new Locale("ru", "RU");
@@ -69,14 +70,16 @@ class ConsoleRunner {
                     }
                     break;
                 default:
+
                     try {
                         Var var = parser.calc(expression);
                         util.saveToMemory();
                         util.print(var);
-                        logger.logger(var.toString());
+                        logger.log(var.toString());
                     } catch (CalcException e) {
                         System.out.println(e.getMessage());
-                        logger.logger(e.getMessage());
+                        logger.log(e.getMessage());
+                        logException.log(e.getMessage());
                     }
                     break;
             }
