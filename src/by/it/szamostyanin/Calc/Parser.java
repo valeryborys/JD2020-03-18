@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
 
 public class Parser {
     private static ResMan res = ConsoleRunner.getRes(); //Rm.Instance;
+    private static VariableCreator variableCreator = new VariableCreator();
 
-    //создаем таблицу приоритетов
     private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
         {
             this.put("=", 0);
@@ -20,12 +20,12 @@ public class Parser {
     };
 
     Var calc(String expression) throws CalcException {
-        //A=-1+2*3/-2   A=-4
-        expression = expression.replace(" ", "");  //убираем пробелы
-        if (expression.length() == 0) {
-            throw new CalcException(res.getString(ErrorMessages.ERROR_EXPRESSION));
-        }
+        expression = expression.replace(" ", "");
 
+        //проверка на пустое выражение
+        if (expression.length() == 0) {
+            throw new CalcException("Empty expression");
+        }
         switch (expression) {
             case "en": {
                 res.setLocale(new Locale(expression, "US"));
@@ -41,32 +41,54 @@ public class Parser {
             }
         }
 
-        List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));   //создаем лист из массива строк, полученного в результате сплита по регулярке
+        expression = getSimpleExpression(expression);
+        String resVar = calculateSimpleExpression(expression);
+
+        return new VariableCreator().createVar(resVar);
+    }
+
+    private String calculateSimpleExpression(String expression) throws CalcException {
+        expression = expression.replace("(", "").replace(")", "");
+        List<String> operands = new ArrayList<>(Arrays.asList(expression.split(Patterns.OPERATION)));
         List<String> operations = new ArrayList<>();
         Matcher matcher = Pattern.compile(Patterns.OPERATION).matcher(expression);
-        while (matcher.find()) { //пока матчер что-то находит
-            operations.add(matcher.group()); //добавляет что нашел
+        while (matcher.find()) {
+            operations.add(matcher.group());
         }
-        // operands     A -1 2 3 -2
-        // operation    =  -  +  /
         while (operations.size() > 0) {
             int index = getIndexOperation(operations);
             String operation = operations.remove(index);
             String left = operands.remove(index);
             String right = operands.remove(index);
-            Var result = resultOperations(left, operation, right);
+            Var result = oneOperation(left, operation, right);
             operands.add(index, result.toString());
         }
-        return Var.createVar(operands.get(0));
+        return operands.get(0);
     }
 
-    private Var resultOperations(String strLeft, String operation, String strRight) throws CalcException {
-        Var right = Var.createVar(strRight);
+    private String getSimpleExpression(String expression) throws CalcException {
+        Pattern pattern = Pattern.compile(Patterns.OPERATION_IN_BRACERS);
+        Matcher matcher = pattern.matcher(expression);
+
+        if (!expression.contains("(")) {
+            return expression;
+        } else {
+            matcher.find();
+            String buf = calculateSimpleExpression(matcher.group());
+            expression = expression.replace(matcher.group(), buf);
+            expression = getSimpleExpression(expression);
+        }
+        return expression;
+    }
+
+    private Var oneOperation(String strLeft, String operation, String strRight) throws CalcException {
+        Var right = new VariableCreator().createVar(strRight.trim());
+
         if (operation.equals("=")) {
             Var.save(strLeft, right);
             return right;
         }
-        Var left = Var.createVar(strLeft);
+        Var left = new VariableCreator().createVar(strLeft);
         switch (operation) {
             case "+":
                 return left.add(right);
@@ -77,7 +99,7 @@ public class Parser {
             case "/":
                 return left.div(right);
         }
-        throw new CalcException(res.getString(ErrorMessages.WRONG_OPERATION));
+        throw new CalcException("Wrong operation");
     }
 
     private int getIndexOperation(List<String> operations) {

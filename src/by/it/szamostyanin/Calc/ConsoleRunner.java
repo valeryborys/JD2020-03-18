@@ -10,6 +10,7 @@ public class ConsoleRunner {
     }
 
     public static void main(String[] args) {
+        CalcLogger logger = CalcLogger.INSTANCE;
         res = ResMan.INSTANCE;
         Scanner scan = new Scanner(System.in);
         System.out.println(res.getString(ErrorMessages.MESSAGE_LANGUAGE));
@@ -25,7 +26,9 @@ public class ConsoleRunner {
             try {
                 Var result = parser.calc(expression);
                 printer.printer(result);
+                logger.log(expression+" "+result);
             } catch (CalcException e) {
+                logger.log(e.getClass()+": "+e.getMessage());
                 System.out.println(e.getMessage());
             }
         }

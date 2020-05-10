@@ -8,6 +8,14 @@ abstract class Var implements Operation {
 
     private static Map<String, Var> map = new HashMap<>();
 
+    public static Map<String, Var> getMap() {
+        return map;
+    }
+
+    public static ResMan getRes() {
+        return res;
+    }
+/*
     static Var createVar(String operand) throws CalcException {
         //operand = operand.trim().replace("\\s+", "");
         if (operand.matches(Patterns.SCALAR))
@@ -24,7 +32,7 @@ abstract class Var implements Operation {
                 throw new CalcException(res.getString(ErrorMessages.INCORRECT_NAME) + " " + operand);
         }
     }
-
+*/
 
     @Override
     public Var add(Var other) throws CalcException {

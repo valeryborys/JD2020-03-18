@@ -3,26 +3,23 @@ package by.it.szamostyanin.Calc;
 import java.util.Arrays;
 
 class Matrix extends Var {
-    private static ResMan res = ConsoleRunner.getRes();
-
-    private double[][] value;
-
     public double[][] getMatrix() {
-        return value;
+        return matrix;
     }
 
-    Matrix(double[][] value) {
-        this.value = Arrays.copyOf(value, value.length);
+    private double[][] matrix;
 
+    Matrix(double[][] value) {
+        this.matrix = Arrays.copyOf(value, value.length);
     }
 
     Matrix(Matrix matrix) {
-        this.value = Arrays.copyOf(matrix.value, matrix.value.length);
+        this.matrix = Arrays.copyOf(matrix.getMatrix(), matrix.getMatrix().length);
     }
 
     Matrix(String strMatrix) {
         double[][] array = getArrayFromString(strMatrix.substring(1, strMatrix.length() - 1));
-        this.value = Arrays.copyOf(array, array.length);
+        this.matrix = Arrays.copyOf(array, array.length);
     }
 
     private double[][] getArrayFromString(String str) {
@@ -46,30 +43,22 @@ class Matrix extends Var {
 
     @Override
     public String toString() {
-        if (this.value == null) {
-            System.out.println(res.getString(ErrorMessages.NULL_VALUE) + "\n");
-        } else {
-            StringBuilder sb = new StringBuilder("{");
-            for (int i = 0; i < value.length; i++) {
-                sb.append("{");
-                for (int j = 0; j < value.length; j++) {
-                    sb.append(value[i][j]);
-                    if (j == value.length - 1) {
-                        sb.append("}");
-                    } else {
-                        sb.append(", ");
-                    }
-                }
-                if (i == value.length - 1) {
-                    sb.append("}");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("{");
+        for (double[] doubles : matrix) {
+            stringBuilder.append("{");
+            for (int j = 0; j < doubles.length; j++) {
+                if (j == doubles.length - 1) {
+                    stringBuilder.append(doubles[j]);
                 } else {
-                    sb.append(",");
+                    stringBuilder.append(doubles[j]).append(", ");
                 }
-
             }
-            return sb.toString();
+            stringBuilder.append("}, ");
         }
-        return null;
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1).trimToSize();
+        stringBuilder.setCharAt(stringBuilder.length() - 1, '}');
+        return stringBuilder.toString();
     }
 
     @Override
@@ -155,6 +144,7 @@ class Matrix extends Var {
             }
         }
         if (other instanceof Matrix) {
+            //сравнить кол-во столбцов слева и кол-во строк справа
             if (this.getMatrix().length == ((Matrix) other).getMatrix()[0].length) {
                 double[][] matrixLeft = Arrays.copyOf(this.getMatrix(), this.getMatrix().length);
                 double[][] matrixRight = Arrays.copyOf(((Matrix) other).getMatrix(), ((Matrix) other).getMatrix().length);
@@ -177,6 +167,7 @@ class Matrix extends Var {
                         matrix[i][j] /= scalar;
                     }
                 }
+                return new Matrix(matrix);
             }
         }
         return super.div(other);

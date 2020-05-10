@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 /*enum Logger {   //правильный метод
     GET;*/
@@ -33,8 +36,8 @@ class Logger {    //метод учебный, ориентирован на п�
     public void log(String text) {
         try
                 (PrintWriter printWriter = new PrintWriter(new FileWriter(getFileName(Logger.class, filename), true))) {
+            printWriter.print(LocalDateTime.now().format(DateTimeFormatter.ofPattern("<dd-MM-yyyy HH:mm:ss> ")));
             printWriter.println(text);
-            printWriter.println(LocalDate.now());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
