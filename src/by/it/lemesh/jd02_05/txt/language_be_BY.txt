@@ -1,0 +1,5 @@
+message.hello=Прывітанне!
+message.question=Як справы?
+user.firstName=Сяргей
+user.lastName=Лемеш
+dateFormat.dateFormat=dd.MM.yyyy

@@ -5,7 +5,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-
+    Creator creator = new Creator();
+    static ResMan res = ResMan.INSTANCE;
+    Logger logger = Logger.getInstance();
     private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
         {
             this.put("=", 0);
@@ -19,8 +21,9 @@ public class Parser {
     Var calc(String expression) throws CalcException {
         String expr = getExpression(expression);
         String result = calcExpression(expr);
-        Printer.printLog(result);
-        return Var.createVar(result);
+ //       Printer.printLog(result);
+        logger.log(result);
+        return creator.create(result);
     }
 
     private String getExpression(String expression) throws CalcException {
@@ -53,12 +56,12 @@ public class Parser {
     }
 
     private Var oneOperation(String strLeft, String operation, String strRight) throws CalcException {
-        Var right = Var.createVar(strRight);
+        Var right = creator.create(strRight);
         if (operation.equals("=")) {
             Var.saveVar(strLeft, right);
             return right;
         }
-        Var left = Var.createVar(strLeft);
+        Var left = creator.create(strLeft);
         switch (operation) {
             case "+":
                 return left.add(right);
@@ -69,7 +72,7 @@ public class Parser {
             case "/":
                 return left.div(right);
         }
-        throw new CalcException("oneOperation failed");
+        throw new CalcException(res.get(Messages.ERROR_OPERATION));
     }
 
     private int getIndexCurrentOperation(List<String> operations) {

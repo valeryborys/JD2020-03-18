@@ -1,0 +1,8 @@
+error.add=The addition operation is not possible.
+error.sub=The subtraction operation is not possible.
+error.mul=The multiplication operation is not possible.
+error.div=The division operation is not possible.
+error.create=Not possible to create
+error.error=ERROR:
+error.null=Division by 0 is not possible
+error.operation=Operation failed!
