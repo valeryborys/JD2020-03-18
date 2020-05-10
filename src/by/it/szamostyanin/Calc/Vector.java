@@ -14,8 +14,10 @@ class Vector extends Var {
     }
 
     Vector(String strVector) {
-        strVector = strVector.replaceAll("[{}]", "");
-        String[] strings = strVector.split("\\D");
+        //strVector = strVector.replaceAll("[{}]", "");
+        strVector = strVector.replaceAll("[{}\\s]", "");
+        //String[] strings = strVector.split("\\D");
+        String[] strings = strVector.split(",");
         double[] res = new double[strings.length];
         for (int i = 0; i < strings.length; i++) {
             res[i]=Double.parseDouble(strings[i]);

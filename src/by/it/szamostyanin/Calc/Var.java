@@ -6,7 +6,7 @@ import java.util.Map;
 abstract class Var implements Operation {
     private static ResMan res = ConsoleRunner.getRes();
 
-    private static final Map<String, Var> map = new HashMap<>();
+    private static Map<String, Var> map = new HashMap<>();
 
     static Var createVar(String operand) throws CalcException {
         //operand = operand.trim().replace("\\s+", "");
@@ -21,7 +21,7 @@ abstract class Var implements Operation {
             if (var != null)
                 return var;
             else
-                throw new CalcException(res.getString(ErrorMessages.INCORRECT_NAME) + operand);
+                throw new CalcException(res.getString(ErrorMessages.INCORRECT_NAME) + " " + operand);
         }
     }
 
