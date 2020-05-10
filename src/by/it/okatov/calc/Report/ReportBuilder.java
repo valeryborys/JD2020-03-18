@@ -24,9 +24,6 @@ public class ReportBuilder extends AbstractReport {
     private static final StringBuilder sb = new StringBuilder();
     private final List<String> logList = new ArrayList<>();
 
-    public List<String> getLogList() {
-        return logList;
-    }
 
     private void setLogList() {
         try (
@@ -110,7 +107,7 @@ public class ReportBuilder extends AbstractReport {
         addIOStrings();
         if (isInput && isOutput) {
             logList.forEach(line -> sb.append(line).append("\n"));
-        } else if (isOutput && !isInput) {
+        } else if (isOutput) {
             logList.forEach(line -> {
                 if (!line.contains("SYSTEM.INPUT")) {
                     if (line.contains(manager.getString(IError.msgErrorError))) {
@@ -126,13 +123,8 @@ public class ReportBuilder extends AbstractReport {
     }
 
     void addIOStrings() {
-        if (isFullReport) {
-            isInput = true;
-            isOutput = true;
-        } else {
-            isInput = false;
-            isOutput = true;
-        }
+        isInput = isFullReport;
+        isOutput = true;
     }
 
     @Override

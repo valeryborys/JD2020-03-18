@@ -13,7 +13,7 @@ public class Printer {
     }
 
     void print(String str) {
-        if (str != null && str != "") {
+        if (str != null && !str.equals("")) {
             System.out.println(str);
         }
     }

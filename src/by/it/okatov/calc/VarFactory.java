@@ -4,7 +4,7 @@ package by.it.okatov.calc;
 abstract class VarFactory {
     abstract Var createVar(String strVar);
 
-    abstract Var createVar(Var var);
+    //abstract Var createVar(Var var);
 
-    abstract Var createVar(Object doubleVar);
+    //abstract Var createVar(Object doubleVar);
 }

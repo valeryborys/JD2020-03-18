@@ -395,27 +395,25 @@ public class Test_jd02_04_Parser {
 
     @Test(timeout = 1500, expected = CalcException.class)
     public void Test3_8_checkMatrixDivision() throws CalcException {
-        Var A;
-        Var B;
         Var calc;
         Parser parser = new Parser();
 
         calc = parser.calc("A = {{1,2,3},{3,2,1},{2,3,1}}");
-        A = new Matrix(((Matrix) calc).getValue());
+        new Matrix(((Matrix) calc).getValue());
 
         //-------------------------------Matrix/Scalar-------------------------------
         calc = parser.calc("B = 5");
-        B = new Scalar(((Scalar) calc).getValue());
-        calc = parser.calc("A/B");
+        new Scalar(((Scalar) calc).getValue());
+        parser.calc("A/B");
 
         //-------------------------------Matrix/Vector-------------------------------
         calc = parser.calc("C = {5,2,3}");
-        B = new Scalar(((Scalar) calc).getValue());
-        calc = parser.calc("A/B");
+        new Scalar(((Scalar) calc).getValue());
+        parser.calc("A/C");
         //-------------------------------Matrix/Matrix-------------------------------
         calc = parser.calc("D = {{1,2,3},{4,5,6},{7,8,9}}");
-        B = new Scalar(((Scalar) calc).getValue());
-        calc = parser.calc("A/B");
+        new Scalar(((Scalar) calc).getValue());
+        parser.calc("A/D");
     }
 
     @Test(timeout = 1500)

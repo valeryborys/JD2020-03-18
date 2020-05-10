@@ -1,7 +1,8 @@
 package by.it.okatov.calc.Report;
 
 public abstract class AbstractReport {
-    public abstract ReportBuilder shortVariant();
+    @SuppressWarnings("unused")
+    public abstract ReportBuilder shortVariant(); //Method never used
 
     public abstract ReportBuilder fullVariant();
 
@@ -13,5 +14,6 @@ public abstract class AbstractReport {
 
     public abstract ReportBuilder addFinishTime();
 
-    public abstract String createReport();
+    @SuppressWarnings("UnusedReturnValue")
+    public abstract String createReport();//Return value never used
 }
