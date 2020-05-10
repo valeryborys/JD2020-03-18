@@ -37,7 +37,7 @@ class Logger {
                     count++;
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
 
@@ -55,7 +55,7 @@ class Logger {
                 writerLog.println(logList.poll());
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
