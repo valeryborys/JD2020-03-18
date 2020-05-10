@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 public class Parser {
     private static ResMan res = ConsoleRunner.getRes(); //Rm.Instance;
+    private static VariableCreator variableCreator = new VariableCreator();
 
     //создаем таблицу приоритетов
     private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
@@ -57,16 +58,16 @@ public class Parser {
             Var result = resultOperations(left, operation, right);
             operands.add(index, result.toString());
         }
-        return Var.createVar(operands.get(0));
+        return variableCreator.createVar(operands.get(0));
     }
 
     private Var resultOperations(String strLeft, String operation, String strRight) throws CalcException {
-        Var right = Var.createVar(strRight);
+        Var right = variableCreator.createVar(strRight);
         if (operation.equals("=")) {
             Var.save(strLeft, right);
             return right;
         }
-        Var left = Var.createVar(strLeft);
+        Var left = variableCreator.createVar(strLeft);
         switch (operation) {
             case "+":
                 return left.add(right);
