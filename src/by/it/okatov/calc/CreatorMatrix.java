@@ -6,7 +6,7 @@ public class CreatorMatrix extends VarFactory {
         return new Matrix(strVar);
     }
 
-    @Override
+    /*@Override
     Var createVar(Var var) {
         return new Matrix((Matrix) var);
     }
@@ -14,5 +14,5 @@ public class CreatorMatrix extends VarFactory {
     @Override
     Var createVar(Object doubleVar) {
         return new Matrix((double[][]) doubleVar);
-    }
+    }*/
 }
