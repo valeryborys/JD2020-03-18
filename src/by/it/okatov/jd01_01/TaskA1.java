@@ -11,6 +11,7 @@ Hello world!
 //DONE
 class TaskA1 {
     public static void main(String[] args) {
+        System.out.println(0.1d);
         System.out.println("Hello world!");
     }
 }
