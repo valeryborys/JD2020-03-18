@@ -7,7 +7,7 @@ public class CreatorScalar extends VarFactory {
         return new Scalar(strVar);
     }
 
-    @Override
+    /*@Override
     Var createVar(Var var) {
         return new Scalar((Scalar) var);
     }
@@ -15,5 +15,5 @@ public class CreatorScalar extends VarFactory {
     @Override
     Var createVar(Object doubleVar) {
         return new Scalar((double) doubleVar);
-    }
+    }*/
 }

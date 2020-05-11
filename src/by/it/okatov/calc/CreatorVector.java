@@ -6,7 +6,7 @@ public class CreatorVector extends VarFactory {
         return new Vector(strVar);
     }
 
-    @Override
+    /*@Override
     Var createVar(Var var) {
         return new Vector((Vector) var);
     }
@@ -14,5 +14,5 @@ public class CreatorVector extends VarFactory {
     @Override
     Var createVar(Object doubleVar) {
         return new Vector((double[]) doubleVar);
-    }
+    }*/
 }

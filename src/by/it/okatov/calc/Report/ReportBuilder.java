@@ -21,6 +21,7 @@ public class ReportBuilder extends AbstractReport {
     private boolean isInput;
     private boolean isOutput;
     private boolean logListSet = false;
+
     private static final StringBuilder sb = new StringBuilder();
     private final List<String> logList = new ArrayList<>();
 
