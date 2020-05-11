@@ -1,17 +1,21 @@
 package by.it.gutkovsky;
 
 
-import java.util.Locale;
-import java.util.TimeZone;
+import org.jfree.data.json.JSONUtils;
 
-public class Main {
+import java.text.DateFormat;
+import java.util.*;
+
+public class Main  {
 
     public static void main(String[] args) {
 
-        int a = 4/5;
-        String s = null;
-        String d = s+s;
-        String f = "";
+//        System.out.println(args.length);
+
+//        int a = 4 / 5;
+//        String s = null;
+//        String d = s + s;
+//        String f = "";
 //        System.out.println(f);
 //        System.out.println(s+s);
 //        System.out.println(s);
@@ -19,6 +23,24 @@ public class Main {
 
 //        Locale locale = Locale.getDefault();
 //        System.out.println(locale);
+
+//        boolean b = false;
+//        if (b== false)
+//            if (b = false)
+//                System.out.println("if statment");
+//            else
+//                System.out.println("else statment");
+
+//        int n = 33;
+//        int k = 0;
+//
+//        while (n > 0) {
+//            k += n % 2;
+//            n /= 2;
+//        }
+//
+//        System.out.println(k);
+
 
 //        System.out.println(a);
 //        System.out.println("\033[32m sadfs"); // цветная печать: 30 - черный.
@@ -38,21 +60,56 @@ public class Main {
                 [37m - белый.
                  */
 
-        TimeZone tz = TimeZone.getTimeZone("Europe/Moscow");
+//        TimeZone tz = TimeZone.getTimeZone("Europe/Moscow");
+//
+//        System.out.println(tz.getRawOffset());
+//        System.out.println(tz.getOffset(System.currentTimeMillis()));
+//        System.out.println(tz.useDaylightTime());
+//
+//        System.out.println(tz.getDisplayName(false, TimeZone.LONG, Locale.ENGLISH));
+//        System.out.println(tz.getDisplayName(false, TimeZone.SHORT, Locale.ENGLISH));
+//        System.out.println(tz.getDisplayName(true, TimeZone.LONG, Locale.ENGLISH));
+//        System.out.println(tz.getDisplayName(true, TimeZone.SHORT, Locale.ENGLISH));
+//
+//        System.out.println(tz.getDisplayName(false, TimeZone.LONG, Locale.FRENCH));
+//        System.out.println(tz.getDisplayName(false, TimeZone.SHORT, Locale.FRENCH));
+//        System.out.println(tz.getDisplayName(true, TimeZone.LONG, Locale.FRENCH));
+//        System.out.println(tz.getDisplayName(true, TimeZone.SHORT, Locale.FRENCH));
 
-        System.out.println(tz.getRawOffset());
-        System.out.println(tz.getOffset(System.currentTimeMillis()));
-        System.out.println(tz.useDaylightTime());
+//        int myInt = 0;
+//        float myFloat = 0;
+//        float result = myInt / myInt;
 
-        System.out.println(tz.getDisplayName(false, TimeZone.LONG, Locale.ENGLISH));
-        System.out.println(tz.getDisplayName(false, TimeZone.SHORT, Locale.ENGLISH));
-        System.out.println(tz.getDisplayName(true, TimeZone.LONG, Locale.ENGLISH));
-        System.out.println(tz.getDisplayName(true, TimeZone.SHORT, Locale.ENGLISH));
+//        int a = 5;
+//        test(++a);
+//    }
+//
+//        static void test ( int a){
+//            a += EASY + a++;
+//            System.out.println(a);
+//        }
+//    }
+//    interface I {
+//        public final static int EASY = 5;
 
-        System.out.println(tz.getDisplayName(false, TimeZone.LONG, Locale.FRENCH));
-        System.out.println(tz.getDisplayName(false, TimeZone.SHORT, Locale.FRENCH));
-        System.out.println(tz.getDisplayName(true, TimeZone.LONG, Locale.FRENCH));
-        System.out.println(tz.getDisplayName(true, TimeZone.SHORT, Locale.FRENCH));
+        DateFormat df = DateFormat.getDateInstance(DateFormat.FULL, Locale.US);
+//        GregorianCalendar calendar = new GregorianCalendar();
+////        Calendar calendar = Calendar.getInstance();
+//        Date time = calendar.getTime();
+//        System.out.println(time);
+//        System.out.println(df.format(time));
+//        int a =0;
+//
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+        GregorianCalendar calendar2 = new GregorianCalendar();
+
+        System.out.println(df.format(calendar2.getTime()));
+        System.out.println(calendar2.getTime());
 
 
     }

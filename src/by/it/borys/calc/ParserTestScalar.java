@@ -105,4 +105,13 @@ public class ParserTestScalar {
         double[][] v = ((Matrix) calc).getValue();
         assertTrue(Arrays.deepEquals(expected, v));
     }
+    @Test
+    public void checkCalcScalarWithBrackets() throws CalcExeption {
+        double expected = 10;
+        Parser parser = new Parser();
+        parser.calc("C=40.15");
+        Var calc = parser.calc("D=((C-0.15)-20)/(7-5)");
+        double v = Double.parseDouble(calc.toString());
+        assertEquals(expected,v,1e-8);
+    }
 }

@@ -7,8 +7,10 @@ import java.util.concurrent.Semaphore;
 
 public class Buyer extends Thread implements IBuyer, IUseBasket {
 
-    private boolean pensioneer = false;
-    Basket basket= new Basket();
+
+
+    private boolean pensioner = false;
+    Basket basket= null;
     private boolean waitState;
     private static Semaphore semaphore = new Semaphore(20);
 
@@ -18,8 +20,11 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
 
     public Buyer(int number) {
         super("Buyer № " + number + " ");
-        if (Helper.getRandom(0, 100)<25) pensioneer=true;
-       // Manager.buyersCount(true);
+        Manager.buyerAddToShop();
+    }
+    public Buyer(int number, boolean pensioner) {
+        super("Buyer № " + number + "(pens) ");
+        this.pensioner =pensioner;
         Manager.buyerAddToShop();
     }
 
@@ -38,7 +43,11 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
         finally {
             semaphore.release();
         }
-        goOut();
+        try {
+            goOut();
+        } finally {
+            Basket.basketSemaphore.release();
+        }
     }
 
     @Override
@@ -50,13 +59,16 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
     public void chooseGoods() {
         System.out.println(this + "started to choose goods");
         int timeout = Helper.getRandom(500, 2000);
-        if (pensioneer) timeout *= 1.5;
+        if (pensioner) timeout *= 1.5;
         Helper.sleep(timeout);
     }
 
     @Override
     public void takeBacket() {
-            System.out.println(this + "takes the basket");
+            if (basket == null){
+                basket = new Basket();
+            }
+        System.out.println(this + "takes the basket");
        }
 
     @Override
@@ -69,7 +81,7 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
                     System.out.println(this + "put the " + g.getKey() + " for $" + g.getValue() + " to the basket");
                 }
                 int timeout = Helper.getRandom(500, 2000);
-                if (pensioneer) timeout *= 1.5;
+                if (pensioner) timeout *= 1.5;
                 Helper.sleep(timeout);
             }
             System.out.println(this + "finished to choose goods");
@@ -99,6 +111,9 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
             System.out.println(this + "leaved the shop");
             // Manager.buyersCount(false);
             Manager.buyerLeaveTheShop();
+    }
+    public boolean isPensioner() {
+        return pensioner;
     }
     @Override
     public String toString() {

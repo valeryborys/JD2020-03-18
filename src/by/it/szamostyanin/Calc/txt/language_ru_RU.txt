@@ -1,0 +1,9 @@
+message.language=Выберите язык - en,ru,be
+error.incorrectName = неверное имя var:
+error.zero = Делить на ноль нельзя
+error.expression = это не выражение
+error.wrongOperation = resOperation не верный
+error.unknown = неизвестная ошибка
+error.error = ОШИБКА:
+error.impossible = операция невозможна!
+error.nullValue = Нулевой размер значение поля Value

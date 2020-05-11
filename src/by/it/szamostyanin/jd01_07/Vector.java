@@ -1,4 +1,5 @@
 package by.it.szamostyanin.jd01_07;
+
 import java.util.Arrays;
 
 class Vector extends Var {

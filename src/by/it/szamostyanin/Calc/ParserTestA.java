@@ -1,10 +1,9 @@
 package by.it.szamostyanin.Calc;
 
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
-public class ParserTest {
+public class ParserTestA {
 
     @Test
     public void checkA() throws Exception {

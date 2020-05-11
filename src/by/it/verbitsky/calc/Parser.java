@@ -29,13 +29,21 @@ class Parser {
         }
         //проверка на одиночные команды (printvar, sotvar, clearmemory)
         if (checkSingleCommand(expression)) {
+            ConsoleRunner.getEventCollector().getCurrentEvent().getEventType().setSystemEventType("System");
             return null;
         }
+
+        //если до сюда дошли, то это выражение
+        ConsoleRunner.getEventCollector().getCurrentEvent().getEventType().setCalcEventType("Calculate");
+        ConsoleRunner.getEventCollector().appendCurrentEventBody(expression);
+
 
         expression = getSimpleExpression(expression);
         String resVar = calculateSimpleExpression(expression);
 
-        return Var.createVar(resVar);
+        ConsoleRunner.getEventCollector().appendCurrentEventBody("=");
+        ConsoleRunner.getEventCollector().appendCurrentEventBody(resVar);
+        return new VariableCreator().createVar(resVar);
     }
 
     private String calculateSimpleExpression(String expression) throws CalcException {
@@ -73,13 +81,14 @@ class Parser {
     }
 
     private Var oneOperation(String strLeft, String operation, String strRight) throws CalcException {
-        Var right = Var.createVar(strRight.trim());
+        Var right = new VariableCreator().createVar(strRight.trim());
 
         if (operation.equals("=")) {
             Var.memoryAdd(strLeft, right);
+            ConsoleRunner.getEventCollector().getCurrentEvent().getEventType().setCalcEventType("Calculate");
             return right;
         }
-        Var left = Var.createVar(strLeft);
+        Var left = new VariableCreator().createVar(strLeft);
         switch (operation) {
             case "+":
                 return left.add(right);
@@ -114,29 +123,35 @@ class Parser {
             switch (parts[0]) {
                 case Patterns.COMMAND_PRINTVAR: {
                     Var.printvar();
+                    ConsoleRunner.getEventCollector().appendCurrentEventBody("printvar");
                     return true;
                 }
                 case Patterns.COMMAND_SORTVAR: {
                     Var.sortvar();
+                    ConsoleRunner.getEventCollector().appendCurrentEventBody("sortvar");
                     return true;
                 }
                 case Patterns.COMMAND_CLEAR_MEMORY: {
+                    ConsoleRunner.getEventCollector().appendCurrentEventBody("clear memory");
                     Var.clearMemory();
                     return true;
                 }
                 case Patterns.COMMAND_CHANGE_LOCALE_EN: {
                     rm.setLocaleForBundle(new Locale(expression, "US"));
                     ConsoleRunner.printIntro();
+                    ConsoleRunner.getEventCollector().appendCurrentEventBody("change locale EN");
                     return true;
                 }
                 case Patterns.COMMAND_CHANGE_LOCALE_RU: {
                     rm.setLocaleForBundle(new Locale(expression, "RU"));
                     ConsoleRunner.printIntro();
+                    ConsoleRunner.getEventCollector().appendCurrentEventBody("change locale RU");
                     return true;
                 }
                 case Patterns.COMMAND_CHANGE_LOCALE_BY: {
                     rm.setLocaleForBundle(new Locale(expression, "BY"));
                     ConsoleRunner.printIntro();
+                    ConsoleRunner.getEventCollector().appendCurrentEventBody("change locale BY");
                     return true;
                 }
             }

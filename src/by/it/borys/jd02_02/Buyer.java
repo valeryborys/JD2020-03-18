@@ -6,16 +6,23 @@ import java.util.Map;
 
 public class Buyer extends Thread implements IBuyer, IUseBasket {
 
-    private boolean pensioneer = false;
+    public boolean isPensioner() {
+        return pensioner;
+    }
+
+    private boolean pensioner = false;
     Basket basket= new Basket();
 
     public Buyer(int number) {
         super("Buyer № " + number + " ");
-        if (Helper.getRandom(0, 100)<25) pensioneer=true;
-       // Manager.buyersCount(true);
         Manager.buyerAddToShop();
     }
 
+    public Buyer(int number, boolean pensioner) {
+        super("Buyer № " + number + "(pens) ");
+        this.pensioner =pensioner;
+        Manager.buyerAddToShop();
+    }
     @Override
     public void run() {
         enterToMarket();
@@ -35,7 +42,7 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
     public void chooseGoods() {
         System.out.println(this + "started to choose goods");
         int timeout = Helper.getRandom(500, 2000);
-        if (pensioneer) timeout *= 1.5;
+        if (pensioner) timeout *= 1.5;
         Helper.sleep(timeout);
     }
 
@@ -54,7 +61,7 @@ public class Buyer extends Thread implements IBuyer, IUseBasket {
                     System.out.println(this + "put the " + g.getKey() + " for $" + g.getValue() + " to the basket");
                 }
                 int timeout = Helper.getRandom(500, 2000);
-                if (pensioneer) timeout *= 1.5;
+                if (pensioner) timeout *= 1.5;
                 Helper.sleep(timeout);
             }
             System.out.println(this + "finished to choose goods");

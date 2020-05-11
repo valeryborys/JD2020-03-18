@@ -38,8 +38,11 @@ abstract class Var implements Operation {
         else if (strVar.matches(Patterns.VECTOR)){
             return new Vector(strVar);
         }
+        else if (strVar.matches(Patterns.MATRIX)){
+            return new Matrix((strVar));
+        }
         else {
-            return null; //stub
+            return null;
         }
 
 

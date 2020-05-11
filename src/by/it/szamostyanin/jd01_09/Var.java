@@ -36,4 +36,9 @@ abstract class Var implements Operation{
         System.out.println("Операция деления"+this+"+"+other+"невозможна");
         return null;
     }
+
+    private double[] value;
+    public double[] getVector() {
+        return value;
+    }
 }

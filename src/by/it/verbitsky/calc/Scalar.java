@@ -25,9 +25,14 @@ class Scalar extends Var {
         return value;
     }
 
+    public void setValue(double value) {
+        this.value = value;
+    }
+
     //------------------------------------------------------------------------------
 
     //Сложение
+
     @Override
     public Var add(Var other) throws CalcException {
         if (other instanceof Scalar) {

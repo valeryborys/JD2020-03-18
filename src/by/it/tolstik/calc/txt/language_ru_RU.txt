@@ -1,0 +1,20 @@
+message.help_start=Доступные команды:
+message.help_print=print - выведет в консоль все используемые переменные;
+message.help_sort=sort - отсортирует и выведет в консоль все переменные;
+message.help_memory=memory - сохранит переменные в памяти;
+message.help_clear=clear - удалит переменные из памяти;
+message.help_end=end - завершение программы;
+message.savedVar=Сохраненные переменные:
+error.unknown_var=Неизвестная переменная:
+error.err1=Операция
+error.err2= невозможна
+error.exprAbsent=Выражение небыло введено
+error.missOperand=Потерян операнд после операции:
+error.divisionBy0=Деление на 0
+error.can'tEmpty=Не может быть пустым!
+error.noVar=Нет переменных
+error.noVarInMemory=Нет переменных в памяти
+error.unknown_operation=Неизвестная операция
+error.fileNotFound=Файл не найден
+error.error=Ошибка:
+

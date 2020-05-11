@@ -9,3 +9,7 @@ subop=Subtraction operation
 mulop=Multiplication operation
 divop=Division operation %s and %S is impossible
 localechange=Locale changed: en_US
+inpOutEx=Exuption while saving to memory
+startTime=Program "Calculator" started. Time:
+closeTime=Program "Calculator" closed. Time:
+logTime=\t\t|logged at

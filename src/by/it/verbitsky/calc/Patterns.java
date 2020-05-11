@@ -17,6 +17,23 @@ interface Patterns {
     String COMMAND_CHANGE_LOCALE_RU = "ru";
     String COMMAND_CHANGE_LOCALE_BY = "be";
 
-
     String EMPTY_BUFFER = "Buffer is empty";
+
+
+    //report patterns:
+
+    String TIMESTAMP_PATTERN = "<dd-MM-yyyy HH:mm:ss> ";
+
+    String SIMPLE_REPORT_HEADER = "\n---------------------------------------------------------------\n" +
+            "Simple report\nProgram starts in: %s\nProgram ends in: %s\n\n";
+
+    String SIMPLE_REPORT_FOOTER = "\n\nTotal events: %3d\nEnd simple report\n" +
+            "\n---------------------------------------------------------------\n";
+
+    String FULL_REPORT_HEADER = "\n---------------------------------------------------------------\n" +
+            "Full report\nProgram starts in: %s\nProgram ends in: %s\n\n";
+
+    String FULL_REPORT_FOOTER = "\n\nTotal errors: %3d, total operations: %3d, total events: %3d\nEnd full report\n" +
+            "\n---------------------------------------------------------------\n";
+
 }

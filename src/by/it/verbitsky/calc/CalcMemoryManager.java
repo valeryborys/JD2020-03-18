@@ -35,7 +35,6 @@ abstract class CalcMemoryManager {
                     parser.calc(reader.readLine(), logger);
                 }
             } catch (CalcException e) {
-                logger.writeLog("Error reading calc memory file");
                 throw new CalcException(rm.getMessage(CalcMessages.SYSTEM_ERROR_READ_MEMORY_FILE));
             } catch (IOException e) {
                 logger.writeLog(e.getMessage());
@@ -50,7 +49,7 @@ abstract class CalcMemoryManager {
     private static void memoryAdd(String line) throws CalcException {
         String[] parts = line.replace("\n", "").split("=");
         try {
-            Var.memoryAdd(parts[0].trim(), Var.createVar(parts[1].trim()));
+            Var.memoryAdd(parts[0].trim(), new VariableCreator().createVar(parts[1].trim()));
         } catch (CalcException e) {
             throw new CalcException(rm.getMessage(CalcMessages.SYSTEM_ERROR_WRONG_OP_MEMORY_ADD));
         }
@@ -68,5 +67,6 @@ abstract class CalcMemoryManager {
                 .append(name);
         return fullPath.toString();
     }
+
 
 }

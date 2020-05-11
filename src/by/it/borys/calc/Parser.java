@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
+    ChooseCreation var = new ChooseCreation();
        private static final Map<String, Integer> priority = new HashMap<String, Integer>() {
         {
             this.put("=", 0);
@@ -32,17 +33,20 @@ public class Parser {
             Var result = oneOperation(left, operation, right);
             operands.add(index, result.toString());
         }
-        return Var.createVar(operands.get(0));
+        CreateVar cv = var.chooseFactory(operands.get(0));
+        Var var = cv.createVar(operands.get(0));
+        return var;
     }
 
     private Var oneOperation(String strLeft, String operation, String strRight) throws CalcExeption {
-        Var right = Var.createVar(strRight);
+        CreateVar cvr = var.chooseFactory(strRight);
+        Var right = cvr.createVar(strRight);
         if (operation.equals("=")) {
             Var.saveVar(strLeft, right);
             return right;
         }
-        Var left = Var.createVar(strLeft);
-        //if (left == null || right == null) throw new CalcExeption("wrong line");
+        CreateVar cvl = var.chooseFactory(strLeft);
+        Var left = cvl.createVar(strLeft);
         switch (operation) {
             case "+":
                 return left.add(right);

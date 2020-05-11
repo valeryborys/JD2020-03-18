@@ -17,7 +17,7 @@ abstract class Var implements Operation {
     public static void setCalcMemory(Map<String, Var> calcMemory) {
         Var.calcMemory = calcMemory;
     }
-
+/*
     public static Var createVar(String strVar) throws CalcException {
         if (strVar.matches(Patterns.SCALAR)) {
             return new Scalar(strVar);
@@ -29,6 +29,7 @@ abstract class Var implements Operation {
             return new Matrix(strVar);
         } else {
             Var var = calcMemory.get(strVar);
+
             if (var != null) {
                 return var;
             } else {
@@ -36,6 +37,7 @@ abstract class Var implements Operation {
             }
         }
     }
+*/
 
     @Override
     public String toString() {

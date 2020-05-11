@@ -1,22 +1,23 @@
 package by.it.novikov.calc;
 
-public class CalcException extends Exception{
-    public CalcException() {
+class CalcException extends Exception {
+    public CalcException(String message) {
+        super("ERROR:" + message);
     }
 
-    public CalcException(String message) {
-        super("ERROR: "+message);
+    public CalcException() {
+        super();
     }
 
     public CalcException(String message, Throwable cause) {
-        super("ERROR: "+message, cause);
+        super("ERROR:" + message, cause);
     }
 
     public CalcException(Throwable cause) {
         super(cause);
     }
 
-    public CalcException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super("ERROR: "+ message, cause, enableSuppression, writableStackTrace);
+    protected CalcException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super("ERROR:" + message, cause, enableSuppression, writableStackTrace);
     }
 }

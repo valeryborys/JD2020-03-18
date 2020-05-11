@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 enum ResMan {
     INSTANCE;
     public static final String BASE_NAME = "by.it.tolstik.jd02_05.res.language";
-    private Locale locale;
+    Locale locale;
     private ResourceBundle bundle;
 
     ResMan() {

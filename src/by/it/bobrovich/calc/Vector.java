@@ -43,7 +43,7 @@ public class Vector extends Var {
                     }
                 }
             }else{
-                throw new CalcException("Разные размеры векторов");
+                throw new CalcException(ResMan.getString(Message.vectorMessage));
             }
             return new Vector(newVector);
         } else if (other instanceof Scalar) {
@@ -63,7 +63,7 @@ public class Vector extends Var {
                     newVector[i] = this.value[i] - ((Vector) other).value[i];
                 }
             }else{
-                throw new CalcException("Разные размеры векторов");
+                throw new CalcException(ResMan.getString(Message.vectorMessage));
             }
             return new Vector(newVector);
         } else if (other instanceof Scalar) {
@@ -84,7 +84,7 @@ public class Vector extends Var {
                     result += this.value[i] * ((Vector) other).value[i];
                 }
             }else{
-                throw new CalcException("Разные размеры векторов");
+                throw new CalcException(ResMan.getString(Message.vectorMessage));
             }
             return new Scalar(result);
         } else if (other instanceof Scalar) {
@@ -105,7 +105,7 @@ public class Vector extends Var {
                 }
                 return new Vector(newVector);
             } else {
-                throw new CalcException("Div by zero");
+                throw new CalcException(ResMan.getString(Message.zeroMessage));
             }
         } else return super.div(other);
     }

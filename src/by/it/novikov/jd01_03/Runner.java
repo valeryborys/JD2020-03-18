@@ -1,26 +1,22 @@
 package by.it.novikov.jd01_03;
 
-
-import java.util.Scanner;
-
 public class Runner {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String str = scanner.nextLine();
-        double[] array = InOut.getArray(str);
+        String sample = "3 2 5";
+        double[] array = InOut.getArray(sample);
         InOut.printArray(array);
-        InOut.printArray(array, "S", 2);
-        System.out.println();
-        System.out.println(Helper.findMin(array));
+        InOut.printArray(array, "Name", 2);
+        InOut.printArray(array, "ABmmd", 3);
         System.out.println(Helper.findMax(array));
-        System.out.println();
+        System.out.println(Helper.findMin(array));
         Helper.sort(array);
+        InOut.printArray(array);
+        double[][] multiArr = {{1, 2, 3}, {2, 2, 2}, {2,3,4}};
+        double [][] multiMatrix = Helper.mul(multiArr, multiArr);
+        InOut.printArray(multiMatrix);
+        double [] multiMatrArr = Helper.mul(multiArr, array);
+        InOut.printArray(multiMatrArr, "rrr", 2);
 
-
+        
     }
-
-    }
-
-
-
-
+}
